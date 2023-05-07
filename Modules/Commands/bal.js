@@ -10,7 +10,7 @@ export default {
         })
         .setDescription('Check your credit balance.'),
     aliases: ['balance', 'credits', 'credit'],
-    async function(msg) {
+    async execute(msg) {
         const bal = 2000;
         const redeem = 200;
         msg.reply({

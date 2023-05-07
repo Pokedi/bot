@@ -26,6 +26,7 @@ const commands = [];
 
 // Bal Command
 commands.push(bal.data.toJSON());
+client.commands.set("bal", bal.execute);
 
 (async () => {
     try {
