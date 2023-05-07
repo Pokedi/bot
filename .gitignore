@@ -1,0 +1,16 @@
+config.json
+node_modules
+yarn-error.log
+.vscode
+assets
+.git
+errors.json
+success.json
+core
+pokemon
+card
+package-lock.json
+yarn.lock
+Bot/package-lock.json
+Bot/yarn.lock
+.env

@@ -1,0 +1,193 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model auction {
+  id      BigInt
+  user_id BigInt
+  price   BigInt? @default(0)
+  pokemon pokemon @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users   users   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([id, user_id])
+}
+
+model channels {
+  id                    BigInt                  @id
+  guild_id              BigInt
+  spawns_disabled       Boolean?                @default(false)
+  multi                 Boolean?                @default(false)
+  multiplier            Int?                    @default(0)
+  guilds                guilds                  @relation(fields: [guild_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  command_configuration command_configuration[] @ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model command_configuration {
+  guild_id   BigInt?
+  channel_id BigInt?
+  command    String?
+  disabled   Boolean?  @default(false)
+  rate_limit Int?      @default(0)
+  config     String?
+  channels   channels? @relation(fields: [channel_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  guilds     guilds?   @relation(fields: [guild_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@ignore
+}
+
+model dex {
+  user_id           BigInt
+  pokemon           String
+  count             Int
+  shinies           Int?   @default(0)
+  giga              Int?   @default(0)
+  unclaimed_normal  Int?
+  unclaimed_shinies Int?
+  users             users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([user_id, pokemon])
+}
+
+model guilds {
+  id                    BigInt                  @id
+  prefix                String?
+  redirects             BigInt[]
+  channels              channels[]
+  command_configuration command_configuration[] @ignore
+}
+
+model market {
+  id         BigInt    @id
+  price      BigInt?   @default(0)
+  timestamp  DateTime? @default(now()) @db.Timestamptz(6)
+  expiration DateTime? @db.Timestamp(6)
+  pokemon    pokemon   @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model voucher {
+  id               String             @id @default(uuid())
+  createdAt        DateTime           @default(now()) @db.Timestamptz(6)
+  amount           BigInt             @default(200)
+  type             Int                @default(0) @db.SmallInt
+  claimed          Boolean            @default(false)
+  permanent        Boolean            @default(false)
+  claimed_vouchers claimed_vouchers[]
+}
+
+model claimed_vouchers {
+  id      String
+  user_id BigInt
+  users   users   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  voucher voucher @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([id, user_id])
+}
+
+model logs {
+  id     BigInt  @id @default(autoincrement())
+  type   String
+  driver String
+  uid    BigInt?
+  note   String?
+}
+
+model pokemon {
+  id                       BigInt    @id @default(autoincrement())
+  user_id                  BigInt?
+  idx                      Int?
+  timestamp                DateTime? @default(now()) @db.Timestamptz(6)
+  market                   Boolean?  @default(false)
+  pokemon                  String
+  s_hp                     Int?
+  s_atk                    Int?
+  s_def                    Int?
+  s_spatk                  Int?
+  s_spdef                  Int?
+  s_spd                    Int?
+  e_hp                     Int?
+  e_atk                    Int?
+  e_def                    Int?
+  e_spatk                  Int?
+  e_spdef                  Int?
+  e_spd                    Int?
+  level                    Int?      @default(1)
+  exp                      Int?      @default(0)
+  nature                   String?
+  shiny                    Boolean?  @default(false)
+  gender                   String?   @db.Char(1)
+  name                     String?
+  item                     String?
+  m_1                      String?   @default("tackle")
+  m_2                      String?   @default("tackle")
+  m_3                      String?   @default("tackle")
+  m_4                      String?   @default("tackle")
+  f_h                      Int?
+  f_y                      Int?
+  f_f                      Int?
+  f_e                      Int?
+  f_l                      Int?
+  f_ht                     DateTime? @db.Timestamp(6)
+  f_yt                     DateTime? @db.Timestamp(6)
+  f_ft                     DateTime? @db.Timestamp(6)
+  f_et                     DateTime? @db.Timestamp(6)
+  f_lt                     DateTime? @db.Timestamp(6)
+  counter                  Int?
+  pks                      String?
+  fusion                   BigInt?
+  fav                      Boolean?
+  mega                     String?
+  pokemon_pokemonTopokemon pokemon?  @relation("pokemonTopokemon", fields: [fusion], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users                    users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  auction                  auction[]
+  market_marketTopokemon   market?
+  other_pokemon            pokemon[] @relation("pokemonTopokemon")
+}
+
+model user_inventory {
+  user_id BigInt
+  item    String
+  count   Int?
+  users   users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([user_id, item])
+}
+
+model user_vote {
+  id          BigInt
+  type        String    @db.Char(3)
+  total_votes Int?      @default(0)
+  last_voted  DateTime? @db.Timestamp(6)
+  streak      Int?      @default(0)
+  users       users     @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([id, type])
+}
+
+model users {
+  id               BigInt             @id
+  started          DateTime?          @default(now()) @db.Timestamptz(6)
+  disabled         Boolean?           @default(false)
+  staff            Boolean?           @default(false)
+  order_by         String?            @default("idx")
+  selected         BigInt[]
+  bal              BigInt?            @default(0)
+  redeem           BigInt?            @default(0)
+  xp_share         BigInt?
+  xp_boost_end     DateTime?          @db.Timestamp(6)
+  hide_levelup     Boolean?           @default(false)
+  locale           String?
+  exp              Int?               @default(0)
+  level            Int?               @default(1)
+  auction          auction[]
+  dex              dex[]
+  pokemon          pokemon[]
+  user_inventory   user_inventory[]
+  user_vote        user_vote[]
+  claimed_vouchers claimed_vouchers[]
+}
