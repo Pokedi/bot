@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from "discord.js";
 
-module.exports = {
+export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName('bal').setNameLocalizations({
@@ -26,4 +26,4 @@ module.exports = {
             }]
         });
     }
-}
+};
