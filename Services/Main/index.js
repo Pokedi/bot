@@ -2,6 +2,7 @@ import { ClusterClient, getInfo } from "discord-hybrid-sharding";
 
 import { Collection, Client, Events, GatewayIntentBits, REST, Routes } from "discord.js";
 import interactionCreateHandler from "../../Handlers/interactionCreateHandler.js";
+import prisma from "../Database/index.js";
 import bal from "../../Modules/Commands/bal.js";
 
 const client = new Client({
@@ -42,4 +43,4 @@ client.commands.set("bal", bal.execute);
     }
 })();
 
-export default client;
+export { client, prisma };

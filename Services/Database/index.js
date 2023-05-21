@@ -13,8 +13,6 @@ const client = new PrismaClient({
 client.$on('warn', (e) => { console.log(e) });
 client.$on('info', (e) => { console.log(e) });
 client.$on('error', (e) => { console.log(e) });
-client.$on('query', (e) => {
-    console.log(e)
-})
+client.$on('query', (e) => { console.log(e) });
 
 export default client;
