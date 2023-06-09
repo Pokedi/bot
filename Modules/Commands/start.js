@@ -1,10 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 
 export default {
-
-};
-
-module.exports = {
     help: "",
     data: new SlashCommandBuilder()
         .setName('start').setNameLocalizations({
@@ -12,7 +8,7 @@ module.exports = {
             "pt-BR": "iniciar"
         })
         .setDescription('Start your journey!'),
-    async function(msg) {
+    async execute(msg) {
         return msg.reply({
             embeds: [{
                 image: {

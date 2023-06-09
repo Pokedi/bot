@@ -3,7 +3,6 @@ import { ClusterClient, getInfo } from "discord-hybrid-sharding";
 import { Collection, Client, Events, GatewayIntentBits, REST, Routes } from "discord.js";
 import interactionCreateHandler from "../../Handlers/interactionCreateHandler.js";
 import prisma from "../Database/index.js";
-import bal from "../../Modules/Commands/bal.js";
 
 const client = new Client({
     shards: getInfo().SHARD_LIST, // An array of shards that will get spawned
@@ -14,6 +13,8 @@ const client = new Client({
 client.cluster = new ClusterClient(client); // initialize the Client, so we access the .broadcastEval()
 
 client.commands = new Collection();
+
+client.prisma = prisma;
 
 client.on('interactionCreate', interactionCreateHandler);
 
@@ -26,8 +27,24 @@ const rest = new REST().setToken(process.env.DEVTOKEN);
 const commands = [];
 
 // Bal Command
+import bal from "../../Modules/Commands/bal.js";
 commands.push(bal.data.toJSON());
 client.commands.set("bal", bal.execute);
+
+// Start Command
+import startCommand from "../../Modules/Commands/start.js";
+commands.push(startCommand.data.toJSON());
+client.commands.set("start", startCommand.execute);
+
+// Pick Command
+import pickCommand from "../../Modules/Commands/pick.js";
+commands.push(pickCommand.data.toJSON());
+client.commands.set("pick", pickCommand.execute);
+
+// Eval Command
+import evalCommand from "../../Modules/Commands/eval.js";
+commands.push(evalCommand.data.toJSON());
+client.commands.set("eval", evalCommand.execute);
 
 (async () => {
     try {
