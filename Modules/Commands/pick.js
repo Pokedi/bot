@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import Pokemon from "../../Classes/pokemon.js";
+import findPokemon from "../../Utilities/Pokemon/findPokemon.js";
 
 export default {
     data: "",
@@ -17,7 +18,7 @@ export default {
             return msg.reply("you already have started");
 
         let content = msg.options.getString("pokemon").toLowerCase();
-        const pk = fp(content.toLowerCase());
+        const pk = findPokemon(content.toLowerCase());
 
         if (!pk || !["bulbasaur", "charmander", "squirtle", "pikachu", "eevee", "chikorita", "cyndaquil", "totodile", "treecko", "torchic", "mudkip", "turtwig", "chimchar", "piplup", "snivy", "tepig", "oshawott", "chespin", "fennekin", "froakie", "rowlet", "litten", "popplio", "grookey", "scorbunny", "sobble", "pumpkinsaur"].includes(pk._id))
             return msg.reply("sorry, but that's not a valid starter! Please try again by selecting whatever is available in `/start`!")
@@ -31,11 +32,11 @@ export default {
             }
         });
 
-        const newPokemonForUser = new Pokemon({ user_id: BigInt(msg.user.id) });
+        const newPokemonForUser = new Pokemon({});
 
-        newPokemonForUser.generate(pk._id);
+        newPokemonForUser.generate(pk._id, { user_id: BigInt(msg.user.id), idx: 1 });
 
-        await newPokemonForUser.save();
+        await newPokemonForUser.save(msg.client.prisma);
 
         if (!userAccount) return msg.reply("A problem occurred creating your account.");
 

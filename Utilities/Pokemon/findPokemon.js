@@ -1,5 +1,12 @@
 import pokemon from "../Data/pokemon.json" assert {type: "json"};
 
+
+/**
+ * Find Pokemon through JSON
+ * @param {String} item
+ * @param {Boolean} fullSearch=false
+ * @returns {Object} Pokemon JSON
+ */
 function findPokemon(item, fullSearch = false) {
     if (!item) return pokemon[parseInt(Math.random() * pokemon.length)];
     if (typeof item == 'string') {

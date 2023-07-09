@@ -7,7 +7,7 @@ import prisma from "../Database/index.js";
 const client = new Client({
     shards: getInfo().SHARD_LIST, // An array of shards that will get spawned
     shardCount: getInfo().TOTAL_SHARDS, // Total number of shards
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions]
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMessages]
 });
 
 client.cluster = new ClusterClient(client); // initialize the Client, so we access the .broadcastEval()
@@ -17,6 +17,8 @@ client.commands = new Collection();
 client.prisma = prisma;
 
 client.on('interactionCreate', interactionCreateHandler);
+
+client.on("messageCreate", messageCreate);
 
 client.login(process.env.DEVTOKEN);
 
@@ -45,6 +47,17 @@ client.commands.set("pick", pickCommand.execute);
 import evalCommand from "../../Modules/Commands/eval.js";
 commands.push(evalCommand.data.toJSON());
 client.commands.set("eval", evalCommand.execute);
+
+// Reload Command
+import reloadCommand from "../../Modules/Commands/reload.js";
+commands.push(reloadCommand.data.toJSON());
+client.commands.set("reload", reloadCommand.execute);
+
+// Info
+import infoCommand from "../../Modules/Commands/info.js";
+import messageCreate from "../../Handlers/messageCreate.js";
+commands.push(infoCommand.data.toJSON());
+client.commands.set("info", infoCommand.execute);
 
 (async () => {
     try {

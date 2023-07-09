@@ -1,11 +1,13 @@
 import { Chance } from "chance";
 import { ENUM_POKEMON_TYPES, POKEMON_NATURES } from "../Utilities/Data/enums.js";
 import findPokemon from "../Utilities/Pokemon/findPokemon.js";
+import IVCalculator from "../Utilities/Pokemon/IVCalculator.js";
 
 class Pokemon {
     constructor(pokemonObject = { id, user_id, guild_id, pokemon, s_hp, s_atk, s_def, s_spatk, s_spdef, s_spd, s_hp, level, exp, nature, shiny, gender, name, item, m_1, m_2, m_3, m_4 }) {
         if (pokemonObject.pokemon) {
             this.id = pokemonObject.id;
+            this.idx = pokemonObject.idx;
             this.user_id = pokemonObject.user_id;
             this.guild_id = pokemonObject.guild_id;
             this.pokemon = pokemonObject.pokemon;
@@ -71,6 +73,7 @@ class Pokemon {
     toJSON() {
         return {
             id: this.id, pokemon: this.pokemon,
+            idx: this.idx,
             user_id: this.user_id,
             guild_id: this.guild_id,
             s_hp: this.stats.hp,
@@ -108,6 +111,31 @@ class Pokemon {
 
     getDetails() {
         return findPokemon(this.pokemon) || {};
+    }
+
+    getNextLevelEXP() {
+        return calculateNextLevelEXP(this.level, this.getDetails().base_exp);
+    }
+
+    getBaseStats() {
+        const { hp, atk, def, spatk, spdef, spd } = this.getDetails().stat;
+
+        return { hp, atk, def, spatk, spdef, spd };
+    }
+
+    calculateIV(type = "hp") {
+        return IVCalculator(this.getBaseStats()[type], this.stats[type], this.level, type, this.nature);
+    }
+
+    calculatedStats() {
+        return {
+            hp: this.calculateIV("hp"),
+            atk: this.calculateIV("atk"),
+            def: this.calculateIV("def"),
+            spatk: this.calculateIV("spatk"),
+            spdef: this.calculateIV("spdef"),
+            spd: this.calculateIV("spd")
+        };
     }
 }
 
