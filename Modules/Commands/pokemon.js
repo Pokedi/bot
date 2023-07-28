@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 import table from "text-table";
+import { prisma } from "../../Services/Main/index.js";
 
 export default {
     help: "",
@@ -15,9 +16,10 @@ export default {
         const orderBy = (msg.options.getNumber("orderby") || 1);
         const orderType = (msg.options.getNumber("ordertype")) ? "asc" : "desc";
 
-        const foundPokemon = orderBy != 2 ? await msg.client.prisma.pokemon.findMany({
+        const foundPokemon = orderBy != 2 ? await prisma.pokemon.findMany({
             where: {
-                user_id: BigInt(msg.user.id)
+                user_id: BigInt(msg.user.id),
+                pokemon: { not: "egg" }
             },
             orderBy: (() => {
                 switch (orderBy) {
@@ -51,7 +53,7 @@ export default {
                 s_spdef: true,
                 shiny: true
             }
-        }) : await msg.client.prisma.$queryRaw`SELECT idx, pokemon, name, level, s_atk, s_def, s_hp, s_spatk, s_spd, s_spdef, shiny, ((cast(s_hp + s_atk + s_def + s_spatk + s_spd + s_spdef as decimal) / 186) * 100) as totalIV FROM pokemon WHERE user_id = ${BigInt(msg.user.id)} ORDER BY totalIV desc OFFSET ${page > 0 ? page * 20 : 0} LIMIT 20`;
+        }) : await msg.client.prisma.$queryRaw`SELECT idx, pokemon, name, level, s_atk, s_def, s_hp, s_spatk, s_spd, s_spdef, shiny, ((cast(s_hp + s_atk + s_def + s_spatk + s_spd + s_spdef as decimal) / 186) * 100) as totalIV FROM pokemon WHERE user_id = ${BigInt(msg.user.id)} AND pokemon is distinct from 'egg' ORDER BY totalIV desc OFFSET ${page > 0 ? page * 20 : 0} LIMIT 20`;
 
         if (!foundPokemon.length) return msg.reply({ ephemeral: true, content: "No pokemon exist with those parameters..." });
 
@@ -59,7 +61,7 @@ export default {
             embeds: [{
                 title: 'Your Pokemon',
                 description: `${foundPokemon.map(x => {
-                    return `${x.idx + 1} | **${capitalize(x.name || x.pokemon)}** | Level: ${x.level} | **IV**: ${(((x.s_hp + x.s_atk + x.s_def + x.s_spatk + x.s_spd + x.s_spdef) / 186) * 100).toFixed(2)}%${x.shiny ? " | ⭐" : ""}`;
+                    return `\`${x.idx + 1}\` • ${capitalize(x.pokemon)} ${x.name ? "\"**" + capitalize(x.name) + "**\"": ""} • Level: ${x.level} • **IV**: ${(((x.s_hp + x.s_atk + x.s_def + x.s_spatk + x.s_spd + x.s_spdef) / 186) * 100).toFixed(2)}%${x.shiny ? " • ⭐" : ""}`;
                 }).join("\n")}`,
                 footer: {
                     text: `Showing ${foundPokemon[0].idx + 1} - ${foundPokemon[0].idx + 20} of Pokémon matching this search. [ Page ${page || 1} ]`
