@@ -58,9 +58,9 @@ export default {
         await msg.reply({
             embeds: [{
                 title: 'Your Pokemon',
-                description: `\`\`\`LESS\n${table([['ID', 'Name', 'Level', 'IV']].concat(foundPokemon.map(x => {
-                    return [x.idx + 1, capitalize(x.name || x.pokemon) + (x.shiny ? " ⭐" : ""), x.level, (((x.s_hp + x.s_atk + x.s_def + x.s_spatk + x.s_spd + x.s_spdef) / 186) * 100).toFixed(2) + "%"]//`${x.idx + 1} | ${capitalize(x.name || x.pokemon)} | Level: ${x.level} | IV: ${(((x.s_hp + x.s_atk + x.s_def + x.s_spatk + x.s_spd + x.s_spdef) / 186) * 100).toFixed(2)}%${x.shiny ? " | ⭐" : ""}`;
-                })), { hsep: ' | ' })}\`\`\``,
+                description: `\`\`\`LESS\n${foundPokemon.map(x => {
+                    return `${x.idx + 1} | ${capitalize(x.name || x.pokemon)} | Level: ${x.level} | IV: ${(((x.s_hp + x.s_atk + x.s_def + x.s_spatk + x.s_spd + x.s_spdef) / 186) * 100).toFixed(2)}%${x.shiny ? " | ⭐" : ""}`;
+                }).join("\n")}\`\`\``,
                 footer: {
                     text: `Showing ${foundPokemon[0].idx + 1} - ${foundPokemon[0].idx + 20} of Pokémon matching this search. [ Page ${page || 1} ]`
                 },
