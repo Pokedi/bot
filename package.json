@@ -14,7 +14,8 @@
     "postgres": "^3.2.4",
     "redis": "^4.3.0",
     "sharp": "^0.32.1",
-    "snowflake-id": "^1.1.0"
+    "snowflake-id": "^1.1.0",
+    "text-table": "^0.2.0"
   },
   "devDependencies": {
     "prisma": "^4.2.1"

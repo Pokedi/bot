@@ -66,7 +66,7 @@ const commands = [];
 
 (async () => {
     // Ready Commands
-    let commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex"];
+    let commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon"];
 
     for (const commandName of commandList) {
         const { default: importedCommand } = await import("../../Modules/Commands/" + commandName + ".js");

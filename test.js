@@ -1,11 +1,5 @@
 import prisma from "./Services/Database/index.js";
 
-console.log(await prisma.pokemon.findMany({
-    where: {
-        user_id: BigInt('688446585524584502')
-    },
-    select: {
-        pokemon: true,
-        idx: true
-    }
-}))
+const j = await prisma.$queryRaw`SELECT idx, ((cast(s_hp + s_atk + s_def + s_spatk + s_spd + s_spdef as DECIMAL) / 186) * 100) as totalIV FROM pokemon WHERE user_id = ${BigInt('688446585524584502')} ORDER BY totalIV desc OFFSET 0 LIMIT 10`;
+
+console.log(j);
