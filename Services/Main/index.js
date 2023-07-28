@@ -18,6 +18,7 @@ client.prisma = prisma;
 
 client.on('interactionCreate', interactionCreateHandler);
 
+import messageCreate from "../../Handlers/messageCreate.js";
 client.on("messageCreate", messageCreate);
 
 client.login(process.env.DEVTOKEN);
@@ -28,38 +29,51 @@ const rest = new REST().setToken(process.env.DEVTOKEN);
 // Commands Init
 const commands = [];
 
-// Bal Command
-import bal from "../../Modules/Commands/bal.js";
-commands.push(bal.data.toJSON());
-client.commands.set("bal", bal.execute);
+// // Bal Command
+// import bal from "../../Modules/Commands/bal.js";
+// commands.push(bal.data.toJSON());
+// client.commands.set("bal", bal.execute);
 
-// Start Command
-import startCommand from "../../Modules/Commands/start.js";
-commands.push(startCommand.data.toJSON());
-client.commands.set("start", startCommand.execute);
+// // Start Command
+// import startCommand from "../../Modules/Commands/start.js";
+// commands.push(startCommand.data.toJSON());
+// client.commands.set("start", startCommand.execute);
 
-// Pick Command
-import pickCommand from "../../Modules/Commands/pick.js";
-commands.push(pickCommand.data.toJSON());
-client.commands.set("pick", pickCommand.execute);
+// // Pick Command
+// import pickCommand from "../../Modules/Commands/pick.js";
+// commands.push(pickCommand.data.toJSON());
+// client.commands.set("pick", pickCommand.execute);
 
-// Eval Command
-import evalCommand from "../../Modules/Commands/eval.js";
-commands.push(evalCommand.data.toJSON());
-client.commands.set("eval", evalCommand.execute);
+// // Eval Command
+// import evalCommand from "../../Modules/Commands/eval.js";
+// commands.push(evalCommand.data.toJSON());
+// client.commands.set("eval", evalCommand.execute);
 
-// Reload Command
-import reloadCommand from "../../Modules/Commands/reload.js";
-commands.push(reloadCommand.data.toJSON());
-client.commands.set("reload", reloadCommand.execute);
+// // Reload Command
+// import reloadCommand from "../../Modules/Commands/reload.js";
+// commands.push(reloadCommand.data.toJSON());
+// client.commands.set("reload", reloadCommand.execute);
 
-// Info
-import infoCommand from "../../Modules/Commands/info.js";
-import messageCreate from "../../Handlers/messageCreate.js";
-commands.push(infoCommand.data.toJSON());
-client.commands.set("info", infoCommand.execute);
+// // Info
+// import infoCommand from "../../Modules/Commands/info.js";
+// commands.push(infoCommand.data.toJSON());
+// client.commands.set("info", infoCommand.execute);
+
+// // Catch
+// import catchCommand from "../../Modules/Commands/catch.js";
+// commands.push(catchCommand.data.toJSON());
+// client.commands.set("catch", catchCommand.execute);
 
 (async () => {
+    // Ready Commands
+    let commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex"];
+
+    for (const commandName of commandList) {
+        const { default: importedCommand } = await import("../../Modules/Commands/" + commandName + ".js");
+        commands.push(importedCommand.data.toJSON());
+        client.commands.set(commandName, importedCommand.execute);
+    }
+
     try {
         console.log(`Started refreshing ${commands.length} application (/) commands.`);
 

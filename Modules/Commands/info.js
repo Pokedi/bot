@@ -34,6 +34,13 @@ export default {
         if (!processedPokemon.id)
             return msg.reply("pokemon does not exist.");
 
-        msg.reply({ embeds: [userPokemonInfoModule(processedPokemon, processedPokemon.getDetails())] });
+        // Count Total Pokemon
+        const countPokemon = await msg.client.prisma.pokemon.count({
+            where: {
+                user_id: BigInt(msg.user.id)
+            }
+        });
+
+        msg.reply({ embeds: [userPokemonInfoModule(processedPokemon, processedPokemon.getDetails(), null, countPokemon)] });
     }
 }

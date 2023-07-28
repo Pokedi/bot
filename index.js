@@ -14,8 +14,11 @@ const manager = new ClusterManager(`${__dirname}/Services/Main/index.js`, {
     shardsPerClusters: 2,
     // totalClusters: 7,
     mode: 'process',  // you can also choose "worker"
-    token: process.env.DEVTOKEN,
+    token: process.env.DEVTOKEN
 });
+
+// Ready Pokemon Server
+import Server from './Services/Server/index.js';
 
 manager.on('clusterCreate', cluster => console.log(`Launched Cluster ${cluster.id}`));
 manager.spawn({ timeout: -1 });

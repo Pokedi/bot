@@ -1,5 +1,4 @@
 import { SlashCommandBuilder } from "discord.js";
-import { prisma } from "../../Services/Main/index.js";
 import commalize from "../../Utilities/Misc/commalize.js";
 
 export default {
@@ -13,7 +12,7 @@ export default {
         .setDescription('Check your credit balance.'),
     aliases: ['balance', 'credits', 'credit'],
     async execute(msg) {
-        const { bal, redeem } = await prisma.users.findUnique({ where: { id: BigInt(msg.user.id) } }, {
+        const { bal, redeem } = await msg.client.prisma.users.findUnique({ where: { id: BigInt(msg.user.id) } }, {
             select: {
                 bal: true,
                 redeem: true,

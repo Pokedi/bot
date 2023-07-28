@@ -2,6 +2,11 @@ import { Chance } from "chance";
 import { ENUM_POKEMON_TYPES, POKEMON_NATURES } from "../Utilities/Data/enums.js";
 import findPokemon from "../Utilities/Pokemon/findPokemon.js";
 import IVCalculator from "../Utilities/Pokemon/IVCalculator.js";
+import filterPokemon from "../Utilities/Pokemon/filterPokemon.js";
+import randomint from "../Utilities/Misc/randomint.js";
+import spawnImage from "../Utilities/Pokemon/spawnImage.js";
+import time_gradient from "../Utilities/Misc/time_gradient.js";
+const chance = Chance();
 
 class Pokemon {
     constructor(pokemonObject = { id, user_id, guild_id, pokemon, s_hp, s_atk, s_def, s_spatk, s_spdef, s_spd, s_hp, level, exp, nature, shiny, gender, name, item, m_1, m_2, m_3, m_4 }) {
@@ -43,22 +48,61 @@ class Pokemon {
         if (pokemonName) { base = findPokemon(pokemonName) } else { base = findPokemon() };
         this.pokemon = base._id;
         this.stats = {
-            hp: Chance().integer({ min: 0, max: 31 }),
+            hp: randomint(),
 
-            atk: Chance().integer({ min: 0, max: 31 }),
-            def: Chance().integer({ min: 0, max: 31 }),
+            atk: randomint(),
+            def: randomint(),
 
-            spatk: Chance().integer({ min: 0, max: 31 }),
-            spdef: Chance().integer({ min: 0, max: 31 }),
+            spatk: randomint(),
+            spdef: randomint(),
 
-            spd: Chance().integer({ min: 0, max: 31 })
+            spd: randomint()
         }
-        this.level = 1;
+        this.level = randomint(60);
         this.exp = 1;
         this.nature = Chance().pickone(POKEMON_NATURES)
         this.moves = Chance().shuffle(this.getAvailableMoves(base)).splice(0, 4);
         this.types = this.convertTypes(base.types);
         Object.assign(this, mergingObject);
+    }
+
+    // Function to spawn a friendly Pokemon
+    spawnFriendly(custom) {
+        const pokemonFilter = x => !x.legendary || x.legendary && (typeof x.legendary == "string" && !(x.legendary.startsWith("nonspawn") || x.legendary.startsWith("custom")))
+        // If a custom Pokemon is provided, assign it to chosenPokemon; otherwise, randomly select a Pokemon from the filtered list
+        const chosenPokemon = custom ? custom : chance.pickone(chance.pickset(filterPokemon(pokemonFilter)));
+        // If the chosen Pokemon is legendary and a random number between 1 and 100 is greater than 10, recursively call spawnFriendly() to choose another Pokemon
+        if (chosenPokemon.legendary && chance.d100() > 10) return this.spawnFriendly();
+        // Generate a new Pokemon based on the chosenPokemon ID
+        const generatedPokemon = this.generate(chosenPokemon._id);
+        // Get altNames
+        const altNames = this.getDetails().alt || {};
+        // Get extraNames
+        const extraNames = this.getDetails().extra || [];
+        // Hold alternative names
+        this.spawn_names = [].concat(...Object.values(altNames).map(x => [].concat(...Object.values(x))), extraNames);
+        // Return Pokemon
+        return generatedPokemon;
+    }
+
+    async spawnToChannel(msg) {
+        return msg.channel.send({
+            files: [{
+                attachment: await spawnImage(this.pokemon, this.shiny),
+                name: "spawn.png"
+            }],
+            embeds: [{
+                title: Chance().pickone(["A wild pokemon just raided the chat!", "A wild pokemon is looking for attention!", "For some reason a pokemon is here.", "Shot, here we go again.", "Apparently a pokemon is lurking"]),
+                color: time_gradient[(new Date().getHours())],
+                image: {
+                    url: "attachment://spawn.png"
+                },
+                description: "Use the `/catch` command to tame it! Or just ignore it?",
+                footer: {
+                    text: " 🌹 https://pokedi.xyz 🌹"
+                }
+            }]
+        });
     }
 
     getAvailableMoves(base) {
