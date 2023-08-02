@@ -1,7 +1,6 @@
 import { ClusterClient, getInfo } from "discord-hybrid-sharding";
 
 import { Collection, Client, Events, GatewayIntentBits, REST, Routes } from "discord.js";
-import interactionCreateHandler from "../../Handlers/interactionCreateHandler.js";
 import prisma from "../Database/index.js";
 
 const client = new Client({
@@ -16,6 +15,10 @@ client.commands = new Collection();
 
 client.prisma = prisma;
 
+import sql from "../Database/postgres.js";
+client.postgres = sql;
+
+import interactionCreateHandler from "../../Handlers/interactionCreateHandler.js";
 client.on('interactionCreate', interactionCreateHandler);
 
 import messageCreate from "../../Handlers/messageCreate.js";

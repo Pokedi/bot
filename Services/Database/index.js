@@ -2,12 +2,8 @@ import { PrismaClient } from "@prisma/client";
 
 const client = new PrismaClient({
     log: [
-        { level: 'warn', emit: 'event' }, { level: 'info', emit: 'event' }, { level: 'error', emit: 'event' }, { level: 'query', emit: 'event' }],
-    datasources: {
-        db: {
-            url: process.env.DATABASE_URL,
-        },
-    },
+        { level: 'warn', emit: 'event' }, { level: 'info', emit: 'event' }, { level: 'error', emit: 'event' }, { level: 'query', emit: 'event' }
+    ],
 });
 
 client.$on('warn', (e) => { console.log(e) });

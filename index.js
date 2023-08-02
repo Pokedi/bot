@@ -21,4 +21,5 @@ const manager = new ClusterManager(`${__dirname}/Services/Main/index.js`, {
 import Server from './Services/Server/index.js';
 
 manager.on('clusterCreate', cluster => console.log(`Launched Cluster ${cluster.id}`));
+
 manager.spawn({ timeout: -1 });
