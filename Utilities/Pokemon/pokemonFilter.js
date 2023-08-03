@@ -1,7 +1,7 @@
 import arrayOffset from "../Misc/arrayOffset.js";
 import checkFilter from "./filterCommands.js";
 
-function pokemonFilter(list = [], query = "", page = 1, orderBy = 1, orderType) {
+function pokemonFilter(list = [], query = "", page, orderBy = 1, orderType) {
 
     list = checkFilter(list, query);
 
@@ -20,7 +20,7 @@ function pokemonFilter(list = [], query = "", page = 1, orderBy = 1, orderType) 
         }
     });
 
-    return arrayOffset(list, page - 1).map(x => {
+    return arrayOffset(list, page).map(x => {
         x.totalIV = x.pokemon == "egg" ? 0 : (((x.s_hp + x.s_atk + x.s_def + x.s_spatk + x.s_spd + x.s_spdef) / 186) * 100).toFixed(2);
         return x;
     });

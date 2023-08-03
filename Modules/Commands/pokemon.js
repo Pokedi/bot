@@ -14,7 +14,7 @@ export default {
     async execute(msg) {
         const page = (msg.options.getNumber("page") || 1) - 1;
         const orderBy = (msg.options.getNumber("orderby") || 1);
-        const query = msg.options.getString("query");
+        const query = msg.options.getString("query") || "";
         const orderType = msg.options.getBoolean("ordertype");
 
         // Query all Pokemon from Postgres
@@ -22,6 +22,8 @@ export default {
 
         // Pokemon that passed Filter
         const passedFilteredPokemon = pokemonFilter(allPokemon, query, page, orderBy, orderType);
+
+        if (!passedFilteredPokemon.length) return await msg.reply("Nothing passed that filter...");
 
         // Design value
         let numberLength = (passedFilteredPokemon.map(x => x.idx).sort((x, y) => y - x)[0]).toString().length;
@@ -33,7 +35,7 @@ export default {
                     return `\`${" ".repeat(numberLength - (x.idx + 1).toString().length)}${x.idx + 1}\`　　${capitalize(x.pokemon)} ${x.name ? "\"**" + capitalize(x.name) + "**\"" : ""}${x.shiny ? " ⭐" : ""}　•　Level: ${x.level}　•　**IV**: ${x.totalIV}%`;
                 }).join("\n")}`,
                 footer: {
-                    text: `Showing ${passedFilteredPokemon[0].idx + 1} - ${passedFilteredPokemon[0].idx + 20} of Pokémon matching this search. [ Page ${page || 1} ]`
+                    text: `Showing ${(page + 1) * 20 - 20} - ${(page + 1) * 20 + 20} of Pokémon matching this search. [ Page ${page || 1} ]`
                 },
                 color: 44678
             }]

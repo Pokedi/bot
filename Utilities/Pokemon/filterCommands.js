@@ -1,8 +1,10 @@
+import { Chance } from "chance";
+import randomint from "../Misc/randomint.js";
 import filterPokemon from "./filterPokemon.js";
 
 const filterCommands = {
     // Name-based Filter
-    "name": (list = [], value) => {
+    "name": (list = [], value = '') => {
         return list.filter(x => x.pokemon == value.toLowerCase() || x.pokemon.replace(/-/gmi, ' ').startsWith(value.toLowerCase()));
     },
     // Nickname Filter
@@ -51,13 +53,15 @@ const filterCommands = {
     "mega": (list = []) => {
         return list.filter(x => x.mega);
     },
-    // Tri-Stat filter
+    // Tri-Stat Filter
     "tri": (list = [], value = '') => {
         return list.filter(x => ["hp", "atk", "def", "spatk", "spdef", "spd"].filter(u => x["s_" + u] == parseInt(value || 31)).length >= 3)
     },
+    // Qua-Stat Filter
     "qua": (list = [], value = '') => {
         return list.filter(x => ["hp", "atk", "def", "spatk", "spdef", "spd"].filter(u => x["s_" + u] == parseInt(value || 31)).length >= 4)
     },
+    // IV Filter
     "iv": (list = [], value = '') => {
         return list.filter(pk => {
             let [v, a] = value.match(/([><\d]+)/g);
@@ -70,8 +74,13 @@ const filterCommands = {
                 return totalIV == v;
         });
     },
+    // Display Eggs 
     "egg": (list = []) => {
         return list.filter(x => x.pokemon == "egg");
+    },
+    // Random Pokemon selector
+    "random": (list = []) => {
+        return Chance().pickset(list, 20);
     }
 }
 
