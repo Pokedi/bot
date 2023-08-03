@@ -6,16 +6,34 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .addNumberOption(option => option.setName('page').setDescription('Page of Pokemon list'))
-        .addNumberOption(option => option.setName('orderby').setDescription('1 - idx; 2 - iv; 3 - level'))
-        .addBooleanOption(option => option.setName('ordertype').setDescription('true - asc (default), false - desc'))
+        .addNumberOption(option => option.setName('orderby').setDescription('1 - idx; 2 - iv; 3 - level').addChoices({ name: "IDX", value: 1 }, { name: "IV", value: 2 }, { name: "Level", value: 3 }))
+        .addNumberOption(option => option.setName('ordertype').setDescription('ASC (default), Desc').addChoices({ name: "Ascending", value: 1 }, { name: "Descending", value: 0 }))
         .addStringOption(option => option.setName('query').setDescription('Enter the needed query. [Read Query cheatsheet for more help]'))
+        .addStringOption(option => option.setName('export').setDescription("Export choices").addChoices({
+            name: "ID Export",
+            value: "id-export"
+        }, {
+            name: "CSV Export",
+            value: "csv-export"
+        }))
         .setName('pokemon')
         .setDescription('List your Pokemon'),
     async execute(msg) {
+
+        // Page Number
         const page = (msg.options.getNumber("page") || 1) - 1;
+
+        // Order By
         const orderBy = (msg.options.getNumber("orderby") || 1);
+
+        // String Query 
         const query = msg.options.getString("query") || "";
-        const orderType = msg.options.getBoolean("ordertype");
+
+        // Order Type
+        const orderType = msg.options.getNumber("ordertype");
+
+        // Export Type
+        const exportOption = msg.options.getString('export');
 
         // Query all Pokemon from Postgres
         const allPokemon = await msg.client.postgres`SELECT * FROM pokemon WHERE user_id = ${msg.user.id}`;
@@ -27,6 +45,21 @@ export default {
 
         // Design value
         let numberLength = (passedFilteredPokemon.map(x => x.idx).sort((x, y) => y - x)[0]).toString().length;
+
+        if (exportOption) {
+            switch (exportOption) {
+                case "id-export":
+                    return await msg.reply({
+                        embeds: [{
+                            title: "ID Export",
+                            description: `\`${passedFilteredPokemon.map(x => x.idx + 1).join(", ")}\``
+                        }]
+                    });
+
+                case "csv-export":
+                    return await msg.reply("Under development");
+            }
+        }
 
         await msg.reply({
             embeds: [{
