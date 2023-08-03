@@ -20,7 +20,7 @@ export default {
                 user_id: BigInt(msg.user.id)
             } : {
                 user_id: BigInt(msg.user.id),
-                idx: parseInt(content) - 1
+                idx: parseInt(content)
             },
             orderBy: {
                 id: "desc"

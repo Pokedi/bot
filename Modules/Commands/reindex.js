@@ -36,7 +36,7 @@ export default {
         await sentMessage.edit("Reindexing Pokemon... 75%");
 
         try {
-            let i = 0;
+            let i = 1;
 
             await msg.client.postgres.begin(sql => userPokemon.map(x => sql`UPDATE pokemon SET idx = ${i++} WHERE id = ${x.id}`));
 

@@ -52,7 +52,7 @@ export default {
                     return await msg.reply({
                         embeds: [{
                             title: "ID Export",
-                            description: `\`${passedFilteredPokemon.map(x => x.idx + 1).join(", ")}\``
+                            description: `\`${passedFilteredPokemon.map(x => x.idx).join(", ")}\``
                         }]
                     });
 
@@ -65,10 +65,10 @@ export default {
             embeds: [{
                 title: 'Your Pokemon',
                 description: `${passedFilteredPokemon.map(x => {
-                    return `\`${" ".repeat(numberLength - (x.idx + 1).toString().length)}${x.idx + 1}\`　　${capitalize(x.pokemon)} ${x.name ? "\"**" + capitalize(x.name) + "**\"" : ""}${x.shiny ? " ⭐" : ""}　•　Level: ${x.level}　•　**IV**: ${x.totalIV}%`;
+                    return `\`${" ".repeat(numberLength - (x.idx).toString().length)}${x.idx}\`　　${capitalize(x.pokemon)} ${x.name ? "\"**" + capitalize(x.name) + "**\"" : ""}${x.shiny ? " ⭐" : ""}　•　Level: ${x.level}　•　**IV**: ${x.totalIV}%`;
                 }).join("\n")}`,
                 footer: {
-                    text: `Showing ${(page + 1) * 20 - 20} - ${(page + 1) * 20 + 20} of Pokémon matching this search. [ Page ${page || 1} ]`
+                    text: `Showing ${(page + 1) * 20 - 19} - ${(page + 1) * 20} of ${allPokemon.length} Pokémon matching this search. [ Page ${page || 1} ]`
                 },
                 color: 44678
             }]
