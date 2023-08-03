@@ -10,7 +10,7 @@ export default {
         // TODO:
         // Move this all to Server to handle 
 
-        if (msg.user.reindex && Date.now() - msg.user.reindex < (1000 * 60 * 60) ) return msg.reply("Please wait until you can use this command again...");
+        if (msg.user.reindex && Date.now() - msg.user.reindex < (1000 * 60 * 60)) return msg.reply("Please wait until you can use this command again...");
 
         const sentMessage = await msg.reply("Fetching Pokemon... 25%");
 
@@ -35,20 +35,16 @@ export default {
 
         await sentMessage.edit("Reindexing Pokemon... 75%");
 
-        let i = 0;
+        try {
+            let i = 0;
 
-        await prisma.$transaction(userPokemon.map(x =>
-            prisma.pokemon.update({
-                where: {
-                    id: x.id
-                },
-                data: {
-                    idx: i++
-                }
-            })
-        ));
+            await msg.client.postgres.begin(sql => userPokemon.map(x => sql`UPDATE pokemon SET idx = ${i++} WHERE id = ${x.id}`));
 
-        await sentMessage.edit("Completed indexing all Pokemon!");
+            await sentMessage.edit("Completed indexing all Pokemon!");
+        } catch (error) {
+            await sentMessage.edit("An error occurred. Please try again later.");
+            console.log(error);
+        }
 
         msg.user.reindex = Date.now();
 
