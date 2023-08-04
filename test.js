@@ -3,7 +3,7 @@ import client from "./Services/Database/index.js";
 
 const pokemon = new Pokemon(await client.pokemon.findFirst({
     where: {
-        idx: 1 - 1,
+        idx: 2020202,
         user_id: BigInt('688446585524584502')
     }
 }));

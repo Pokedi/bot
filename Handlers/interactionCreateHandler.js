@@ -11,7 +11,7 @@ async function interactionCreateHandler(event) {
 
     if (msg.client.commands.get(msg.commandName)) return msg.client.commands.get(msg.commandName)(msg);
 
-    msg.reply("Interaction Found, good job");
+    // msg.reply("Interaction Found, good job");
 }
 
 export default interactionCreateHandler;

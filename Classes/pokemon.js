@@ -10,7 +10,7 @@ const chance = Chance();
 
 class Pokemon {
     constructor(pokemonObject = { id, user_id, guild_id, pokemon, s_hp, s_atk, s_def, s_spatk, s_spdef, s_spd, s_hp, level, exp, nature, shiny, gender, name, item, m_1, m_2, m_3, m_4 }) {
-        if (pokemonObject.pokemon) {
+        if (pokemonObject?.pokemon) {
             this.id = pokemonObject.id;
             this.idx = pokemonObject.idx;
             this.user_id = pokemonObject.user_id;
@@ -85,7 +85,9 @@ class Pokemon {
         return generatedPokemon;
     }
 
+    // Spawn Pokemon to Channel
     async spawnToChannel(msg) {
+        // Return spawnImage-generated Image
         return msg.channel.send({
             files: [{
                 attachment: await spawnImage(this.pokemon, this.shiny),
@@ -118,6 +120,7 @@ class Pokemon {
         return {
             id: this.id, pokemon: this.pokemon,
             idx: this.idx,
+            name: this.name,
             user_id: this.user_id,
             guild_id: this.guild_id,
             s_hp: this.stats.hp,
@@ -131,7 +134,6 @@ class Pokemon {
             nature: this.nature,
             shiny: this.shiny,
             gender: this.gender,
-            name: this.gender,
             item: this.item,
             m_1: this.moves[0], m_2: this.moves[1], m_3: this.moves[2], m_4: this.moves[3]
         }
