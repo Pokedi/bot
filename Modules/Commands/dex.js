@@ -134,6 +134,8 @@ export default {
                     message.edit({ embeds: [!toggle ? secondEmbed : pokemonEmbed] });
                     toggle = !toggle;
                 }
+
+                i.reply({ ephemeral: true, content: "👍" });
             });
 
             collector.on('end', collected => {

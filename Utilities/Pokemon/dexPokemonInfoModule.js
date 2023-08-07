@@ -11,7 +11,7 @@ function dexPokemonInfoModule(details = null) {
 
             let finalText = '';
 
-            let levelEvolution = details.evolution.level ? [...Object.entries(details.evolution.level).map(x => {
+            let levelEvolution = details.evolution && details.evolution.level ? [...Object.entries(details.evolution.level).map(x => {
                 const obj = ({ name: x[1].name, level: x[0] });
 
                 if (obj.level == "0")

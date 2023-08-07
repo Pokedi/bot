@@ -187,6 +187,17 @@ class Pokemon {
     calculateTotalIV() {
         return (((this.stats.hp + this.stats.atk + this.stats.def + this.stats.spatk + this.stats.spd + this.stats.spdef) / 186) * 100).toFixed(2);
     }
+
+    async release(prisma) {
+        return await prisma.pokemon.update({
+            where: {
+                id: this.id
+            },
+            data: {
+                user_id: null
+            }
+        })
+    }
 }
 
 export default Pokemon;
