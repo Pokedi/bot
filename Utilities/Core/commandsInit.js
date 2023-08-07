@@ -7,7 +7,7 @@ const rest = new REST().setToken(process.env.DEVTOKEN);
 const commands = [];
 
 // Ready Commands
-export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release"], client) => {
+export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release", "select", "team"], client) => {
 
     // Clear just in-case of reuse
     commands.splice(0, commands.length);
