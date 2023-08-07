@@ -9,7 +9,7 @@ export default {
     data: new SlashCommandBuilder()
         .addIntegerOption(option => option.setName("id").setRequired(true).setDescription("ID of the Pokemon you intend to release").setMinValue(1))
         .setName('release')
-        .setDescription('View your Pokemon!'),
+        .setDescription('Release your Pokemon!'),
     async execute(msg) {
         const id = msg.options.getInteger('id');
 
