@@ -47,8 +47,8 @@ model dex {
   count             Int
   shinies           Int?   @default(0)
   giga              Int?   @default(0)
-  unclaimed_normal  Int?
-  unclaimed_shinies Int?
+  unclaimed_normal  Int?   @default(0)
+  unclaimed_shinies Int?   @default(0)
   users             users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@id([user_id, pokemon])
