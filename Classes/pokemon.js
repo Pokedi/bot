@@ -68,11 +68,11 @@ class Pokemon {
 
     // Function to spawn a friendly Pokemon
     spawnFriendly(custom) {
-        const pokemonFilter = x => !x.legendary || x.legendary && (typeof x.legendary == "string" && !(x.legendary.startsWith("nonspawn") || x.legendary.startsWith("custom")))
+        const pokemonFilter = x => custom ? x._id == custom : !x.legendary || x.legendary && (typeof x.legendary == "string" && !(x.legendary.startsWith("nonspawn") || x.legendary.startsWith("custom")))
         // If a custom Pokemon is provided, assign it to chosenPokemon; otherwise, randomly select a Pokemon from the filtered list
-        const chosenPokemon = custom ? custom : chance.pickone(chance.pickset(filterPokemon(pokemonFilter)));
+        const chosenPokemon = chance.pickone(chance.pickset(filterPokemon(pokemonFilter)));
         // If the chosen Pokemon is legendary and a random number between 1 and 100 is greater than 10, recursively call spawnFriendly() to choose another Pokemon
-        if (chosenPokemon.legendary && chance.d100() > 10) return this.spawnFriendly();
+        if (!custom && chosenPokemon.legendary && chance.d100() > 10) return this.spawnFriendly();
         // Generate a new Pokemon based on the chosenPokemon ID
         const generatedPokemon = this.generate(chosenPokemon._id);
         // Get altNames
@@ -197,6 +197,32 @@ class Pokemon {
                 user_id: null
             }
         })
+    }
+
+    async addToUserDex(prisma) {
+        return await prisma.dex.upsert({
+            where: {
+                user_id_pokemon: {
+                    user_id: this.user_id,
+                    pokemon: this.pokemon
+                }
+            },
+            update: {
+                count: { increment: this.shiny ? 0 : 1 },
+                shinies: { increment: this.shiny ? 1 : 0 },
+                unclaimed_normal: { increment: this.shiny ? 0 : 1 },
+                unclaimed_shinies: { increment: this.shiny ? 1 : 0 }
+            },
+            create: {
+                user_id: this.user_id,
+                pokemon: this.pokemon,
+                count: this.shiny ? 0 : 1,
+                shinies: this.shiny ? 1 : 0,
+                giga: 0,
+                unclaimed_normal: this.shiny ? 0 : 1,
+                unclaimed_shinies: this.shiny ? 1 : 0
+            }
+        });
     }
 }
 
