@@ -1,6 +1,4 @@
 import { SlashCommandBuilder } from "discord.js";
-import Pokemon from "../../Classes/pokemon.js";
-import userPokemonInfoModule from "../../Utilities/Pokemon/userPokemonInfoModule.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 
 export default {
@@ -19,6 +17,7 @@ export default {
                 delete msg.channel.spawn.pokemon;
                 pokemonGrabbed.user_id = BigInt(msg.user.id);
                 await pokemonGrabbed.save(msg.client.prisma);
+                await pokemonGrabbed.addToUserDex(msg.client.prisma);
                 return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon)}!`)
             } else
                 msg.reply({ ephemeral: true, content: "Wrong guess!" });
