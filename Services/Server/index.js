@@ -9,6 +9,10 @@ Server.get("/", (req, res) => {
 // Dialga Number
 const port = 483;
 
+// User Router
+import userRouter from "./Routers/User/index.js";
+Server.use('/user/', userRouter);
+
 Server.listen(port, ()=>{
     console.log("Pokemon Server running on port:", port)
 });
