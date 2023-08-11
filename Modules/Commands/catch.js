@@ -16,6 +16,7 @@ export default {
                 const pokemonGrabbed = msg.channel.spawn.pokemon;
                 delete msg.channel.spawn.pokemon;
                 pokemonGrabbed.user_id = BigInt(msg.user.id);
+                pokemonGrabbed.idx = (await axios.get('http://localhost:483/user/idx/' + msg.user.id)).data.idx;
                 await pokemonGrabbed.save(msg.client.prisma);
                 await pokemonGrabbed.addToUserDex(msg.client.prisma);
                 return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon)}!`)
