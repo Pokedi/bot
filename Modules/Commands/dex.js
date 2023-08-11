@@ -10,7 +10,7 @@ export default {
         .addStringOption(option => option.setName('pokemon').setDescription('Name of the Pokemon you are searching'))
         .addBooleanOption(option => option.setName("progress").setDescription("Check your progress with the Pokedex"))
         .addBooleanOption(option => option.setName("claim").setDescription("Claim your prizes!"))
-        .addIntegerOption(option => option.setName("page").setDescription("Select the page of the Progressing Pokedex").setMinValue(0))
+        .addIntegerOption(option => option.setName("page").setDescription("Select the page of the Progressing Pokedex").setMinValue(1))
         .addBooleanOption(option => option.setName("shiny").setDescription("Set to true if you're looking for the Shiny version"))
         .setName('dex')
         .setDescription('View your Pokemon!'),
@@ -150,39 +150,44 @@ export default {
 
         if (progress) {
 
-            const user_dex = await msg.client.postgres`SELECT count, shinies, pokemon, unclaimed_normal, unclaimed_shinies FROM dex WHERE user_id = ${msg.user.id}`;
-
-            if (user_dex.count == 0) return msg.reply("You didn't catch anything yet");
-
             const grabPokemon = filterPokemon(x => !x.legendary || !["nonspawn", "nonspawn-legendary", "nonspawn-mythical", "custom"].includes(x.legendary)).sort((x, y) => {
                 return x.id - y.id;
             }
             ).map(x => x);
 
-            const grabPokemonLength = grabPokemon.length;
+            const page = (msg.options.getInteger("page") || 1) - 1;
 
-            const page = msg.options.getInteger("page") || 0;
-            let startingID = 0;
-            let fields = [];
-            let userDex = {};
+            const selectedPokemon = grabPokemon.splice(page * 20, page + 20);
+
+            const grabPokemonLength = grabPokemon.length;
 
             if (page * 20 > grabPokemonLength) return msg.reply("Sorry, no pokemon to display in that page");
 
-            for (const pk of grabPokemon.splice(page * 20, page + 20)) {
-                if (!startingID) startingID = pk.id;
-                userDex[pk._id] = user_dex.find(x => x.pokemon == pk._id);
-                fields.push({
-                    name: capitalize(pk._id) + " #" + pk.id,
-                    inline: true,
-                    value: true ? `Caught ${userDex[pk._id]?.count > 0 ? userDex[pk._id].count + userDex[pk._id].shinies : 0}! ${(userDex[pk._id]?.unclaimed_normal || userDex[pk._id]?.unclaimed_shinies) ? "💰" : ""}` : "Not caught yet"
-                });
-            };
+            const user_dex = await msg.client.prisma.dex.findMany({
+                where: {
+                    pokemon: { in: selectedPokemon.map(x => x._id) },
+                    user_id: BigInt(msg.user.id)
+                }
+            }) || [{}];
+
+            // if (!user_dex[0]) return msg.reply("You didn't catch anything yet");
+
+            let startingID = 0;
+            let userDex = user_dex[0] ? Object.assign(...user_dex.map(x => ({ [x.pokemon]: x }))) : [];
 
             return await msg.reply({
                 embeds: [{
                     title: "Pokedex",
                     description: `You've got ${user_dex.count} pokemon so far, where ${grabPokemonLength - user_dex.count} are unclaimed. Use \`/pokedex claim\` to claim all.`,
-                    fields,
+                    fields: selectedPokemon.map(pk => {
+                        if (!startingID) startingID = pk.id;
+                        if (!userDex[pk._id]) userDex[pk._id] = {}
+                        return {
+                            name: capitalize(pk._id) + " #" + pk.id,
+                            inline: true,
+                            value: true ? `Caught ${(userDex[pk._id].count || 0) > 0 ? userDex[pk._id].count + userDex[pk._id].shinies : 0}! ${(userDex[pk._id].unclaimed_normal || userDex[pk._id]?.unclaimed_shinies) ? "💰" : ""}` : "Not caught yet"
+                        };
+                    }),
                     footer: {
                         text: `Showing ${startingID}-${startingID + 20} of ${grabPokemon.length} Pokémon.`
                     },
