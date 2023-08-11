@@ -195,5 +195,69 @@ export default {
                 }]
             });
         }
+
+        const claim = msg.options.getBoolean('claim');
+
+        if (claim) {
+            const unclaimedPokemon = await msg.client.prisma.dex.findMany({
+                where: {
+                    user_id: BigInt(msg.user.id),
+                    OR: [{
+                        unclaimed_normal: {
+                            gt: 0
+                        }
+                    }, {
+                        unclaimed_shinies: {
+                            gt: 0
+                        }
+                    }]
+                },
+                select: {
+                    unclaimed_normal: true,
+                    unclaimed_shinies: true
+                }
+            });
+
+            if (!unclaimedPokemon.length) return msg.reply("No Pokemon available to be claimed");
+
+            let credits = 0;
+
+            for (const i of unclaimedPokemon) {
+                if (i.unclaimed_normal > 0) credits += i.unclaimed_normal * 200;
+                if (i.unclaimed_shinies > 0) credits += i.unclaimed_shinies * 2000;
+            }
+
+            try {
+                await msg.client.prisma.$transaction([msg.client.prisma.dex.updateMany({
+                    where: {
+                        user_id: BigInt(msg.user.id),
+                        OR: [{
+                            unclaimed_normal: {
+                                gt: 0
+                            }
+                        }, {
+                            unclaimed_shinies: {
+                                gt: 0
+                            }
+                        }]
+                    },
+                    data: {
+                        unclaimed_normal: 0,
+                        unclaimed_shinies: 0
+                    }
+                }), msg.client.prisma.users.update({
+                    where: {
+                        id: BigInt(msg.user.id)
+                    }, data: {
+                        bal: {
+                            increment: credits
+                        }
+                    }
+                })]);
+                return msg.reply(`Congrats! You got ${credits} pokedits for claiming ${unclaimedPokemon.length} Pokemon!`);
+            } catch (error) {
+                return msg.reply(`An error occurred claiming your pokedits. Contact an admin!`);
+            }
+        }
     }
 }
