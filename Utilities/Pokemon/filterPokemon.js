@@ -1,5 +1,4 @@
-import pokemon from "../Data/pokemon.json" assert {type: "json"};
-
+import pokemon from "../Data/pokemon.js";
 
 /**
  * Filter Pokemon through JSON

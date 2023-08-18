@@ -1,0 +1,5184 @@
+[
+    {
+        "_id": "holiday sylveon",
+        "stat": {
+            "hp": 95,
+            "atk": 65,
+            "def": 65,
+            "spatk": 110,
+            "spdef": 130,
+            "spd": 60
+        },
+        "id": 700,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "fr",
+            "i"
+        ],
+        "abilities": [
+            {
+                "name": "pixilate",
+                "hidden": true
+            },
+            {
+                "name": "cute-charm",
+                "hidden": false
+            }
+        ],
+        "height": 10,
+        "weight": 235,
+        "base_exp": 184,
+        "shiny": false,
+        "moves": {
+            "disarming-voice": "1",
+            "fairy-wind": "1",
+            "helping-hand": "1",
+            "tackle": "1",
+            "tail-whip": "1",
+            "sand-attack": "5",
+            "baby-doll-eyes": "9",
+            "quick-attack": "13",
+            "swift": "17",
+            "draining-kiss": "20",
+            "skill-swap": "25",
+            "misty-terrain": "29",
+            "light-screen": "33",
+            "moonblast": "37",
+            "last-resort": "41",
+            "psych-up": "45"
+        },
+        "tm": {
+            "work-up": 1,
+            "psyshock": 1,
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "hyper-beam": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "return": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "giga-impact": 1,
+            "psych-up": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "holiday shaymin",
+        "stat": {
+            "hp": 100,
+            "atk": 100,
+            "def": 100,
+            "spatk": 100,
+            "spdef": 100,
+            "spd": 100
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 492,
+        "types": [
+            "g"
+        ],
+        "abilities": [
+            {
+                "name": "natural-cure",
+                "hidden": false
+            }
+        ],
+        "evolution": {
+            "items": {
+                "gracidea": {
+                    "name": "holiday shaymin sky forme",
+                    "mega": true
+                }
+            },
+            "evolve": {
+                "name": "holiday shaymin sky forme"
+            }
+        },
+        "height": 2,
+        "weight": 21,
+        "moves": {
+            "growth": "1",
+            "magical-leaf": "10",
+            "leech-seed": "19",
+            "synthesis": "28",
+            "sweet-scent": "37",
+            "natural-gift": "46",
+            "worry-seed": "55",
+            "aromatherapy": "64",
+            "energy-ball": "73",
+            "sweet-kiss": "82",
+            "healing-wish": "91",
+            "seed-flare": "100"
+        },
+        "shiny": false,
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "holiday marshadow",
+        "stat": {
+            "hp": 90,
+            "atk": 125,
+            "def": 80,
+            "spatk": 90,
+            "spdef": 90,
+            "spd": 125
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 802,
+        "types": [
+            "fi",
+            "gh"
+        ],
+        "abilities": [
+            {
+                "name": "technician",
+                "hidden": false
+            }
+        ],
+        "height": 7,
+        "weight": 222,
+        "base_exp": 270,
+        "moves": {
+            "assurance": "1",
+            "counter": "1",
+            "drain-punch": "1",
+            "fire-punch": "1",
+            "ice-punch": "1",
+            "laser-focus": "1",
+            "pursuit": "1",
+            "shadow-sneak": "1",
+            "thunder-punch": "1",
+            "force-palm": "5",
+            "feint": "11",
+            "rolling-kick": "15",
+            "copycat": "20",
+            "shadow-punch": "26",
+            "role-play": "30",
+            "jump-kick": "35",
+            "psych-up": "41",
+            "spectral-thief": "45",
+            "close-combat": "50",
+            "sucker-punch": "56",
+            "endeavor": "60"
+        },
+        "shiny": false,
+        "tm": {
+            "work-up": 1,
+            "calm-mind": 1,
+            "toxic": 1,
+            "bulk-up": 1,
+            "hidden-power": 1,
+            "protect": 1,
+            "frustration": 1,
+            "smack-down": 1,
+            "return": 1,
+            "shadow-ball": 1,
+            "brick-break": 1,
+            "double-team": 1,
+            "rock-tomb": 1,
+            "facade": 1,
+            "rest": 1,
+            "thief": 1,
+            "low-sweep": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "focus-blast": 1,
+            "false-swipe": 1,
+            "fling": 1,
+            "will-o-wisp": 1,
+            "acrobatics": 1,
+            "shadow-claw": 1,
+            "payback": 1,
+            "giga-impact": 1,
+            "stone-edge": 1,
+            "psych-up": 1,
+            "rock-slide": 1,
+            "poison-jab": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "holiday deerling",
+        "stat": {
+            "hp": 60,
+            "atk": 60,
+            "def": 50,
+            "spatk": 40,
+            "spdef": 50,
+            "spd": 75
+        },
+        "id": 585,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "fr",
+            "g"
+        ],
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "holiday deerling"
+                },
+                "34": {
+                    "name": "holiday sawsbuck"
+                }
+            }
+        },
+        "abilities": [
+            {
+                "name": "chlorophyll",
+                "hidden": false
+            },
+            {
+                "name": "sap-sipper",
+                "hidden": false
+            },
+            {
+                "name": "serene-grace",
+                "hidden": true
+            }
+        ],
+        "height": 6,
+        "weight": 195,
+        "base_exp": 67,
+        "moves": {
+            "camouflage": "1",
+            "tackle": "1",
+            "growl": "4",
+            "sand-attack": "7",
+            "double-kick": "10",
+            "leech-seed": "13",
+            "feint-attack": "16",
+            "take-down": "20",
+            "jump-kick": "24",
+            "aromatherapy": "28",
+            "energy-ball": "32",
+            "charm": "36",
+            "nature-power": "41",
+            "double-edge": "46",
+            "solar-beam": "51"
+        },
+        "shiny": false,
+        "tm": {
+            "work-up": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "return": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "energy-ball": 1,
+            "thunder-wave": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "wild-charge": 1,
+            "nature-power": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "holiday sawsbuck",
+        "stat": {
+            "hp": 80,
+            "atk": 100,
+            "def": 70,
+            "spatk": 60,
+            "spdef": 70,
+            "spd": 95
+        },
+        "id": 586,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "n",
+            "g"
+        ],
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "deerling"
+                },
+                "34": {
+                    "name": "sawsbuck"
+                }
+            }
+        },
+        "abilities": [
+            {
+                "name": "chlorophyll",
+                "hidden": false
+            },
+            {
+                "name": "sap-sipper",
+                "hidden": false
+            },
+            {
+                "name": "serene-grace",
+                "hidden": true
+            }
+        ],
+        "height": 19,
+        "weight": 925,
+        "base_exp": 166,
+        "moves": {
+            "camouflage": "1",
+            "growl": "4",
+            "horn-leech": "1",
+            "megahorn": "1",
+            "sand-attack": "7",
+            "tackle": "1",
+            "double-kick": "10",
+            "leech-seed": "13",
+            "feint-attack": "16",
+            "take-down": "20",
+            "jump-kick": "24",
+            "aromatherapy": "28",
+            "energy-ball": "32",
+            "charm": "36",
+            "nature-power": "44",
+            "double-edge": "52",
+            "solar-beam": "60"
+        },
+        "shiny": false,
+        "tm": {
+            "work-up": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "hyper-beam": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "return": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "energy-ball": 1,
+            "giga-impact": 1,
+            "thunder-wave": 1,
+            "swords-dance": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "wild-charge": 1,
+            "nature-power": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "holiday froakie",
+        "stat": {
+            "hp": 41,
+            "atk": 56,
+            "def": 40,
+            "spatk": 62,
+            "spdef": 44,
+            "spd": 71
+        },
+        "id": 656,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "w"
+        ],
+        "abilities": [
+            {
+                "name": "torrent",
+                "hidden": false
+            },
+            {
+                "name": "protean",
+                "hidden": true
+            }
+        ],
+        "height": 3,
+        "weight": 70,
+        "base_exp": 63,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "holiday froakie"
+                },
+                "16": {
+                    "name": "holiday frogadier"
+                },
+                "36": {
+                    "name": "holiday greninja"
+                }
+            }
+        },
+        "moves": {
+            "growl": "1",
+            "pound": "1",
+            "bubble": "5",
+            "quick-attack": "8",
+            "lick": "10",
+            "water-pulse": "14",
+            "smokescreen": "18",
+            "round": "21",
+            "fling": "25",
+            "smack-down": "29",
+            "substitute": "35",
+            "bounce": "39",
+            "double-team": "43",
+            "hydro-pump": "48"
+        },
+        "shiny": false,
+        "tm": {
+            "work-up": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "taunt": 1,
+            "ice-beam": 1,
+            "blizzard": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "smack-down": 1,
+            "return": 1,
+            "double-team": 1,
+            "rock-tomb": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "scald": 1,
+            "fling": 1,
+            "acrobatics": 1,
+            "rock-slide": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "u-turn": 1,
+            "substitute": 1,
+            "surf": 1,
+            "waterfall": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "holiday frogadier",
+        "stat": {
+            "hp": 54,
+            "atk": 63,
+            "def": 52,
+            "spatk": 83,
+            "spdef": 56,
+            "spd": 97
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 657,
+        "types": [
+            "w"
+        ],
+        "abilities": [
+            {
+                "name": "torrent",
+                "hidden": false
+            },
+            {
+                "name": "protean",
+                "hidden": true
+            }
+        ],
+        "height": 6,
+        "weight": 109,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "holiday froakie"
+                },
+                "16": {
+                    "name": "holiday frogadier"
+                },
+                "36": {
+                    "name": "holiday greninja"
+                }
+            }
+        },
+        "moves": {
+            "bubble": "5",
+            "growl": "1",
+            "pound": "1",
+            "quick-attack": "8",
+            "lick": "10",
+            "water-pulse": "14",
+            "smokescreen": "19",
+            "round": "23",
+            "fling": "28",
+            "smack-down": "33",
+            "substitute": "40",
+            "bounce": "45",
+            "double-team": "50",
+            "hydro-pump": "56"
+        },
+        "shiny": false,
+        "tm": {
+            "work-up": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "taunt": 1,
+            "ice-beam": 1,
+            "blizzard": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "smack-down": 1,
+            "return": 1,
+            "double-team": 1,
+            "rock-tomb": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "scald": 1,
+            "fling": 1,
+            "acrobatics": 1,
+            "rock-slide": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "u-turn": 1,
+            "substitute": 1,
+            "surf": 1,
+            "dark-pulse": 1,
+            "waterfall": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "holiday greninja",
+        "stat": {
+            "hp": 72,
+            "atk": 95,
+            "def": 67,
+            "spatk": 103,
+            "spdef": 71,
+            "spd": 122
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 658,
+        "types": [
+            "w",
+            "da"
+        ],
+        "abilities": [
+            {
+                "name": "torrent",
+                "hidden": false
+            },
+            {
+                "name": "protean",
+                "hidden": true
+            }
+        ],
+        "height": 15,
+        "weight": 400,
+        "base_exp": 239,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "holiday froakie"
+                },
+                "16": {
+                    "name": "holiday frogadier"
+                },
+                "36": {
+                    "name": "holiday greninja"
+                }
+            }
+        },
+        "moves": {
+            "bubble": "5",
+            "growl": "1",
+            "haze": "70",
+            "mat-block": "1",
+            "night-slash": "77",
+            "pound": "1",
+            "quick-attack": "8",
+            "role-play": "1",
+            "water-shuriken": "1",
+            "lick": "10",
+            "water-pulse": "14",
+            "smokescreen": "19",
+            "shadow-sneak": "23",
+            "spikes": "28",
+            "feint-attack": "33",
+            "substitute": "42",
+            "extrasensory": "49",
+            "double-team": "56",
+            "hydro-pump": "68"
+        },
+        "shiny": false,
+        "tm": {
+            "work-up": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "taunt": 1,
+            "ice-beam": 1,
+            "blizzard": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "smack-down": 1,
+            "return": 1,
+            "double-team": 1,
+            "rock-tomb": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "scald": 1,
+            "fling": 1,
+            "brutal-swing": 1,
+            "acrobatics": 1,
+            "giga-impact": 1,
+            "rock-slide": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "u-turn": 1,
+            "substitute": 1,
+            "surf": 1,
+            "dark-pulse": 1,
+            "waterfall": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "holiday xerneas",
+        "stat": {
+            "hp": 126,
+            "atk": 131,
+            "def": 95,
+            "spatk": 131,
+            "spdef": 98,
+            "spd": 99
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 716,
+        "types": [
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "fairy-aura",
+                "hidden": false
+            }
+        ],
+        "height": 30,
+        "weight": 2150,
+        "base_exp": 306,
+        "moves": {
+            "aromatherapy": "1",
+            "heal-pulse": "1",
+            "ingrain": "1",
+            "take-down": "1",
+            "light-screen": "5",
+            "aurora-beam": "10",
+            "gravity": "18",
+            "geomancy": "26",
+            "moonblast": "35",
+            "megahorn": "44",
+            "night-slash": "51",
+            "horn-leech": "55",
+            "psych-up": "59",
+            "misty-terrain": "63",
+            "nature-power": "72",
+            "close-combat": "80",
+            "giga-impact": "88",
+            "outrage": "93"
+        },
+        "set_move": {
+            "aromatherapy": "1",
+            "heal-pulse": "1",
+            "ingrain": "1",
+            "take-down": "1",
+            "light-screen": "5",
+            "aurora-beam": "10",
+            "gravity": "18",
+            "geomancy": "26",
+            "moonblast": "35",
+            "megahorn": "44",
+            "night-slash": "51",
+            "horn-leech": "55",
+            "psych-up": "59",
+            "misty-terrain": "63",
+            "nature-power": "72",
+            "close-combat": "80",
+            "giga-impact": "88",
+            "outrage": "93"
+        },
+        "shiny": false,
+        "tm": {
+            "psyshock": 1,
+            "calm-mind": 1,
+            "roar": 1,
+            "toxic": 1,
+            "hail": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "hyper-beam": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "return": 1,
+            "psychic": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "facade": 1,
+            "rest": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "focus-blast": 1,
+            "giga-impact": 1,
+            "thunder-wave": 1,
+            "psych-up": 1,
+            "rock-slide": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "flash-cannon": 1,
+            "nature-power": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "holiday ash greninja",
+        "stat": {
+            "hp": 72,
+            "atk": 145,
+            "def": 67,
+            "spatk": 153,
+            "spdef": 71,
+            "spd": 132
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 658,
+        "types": [
+            "w",
+            "da"
+        ],
+        "abilities": [
+            {
+                "name": "battle bond",
+                "hidden": false
+            }
+        ],
+        "height": 15,
+        "weight": 400,
+        "base_exp": 288,
+        "moves": {
+            "bubble": "5",
+            "growl": "1",
+            "haze": "70",
+            "mat-block": "1",
+            "night-slash": "77",
+            "pound": "1",
+            "quick-attack": "8",
+            "role-play": "1",
+            "water-shuriken": "1",
+            "lick": "10",
+            "water-pulse": "14",
+            "smokescreen": "19",
+            "shadow-sneak": "23",
+            "spikes": "28",
+            "feint-attack": "33",
+            "substitute": "42",
+            "extrasensory": "49",
+            "double-team": "56",
+            "hydro-pump": "68"
+        },
+        "alt": {
+            "english": [
+                "supah holiday froggo"
+            ]
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "holiday shaymin sky forme",
+        "stat": {
+            "hp": 100,
+            "atk": 103,
+            "def": 75,
+            "spatk": 120,
+            "spdef": 75,
+            "spd": 127
+        },
+        "extra": [
+            "holiday sky shaymin",
+            "holiday shaymin sky"
+        ],
+        "from": "holiday shaymin",
+        "legendary": "nonspawn-mythical",
+        "id": 492,
+        "types": [
+            "g",
+            "fl"
+        ],
+        "abilities": [
+            {
+                "name": "serene grace",
+                "hidden": false
+            }
+        ],
+        "height": 4,
+        "weight": 52,
+        "base_exp": 270,
+        "shiny": false,
+        "moves": {
+            "growth": 1,
+            "magical-leaf": 10,
+            "leech-seed": 19,
+            "quick-attack": 28,
+            "sweet-scent": 37,
+            "natural-gift": 46,
+            "worry-seed": 55,
+            "air-slash": 64,
+            "energy-ball": 73,
+            "sweet-kiss": 82,
+            "leaf-storm": 91,
+            "seed-flare": 100
+        },
+        "tm": {
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "return": 1,
+            "psychic": 1,
+            "double-team": 1,
+            "facade": 1,
+            "rest": 1,
+            "round": 1,
+            "energy-ball": 1,
+            "giga-impact": 1,
+            "swords-dance": 1,
+            "psych-up": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "nature-power": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "mega cresselia",
+        "url": "https://i.imgur.com/eMpOWm4.png",
+        "stat": {
+            "hp": 130,
+            "atk": 80,
+            "def": 145,
+            "spatk": 88,
+            "spdef": 130,
+            "spd": 100
+        },
+        "legendary": "nonspawn-legendary",
+        "from": "cresselia",
+        "id": 488,
+        "types": [
+            "ps"
+        ],
+        "abilities": [
+            {
+                "name": "levitate",
+                "hidden": false
+            }
+        ],
+        "height": 15,
+        "weight": 856,
+        "base_exp": 270,
+        "moves": {
+            "confusion": "1",
+            "double-team": "1",
+            "lunar-dance": "84",
+            "moonlight": "57",
+            "psycho-cut": "66",
+            "psycho-shift": "75",
+            "safeguard": "11",
+            "mist": "20",
+            "aurora-beam": "29",
+            "future-sight": "38",
+            "slash": "47",
+            "psychic": "93",
+            "moonblast": "99"
+        },
+        "set_move": {
+            "confusion": "1",
+            "double-team": "1",
+            "lunar-dance": "84",
+            "moonlight": "57",
+            "psycho-cut": "66",
+            "psycho-shift": "75",
+            "safeguard": "11",
+            "mist": "20",
+            "aurora-beam": "29",
+            "future-sight": "38",
+            "slash": "47",
+            "psychic": "93",
+            "moonblast": "99"
+        },
+        "shiny": true,
+        "tm": {
+            "psyshock": 1,
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "hyper-beam": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "round": 1,
+            "energy-ball": 1,
+            "charge-beam": 1,
+            "giga-impact": 1,
+            "thunder-wave": 1,
+            "psych-up": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "confide": 1
+        },
+        "alt": {
+            "english": [
+                "cresselia"
+            ],
+            "japanese": [
+                "クレセリア",
+                "kureseria",
+                "cresselia"
+            ],
+            "german": [
+                "cresselia"
+            ],
+            "french": [
+                "cresselia"
+            ],
+            "korean": [
+                "크레세리아",
+                "keureseria",
+                "k'ŭreseria",
+                "cresselia"
+            ],
+            "chinese": [
+                "克雷色利亞",
+                "克雷色利亚",
+                "kèléisèlìyǎ",
+                "hāklèuihsīkleih'a"
+            ]
+        },
+        "art": "Phatmon. Customized by Filou#7228"
+    },
+    {
+        "_id": "valentine yamper",
+        "stat": {
+            "hp": 59,
+            "atk": 45,
+            "def": 50,
+            "spatk": 40,
+            "spdef": 50,
+            "spd": 26
+        },
+        "id": 835,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "e",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "ball-fetch",
+                "hidden": false
+            },
+            {
+                "name": "rattled",
+                "hidden": true
+            }
+        ],
+        "height": 3,
+        "weight": 135,
+        "base_exp": 54,
+        "moves": {
+            "tackle": "1",
+            "tail-whip": "1",
+            "nuzzle": "5",
+            "bite": "10",
+            "roar": "15",
+            "spark": "20",
+            "charm": "26",
+            "crunch": "30",
+            "charge": "35",
+            "wild-charge": "40",
+            "play-rough": "45"
+        },
+        "shiny": true,
+        "tm": {
+            "thunder-wave": 1,
+            "dig": 1,
+            "rest": 1,
+            "snore": 1,
+            "protect": 1,
+            "charm": 1,
+            "attract": 1,
+            "facade": 1,
+            "swift": 1,
+            "helping-hand": 1,
+            "thunder-fang": 1,
+            "fire-fang": 1,
+            "round": 1,
+            "volt-switch": 1,
+            "snarl": 1,
+            "draining-kiss": 1,
+            "fairy-wind": 1,
+            "spirit-break": 1
+        },
+        "extra": [
+            "valentine bread"
+        ],
+        "art": "Sansana#6901 (573178511913648129)"
+    },
+    {
+        "_id": "valentine zeraora",
+        "stat": {
+            "hp": 88,
+            "atk": 112,
+            "def": 75,
+            "spatk": 102,
+            "spdef": 80,
+            "spd": 143
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 807,
+        "types": [
+            "e",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "volt-absorb",
+                "hidden": false
+            }
+        ],
+        "height": 15,
+        "weight": 445,
+        "base_exp": 270,
+        "moves": {
+            "scratch": "1",
+            "spark": "1",
+            "hone-claws": "5",
+            "quick-attack": "8",
+            "fury-swipes": "12",
+            "volt-switch": "15",
+            "snarl": "19",
+            "fake-out": "22",
+            "charge": "26",
+            "thunder-punch": "29",
+            "slash": "33",
+            "wild-charge": "36",
+            "quick-guard": "40",
+            "plasma-fists": "43",
+            "close-combat": "47",
+            "discharge": "50"
+        },
+        "shiny": true,
+        "tm": {
+            "work-up": 1,
+            "calm-mind": 1,
+            "toxic": 1,
+            "bulk-up": 1,
+            "hidden-power": 1,
+            "taunt": 1,
+            "protect": 1,
+            "frustration": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "return": 1,
+            "brick-break": 1,
+            "double-team": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "low-sweep": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "focus-blast": 1,
+            "false-swipe": 1,
+            "fling": 1,
+            "brutal-swing": 1,
+            "acrobatics": 1,
+            "giga-impact": 1,
+            "volt-switch": 1,
+            "thunder-wave": 1,
+            "grass-knot": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "wild-charge": 1,
+            "snarl": 1,
+            "confide": 1,
+            "fleur-cannon": 1,
+            "moonblast": 1,
+            "play-rough": 1,
+            "fairy-wind": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "valentine rayquaza",
+        "stat": {
+            "hp": 105,
+            "atk": 150,
+            "def": 90,
+            "spatk": 150,
+            "spdef": 90,
+            "spd": 95
+        },
+        "evolution": {
+            "primal": {
+                "name": "valentine mega rayquaza"
+            },
+            "mega": {
+                "cost": 2500,
+                "name": "valentine mega rayquaza"
+            }
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 384,
+        "types": [
+            "dr",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "air-lock",
+                "hidden": false
+            }
+        ],
+        "height": 70,
+        "weight": 2065,
+        "base_exp": 306,
+        "shiny": true,
+        "moves": {
+            "twister": "1",
+            "scary-face": "5",
+            "ancient-power": "15",
+            "crunch": "20",
+            "air-slash": "30",
+            "rest": "35",
+            "extreme-speed": "45",
+            "dragon-pulse": "50",
+            "dragon-dance": "60",
+            "fly": "65",
+            "hyper-voice": "75",
+            "outrage": "80",
+            "hyper-beam": "90",
+            "dragon-ascent": "1"
+        },
+        "tm": {
+            "dragon-claw": 1,
+            "roar": 1,
+            "toxic": 1,
+            "bulk-up": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "blizzard": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "earthquake": 1,
+            "return": 1,
+            "brick-break": 1,
+            "double-team": 1,
+            "flamethrower": 1,
+            "sandstorm": 1,
+            "fire-blast": 1,
+            "rock-tomb": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "overheat": 1,
+            "focus-blast": 1,
+            "energy-ball": 1,
+            "fling": 1,
+            "sky-drop": 1,
+            "brutal-swing": 1,
+            "shadow-claw": 1,
+            "giga-impact": 1,
+            "stone-edge": 1,
+            "thunder-wave": 1,
+            "gyro-ball": 1,
+            "swords-dance": 1,
+            "fly": 1,
+            "psych-up": 1,
+            "bulldoze": 1,
+            "rock-slide": 1,
+            "dragon-tail": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "surf": 1,
+            "waterfall": 1,
+            "confide": 1,
+            "fleur-cannon": 1,
+            "moonblast": 1,
+            "play-rough": 1,
+            "fairy-wind": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "valentine mega rayquaza",
+        "stat": {
+            "hp": 105,
+            "atk": 180,
+            "def": 100,
+            "spatk": 180,
+            "spdef": 100,
+            "spd": 115
+        },
+        "from": "valentine rayquaza",
+        "legendary": "nonspawn-mythical",
+        "id": 384,
+        "types": [
+            "dr",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "delta stream",
+                "hidden": false
+            }
+        ],
+        "height": 108,
+        "weight": 3920,
+        "base_exp": 351,
+        "moves": {
+            "twister": "1",
+            "scary-face": "5",
+            "ancient-power": "15",
+            "crunch": "20",
+            "air-slash": "30",
+            "rest": "35",
+            "extreme-speed": "45",
+            "dragon-pulse": "50",
+            "dragon-dance": "60",
+            "fly": "65",
+            "hyper-voice": "75",
+            "outrage": "80",
+            "hyper-beam": "90",
+            "dragon-ascent": "1"
+        },
+        "shiny": true,
+        "tm": {
+            "dragon-claw": 1,
+            "roar": 1,
+            "toxic": 1,
+            "bulk-up": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "blizzard": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "earthquake": 1,
+            "return": 1,
+            "brick-break": 1,
+            "double-team": 1,
+            "flamethrower": 1,
+            "sandstorm": 1,
+            "fire-blast": 1,
+            "rock-tomb": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "overheat": 1,
+            "focus-blast": 1,
+            "energy-ball": 1,
+            "fling": 1,
+            "sky-drop": 1,
+            "brutal-swing": 1,
+            "shadow-claw": 1,
+            "giga-impact": 1,
+            "stone-edge": 1,
+            "thunder-wave": 1,
+            "gyro-ball": 1,
+            "swords-dance": 1,
+            "fly": 1,
+            "psych-up": 1,
+            "bulldoze": 1,
+            "rock-slide": 1,
+            "dragon-tail": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "surf": 1,
+            "waterfall": 1,
+            "confide": 1,
+            "fleur-cannon": 1,
+            "moonblast": 1,
+            "play-rough": 1,
+            "fairy-wind": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "valentine vulpix",
+        "stat": {
+            "hp": 38,
+            "atk": 41,
+            "def": 40,
+            "spatk": 50,
+            "spdef": 65,
+            "spd": 65
+        },
+        "id": 37,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "f",
+            "fr"
+        ],
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "valentine vulpix"
+                }
+            },
+            "items": {
+                "shiny": {
+                    "name": "valentine ninetales"
+                }
+            }
+        },
+        "abilities": [
+            {
+                "name": "flash-fire",
+                "hidden": false
+            },
+            {
+                "name": "drought",
+                "hidden": true
+            }
+        ],
+        "height": 6,
+        "weight": 99,
+        "base_exp": 60,
+        "moves": {
+            "ember": "1",
+            "tail-whip": "1",
+            "disable": "4",
+            "quick-attack": "8",
+            "spite": "12",
+            "incinerate": "16",
+            "confuse-ray": "20",
+            "will-o-wisp": "24",
+            "extrasensory": "28",
+            "flamethrower": "32",
+            "imprison": "36",
+            "fire-spin": "40",
+            "safeguard": "44",
+            "inferno": "48",
+            "grudge": "52",
+            "fire-blast": "56"
+        },
+        "shiny": false,
+        "tm": {
+            "body-slam": 1,
+            "flamethrower": 1,
+            "agility": 1,
+            "fire-blast": 1,
+            "substitute": 1,
+            "endure": 1,
+            "sleep-talk": 1,
+            "encore": 1,
+            "iron-tail": 1,
+            "heat-wave": 1,
+            "overheat": 1,
+            "flare-blitz": 1,
+            "dark-pulse": 1,
+            "energy-ball": 1,
+            "zen-headbutt": 1,
+            "foul-play": 1,
+            "draining-kiss": 1,
+            "fairy-wind": 1,
+            "spirit-break": 1
+        },
+        "art": "xRaeLa-LPx (376560760278614018)"
+    },
+    {
+        "_id": "valentine ninetales",
+        "stat": {
+            "hp": 73,
+            "atk": 76,
+            "def": 75,
+            "spatk": 81,
+            "spdef": 100,
+            "spd": 100
+        },
+        "id": 38,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "f",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "flash-fire",
+                "hidden": false
+            },
+            {
+                "name": "drought",
+                "hidden": true
+            }
+        ],
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "valentine vulpix"
+                }
+            },
+            "items": {
+                "shiny": {
+                    "name": "valentine ninetales"
+                }
+            }
+        },
+        "height": 11,
+        "weight": 199,
+        "base_exp": 177,
+        "moves": {
+            "confuse-ray": "1",
+            "disable": "1",
+            "ember": "1",
+            "extrasensory": "1",
+            "fire-blast": "1",
+            "fire-spin": "1",
+            "flamethrower": "1",
+            "grudge": "1",
+            "imprison": "1",
+            "incinerate": "1",
+            "inferno": "1",
+            "nasty-plot": "1",
+            "quick-attack": "1",
+            "safeguard": "1",
+            "spite": "1",
+            "tail-whip": "1",
+            "will-o-wisp": "1"
+        },
+        "shiny": false,
+        "tm": {
+            "hyper-beam": 1,
+            "giga-impact": 1,
+            "solar-beam": 1,
+            "dig": 1,
+            "safeguard": 1,
+            "rest": 1,
+            "snore": 1,
+            "protect": 1,
+            "icy-wind": 1,
+            "charm": 1,
+            "attract": 1,
+            "rain-dance": 1,
+            "hail": 1,
+            "facade": 1,
+            "swift": 1,
+            "imprison": 1,
+            "weather-ball": 1,
+            "fake-tears": 1,
+            "payback": 1,
+            "power-swap": 1,
+            "avalanche": 1,
+            "wonder-room": 1,
+            "round": 1,
+            "hex": 1,
+            "tail-slap": 1,
+            "draining-kiss": 1,
+            "misty-terrain": 1,
+            "fairy-wind": 1,
+            "spirit-break": 1
+        },
+        "art": "xRaeLa-LPx (376560760278614018)"
+    },
+    {
+        "_id": "valentine ralts",
+        "stat": {
+            "hp": 28,
+            "atk": 25,
+            "def": 25,
+            "spatk": 45,
+            "spdef": 35,
+            "spd": 40
+        },
+        "id": 280,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "ps",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "synchronize",
+                "hidden": false
+            },
+            {
+                "name": "trace",
+                "hidden": false
+            },
+            {
+                "name": "telepathy",
+                "hidden": true
+            }
+        ],
+        "height": 4,
+        "weight": 66,
+        "base_exp": 40,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "valentine ralts"
+                },
+                "25": {
+                    "name": "valentine kirlia"
+                },
+                "30": {
+                    "name": "valentine gardevoir"
+                }
+            }
+        },
+        "moves": {
+            "growl": "1",
+            "confusion": "4",
+            "double-team": "6",
+            "teleport": "9",
+            "disarming-voice": "11",
+            "lucky-chant": "14",
+            "magical-leaf": "17",
+            "heal-pulse": "19",
+            "draining-kiss": "22",
+            "calm-mind": "24",
+            "psychic": "27",
+            "imprison": "29",
+            "future-sight": "32",
+            "charm": "34",
+            "hypnosis": "37",
+            "dream-eater": "39",
+            "stored-power": "42"
+        },
+        "shiny": true,
+        "tm": {
+            "psyshock": 1,
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "taunt": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "thunderbolt": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "torment": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "fling": 1,
+            "charge-beam": 1,
+            "will-o-wisp": 1,
+            "thunder-wave": 1,
+            "psych-up": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "valentine kirlia",
+        "stat": {
+            "hp": 38,
+            "atk": 35,
+            "def": 35,
+            "spatk": 65,
+            "spdef": 55,
+            "spd": 50
+        },
+        "id": 281,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "ps",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "synchronize",
+                "hidden": false
+            },
+            {
+                "name": "trace",
+                "hidden": false
+            },
+            {
+                "name": "telepathy",
+                "hidden": true
+            }
+        ],
+        "height": 8,
+        "weight": 202,
+        "base_exp": 97,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "valentine ralts"
+                },
+                "25": {
+                    "name": "valentine kirlia"
+                },
+                "30": {
+                    "name": "valentine gardevoir"
+                }
+            }
+        },
+        "moves": {
+            "confusion": "4",
+            "double-team": "6",
+            "growl": "1",
+            "teleport": "9",
+            "disarming-voice": "11",
+            "lucky-chant": "14",
+            "magical-leaf": "17",
+            "heal-pulse": "19",
+            "draining-kiss": "23",
+            "calm-mind": "26",
+            "psychic": "30",
+            "imprison": "33",
+            "future-sight": "37",
+            "charm": "40",
+            "hypnosis": "44",
+            "dream-eater": "47",
+            "stored-power": "51"
+        },
+        "shiny": true,
+        "tm": {
+            "psyshock": 1,
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "taunt": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "thunderbolt": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "torment": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "fling": 1,
+            "charge-beam": 1,
+            "will-o-wisp": 1,
+            "thunder-wave": 1,
+            "psych-up": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "valentine gardevoir",
+        "stat": {
+            "hp": 68,
+            "atk": 65,
+            "def": 65,
+            "spatk": 125,
+            "spdef": 115,
+            "spd": 80
+        },
+        "id": 282,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "ps",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "synchronize",
+                "hidden": false
+            },
+            {
+                "name": "trace",
+                "hidden": false
+            },
+            {
+                "name": "telepathy",
+                "hidden": true
+            }
+        ],
+        "height": 16,
+        "weight": 484,
+        "base_exp": 233,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "valentine ralts"
+                },
+                "25": {
+                    "name": "valentine kirlia"
+                },
+                "30": {
+                    "name": "valentine gardevoir"
+                }
+            }
+        },
+        "moves": {
+            "confusion": "4",
+            "double-team": "6",
+            "growl": "1",
+            "healing-wish": "1",
+            "misty-terrain": "1",
+            "moonblast": "62",
+            "stored-power": "58",
+            "teleport": "9",
+            "disarming-voice": "11",
+            "wish": "14",
+            "magical-leaf": "17",
+            "heal-pulse": "19",
+            "draining-kiss": "23",
+            "calm-mind": "26",
+            "psychic": "31",
+            "imprison": "35",
+            "future-sight": "40",
+            "captivate": "44",
+            "hypnosis": "49",
+            "dream-eater": "53"
+        },
+        "shiny": true,
+        "tm": {
+            "psyshock": 1,
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "taunt": 1,
+            "hyper-beam": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "thunderbolt": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "torment": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "focus-blast": 1,
+            "energy-ball": 1,
+            "fling": 1,
+            "charge-beam": 1,
+            "will-o-wisp": 1,
+            "giga-impact": 1,
+            "thunder-wave": 1,
+            "psych-up": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "valentine zygarde complete forme",
+        "stat": {
+            "hp": 216,
+            "atk": 100,
+            "def": 121,
+            "spatk": 91,
+            "spdef": 95,
+            "spd": 85
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 718,
+        "types": [
+            "dr",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "power construct",
+                "hidden": false
+            }
+        ],
+        "height": 45,
+        "weight": 6100,
+        "base_exp": 319,
+        "moves": {
+            "bite": "1",
+            "bulldoze": "1",
+            "dragon-breath": "1",
+            "glare": "1",
+            "safeguard": "5",
+            "dig": "10",
+            "bind": "18",
+            "land's-wrath": "26",
+            "sandstorm": "35",
+            "haze": "44",
+            "crunch": "51",
+            "earthquake": "55",
+            "camouflage": "59",
+            "dragon-pulse": "63",
+            "coil": "72",
+            "outrage": "80",
+            "fleur-cannon": 1,
+            "moonblast": 1,
+            "play-rough": 1,
+            "fairy-wind": 1
+        },
+        "shiny": true
+    },
+    {
+        "_id": "valentine zygarde 10% forme",
+        "stat": {
+            "hp": 54,
+            "atk": 100,
+            "def": 71,
+            "spatk": 61,
+            "spdef": 85,
+            "spd": 115
+        },
+        "extra": [
+            "valentine zygarde 10%",
+            "valentine zygarde 10% form",
+            "valentine zygarde 10"
+        ],
+        "legendary": "nonspawn-mythical",
+        "id": 718,
+        "types": [
+            "dr",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "aura break",
+                "hidden": false
+            },
+            {
+                "name": "power construct",
+                "hidden": false
+            }
+        ],
+        "height": 12,
+        "weight": 335,
+        "base_exp": 219,
+        "moves": {
+            "bite": "1",
+            "bulldoze": "1",
+            "dragon-breath": "1",
+            "glare": "1",
+            "safeguard": "5",
+            "dig": "10",
+            "bind": "18",
+            "land's-wrath": "26",
+            "sandstorm": "35",
+            "haze": "44",
+            "crunch": "51",
+            "earthquake": "55",
+            "camouflage": "59",
+            "dragon-pulse": "63",
+            "coil": "72",
+            "outrage": "80",
+            "fleur-cannon": "1",
+            "moonblast": "1",
+            "play-rough": "1",
+            "fairy-wind": "1"
+        },
+        "evolution": {
+            "items": {
+                "super cell": {
+                    "name": "valentine zygarde 50% forme",
+                    "cost": 20000
+                }
+            }
+        },
+        "shiny": true
+    },
+    {
+        "_id": "valentine zygarde 50% forme",
+        "shiny": true,
+        "stat": {
+            "hp": 108,
+            "atk": 100,
+            "def": 121,
+            "spatk": 81,
+            "spdef": 95,
+            "spd": 95
+        },
+        "extra": [
+            "valentine zygarde 50%",
+            "valentine zygarde 50% form",
+            "valentine zygarde 50"
+        ],
+        "legendary": "nonspawn-mythical",
+        "id": 718,
+        "types": [
+            "dr",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "aura break",
+                "hidden": false
+            },
+            {
+                "name": "power construct",
+                "hidden": false
+            }
+        ],
+        "height": 50,
+        "weight": 3050,
+        "base_exp": 270,
+        "moves": {
+            "bite": "1",
+            "bulldoze": "1",
+            "dragon-breath": "1",
+            "glare": "1",
+            "safeguard": "5",
+            "dig": "10",
+            "bind": "18",
+            "land's-wrath": "26",
+            "sandstorm": "35",
+            "haze": "44",
+            "crunch": "51",
+            "earthquake": "55",
+            "camouflage": "59",
+            "dragon-pulse": "63",
+            "coil": "72",
+            "outrage": "80",
+            "fleur-cannon": "1",
+            "moonblast": "1",
+            "play-rough": "1",
+            "fairy-wind": "1"
+        },
+        "evolution": {
+            "items": {
+                "super cell": {
+                    "name": "valentine zygarde complete forme",
+                    "cost": 80000
+                }
+            }
+        }
+    },
+    {
+        "_id": "lucky mesprit",
+        "stat": {
+            "hp": 80,
+            "atk": 105,
+            "def": 105,
+            "spatk": 105,
+            "spdef": 105,
+            "spd": 80
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 481,
+        "types": [
+            "ps"
+        ],
+        "abilities": [
+            {
+                "name": "levitate",
+                "hidden": false
+            }
+        ],
+        "height": 3,
+        "weight": 3,
+        "base_exp": 261,
+        "moves": {
+            "confusion": "1",
+            "copycat": "61",
+            "healing-wish": "76",
+            "natural-gift": "66",
+            "rest": "1",
+            "imprison": "6",
+            "protect": "16",
+            "swift": "21",
+            "lucky-chant": "31",
+            "future-sight": "36",
+            "charm": "46",
+            "extrasensory": "50"
+        },
+        "shiny": true,
+        "tm": {
+            "psyshock": 1,
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "blizzard": 1,
+            "hyper-beam": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "sandstorm": 1,
+            "facade": 1,
+            "rest": 1,
+            "round": 1,
+            "energy-ball": 1,
+            "fling": 1,
+            "charge-beam": 1,
+            "acrobatics": 1,
+            "giga-impact": 1,
+            "thunder-wave": 1,
+            "psych-up": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "u-turn": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "lucky azelf",
+        "stat": {
+            "hp": 75,
+            "atk": 125,
+            "def": 70,
+            "spatk": 125,
+            "spdef": 70,
+            "spd": 115
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 482,
+        "types": [
+            "ps"
+        ],
+        "abilities": [
+            {
+                "name": "levitate",
+                "hidden": false
+            }
+        ],
+        "height": 3,
+        "weight": 3,
+        "base_exp": 261,
+        "moves": {
+            "confusion": "1",
+            "last-resort": "61",
+            "natural-gift": "66",
+            "rest": "1",
+            "imprison": "6",
+            "detect": "16",
+            "swift": "21",
+            "uproar": "31",
+            "future-sight": "36",
+            "nasty-plot": "46",
+            "extrasensory": "50",
+            "explosion": "76"
+        },
+        "shiny": true,
+        "tm": {
+            "psyshock": 1,
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "taunt": 1,
+            "hyper-beam": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "flamethrower": 1,
+            "sandstorm": 1,
+            "fire-blast": 1,
+            "torment": 1,
+            "facade": 1,
+            "rest": 1,
+            "round": 1,
+            "energy-ball": 1,
+            "fling": 1,
+            "charge-beam": 1,
+            "acrobatics": 1,
+            "explosion": 1,
+            "payback": 1,
+            "giga-impact": 1,
+            "thunder-wave": 1,
+            "psych-up": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "u-turn": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "lucky uxie",
+        "stat": {
+            "hp": 75,
+            "atk": 75,
+            "def": 130,
+            "spatk": 75,
+            "spdef": 130,
+            "spd": 95
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 480,
+        "types": [
+            "ps"
+        ],
+        "abilities": [
+            {
+                "name": "levitate",
+                "hidden": false
+            }
+        ],
+        "height": 3,
+        "weight": 3,
+        "base_exp": 261,
+        "moves": {
+            "confusion": "1",
+            "flail": "61",
+            "memento": "76",
+            "natural-gift": "66",
+            "rest": "1",
+            "imprison": "6",
+            "endure": "16",
+            "swift": "21",
+            "yawn": "31",
+            "future-sight": "36",
+            "amnesia": "46",
+            "extrasensory": "50"
+        },
+        "shiny": true,
+        "tm": {
+            "psyshock": 1,
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "hyper-beam": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "sandstorm": 1,
+            "facade": 1,
+            "rest": 1,
+            "round": 1,
+            "energy-ball": 1,
+            "fling": 1,
+            "charge-beam": 1,
+            "acrobatics": 1,
+            "giga-impact": 1,
+            "thunder-wave": 1,
+            "psych-up": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "u-turn": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "lucky sableye",
+        "stat": {
+            "hp": 50,
+            "atk": 75,
+            "def": 75,
+            "spatk": 65,
+            "spdef": 65,
+            "spd": 50
+        },
+        "id": 302,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "da",
+            "gh"
+        ],
+        "abilities": [
+            {
+                "name": "keen-eye",
+                "hidden": false
+            },
+            {
+                "name": "stall",
+                "hidden": false
+            },
+            {
+                "name": "prankster",
+                "hidden": true
+            }
+        ],
+        "height": 5,
+        "weight": 110,
+        "base_exp": 133,
+        "evolution": {
+            "mega": {
+                "name": "lucky mega sableye"
+            }
+        },
+        "moves": {
+            "leer": "1",
+            "scratch": "1",
+            "foresight": "4",
+            "night-shade": "6",
+            "astonish": "9",
+            "fury-swipes": "11",
+            "detect": "14",
+            "shadow-sneak": "16",
+            "feint-attack": "19",
+            "fake-out": "21",
+            "punishment": "24",
+            "knock-off": "26",
+            "shadow-claw": "29",
+            "confuse-ray": "31",
+            "zen-headbutt": "34",
+            "power-gem": "36",
+            "shadow-ball": "39",
+            "foul-play": "41",
+            "quash": "44",
+            "mean-look": "46"
+        },
+        "shiny": true,
+        "tm": {
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "taunt": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "brick-break": 1,
+            "double-team": 1,
+            "rock-tomb": 1,
+            "aerial-ace": 1,
+            "torment": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "low-sweep": 1,
+            "round": 1,
+            "fling": 1,
+            "quash": 1,
+            "will-o-wisp": 1,
+            "embargo": 1,
+            "shadow-claw": 1,
+            "payback": 1,
+            "psych-up": 1,
+            "poison-jab": 1,
+            "dream-eater": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "snarl": 1,
+            "dark-pulse": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "lucky mega sableye",
+        "stat": {
+            "hp": 50,
+            "atk": 85,
+            "def": 125,
+            "spatk": 85,
+            "spdef": 115,
+            "spd": 20
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 302,
+        "types": [
+            "da",
+            "gh"
+        ],
+        "abilities": [
+            {
+                "name": "magic bounce",
+                "hidden": false
+            }
+        ],
+        "height": 5,
+        "weight": 1610,
+        "base_exp": 168,
+        "from": "lucky sableye",
+        "moves": {
+            "leer": "1",
+            "scratch": "1",
+            "foresight": "4",
+            "night-shade": "6",
+            "astonish": "9",
+            "fury-swipes": "11",
+            "detect": "14",
+            "shadow-sneak": "16",
+            "feint-attack": "19",
+            "fake-out": "21",
+            "punishment": "24",
+            "knock-off": "26",
+            "shadow-claw": "29",
+            "confuse-ray": "31",
+            "zen-headbutt": "34",
+            "power-gem": "36",
+            "shadow-ball": "39",
+            "foul-play": "41",
+            "quash": "44",
+            "mean-look": "46"
+        },
+        "shiny": true,
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "lucky yamask",
+        "stat": {
+            "hp": 38,
+            "atk": 30,
+            "def": 85,
+            "spatk": 55,
+            "spdef": 65,
+            "spd": 30
+        },
+        "id": 562,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "gh"
+        ],
+        "abilities": [
+            {
+                "name": "mummy",
+                "hidden": false
+            }
+        ],
+        "height": 5,
+        "weight": 15,
+        "base_exp": 61,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "lucky yamask"
+                },
+                "34": {
+                    "name": "lucky cofagrigus"
+                }
+            }
+        },
+        "moves": {
+            "astonish": "1",
+            "protect": "1",
+            "disable": "5",
+            "haze": "9",
+            "night-shade": "13",
+            "hex": "17",
+            "will-o-wisp": "21",
+            "ominous-wind": "25",
+            "curse": "29",
+            "guard-split": "33",
+            "power-split": "33",
+            "shadow-ball": "37",
+            "grudge": "41",
+            "mean-look": "45",
+            "destiny-bond": "49"
+        },
+        "shiny": true,
+        "tm": {
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "energy-ball": 1,
+            "will-o-wisp": 1,
+            "embargo": 1,
+            "payback": 1,
+            "psych-up": 1,
+            "infestation": 1,
+            "dream-eater": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "dark-pulse": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "lucky cofagrigus",
+        "stat": {
+            "hp": 58,
+            "atk": 50,
+            "def": 145,
+            "spatk": 95,
+            "spdef": 105,
+            "spd": 30
+        },
+        "id": 563,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "gh"
+        ],
+        "abilities": [
+            {
+                "name": "mummy",
+                "hidden": false
+            }
+        ],
+        "height": 17,
+        "weight": 765,
+        "base_exp": 169,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "lucky yamask"
+                },
+                "34": {
+                    "name": "lucky cofagrigus"
+                }
+            }
+        },
+        "moves": {
+            "astonish": "1",
+            "disable": "5",
+            "haze": "9",
+            "protect": "1",
+            "scary-face": "1",
+            "night-shade": "13",
+            "hex": "17",
+            "will-o-wisp": "21",
+            "ominous-wind": "25",
+            "curse": "29",
+            "guard-split": "33",
+            "power-split": "33",
+            "shadow-ball": "39",
+            "grudge": "45",
+            "mean-look": "51",
+            "destiny-bond": "57"
+        },
+        "shiny": true,
+        "tm": {
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "energy-ball": 1,
+            "will-o-wisp": 1,
+            "embargo": 1,
+            "payback": 1,
+            "giga-impact": 1,
+            "psych-up": 1,
+            "infestation": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "dark-pulse": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "lucky comfey",
+        "stat": {
+            "hp": 51,
+            "atk": 52,
+            "def": 90,
+            "spatk": 82,
+            "spdef": 110,
+            "spd": 100
+        },
+        "id": 764,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "flower-veil",
+                "hidden": false
+            },
+            {
+                "name": "triage",
+                "hidden": false
+            },
+            {
+                "name": "natural-cure",
+                "hidden": true
+            }
+        ],
+        "height": 1,
+        "weight": 3,
+        "base_exp": 170,
+        "moves": {
+            "flower-shield": "1",
+            "helping-hand": "1",
+            "vine-whip": "1",
+            "leech-seed": "4",
+            "draining-kiss": "7",
+            "magical-leaf": "10",
+            "growth": "13",
+            "wrap": "16",
+            "sweet-kiss": "19",
+            "natural-gift": "22",
+            "petal-blizzard": "25",
+            "synthesis": "28",
+            "sweet-scent": "31",
+            "grass-knot": "34",
+            "floral-healing": "37",
+            "petal-dance": "40",
+            "aromatherapy": "43",
+            "grassy-terrain": "46",
+            "play-rough": "49"
+        },
+        "shiny": true,
+        "tm": {
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "taunt": 1,
+            "hyper-beam": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "return": 1,
+            "double-team": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "energy-ball": 1,
+            "fling": 1,
+            "acrobatics": 1,
+            "psych-up": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "u-turn": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "nature-power": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "lucky zacian",
+        "stat": {
+            "hp": 92,
+            "atk": 130,
+            "def": 115,
+            "spatk": 80,
+            "spdef": 115,
+            "spd": 138
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 888,
+        "types": [
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "intrepid sword",
+                "hidden": false
+            }
+        ],
+        "height": 28,
+        "weight": 1100,
+        "base_exp": 335,
+        "evolution": {
+            "items": {
+                "sword": {
+                    "cost": 2000,
+                    "name": "lucky crowned sword zacian",
+                    "mega": true
+                }
+            },
+            "evolve": {
+                "name": "lucky crowned sword zacian"
+            }
+        },
+        "moves": {
+            "bite": "1",
+            "howl": "1",
+            "metal-claw": "1",
+            "quick-attack": "1",
+            "quick-guard": "1",
+            "sacred-sword": "1",
+            "slash": "11",
+            "swords-dance": "22",
+            "iron-head": "33",
+            "laser-focus": "44",
+            "crunch": "55",
+            "moonblast": "66",
+            "close-combat": "77",
+            "giga-impact": "88"
+        },
+        "shiny": true,
+        "tm": {
+            "hyper-beam": 1,
+            "giga-impact": 1,
+            "solar-blade": 1,
+            "dig": 1,
+            "rest": 1,
+            "snore": 1,
+            "protect": 1,
+            "scary-face": 1,
+            "facade": 1,
+            "swift": 1,
+            "helping-hand": 1,
+            "revenge": 1,
+            "brick-break": 1,
+            "imprison": 1,
+            "assurance": 1,
+            "thunder-fang": 1,
+            "ice-fang": 1,
+            "fire-fang": 1,
+            "psycho-cut": 1,
+            "round": 1,
+            "retaliate": 1,
+            "tail-slap": 1,
+            "snarl": 1,
+            "false-swipe": 1,
+            "air-slash": 1,
+            "brutal-swing": 1
+        },
+        "art": "cosmix (303595521082392576)"
+    },
+    {
+        "_id": "lucky crowned sword zacian",
+        "stat": {
+            "hp": 92,
+            "atk": 170,
+            "def": 115,
+            "spatk": 80,
+            "spdef": 115,
+            "spd": 148
+        },
+        "from": "lucky zacian",
+        "legendary": "nonspawn-mythical",
+        "id": 888,
+        "shiny": true,
+        "types": [
+            "fr",
+            "s"
+        ],
+        "abilities": [
+            {
+                "name": "intrepid sword",
+                "hidden": false
+            }
+        ],
+        "height": 28,
+        "weight": 3550,
+        "base_exp": 335,
+        "moves": {
+            "bite": "1",
+            "howl": "1",
+            "metal-claw": "1",
+            "quick-attack": "1",
+            "quick-guard": "1",
+            "sacred-sword": "1",
+            "behemoth-blade": "1",
+            "slash": "11",
+            "swords-dance": "22",
+            "iron-head": "33",
+            "laser-focus": "44",
+            "crunch": "55",
+            "moonblast": "66",
+            "close-combat": "77",
+            "giga-impact": "88"
+        },
+        "art": "cosmix (303595521082392576)"
+    },
+    {
+        "_id": "lucky crowned shield zamazenta",
+        "stat": {
+            "hp": 92,
+            "atk": 130,
+            "def": 145,
+            "spatk": 80,
+            "spdef": 145,
+            "spd": 128
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 889,
+        "types": [
+            "fi",
+            "s"
+        ],
+        "abilities": [
+            {
+                "name": "dauntless shield",
+                "hidden": false
+            }
+        ],
+        "height": 29,
+        "weight": 7850,
+        "base_exp": 335,
+        "from": "lucky zamazenta",
+        "shiny": true,
+        "moves": {
+            "bite": "1",
+            "howl": "1",
+            "metal-burst": "1",
+            "metal-claw": "1",
+            "quick-attack": "1",
+            "wide-guard": "1",
+            "behemoth-bash": "1",
+            "slash": "11",
+            "iron-defense": "22",
+            "iron-head": "33",
+            "laser-focus": "44",
+            "crunch": "55",
+            "moonblast": "66",
+            "close-combat": "77",
+            "giga-impact": "88"
+        },
+        "art": "cosmix (303595521082392576)"
+    },
+    {
+        "_id": "lucky zamazenta",
+        "stat": {
+            "hp": 92,
+            "atk": 130,
+            "def": 115,
+            "spatk": 80,
+            "spdef": 115,
+            "spd": 138
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 889,
+        "types": [
+            "fi"
+        ],
+        "abilities": [
+            {
+                "name": "dauntless shield",
+                "hidden": false
+            }
+        ],
+        "height": 29,
+        "weight": 2100,
+        "base_exp": 335,
+        "evolution": {
+            "items": {
+                "shield": {
+                    "cost": 2000,
+                    "name": "lucky crowned shield zamazenta",
+                    "mega": true
+                }
+            }
+        },
+        "moves": {
+            "bite": "1",
+            "howl": "1",
+            "metal-burst": "1",
+            "metal-claw": "1",
+            "quick-attack": "1",
+            "wide-guard": "1",
+            "slash": "11",
+            "iron-defense": "22",
+            "iron-head": "33",
+            "laser-focus": "44",
+            "crunch": "55",
+            "moonblast": "66",
+            "close-combat": "77",
+            "giga-impact": "88"
+        },
+        "shiny": true,
+        "tm": {
+            "hyper-beam": 1,
+            "giga-impact": 1,
+            "solar-beam": 1,
+            "dig": 1,
+            "light-screen": 1,
+            "reflect": 1,
+            "safeguard": 1,
+            "rest": 1,
+            "snore": 1,
+            "protect": 1,
+            "scary-face": 1,
+            "facade": 1,
+            "swift": 1,
+            "helping-hand": 1,
+            "revenge": 1,
+            "imprison": 1,
+            "payback": 1,
+            "power-swap": 1,
+            "guard-swap": 1,
+            "thunder-fang": 1,
+            "ice-fang": 1,
+            "fire-fang": 1,
+            "round": 1,
+            "retaliate": 1,
+            "tail-slap": 1,
+            "snarl": 1
+        },
+        "art": "cosmix (303595521082392576)"
+    },
+    {
+        "_id": "easter togepi",
+        "url": "https://i.imgur.com/s8JTjCF.png",
+        "stat": {
+            "hp": 35,
+            "atk": 20,
+            "def": 65,
+            "spatk": 40,
+            "spdef": 65,
+            "spd": 20
+        },
+        "id": 175,
+        "types": [
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "hustle",
+                "hidden": false
+            },
+            {
+                "name": "serene-grace",
+                "hidden": false
+            },
+            {
+                "name": "super-luck",
+                "hidden": true
+            }
+        ],
+        "height": 3,
+        "weight": 15,
+        "base_exp": 49,
+        "moves": {
+            "charm": "1",
+            "growl": "1",
+            "metronome": "5",
+            "sweet-kiss": "9",
+            "yawn": "13",
+            "encore": "17",
+            "follow-me": "21",
+            "bestow": "25",
+            "wish": "29",
+            "ancient-power": "33",
+            "safeguard": "37",
+            "baton-pass": "41",
+            "double-edge": "45",
+            "last-resort": "49",
+            "after-you": "53"
+        },
+        "shiny": true,
+        "tm": {
+            "work-up": 1,
+            "psyshock": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "flamethrower": 1,
+            "fire-blast": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "fling": 1,
+            "thunder-wave": 1,
+            "psych-up": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "legendary": "nonspawn-mythical",
+        "pos": {
+            "t": 65,
+            "l": 40,
+            "r": 60
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "beta gible",
+        "shiny": false,
+        "stat": {
+            "hp": 48,
+            "atk": 70,
+            "def": 45,
+            "spatk": 40,
+            "spdef": 45,
+            "spd": 52
+        },
+        "id": 443,
+        "legendary": "mythical",
+        "types": [
+            "dr",
+            "gr"
+        ],
+        "abilities": [
+            {
+                "name": "sand-veil",
+                "hidden": false
+            },
+            {
+                "name": "sand-rush",
+                "hidden": true
+            }
+        ],
+        "height": 7,
+        "weight": 205,
+        "base_exp": 60,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "beta gible"
+                },
+                "23": {
+                    "name": "beta gabite"
+                },
+                "48": {
+                    "name": "beta garchomp"
+                }
+            }
+        },
+        "moves": {
+            "tackle": "1",
+            "sand-attack": "3",
+            "dragon-rage": "7",
+            "sandstorm": "13",
+            "take-down": "15",
+            "sand-tomb": "19",
+            "slash": "25",
+            "dragon-claw": "27",
+            "dig": "31",
+            "dragon-rush": "37"
+        },
+        "tm": {
+            "dragon-claw": 1,
+            "roar": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "earthquake": 1,
+            "return": 1,
+            "double-team": 1,
+            "flamethrower": 1,
+            "sandstorm": 1,
+            "fire-blast": 1,
+            "rock-tomb": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "round": 1,
+            "shadow-claw": 1,
+            "stone-edge": 1,
+            "bulldoze": 1,
+            "rock-slide": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "confide": 1
+        },
+        "extra": [
+            "beta yeet"
+        ]
+    },
+    {
+        "_id": "beta gabite",
+        "shiny": false,
+        "stat": {
+            "hp": 68,
+            "atk": 90,
+            "def": 65,
+            "spatk": 50,
+            "spdef": 55,
+            "spd": 82
+        },
+        "id": 444,
+        "legendary": "mythical",
+        "types": [
+            "dr",
+            "gr"
+        ],
+        "abilities": [
+            {
+                "name": "sand-veil",
+                "hidden": false
+            },
+            {
+                "name": "sand-rush",
+                "hidden": true
+            }
+        ],
+        "height": 14,
+        "weight": 560,
+        "base_exp": 144,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "beta gible"
+                },
+                "23": {
+                    "name": "beta gabite"
+                },
+                "48": {
+                    "name": "beta garchomp"
+                }
+            }
+        },
+        "moves": {
+            "dragon-rage": "7",
+            "dual-chop": "1",
+            "sand-attack": "3",
+            "tackle": "1",
+            "sandstorm": "13",
+            "take-down": "15",
+            "sand-tomb": "19",
+            "slash": "28",
+            "dragon-claw": "33",
+            "dig": "40",
+            "dragon-rush": "49"
+        },
+        "tm": {
+            "dragon-claw": 1,
+            "roar": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "earthquake": 1,
+            "return": 1,
+            "double-team": 1,
+            "flamethrower": 1,
+            "sandstorm": 1,
+            "fire-blast": 1,
+            "rock-tomb": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "round": 1,
+            "shadow-claw": 1,
+            "stone-edge": 1,
+            "bulldoze": 1,
+            "rock-slide": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "confide": 1
+        }
+    },
+    {
+        "_id": "beta garchomp",
+        "shiny": false,
+        "stat": {
+            "hp": 98,
+            "atk": 130,
+            "def": 95,
+            "spatk": 80,
+            "spdef": 85,
+            "spd": 112
+        },
+        "id": 445,
+        "legendary": "mythical",
+        "types": [
+            "dr",
+            "gr"
+        ],
+        "abilities": [
+            {
+                "name": "sand-veil",
+                "hidden": false
+            },
+            {
+                "name": "sand-rush",
+                "hidden": true
+            }
+        ],
+        "height": 19,
+        "weight": 950,
+        "base_exp": 270,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "beta gible"
+                },
+                "23": {
+                    "name": "beta gabite"
+                },
+                "48": {
+                    "name": "beta garchomp"
+                }
+            },
+            "mega": {
+                "name": "mega garchomp"
+            }
+        },
+        "moves": {
+            "crunch": "1",
+            "dragon-rage": "7",
+            "dual-chop": "1",
+            "fire-fang": "1",
+            "sand-attack": "3",
+            "sandstorm": "13",
+            "tackle": "1",
+            "take-down": "15",
+            "sand-tomb": "19",
+            "slash": "28",
+            "dragon-claw": "33",
+            "dig": "40",
+            "dragon-rush": "55"
+        },
+        "tm": {
+            "dragon-claw": 1,
+            "roar": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "earthquake": 1,
+            "return": 1,
+            "brick-break": 1,
+            "double-team": 1,
+            "flamethrower": 1,
+            "sandstorm": 1,
+            "fire-blast": 1,
+            "rock-tomb": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "round": 1,
+            "false-swipe": 1,
+            "fling": 1,
+            "brutal-swing": 1,
+            "shadow-claw": 1,
+            "giga-impact": 1,
+            "stone-edge": 1,
+            "swords-dance": 1,
+            "bulldoze": 1,
+            "rock-slide": 1,
+            "dragon-tail": 1,
+            "poison-jab": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "surf": 1,
+            "confide": 1
+        }
+    },
+    {
+        "_id": "first anniversary pikachu",
+        "stat": {
+            "hp": 35,
+            "atk": 55,
+            "def": 40,
+            "spatk": 50,
+            "spdef": 50,
+            "spd": 90
+        },
+        "id": 25,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "e"
+        ],
+        "abilities": [
+            {
+                "name": "static",
+                "hidden": false
+            },
+            {
+                "name": "birthday-cake",
+                "hidden": true
+            }
+        ],
+        "height": 4,
+        "weight": 60,
+        "base_exp": 112,
+        "extra": [
+            "pikachu"
+        ],
+        "art": "Alicia (332962157685768193)",
+        "moves": {
+            "charm": "1",
+            "growl": "1",
+            "nasty-plot": "1",
+            "nuzzle": "1",
+            "play-nice": "1",
+            "quick-attack": "1",
+            "sweet-kiss": "1",
+            "tail-whip": "1",
+            "thunder-shock": "1",
+            "thunder-wave": "4",
+            "double-team": "8",
+            "electro-ball": "12",
+            "feint": "16",
+            "spark": "20",
+            "agility": "24",
+            "slam": "28",
+            "discharge": "32",
+            "thunderbolt": "36",
+            "light-screen": "40",
+            "thunder": "44"
+        },
+        "shiny": true,
+        "tm": {
+            "mega-punch": 1,
+            "mega-kick": 1,
+            "pay-day": 1,
+            "thunder-punch": 1,
+            "thunder-wave": 1,
+            "dig": 1,
+            "light-screen": 1,
+            "reflect": 1,
+            "rest": 1,
+            "thief": 1,
+            "snore": 1,
+            "protect": 1,
+            "charm": 1,
+            "attract": 1,
+            "rain-dance": 1,
+            "facade": 1,
+            "swift": 1,
+            "helping-hand": 1,
+            "brick-break": 1,
+            "fling": 1,
+            "round": 1,
+            "volt-switch": 1,
+            "electroweb": 1,
+            "draining-kiss": 1,
+            "electric-terrain": 1
+        },
+        "pos": {
+            "t": 30,
+            "l": 20,
+            "r": 100
+        }
+    },
+    {
+        "_id": "summer swablu",
+        "url": "https://i.imgur.com/UfR57t2.png",
+        "legendary": "nonspawn-mythical",
+        "stat": {
+            "hp": 45,
+            "atk": 40,
+            "def": 60,
+            "spatk": 40,
+            "spdef": 75,
+            "spd": 50
+        },
+        "id": 333,
+        "types": [
+            "n",
+            "fl"
+        ],
+        "abilities": [
+            {
+                "name": "natural-cure",
+                "hidden": false
+            },
+            {
+                "name": "cloud-nine",
+                "hidden": true
+            }
+        ],
+        "height": 4,
+        "weight": 12,
+        "base_exp": 62,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "summer swablu"
+                },
+                "35": {
+                    "name": "summer altaria"
+                }
+            }
+        },
+        "moves": {
+            "growl": "1",
+            "peck": "1",
+            "astonish": "3",
+            "sing": "5",
+            "fury-attack": "7",
+            "safeguard": "9",
+            "disarming-voice": "11",
+            "mist": "14",
+            "round": "17",
+            "natural-gift": "20",
+            "take-down": "23",
+            "refresh": "26",
+            "mirror-move": "30",
+            "cotton-guard": "34",
+            "dragon-pulse": "38",
+            "perish-song": "42",
+            "moonblast": "46"
+        },
+        "set_move": {
+            "growl": "1",
+            "peck": "1",
+            "astonish": "3",
+            "sing": "5",
+            "fury-attack": "7",
+            "safeguard": "9",
+            "disarming-voice": "11",
+            "mist": "14",
+            "round": "17",
+            "natural-gift": "20",
+            "take-down": "23",
+            "refresh": "26",
+            "mirror-move": "30",
+            "cotton-guard": "34",
+            "dragon-pulse": "38",
+            "perish-song": "42",
+            "moonblast": "46"
+        },
+        "shiny": true,
+        "tm": {
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "roost": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "return": 1,
+            "double-team": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "steel-wing": 1,
+            "fly": 1,
+            "psych-up": 1,
+            "dream-eater": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "summer altaria",
+        "url": "https://i.imgur.com/7F1ZDfm.png",
+        "legendary": "nonspawn-mythical",
+        "stat": {
+            "hp": 75,
+            "atk": 70,
+            "def": 90,
+            "spatk": 70,
+            "spdef": 105,
+            "spd": 80
+        },
+        "id": 334,
+        "types": [
+            "dr",
+            "fl"
+        ],
+        "abilities": [
+            {
+                "name": "natural-cure",
+                "hidden": false
+            },
+            {
+                "name": "cloud-nine",
+                "hidden": true
+            }
+        ],
+        "height": 11,
+        "weight": 206,
+        "base_exp": 172,
+        "evolution": {
+            "level": {
+                "0": {
+                    "name": "summer swablu"
+                },
+                "35": {
+                    "name": "summer altaria"
+                }
+            },
+            "mega": {
+                "name": "summer mega altaria"
+            }
+        },
+        "moves": {
+            "astonish": "3",
+            "dragon-breath": "1",
+            "growl": "1",
+            "peck": "1",
+            "pluck": "1",
+            "sing": "5",
+            "sky-attack": "59",
+            "fury-attack": "7",
+            "safeguard": "9",
+            "disarming-voice": "11",
+            "mist": "14",
+            "round": "17",
+            "natural-gift": "20",
+            "take-down": "23",
+            "refresh": "26",
+            "dragon-dance": "30",
+            "cotton-guard": "34",
+            "dragon-pulse": "40",
+            "perish-song": "46",
+            "moonblast": "52"
+        },
+        "set_move": {
+            "astonish": "3",
+            "dragon-breath": "1",
+            "growl": "1",
+            "peck": "1",
+            "pluck": "1",
+            "sing": "5",
+            "sky-attack": "59",
+            "fury-attack": "7",
+            "safeguard": "9",
+            "disarming-voice": "11",
+            "mist": "14",
+            "round": "17",
+            "natural-gift": "20",
+            "take-down": "23",
+            "refresh": "26",
+            "dragon-dance": "30",
+            "cotton-guard": "34",
+            "dragon-pulse": "40",
+            "perish-song": "46",
+            "moonblast": "52"
+        },
+        "shiny": true,
+        "tm": {
+            "dragon-claw": 1,
+            "roar": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "roost": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "earthquake": 1,
+            "return": 1,
+            "double-team": 1,
+            "flamethrower": 1,
+            "fire-blast": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "steel-wing": 1,
+            "giga-impact": 1,
+            "fly": 1,
+            "psych-up": 1,
+            "bulldoze": 1,
+            "dream-eater": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "summer mega altaria",
+        "stat": {
+            "hp": 75,
+            "atk": 110,
+            "def": 110,
+            "spatk": 110,
+            "spdef": 105,
+            "spd": 80
+        },
+        "from": "summer altaria",
+        "legendary": "nonspawn-mythical",
+        "id": 334,
+        "types": [
+            "dr",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "pixilate",
+                "hidden": false
+            }
+        ],
+        "height": 15,
+        "weight": 206,
+        "base_exp": 207,
+        "moves": {
+            "astonish": "3",
+            "dragon-breath": "1",
+            "growl": "1",
+            "peck": "1",
+            "pluck": "1",
+            "sing": "5",
+            "sky-attack": "59",
+            "fury-attack": "7",
+            "safeguard": "9",
+            "disarming-voice": "11",
+            "mist": "14",
+            "round": "17",
+            "natural-gift": "20",
+            "take-down": "23",
+            "refresh": "26",
+            "dragon-dance": "30",
+            "cotton-guard": "34",
+            "dragon-pulse": "40",
+            "perish-song": "46",
+            "moonblast": "52",
+            "i-would-like-to-speak-to-your-manager": "100"
+        },
+        "shiny": true,
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "summer cresselia",
+        "stat": {
+            "hp": 120,
+            "atk": 70,
+            "def": 120,
+            "spatk": 75,
+            "spdef": 130,
+            "spd": 85
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 488,
+        "types": [
+            "ps"
+        ],
+        "abilities": [
+            {
+                "name": "levitate",
+                "hidden": false
+            }
+        ],
+        "height": 15,
+        "weight": 856,
+        "base_exp": 270,
+        "moves": {
+            "confusion": "1",
+            "double-team": "1",
+            "lunar-dance": "84",
+            "moonlight": "57",
+            "psycho-cut": "66",
+            "psycho-shift": "75",
+            "safeguard": "11",
+            "mist": "20",
+            "aurora-beam": "29",
+            "future-sight": "38",
+            "slash": "47",
+            "psychic": "93",
+            "moonblast": "99"
+        },
+        "shiny": true,
+        "tm": {
+            "psyshock": 1,
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "hyper-beam": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "round": 1,
+            "energy-ball": 1,
+            "charge-beam": 1,
+            "giga-impact": 1,
+            "thunder-wave": 1,
+            "psych-up": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "summer dialga",
+        "stat": {
+            "hp": 100,
+            "atk": 120,
+            "def": 120,
+            "spatk": 150,
+            "spdef": 100,
+            "spd": 90
+        },
+        "id": 483,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "s",
+            "dr"
+        ],
+        "abilities": [
+            {
+                "name": "pressure",
+                "hidden": false
+            },
+            {
+                "name": "telepathy",
+                "hidden": true
+            }
+        ],
+        "height": 54,
+        "weight": 6830,
+        "base_exp": 306,
+        "moves": {
+            "dragon-breath": "1",
+            "scary-face": "1",
+            "metal-claw": "6",
+            "ancient-power": "10",
+            "slash": "15",
+            "power-gem": "19",
+            "metal-burst": "24",
+            "dragon-claw": "28",
+            "earth-power": "33",
+            "aura-sphere": "37",
+            "iron-tail": "42",
+            "roar-of-time": "46",
+            "flash-cannon": "50"
+        },
+        "shiny": true,
+        "tm": {
+            "dragon-claw": 1,
+            "roar": 1,
+            "toxic": 1,
+            "bulk-up": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "blizzard": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "earthquake": 1,
+            "return": 1,
+            "brick-break": 1,
+            "double-team": 1,
+            "flamethrower": 1,
+            "sandstorm": 1,
+            "fire-blast": 1,
+            "rock-tomb": 1,
+            "aerial-ace": 1,
+            "facade": 1,
+            "rest": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "overheat": 1,
+            "shadow-claw": 1,
+            "giga-impact": 1,
+            "stone-edge": 1,
+            "thunder-wave": 1,
+            "psych-up": 1,
+            "bulldoze": 1,
+            "rock-slide": 1,
+            "dragon-tail": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "flash-cannon": 1,
+            "trick-room": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "summer alolan raichu",
+        "stat": {
+            "hp": 60,
+            "atk": 85,
+            "def": 50,
+            "spatk": 95,
+            "spdef": 85,
+            "spd": 110
+        },
+        "id": 26,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "e",
+            "ps"
+        ],
+        "abilities": [
+            {
+                "name": "surge surfer",
+                "hidden": false
+            }
+        ],
+        "height": 7,
+        "weight": 210,
+        "base_exp": 218,
+        "moves": {
+            "agility": "1",
+            "charm": "1",
+            "discharge": "1",
+            "double-team": "1",
+            "electro-ball": "1",
+            "feint": "1",
+            "growl": "1",
+            "light-screen": "1",
+            "nasty-plot": "1",
+            "nuzzle": "1",
+            "play-nice": "1",
+            "psychic": "1",
+            "quick-attack": "1",
+            "slam": "1",
+            "spark": "1",
+            "sweet-kiss": "1",
+            "tail-whip": "1",
+            "thunder": "1",
+            "thunder-shock": "1",
+            "thunder-wave": "1",
+            "thunderbolt": "1"
+        },
+        "region": "alola",
+        "tm": {
+            "body-slam": 1,
+            "surf": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "psychic": 1,
+            "agility": 1,
+            "substitute": 1,
+            "reversal": 1,
+            "psyshock": 1,
+            "endure": 1,
+            "sleep-talk": 1,
+            "encore": 1,
+            "iron-tail": 1,
+            "future-sight": 1,
+            "uproar": 1,
+            "calm-mind": 1,
+            "focus-blast": 1,
+            "nasty-plot": 1,
+            "grass-knot": 1,
+            "electro-ball": 1,
+            "stored-power": 1,
+            "ally-switch": 1,
+            "wild-charge": 1,
+            "play-rough": 1
+        },
+        "shiny": true,
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "summer buneary",
+        "stat": {
+            "hp": 55,
+            "atk": 66,
+            "def": 44,
+            "spatk": 44,
+            "spdef": 56,
+            "spd": 85
+        },
+        "id": 427,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "n"
+        ],
+        "abilities": [
+            {
+                "name": "run-away",
+                "hidden": false
+            },
+            {
+                "name": "klutz",
+                "hidden": false
+            },
+            {
+                "name": "limber",
+                "hidden": true
+            }
+        ],
+        "height": 4,
+        "weight": 55,
+        "base_exp": 70,
+        "evolution": {
+            "items": {
+                "friendship": {
+                    "name": "summer lopunny"
+                }
+            }
+        },
+        "moves": {
+            "defense-curl": "1",
+            "foresight": "1",
+            "frustration": "1",
+            "pound": "1",
+            "splash": "1",
+            "endure": "6",
+            "baby-doll-eyes": "13",
+            "quick-attack": "16",
+            "jump-kick": "23",
+            "baton-pass": "26",
+            "agility": "33",
+            "dizzy-punch": "36",
+            "after-you": "43",
+            "charm": "46",
+            "entrainment": "50",
+            "bounce": "56",
+            "healing-wish": "63"
+        },
+        "shiny": true,
+        "tm": {
+            "work-up": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "thunderbolt": 1,
+            "return": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "round": 1,
+            "fling": 1,
+            "charge-beam": 1,
+            "thunder-wave": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "summer lopunny",
+        "stat": {
+            "hp": 65,
+            "atk": 76,
+            "def": 84,
+            "spatk": 54,
+            "spdef": 96,
+            "spd": 105
+        },
+        "evolution": {
+            "mega": {
+                "name": "summer mega lopunny"
+            }
+        },
+        "id": 428,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "n"
+        ],
+        "abilities": [
+            {
+                "name": "cute-charm",
+                "hidden": false
+            },
+            {
+                "name": "klutz",
+                "hidden": false
+            },
+            {
+                "name": "limber",
+                "hidden": true
+            }
+        ],
+        "height": 12,
+        "weight": 333,
+        "base_exp": 168,
+        "moves": {
+            "bounce": "56",
+            "defense-curl": "1",
+            "foresight": "1",
+            "healing-wish": "63",
+            "magic-coat": "1",
+            "mirror-coat": "1",
+            "pound": "1",
+            "return": "1",
+            "rototiller": "1",
+            "splash": "1",
+            "endure": "6",
+            "baby-doll-eyes": "13",
+            "quick-attack": "16",
+            "jump-kick": "23",
+            "baton-pass": "26",
+            "agility": "33",
+            "dizzy-punch": "36",
+            "after-you": "43",
+            "charm": "46",
+            "entrainment": "53",
+            "high-jump-kick": "66"
+        },
+        "shiny": true,
+        "tm": {
+            "work-up": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "blizzard": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "return": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "low-sweep": 1,
+            "round": 1,
+            "focus-blast": 1,
+            "fling": 1,
+            "charge-beam": 1,
+            "brutal-swing": 1,
+            "giga-impact": 1,
+            "thunder-wave": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "summer mega lopunny",
+        "stat": {
+            "hp": 65,
+            "atk": 136,
+            "def": 94,
+            "spatk": 54,
+            "spdef": 96,
+            "spd": 135
+        },
+        "from": "summer lopunny",
+        "legendary": "nonspawn-mythical",
+        "id": 428,
+        "types": [
+            "n",
+            "fi"
+        ],
+        "abilities": [
+            {
+                "name": "scrappy",
+                "hidden": false
+            }
+        ],
+        "height": 13,
+        "weight": 283,
+        "base_exp": 203,
+        "moves": {
+            "bounce": "56",
+            "defense-curl": "1",
+            "foresight": "1",
+            "healing-wish": "63",
+            "magic-coat": "1",
+            "mirror-coat": "1",
+            "pound": "1",
+            "return": "1",
+            "rototiller": "1",
+            "splash": "1",
+            "endure": "6",
+            "baby-doll-eyes": "13",
+            "quick-attack": "16",
+            "jump-kick": "23",
+            "baton-pass": "26",
+            "agility": "33",
+            "dizzy-punch": "36",
+            "after-you": "43",
+            "charm": "46",
+            "entrainment": "53",
+            "high-jump-kick": "66"
+        },
+        "tm": {
+            "work-up": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "blizzard": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "return": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "low-sweep": 1,
+            "round": 1,
+            "focus-blast": 1,
+            "fling": 1,
+            "charge-beam": 1,
+            "brutal-swing": 1,
+            "giga-impact": 1,
+            "thunder-wave": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "confide": 1
+        },
+        "shiny": true,
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "summer munchlax",
+        "stat": {
+            "hp": 135,
+            "atk": 85,
+            "def": 40,
+            "spatk": 40,
+            "spdef": 85,
+            "spd": 5
+        },
+        "id": 446,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "n"
+        ],
+        "abilities": [
+            {
+                "name": "pickup",
+                "hidden": false
+            },
+            {
+                "name": "thick-fat",
+                "hidden": false
+            },
+            {
+                "name": "gluttony",
+                "hidden": true
+            }
+        ],
+        "height": 6,
+        "weight": 1050,
+        "base_exp": 78,
+        "evolution": {
+            "items": {
+                "friendship": {
+                    "name": "summer snorlax"
+                }
+            }
+        },
+        "moves": {
+            "last-resort": "57",
+            "lick": "12",
+            "metronome": "1",
+            "odor-sleuth": "1",
+            "recycle": "1",
+            "tackle": "1",
+            "defense-curl": "4",
+            "amnesia": "9",
+            "chip-away": "17",
+            "screech": "20",
+            "body-slam": "25",
+            "stockpile": "28",
+            "swallow": "33",
+            "rollout": "36",
+            "fling": "41",
+            "belly-drum": "44",
+            "natural-gift": "49",
+            "snatch": "50"
+        },
+        "shiny": true,
+        "tm": {
+            "work-up": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "ice-beam": 1,
+            "blizzard": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "thunderbolt": 1,
+            "thunder": 1,
+            "earthquake": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "brick-break": 1,
+            "double-team": 1,
+            "flamethrower": 1,
+            "sandstorm": 1,
+            "fire-blast": 1,
+            "rock-tomb": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "round": 1,
+            "fling": 1,
+            "bulldoze": 1,
+            "rock-slide": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "surf": 1,
+            "confide": 1
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "summer snorlax",
+        "stat": {
+            "hp": 160,
+            "atk": 110,
+            "def": 65,
+            "spatk": 65,
+            "spdef": 110,
+            "spd": 30
+        },
+        "id": 143,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "n"
+        ],
+        "abilities": [
+            {
+                "name": "immunity",
+                "hidden": false
+            },
+            {
+                "name": "thick-fat",
+                "hidden": false
+            },
+            {
+                "name": "gluttony",
+                "hidden": true
+            }
+        ],
+        "height": 21,
+        "weight": 4600,
+        "base_exp": 189,
+        "moves": {
+            "block": "1",
+            "covet": "1",
+            "defense-curl": "1",
+            "flail": "1",
+            "fling": "1",
+            "last-resort": "1",
+            "lick": "1",
+            "metronome": "1",
+            "recycle": "1",
+            "screech": "1",
+            "stockpile": "1",
+            "swallow": "1",
+            "tackle": "1",
+            "yawn": "12",
+            "bite": "16",
+            "rest": "20",
+            "sleep-talk": "20",
+            "snore": "20",
+            "crunch": "24",
+            "body-slam": "28",
+            "heavy-slam": "32",
+            "amnesia": "36",
+            "high-horsepower": "40",
+            "hammer-arm": "44",
+            "belly-drum": "48",
+            "belch": "52",
+            "giga-impact": "56"
+        },
+        "shiny": true,
+        "tm": {
+            "mega-punch": 1,
+            "mega-kick": 1,
+            "pay-day": 1,
+            "fire-punch": 1,
+            "ice-punch": 1,
+            "thunder-punch": 1,
+            "hyper-beam": 1,
+            "giga-impact": 1,
+            "solar-beam": 1,
+            "screech": 1,
+            "self-destruct": 1,
+            "rest": 1,
+            "rock-slide": 1,
+            "snore": 1,
+            "protect": 1,
+            "icy-wind": 1,
+            "charm": 1,
+            "attract": 1,
+            "sandstorm": 1,
+            "rain-dance": 1,
+            "sunny-day": 1,
+            "whirlpool": 1,
+            "facade": 1,
+            "brick-break": 1,
+            "rock-tomb": 1,
+            "fling": 1,
+            "round": 1,
+            "retaliate": 1,
+            "bulldoze": 1,
+            "stomping-tantrum": 1
+        },
+        "evolution": {
+            "giga": "gigantamax snorlax"
+        },
+        "art": "Alicia~ (332962157685768193)"
+    },
+    {
+        "_id": "popstar pikachu",
+        "stat": {
+            "hp": 55,
+            "atk": 75,
+            "def": 60,
+            "spatk": 70,
+            "spdef": 70,
+            "spd": 110
+        },
+        "id": 25,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "e"
+        ],
+        "abilities": [
+            {
+                "name": "static",
+                "hidden": false
+            },
+            {
+                "name": "lightning-rod",
+                "hidden": true
+            }
+        ],
+        "evolution": {
+            "giga": "gigantamax pikachu"
+        },
+        "height": 4,
+        "weight": 60,
+        "base_exp": 112,
+        "shiny": true,
+        "moves": {
+            "charm": "1",
+            "growl": "1",
+            "nasty-plot": "1",
+            "nuzzle": "1",
+            "play-nice": "1",
+            "quick-attack": "1",
+            "sweet-kiss": "1",
+            "tail-whip": "1",
+            "thunder-shock": "1",
+            "thunder-wave": "4",
+            "double-team": "8",
+            "electro-ball": "12",
+            "feint": "16",
+            "spark": "20",
+            "agility": "24",
+            "slam": "28",
+            "discharge": "32",
+            "thunderbolt": "36",
+            "light-screen": "40",
+            "thunder": "44",
+            "draining-kiss": "60"
+        },
+        "tm": {
+            "mega-punch": 1,
+            "mega-kick": 1,
+            "pay-day": 1,
+            "thunder-punch": 1,
+            "thunder-wave": 1,
+            "dig": 1,
+            "light-screen": 1,
+            "reflect": 1,
+            "rest": 1,
+            "thief": 1,
+            "snore": 1,
+            "protect": 1,
+            "charm": 1,
+            "attract": 1,
+            "rain-dance": 1,
+            "facade": 1,
+            "swift": 1,
+            "helping-hand": 1,
+            "brick-break": 1,
+            "fling": 1,
+            "round": 1,
+            "volt-switch": 1,
+            "electroweb": 1,
+            "draining-kiss": 1,
+            "electric-terrain": 1
+        }
+    },
+    {
+        "_id": "belle pikachu",
+        "stat": {
+            "hp": 55,
+            "atk": 75,
+            "def": 60,
+            "spatk": 70,
+            "spdef": 70,
+            "spd": 110
+        },
+        "id": 25,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "e"
+        ],
+        "abilities": [
+            {
+                "name": "static",
+                "hidden": false
+            },
+            {
+                "name": "lightning-rod",
+                "hidden": true
+            }
+        ],
+        "evolution": {
+            "giga": "gigantamax pikachu"
+        },
+        "height": 4,
+        "weight": 60,
+        "base_exp": 112,
+        "shiny": true,
+        "moves": {
+            "charm": "1",
+            "growl": "1",
+            "nasty-plot": "1",
+            "nuzzle": "1",
+            "play-nice": "1",
+            "quick-attack": "1",
+            "sweet-kiss": "1",
+            "tail-whip": "1",
+            "thunder-shock": "1",
+            "thunder-wave": "4",
+            "double-team": "8",
+            "electro-ball": "12",
+            "feint": "16",
+            "spark": "20",
+            "agility": "24",
+            "slam": "28",
+            "discharge": "32",
+            "thunderbolt": "36",
+            "light-screen": "40",
+            "thunder": "44",
+            "icicle-crash": "60"
+        },
+        "tm": {
+            "mega-punch": 1,
+            "mega-kick": 1,
+            "pay-day": 1,
+            "thunder-punch": 1,
+            "thunder-wave": 1,
+            "dig": 1,
+            "light-screen": 1,
+            "reflect": 1,
+            "rest": 1,
+            "thief": 1,
+            "snore": 1,
+            "protect": 1,
+            "charm": 1,
+            "attract": 1,
+            "rain-dance": 1,
+            "facade": 1,
+            "swift": 1,
+            "helping-hand": 1,
+            "brick-break": 1,
+            "fling": 1,
+            "round": 1,
+            "volt-switch": 1,
+            "electroweb": 1,
+            "draining-kiss": 1,
+            "electric-terrain": 1
+        }
+    },
+    {
+        "_id": "halloween yveltal",
+        "stat": {
+            "hp": 126,
+            "atk": 131,
+            "def": 95,
+            "spatk": 131,
+            "spdef": 98,
+            "spd": 99
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 717,
+        "types": [
+            "da",
+            "fl"
+        ],
+        "abilities": [
+            {
+                "name": "dark-aura",
+                "hidden": false
+            }
+        ],
+        "height": 58,
+        "weight": 2030,
+        "base_exp": 306,
+        "moves": {
+            "hurricane": "1",
+            "razor-wind": "1",
+            "roost": "1",
+            "taunt": "1",
+            "double-team": "5",
+            "air-slash": "10",
+            "snarl": "18",
+            "oblivion-wing": "26",
+            "disable": "35",
+            "dark-pulse": "44",
+            "foul-play": "51",
+            "phantom-force": "55",
+            "psychic": "59",
+            "dragon-rush": "63",
+            "focus-blast": "72",
+            "sucker-punch": "80",
+            "hyper-beam": "88",
+            "sky-attack": "93"
+        },
+        "shiny": true,
+        "art": "pancake (890082014345191456) & Riri (277794693570494474)",
+        "tm": {
+            "dragon-claw": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "taunt": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "roost": 1,
+            "frustration": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "aerial-ace": 1,
+            "torment": 1,
+            "facade": 1,
+            "rest": 1,
+            "thief": 1,
+            "round": 1,
+            "steel-wing": 1,
+            "focus-blast": 1,
+            "sky-drop": 1,
+            "acrobatics": 1,
+            "embargo": 1,
+            "shadow-claw": 1,
+            "giga-impact": 1,
+            "fly": 1,
+            "rock-slide": 1,
+            "dream-eater": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "u-turn": 1,
+            "substitute": 1,
+            "snarl": 1,
+            "dark-pulse": 1,
+            "confide": 1
+        }
+    },
+    {
+        "_id": "halloween phantump",
+        "stat": {
+            "hp": 43,
+            "atk": 70,
+            "def": 48,
+            "spatk": 50,
+            "spdef": 60,
+            "spd": 38
+        },
+        "id": 708,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "gh",
+            "g"
+        ],
+        "abilities": [
+            {
+                "name": "natural-cure",
+                "hidden": false
+            },
+            {
+                "name": "frisk",
+                "hidden": false
+            },
+            {
+                "name": "harvest",
+                "hidden": true
+            }
+        ],
+        "height": 4,
+        "weight": 70,
+        "base_exp": 62,
+        "art": "Riri (277794693570494474)",
+        "moves": {
+            "confuse-ray": "1",
+            "tackle": "1",
+            "astonish": "5",
+            "growth": "8",
+            "ingrain": "13",
+            "feint-attack": "19",
+            "leech-seed": "23",
+            "curse": "28",
+            "will-o-wisp": "31",
+            "forest's-curse": "35",
+            "destiny-bond": "39",
+            "phantom-force": "45",
+            "wood-hammer": "49",
+            "horn-leech": "54"
+        },
+        "tm": {
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "protect": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "energy-ball": 1,
+            "will-o-wisp": 1,
+            "shadow-claw": 1,
+            "bulldoze": 1,
+            "rock-slide": 1,
+            "poison-jab": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "nature-power": 1,
+            "dark-pulse": 1,
+            "confide": 1
+        }
+    },
+    {
+        "_id": "halloween trevenant",
+        "stat": {
+            "hp": 85,
+            "atk": 110,
+            "def": 76,
+            "spatk": 65,
+            "spdef": 82,
+            "spd": 56
+        },
+        "id": 709,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "gh",
+            "g"
+        ],
+        "abilities": [
+            {
+                "name": "natural-cure",
+                "hidden": false
+            },
+            {
+                "name": "frisk",
+                "hidden": false
+            },
+            {
+                "name": "harvest",
+                "hidden": true
+            }
+        ],
+        "height": 15,
+        "weight": 710,
+        "base_exp": 166,
+        "art": "Riri (277794693570494474)",
+        "moves": {
+            "astonish": "5",
+            "confuse-ray": "1",
+            "growth": "8",
+            "horn-leech": "54",
+            "shadow-claw": "1",
+            "tackle": "1",
+            "ingrain": "13",
+            "feint-attack": "19",
+            "leech-seed": "23",
+            "curse": "28",
+            "will-o-wisp": "31",
+            "forest's-curse": "35",
+            "destiny-bond": "39",
+            "phantom-force": "45",
+            "wood-hammer": "49"
+        },
+        "tm": {
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "safeguard": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "earthquake": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "focus-blast": 1,
+            "energy-ball": 1,
+            "brutal-swing": 1,
+            "will-o-wisp": 1,
+            "shadow-claw": 1,
+            "giga-impact": 1,
+            "bulldoze": 1,
+            "rock-slide": 1,
+            "x-scissor": 1,
+            "poison-jab": 1,
+            "dream-eater": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "nature-power": 1,
+            "dark-pulse": 1,
+            "confide": 1
+        }
+    },
+    {
+        "_id": "halloween duskull",
+        "stat": {
+            "hp": 20,
+            "atk": 40,
+            "def": 90,
+            "spatk": 30,
+            "spdef": 90,
+            "spd": 25
+        },
+        "id": 355,
+        "legendary": "nonspawn-mythical",
+        "types": [
+            "gh"
+        ],
+        "abilities": [
+            {
+                "name": "levitate",
+                "hidden": false
+            },
+            {
+                "name": "frisk",
+                "hidden": true
+            }
+        ],
+        "height": 8,
+        "weight": 150,
+        "base_exp": 59,
+        "art": "Riri (277794693570494474)",
+        "moves": {
+            "leer": "1",
+            "night-shade": "1",
+            "disable": "6",
+            "astonish": "9",
+            "foresight": "14",
+            "shadow-sneak": "17",
+            "pursuit": "22",
+            "will-o-wisp": "25",
+            "confuse-ray": "30",
+            "curse": "33",
+            "hex": "38",
+            "shadow-ball": "41",
+            "mean-look": "46",
+            "payback": "49",
+            "future-sight": "54"
+        },
+        "shiny": true,
+        "tm": {
+            "calm-mind": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "sunny-day": 1,
+            "taunt": 1,
+            "ice-beam": 1,
+            "blizzard": 1,
+            "protect": 1,
+            "rain-dance": 1,
+            "frustration": 1,
+            "return": 1,
+            "psychic": 1,
+            "shadow-ball": 1,
+            "double-team": 1,
+            "torment": 1,
+            "facade": 1,
+            "rest": 1,
+            "attract": 1,
+            "thief": 1,
+            "round": 1,
+            "fling": 1,
+            "charge-beam": 1,
+            "will-o-wisp": 1,
+            "embargo": 1,
+            "payback": 1,
+            "psych-up": 1,
+            "infestation": 1,
+            "dream-eater": 1,
+            "swagger": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "trick-room": 1,
+            "dark-pulse": 1,
+            "confide": 1
+        }
+    },
+    {
+        "_id": "halloween guzzlord",
+        "stat": {
+            "hp": 223,
+            "atk": 101,
+            "def": 53,
+            "spatk": 97,
+            "spdef": 53,
+            "spd": 43
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 799,
+        "types": [
+            "da",
+            "dr"
+        ],
+        "abilities": [
+            {
+                "name": "beast-boost",
+                "hidden": false
+            }
+        ],
+        "height": 55,
+        "weight": 8880,
+        "base_exp": 257,
+        "shiny": true,
+        "art": "Riri (277794693570494474)",
+        "moves": {
+            "belch": "1",
+            "bite": "1",
+            "dragon-rage": "1",
+            "stockpile": "1",
+            "swallow": "1",
+            "wide-guard": "1",
+            "stomp": "7",
+            "brutal-swing": "13",
+            "steamroller": "19",
+            "dragon-tail": "23",
+            "iron-tail": "29",
+            "stomping-tantrum": "31",
+            "crunch": "37",
+            "hammer-arm": "43",
+            "thrash": "47",
+            "gastro-acid": "53",
+            "heavy-slam": "59",
+            "wring-out": "67",
+            "dragon-rush": "73"
+        },
+        "tm": {
+            "dragon-claw": 1,
+            "toxic": 1,
+            "hidden-power": 1,
+            "hyper-beam": 1,
+            "protect": 1,
+            "frustration": 1,
+            "smack-down": 1,
+            "earthquake": 1,
+            "return": 1,
+            "brick-break": 1,
+            "double-team": 1,
+            "sludge-wave": 1,
+            "flamethrower": 1,
+            "sludge-bomb": 1,
+            "fire-blast": 1,
+            "rock-tomb": 1,
+            "facade": 1,
+            "rest": 1,
+            "thief": 1,
+            "round": 1,
+            "fling": 1,
+            "brutal-swing": 1,
+            "shadow-claw": 1,
+            "payback": 1,
+            "giga-impact": 1,
+            "stone-edge": 1,
+            "gyro-ball": 1,
+            "bulldoze": 1,
+            "rock-slide": 1,
+            "dragon-tail": 1,
+            "poison-jab": 1,
+            "sleep-talk": 1,
+            "substitute": 1,
+            "snarl": 1,
+            "dark-pulse": 1
+        }
+    },
+    {
+        "_id": "halloween magearna",
+        "stat": {
+            "hp": 80,
+            "atk": 95,
+            "def": 115,
+            "spatk": 130,
+            "spdef": 115,
+            "spd": 65
+        },
+        "legendary": "nonspawn-mythical",
+        "id": 801,
+        "types": [
+            "s",
+            "fr"
+        ],
+        "abilities": [
+            {
+                "name": "soul-heart",
+                "hidden": false
+            }
+        ],
+        "height": 10,
+        "weight": 805,
+        "base_exp": 270,
+        "moves": {
+            "crafty-shield": "1",
+            "defense-curl": "1",
+            "gear-up": "1",
+            "helping-hand": "1",
+            "iron-head": "1",
+            "psybeam": "1",
+            "shift-gear": "1",
+            "sonic-boom": "1",
+            "lucky-chant": "9",
+            "aurora-beam": "17",
+            "mirror-shot": "25",
+            "mind-reader": "33",
+            "flash-cannon": "41",
+            "fleur-cannon": "49",
+            "iron-defense": "57",
+            "pain-split": "65",
+            "synchronoise": "73",
+            "aura-sphere": "81",
+            "heart-swap": "89",
+            "trump-card": "97"
+        },
+        "shiny": true,
+        "tm": {
+            "calm-mind": 1,
+            "hidden-power": 1,
+            "ice-beam": 1,
+            "hyper-beam": 1,
+            "light-screen": 1,
+            "protect": 1,
+            "frustration": 1,
+            "solar-beam": 1,
+            "thunderbolt": 1,
+            "return": 1,
+            "shadow-ball": 1,
+            "brick-break": 1,
+            "double-team": 1,
+            "reflect": 1,
+            "round": 1,
+            "echoed-voice": 1,
+            "focus-blast": 1,
+            "energy-ball": 1,
+            "false-swipe": 1,
+            "charge-beam": 1,
+            "embargo": 1,
+            "explosion": 1,
+            "giga-impact": 1,
+            "volt-switch": 1,
+            "thunder-wave": 1,
+            "gyro-ball": 1,
+            "grass-knot": 1,
+            "swagger": 1,
+            "substitute": 1,
+            "flash-cannon": 1,
+            "trick-room": 1,
+            "dazzling-gleam": 1,
+            "confide": 1
+        }
+    }
+]
