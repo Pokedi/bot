@@ -1,3 +1,5 @@
+import Pokemon from "./pokemon.js";
+
 class Player {
     constructor(info = { id } = {}) {
         this.id = info.id;
@@ -46,6 +48,39 @@ class Player {
             },
             data: this.toJSON()
         })
+    }
+
+    async levelUp(prisma) {
+        console.log("Leveling up a User");
+        this.exp += 2;
+        return await prisma.users.update({
+            where: {
+                id: this.id
+            },
+            data: {
+                level: ((this.level || 1) * 30 <= this.exp) ? ++this.level : this.level,
+                exp: ((this.level || 1) * 30 <= this.exp) ? 0 : this.exp
+            }
+        }), ((this.level || 1) * 30 > this.exp);
+    }
+
+    // Pokemon Level up Function via User
+    async pokemonLevelUp(prisma, msg, level) {
+
+        // Ignore if no Pokemon selected
+        if (!this.selected[0]) return false;
+
+        // Ready Pokemon Class
+        const pokemon = new Pokemon({ id: this.selected[0] });
+
+        // Fetch Pokemon
+        await pokemon.fetchPokemon(prisma);
+
+        // Check Pokemon
+        if (!pokemon.user_id) return false;
+
+        // Level Up
+        await pokemon.levelUp(prisma, msg, level);
     }
 }
 
