@@ -7446,12 +7446,14 @@
                     "name": "cosmoem"
                 }
             },
-            "name": {
-                "sun": {
-                    "name": "solgaleo"
+            "time": {
+                "day": {
+                    "name": "solgaleo",
+                    "level": 54
                 },
-                "moon": {
-                    "name": "lunala"
+                "night": {
+                    "name": "lunala",
+                    "level": 54
                 }
             }
         },

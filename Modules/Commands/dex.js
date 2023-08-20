@@ -111,7 +111,7 @@ export default {
             })));
             (selectedPokemon?.evolution?.['time'] && (secondEmbed.fields.push({
                 name: "Time",
-                value: Object.entries(selectedPokemon.evolution['time'] || {}).map(x => `**${capitalize(x[0])}** + Level Up => ${capitalize(x[1].name)}`).join("\n") || "~ Not Available ~",
+                value: Object.entries(selectedPokemon.evolution['time'] || {}).map(x => `**${capitalize(x[0])}** + Level Up ${x[1].level ? "to Level " + x[1].level + " " : ""}=> ${capitalize(x[1].name)}`).join("\n") || "~ Not Available ~",
             })));
             (selectedPokemon?.evolution?.['name'] && (secondEmbed.fields.push({
                 name: "Channel Name",

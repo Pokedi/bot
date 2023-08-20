@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
+import axios from "axios";
 
 export default {
     help: "",

@@ -1,3 +1,5 @@
-import allPokemon from "./Utilities/Data/pokemon.js";
+import Pokemon from "./Classes/pokemon.js";
+// import allPokemon from "./Utilities/Data/pokemon.js";
 
-console.log(allPokemon.length);
+const p = new Pokemon({});
+
