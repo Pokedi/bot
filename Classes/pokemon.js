@@ -6,11 +6,13 @@ import filterPokemon from "../Utilities/Pokemon/filterPokemon.js";
 import randomint from "../Utilities/Misc/randomint.js";
 import spawnImage from "../Utilities/Pokemon/spawnImage.js";
 import time_gradient from "../Utilities/Misc/time_gradient.js";
+import calculateNextLevelEXP from "../Utilities/Pokemon/calculateNextLevelEXP.js";
+import getTime from "../Utilities/Misc/getTime.js";
 const chance = Chance();
 
 class Pokemon {
     constructor(pokemonObject = { id, user_id, guild_id, pokemon, s_hp, s_atk, s_def, s_spatk, s_spdef, s_spd, s_hp, level, exp, nature, shiny, gender, name, item, m_1, m_2, m_3, m_4 }) {
-        if (pokemonObject?.pokemon) {
+        if (pokemonObject?.pokemon || pokemonObject?.id) {
             this.id = pokemonObject.id;
             this.idx = pokemonObject.idx;
             this.user_id = pokemonObject.user_id;
@@ -139,11 +141,11 @@ class Pokemon {
         }
     }
 
-    async save(prisma) {
+    async save(prisma, data) {
         if (!prisma) return false;
         if (!this.id) return await prisma.pokemon.create({ data: this.toJSON() });
         return await prisma.pokemon.update({
-            data: this.toJSON(),
+            data: data || this.toJSON(),
             where: {
                 id: this.id
             }
@@ -159,8 +161,14 @@ class Pokemon {
         return findPokemon(this.pokemon) || {};
     }
 
-    getNextLevelEXP() {
-        return calculateNextLevelEXP(this.level, this.getDetails().base_exp);
+    getNextLevelEXP(level = this.level) {
+        return calculateNextLevelEXP(level, this.getDetails().base_exp);
+    }
+
+    gainedEXP(level = this.level) {
+        const faintedPokemonLevel = Chance().d12();
+        const gainedEXP = (((this.getDetails().base_exp * faintedPokemonLevel) / (5 * 1)) * Math.pow(((faintedPokemonLevel * 2 + 10) / (faintedPokemonLevel + level + 10)), 2.5) + 1);
+        return gainedEXP;
     }
 
     getBaseStats() {
@@ -223,6 +231,91 @@ class Pokemon {
                 unclaimed_shinies: this.shiny ? 1 : 0
             }
         });
+    }
+
+    async levelUp(prisma, msg, increaseLevel = 0) {
+        // Return if above Level 100
+        if (this.level >= 100) return false;
+
+        // Check if Info available
+        const info = this.getDetails();
+        // Return if Not-Existent
+        if (!info) return true;
+
+        // Gained EXP
+        const nextEXP = this.gainedEXP(this.level);
+
+        // Reassign EXP
+        this.exp += nextEXP;
+
+        // toReach
+        const expToReach = this.getNextLevelEXP(this.level + 1) - this.getNextLevelEXP(this.level);
+
+        // Increase EXP
+        if (this.exp >= expToReach) this.level++;
+        // Increase Level if forced
+        if (increaseLevel) this.level += increaseLevel;
+        // Fix overIncreased Level
+        if (this.level >= 100) this.level = 100;
+
+        // Check if Everstone || Ignore if evolution not available
+        if (this.item == "everstone" || !info.evolution) return await this.save(prisma, { level: this.level, exp: this.exp });
+        // Check Pokemon through Levels
+        const { level: evoLevel, time: evoTime, name: evoName } = info.evolution;
+
+        // Evolved Pokemon Variable
+        let evolvedPokemon;
+
+        // Level Evolutions
+        if (evoLevel) {
+            let currentPokemon = this.pokemon;
+            const pokemonLevel = Object.entries(evoLevel).find(x => x[1].name == currentPokemon)[0];
+            for (const row in evoLevel) {
+                const levelPokemon = evoLevel[row].name;
+                if (parseInt(row) <= this.level && pokemonLevel <= parseInt(row) && !evolvedPokemon && levelPokemon != currentPokemon) evolvedPokemon = levelPokemon;
+            }
+        }
+
+        // Time-Based Evolutions
+        const currentTime = getTime();
+
+        if (evoTime) {
+            if (evoTime[currentTime]) {
+                if (!evoTime[currentTime].level || evoTime[currentTime].level <= this.level) {
+                    evolvedPokemon = evoTime[currentTime].name;
+                }
+            }
+        }
+
+        // Name-Based Evolutions
+        if (evoName && (this.name)) {
+            try {
+                const selectName = Object.keys(evoName).find(x => (new RegExp(x, "gmi")).test(this.name));
+                if (selectName) {
+                    if ((!evoName[selectName].level || evoName[selectName].level <= this.level) && (!evoName[selectName].time || evoName[selectName].time == currentTime)) {
+                        this.pokemon = evoName[selectName].name
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        // Channel-Based Evolutions
+        if (evoName && (msg && msg.channel.name)) {
+            try {
+                const selectName = Object.keys(evoName).find(x => (new RegExp(x, "gmi")).test(msg.channel.name));
+                if (selectName) {
+                    if ((!evoName[selectName].level || evoName[selectName].level <= this.level) && (!evoName[selectName].time || evoName[selectName].time == currentTime)) {
+                        this.pokemon = evoName[selectName].name
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        return await this.save(prisma, { level: this.level, exp: this.exp, pokemon: evolvedPokemon || this.pokemon });
     }
 }
 
