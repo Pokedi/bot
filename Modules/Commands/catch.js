@@ -25,7 +25,7 @@ export default {
                 pokemonGrabbed.user_id = BigInt(msg.user.id);
 
                 // Increment readied IDX
-                pokemonGrabbed.idx = ((await msg.client.pokemon.findFirst({
+                pokemonGrabbed.idx = ((await msg.client.prisma.pokemon.findFirst({
                     where: {
                         user_id: BigInt()
                     }, orderBy: { idx: "desc" }
