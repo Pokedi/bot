@@ -40,13 +40,13 @@ class Player {
         }
     }
 
-    async save(prisma) {
+    async save(prisma, data) {
         if (!this.id) return false;
         return prisma.users.update({
             where: {
                 id: this.id
             },
-            data: this.toJSON()
+            data: data || this.toJSON()
         })
     }
 
@@ -80,8 +80,9 @@ class Player {
         if (!pokemon.user_id) return false;
 
         // Level Up
-        await pokemon.levelUp(prisma, msg, level);
+        return await pokemon.levelUp(prisma, msg, level);
     }
+
 }
 
 export default Player;
