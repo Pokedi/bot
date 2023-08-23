@@ -24,7 +24,7 @@ model channels {
   multi                 Boolean?                @default(false)
   multiplier            Int?                    @default(0)
   guilds                guilds                  @relation(fields: [guild_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  command_configuration command_configuration[] @ignore
+  command_configuration command_configuration[]
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -35,10 +35,9 @@ model command_configuration {
   disabled   Boolean?  @default(false)
   rate_limit Int?      @default(0)
   config     String?
+  id         BigInt    @id @default(autoincrement())
   channels   channels? @relation(fields: [channel_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   guilds     guilds?   @relation(fields: [guild_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@ignore
 }
 
 model dex {
@@ -59,7 +58,7 @@ model guilds {
   prefix                String?
   redirects             BigInt[]
   channels              channels[]
-  command_configuration command_configuration[] @ignore
+  command_configuration command_configuration[]
   pokemon               pokemon[]
 }
 
@@ -84,24 +83,15 @@ model voucher {
 model claimed_vouchers {
   id      String
   user_id BigInt
-  users   users   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   voucher voucher @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users   users   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@id([id, user_id])
-}
-
-model logs {
-  id     BigInt  @id @default(autoincrement())
-  type   String
-  driver String
-  uid    BigInt?
-  note   String?
 }
 
 model pokemon {
   id                       BigInt    @id @default(autoincrement())
   user_id                  BigInt?
-  guild_id                 BigInt?
   idx                      Int?
   timestamp                DateTime? @default(now()) @db.Timestamptz(6)
   market                   Boolean?  @default(false)
@@ -144,12 +134,13 @@ model pokemon {
   fusion                   BigInt?
   fav                      Boolean?
   mega                     String?
-  pokemon_pokemonTopokemon pokemon?  @relation("pokemonTopokemon", fields: [fusion], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  users                    users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  guilds                   guilds?   @relation(fields: [guild_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  guild_id                 BigInt?
   auction                  auction[]
   market_marketTopokemon   market?
+  pokemon_pokemonTopokemon pokemon?  @relation("pokemonTopokemon", fields: [fusion], references: [id], onDelete: Cascade, onUpdate: NoAction)
   other_pokemon            pokemon[] @relation("pokemonTopokemon")
+  guilds                   guilds?   @relation(fields: [guild_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users                    users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model user_inventory {
@@ -188,9 +179,32 @@ model users {
   exp              Int?               @default(0)
   level            Int?               @default(1)
   auction          auction[]
+  claimed_vouchers claimed_vouchers[]
   dex              dex[]
+  logs             logs[]
   pokemon          pokemon[]
   user_inventory   user_inventory[]
   user_vote        user_vote[]
-  claimed_vouchers claimed_vouchers[]
+}
+
+model product {
+  id          String  @id
+  name        String
+  cost        Int
+  value       String
+  description String?
+  amount      Int?
+  disabled    Boolean @default(false)
+  type        String
+}
+
+model logs {
+  id        BigInt    @id @default(autoincrement())
+  user_id   BigInt?
+  type      String
+  value     String
+  previous  String
+  timestamp DateTime? @default(now()) @db.Timestamptz(6)
+  note      String?
+  users     users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }

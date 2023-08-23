@@ -157,6 +157,11 @@ class Pokemon {
         return Object.assign(this, new Pokemon(await prisma.pokemon.findFirst({ where: { id: this.id } }) || {}));
     }
 
+    async fetchPokemonByIDX(prisma) {
+        if (!prisma) return false;
+        return Object.assign(this, new Pokemon(await prisma.pokemon.findFirst({ where: { idx: this.idx, user_id: this.user_id } }) || {}));
+    }
+
     getDetails() {
         return findPokemon(this.pokemon) || {};
     }
@@ -251,15 +256,23 @@ class Pokemon {
         // toReach
         const expToReach = this.getNextLevelEXP(this.level + 1) - this.getNextLevelEXP(this.level);
 
+        // Pre-Level
+        const preLevel = this.level;
+
         // Increase EXP
-        if (this.exp >= expToReach) this.level++;
+        if (this.exp >= expToReach) this.level++, this.exp = 0;
         // Increase Level if forced
         if (increaseLevel) this.level += increaseLevel;
         // Fix overIncreased Level
         if (this.level >= 100) this.level = 100;
 
         // Check if Everstone || Ignore if evolution not available
-        if (this.item == "everstone" || !info.evolution) return await this.save(prisma, { level: this.level, exp: this.exp });
+        if (this.item == "everstone" || !info.evolution)
+            // Save
+            return await this.save(prisma, { level: this.level, exp: this.exp }),
+                // Returned Obj
+                { levelIncreased: preLevel != this.level, level: this.level, pokemon: this.pokemon };
+
         // Check Pokemon through Levels
         const { level: evoLevel, time: evoTime, name: evoName } = info.evolution;
 
@@ -293,7 +306,7 @@ class Pokemon {
                 const selectName = Object.keys(evoName).find(x => (new RegExp(x, "gmi")).test(this.name));
                 if (selectName) {
                     if ((!evoName[selectName].level || evoName[selectName].level <= this.level) && (!evoName[selectName].time || evoName[selectName].time == currentTime)) {
-                        this.pokemon = evoName[selectName].name
+                        evolvedPokemon = evoName[selectName].name
                     }
                 }
             } catch (error) {
@@ -307,7 +320,7 @@ class Pokemon {
                 const selectName = Object.keys(evoName).find(x => (new RegExp(x, "gmi")).test(msg.channel.name));
                 if (selectName) {
                     if ((!evoName[selectName].level || evoName[selectName].level <= this.level) && (!evoName[selectName].time || evoName[selectName].time == currentTime)) {
-                        this.pokemon = evoName[selectName].name
+                        evolvedPokemon = evoName[selectName].name
                     }
                 }
             } catch (error) {
@@ -315,7 +328,10 @@ class Pokemon {
             }
         }
 
-        return await this.save(prisma, { level: this.level, exp: this.exp, pokemon: evolvedPokemon || this.pokemon });
+        // Save
+        return await this.save(prisma, { level: this.level, exp: this.exp, pokemon: evolvedPokemon || this.pokemon }),
+            // Returned Obj
+            { levelIncreased: preLevel != this.level, level: this.level, hasEvolved: evolvedPokemon != this.pokemon, pokemon: this.pokemon, evolvedPokemon };
     }
 }
 

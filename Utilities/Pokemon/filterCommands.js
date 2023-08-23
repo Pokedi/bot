@@ -102,6 +102,9 @@ IVs.forEach(y => {
 });
 
 function checkFilter(list, query = "") {
+    // Default --name filter if not used but other files used
+    if (query && /^\w+/gmi.test(query) && !query.includes("--name")) query = "--name " + query;
+
     const simplifiedQuery = query.split(/(--\w+|—\w+)/gim).map(x => x.trim()).filter(x => x);
 
     for (let index = 0; index < simplifiedQuery.length; index++) {
