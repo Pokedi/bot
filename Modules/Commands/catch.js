@@ -14,12 +14,29 @@ export default {
         if (msg.channel.spawn && msg.channel.spawn.pokemon) {
             const possibleNames = [msg.channel.spawn.pokemon.pokemon].concat(msg.channel.spawn.pokemon.spawn_names).filter(x => x);
             if (possibleNames.includes(content)) {
+
+                // Get spawn Pokemon to cache
                 const pokemonGrabbed = msg.channel.spawn.pokemon;
+
+                // Remove pokemon from the grass
                 delete msg.channel.spawn.pokemon;
+
+                // Attach User
                 pokemonGrabbed.user_id = BigInt(msg.user.id);
-                pokemonGrabbed.idx = (await axios.get('http://localhost:483/user/idx/' + msg.user.id)).data.idx;
+
+                // Increment readied IDX
+                pokemonGrabbed.idx = ((await msg.client.pokemon.findFirst({
+                    where: {
+                        user_id: BigInt()
+                    }, orderBy: { idx: "desc" }
+                }))?.idx || 0) + 1;
+                
+                // Save to DB
                 await pokemonGrabbed.save(msg.client.prisma);
+
+                // Add to User's Dex
                 await pokemonGrabbed.addToUserDex(msg.client.prisma);
+
                 return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon)}!`)
             } else
                 msg.reply({ ephemeral: true, content: "Wrong guess!" });
