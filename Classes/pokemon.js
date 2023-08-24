@@ -159,6 +159,7 @@ class Pokemon {
 
     async fetchPokemonByIDX(prisma) {
         if (!prisma) return false;
+        if (!this.idx) return this.fetchPokemon(prisma);
         return Object.assign(this, new Pokemon(await prisma.pokemon.findFirst({ where: { idx: this.idx, user_id: this.user_id } }) || {}));
     }
 
