@@ -30,4 +30,10 @@ commandsInit(undefined, client);
 
 client.login(process.env.DEVTOKEN);
 
+process.on("SIGINT", ()=>{
+    console.log(`[${new Date().toLocaleString()}][WATCHDOG] Process was exited!`)
+    client.destroy();
+    process.exit();
+})
+
 export { client, prisma };
