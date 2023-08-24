@@ -274,7 +274,9 @@ export default {
             case "stones": {
                 const stone = msg.options.getString("stone");
 
-                if (user.bal < items[stone]) return msg.reply(loca(guild, "207"));
+                const stoneData = await msg.client.prisma.product.findFirst({ where: { id: stone } });
+
+                if (user.bal < stoneData.cost) return msg.reply(`you need at least ${stoneData.cost} pokedits for that.`);
 
                 const id = msg.options.getInteger("id");
 
