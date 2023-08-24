@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
-import Player from "../../Classes/player";
-import Pokemon from "../../Classes/pokemon";
+import Player from "../../Classes/player.js";
+import Pokemon from "../../Classes/pokemon.js";
 import { Chance } from "chance";
 
 export default {
@@ -203,11 +203,21 @@ export default {
             )
             .addSubcommand(y => y
                 .setName("forms")
-                .setDescription("Forms & Mega Evolutions ||  Items & Plates, ya know?")
+                .setDescription("Forms & Mega Evolutions || Items & Plates, ya know?")
+                .addStringOption(x => x.setName('item-name').setDescription("Name of the Form, Item, or State."))
+                .addIntegerOption(y => y
+                    .setName("id")
+                    .setDescription("ID of the pokemon if provided")
+                    .setMinValue(1)
+                )
             )
             .addSubcommand(y => y
                 .setName("misc")
                 .setDescription("Forms, my tears, and so much more!")
+            )
+            .addSubcommand(y => y
+                .setName("menu")
+                .setDescription("Shows you a Menu you might like")
             )
         ),
     async execute(msg) {
@@ -271,36 +281,48 @@ export default {
                 )}`);
             }
 
-            case "stones": {
-                const stone = msg.options.getString("stone");
+            case "stones":
+            case "forms":
+                {
+                    const product = msg.options.getString("stone") || msg.options.getString("forms");
 
-                const stoneData = await msg.client.prisma.product.findFirst({ where: { id: stone } });
+                    const productData = await msg.client.prisma.product.findFirst({ where: { id: product } });
 
-                if (user.bal < stoneData.cost) return msg.reply(`you need at least ${stoneData.cost} pokedits for that.`);
+                    if (player.bal < productData.cost) return msg.reply(`you need at least ${productData.cost} pokedits for that.`);
 
-                const id = msg.options.getInteger("id");
+                    const id = msg.options.getInteger("id");
 
-                let selectedPokemon = await selectPokemon(msg.user.id, sql, id ? id : null);
+                    let selectedPokemon = new Pokemon(id ? { idx: id, user_id: msg.user.id } : { id: player.selected[0] });
 
-                if (!selectedPokemon) return msg.reply("Pokemon does not exist");
+                    await selectedPokemon.fetchPokemonByIDX(msg.client.prisma);
 
-                const basePokemon = lookupPokemon(selectedPokemon.pokemon);
+                    if (!selectedPokemon.pokemon) return msg.reply("Pokemon does not exist...");
 
-                const evoPokemon = basePokemon?.evolution?.items?.[stone]?.name;
+                    const basePokemon = selectedPokemon.getDetails();
 
-                if (!evoPokemon) return msg.reply("❎📦❎");
+                    const evoPokemon = basePokemon?.evolution?.items?.[product]?.name;
 
-                await sql`UPDATE pokemon SET pokemon = ${evoPokemon} WHERE id = ${selectedPokemon.id}`;
+                    if (!evoPokemon) return msg.reply("❎ Yeah that Item doesn't work for this lil guy. Sorry. ❎");
 
-                await sql`UPDATE users SET bal = bal - ${items[stone] || 100} WHERE id = ${msg.user.id}`;
+                    await selectedPokemon.save(msg.client.prisma, { pokemon: evoPokemon });
 
-                redisUpdate.push(msg.user.id, "pokemon");
+                    await player.save({
+                        bal: {
+                            decrement: productData.cost || 0
+                        }
+                    });
 
-                return msg.reply(loca(guild, "219", {
-                    pk: capper(selectedPokemon.pokemon),
-                    pk2: capper(evoPokemon)
-                }));
-            }
+                    return msg.reply(`your ${capitalize(selectedPokemon.pokemon)} was given a ${productData.name}. ${Chance().pickone(
+                        [
+                            "It posed like Sailor Moon and turned into a " + capitalize(evoPokemon),
+                            "Power Rangers Pokemon Fury! Go! I summon you, " + capitalize(evoPokemon),
+                            "Wow, puberty hits harder these days.",
+                            "I don't know if it's the meds but something's different about them.",
+                            "My sweet child has grown up so fast. Give grandpa a kiss."
+                        ]
+                    )}`);
+
+                }
         }
     }
 }
