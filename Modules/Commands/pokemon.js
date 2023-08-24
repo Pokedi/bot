@@ -93,7 +93,7 @@ export default {
                     return `\`${" ".repeat(numberLength - (x.idx).toString().length)}${x.idx}\`　　${capitalize(x.pokemon)} ${x.name ? "\"**" + capitalize(x.name) + "**\"" : ""}${x.shiny ? " ⭐" : ""}　•　Level: ${x.level}　•　**IV**: ${x.totalIV}%`;
                 }).join("\n")}`,
                 footer: {
-                    text: `Showing ${(page + 1) * 20 - 19} - ${(page + 1) * 20} of ${allPokemon.length} Pokémon matching this search. [ Page ${page || 1} ]`
+                    text: `Showing ${(page + 1) * 20 - 19} - ${(page + 1) * 20} of ${passedFilteredPokemon.length} Pokémon matching this search. [ Page ${page || 1} ]`
                 },
                 color: 44678
             }]
