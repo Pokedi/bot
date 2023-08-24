@@ -263,7 +263,7 @@ export default {
 
                 selectedPokemon.save(msg.client.prisma, { nature: selectedNature })
 
-                await player.save({
+                await player.save(msg.client.prisma, {
                     bal: {
                         decrement: 500
                     }
@@ -306,7 +306,7 @@ export default {
 
                     await selectedPokemon.save(msg.client.prisma, { pokemon: evoPokemon });
 
-                    await player.save({
+                    await player.save(msg.client.prisma, {
                         bal: {
                             decrement: productData.cost || 0
                         }
