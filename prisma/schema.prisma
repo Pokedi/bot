@@ -191,7 +191,7 @@ model product {
   id          String  @id
   name        String
   cost        Int
-  value       String
+  value       String?
   description String?
   amount      Int?
   disabled    Boolean @default(false)
