@@ -18,7 +18,7 @@ export default {
         const selectedPokemon = await msg.client.prisma.pokemon.findFirst({
             where: content.includes("l") ? {
                 user_id: BigInt(msg.user.id)
-            } : {
+            } : !isID && msg.user.player.selected[0] ? { id: msg.user.player.selected[0] } : {
                 user_id: BigInt(msg.user.id),
                 idx: parseInt(content)
             },
