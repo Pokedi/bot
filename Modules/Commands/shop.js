@@ -2,6 +2,7 @@ import { SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
 import Pokemon from "../../Classes/pokemon.js";
 import { Chance } from "chance";
+import capitalize from "../../Utilities/Misc/capitalize.js";
 
 export default {
     help: "",
@@ -269,7 +270,7 @@ export default {
                     }
                 });
 
-                return msg.reply(`your ${capitalize(selectedPokemon.pokemon)} was given a ${selectedNature} mint. ${Chance().pickone(
+                return msg.reply(`Your ${capitalize(selectedPokemon.pokemon)} was given a ${selectedNature} mint. ${Chance().pickone(
                     [
                         "It also ate 500 credits from your wallet.",
                         "It snuck some snack money from you.",
@@ -284,7 +285,7 @@ export default {
             case "stones":
             case "forms":
                 {
-                    const product = msg.options.getString("stone") || msg.options.getString("forms");
+                    const product = msg.options.getString("stone") || msg.options.getString("item-name");
 
                     const productData = await msg.client.prisma.product.findFirst({ where: { id: product } });
 
@@ -312,7 +313,7 @@ export default {
                         }
                     });
 
-                    return msg.reply(`your ${capitalize(selectedPokemon.pokemon)} was given a ${productData.name}. ${Chance().pickone(
+                    return msg.reply(`Your ${capitalize(selectedPokemon.pokemon)} was given a ${productData.name}. ${Chance().pickone(
                         [
                             "It posed like Sailor Moon and turned into a " + capitalize(evoPokemon),
                             "Power Rangers Pokemon Fury! Go! I summon you, " + capitalize(evoPokemon),
@@ -323,6 +324,11 @@ export default {
                     )}`);
 
                 }
+            case "menu": {
+
+                return msg.reply("Still under construction");
+            }
+                break;
         }
     }
 }
