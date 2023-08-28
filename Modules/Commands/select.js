@@ -14,7 +14,7 @@ export default {
     async execute(msg) {
 
         const id = msg.options.getInteger('id');
-        const slot = msg.options.getInteger('slot');
+        const slot = (msg.options.getInteger('slot') || 1) - 1;
         const clearTeam = msg.options.getBoolean('clear');
 
         const userDB = new Player({ id: BigInt(msg.user.id) });
@@ -52,7 +52,7 @@ export default {
 
         await userDB.save(msg.client.prisma);
 
-        await msg.reply(`Successfully placed ${capitalize(fetchPokemon.pokemon)} (Nº ${id}) on slot Nº ${slot}`);
+        await msg.reply(`Successfully placed ${capitalize(fetchPokemon.pokemon)} (Nº ${id}) on slot Nº ${slot + 1}`);
 
     }
 }
