@@ -36,34 +36,35 @@ async function buttonVerification({ interaction, filter, time = 15000, button_id
 
         let final_filter = filter || (i => i.message.id == replied.id && users.includes(i.user.id) && (i.customId == "cancel" || i.customId == "approve"));
 
-        const collector = interaction.channel.createMessageComponentCollector({
-            componentType: ComponentType.Button, time: 25000
-        });
+        try {
+            const collector = interaction.channel.createMessageComponentCollector({
+                componentType: ComponentType.Button, time: 25000
+            });
 
-        collector.on('collect', async i => {
-            // await i.deferUpdate();
-            if (!final_filter(i)) return;
-            try {
-                const u = i.user.id;
-                if (i.customId == "cancel") {
-                    return i.update({ content: "This interaction was cancelled", components: [] }),
-                        resolve(false);
-                } else {
-                    if (!disable.includes(u)) {
-                        disable.push(u);
-                        const [buttons, content] = buttonMaker({ users, disable });
-                        await i.update({ embeds: [{ description: content }], components: (disable.length != users.length) ? [buttons] : [] });
-                        (disable.length == users.length && resolve(true));
+            collector.on('collect', async i => {
+                await i[i.replied ? "followUp" : "reply"]({ ephemeral: true, content: "<3" });
+                if (!final_filter(i)) return;
+                try {
+                    const u = i.user.id;
+                    if (i.customId == "cancel") {
+                        return replied.edit({ content: "This interaction was cancelled", components: [] }),
+                            resolve(false);
                     } else {
-                        i.deferUpdate();
+                        if (!disable.includes(u)) {
+                            disable.push(u);
+                            const [buttons, content] = buttonMaker({ users, disable });
+                            await replied.edit({ embeds: [{ description: content }], components: (disable.length != users.length) ? [buttons] : [] });
+                            (disable.length == users.length && resolve(true));
+                            return;
+                        }
                     }
+                } catch (error) {
+                    console.log(error);
                 }
-            } catch (error) {
-
-            }
-        });
-
-        collector.on('end', collected => { if (disable.length == users.length) { resolve(true); } else { resolve(false); } });
+                return;
+            });
+            collector.on('end', collected => { if (disable.length == users.length) { resolve(true); } else { resolve(false); } });
+        } catch (err) { console.log(err); }
     });
 }
 
