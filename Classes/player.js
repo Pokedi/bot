@@ -83,6 +83,21 @@ class Player {
         return await pokemon.levelUp(prisma, msg, level);
     }
 
+    // Set Trade
+    async setTrading(redis, withUser = 0) {
+        if (!withUser) return true;
+        return await redis.set(this.id + '-trade', withUser);
+    }
+
+    // Stops User Trade
+    async stopTrading(redis) {
+        return await redis.del(this.id + '-trade');
+    }
+
+    // isTrading?
+    async isTrading(redis) {
+        return await redis.get(this.id + '-trade');
+    }
 }
 
 export default Player;
