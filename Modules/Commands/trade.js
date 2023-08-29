@@ -1,4 +1,4 @@
-import { InteractionCollector, SlashCommandBuilder } from "discord.js";
+import { InteractionCollector, InteractionType, SlashCommandBuilder } from "discord.js";
 import Pokemon from "../../Classes/pokemon.js";
 import Player from "../../Classes/player.js";
 import buttonVerification from "../../Utilities/Core/buttonVerification.js";
@@ -164,12 +164,38 @@ export default {
 
             const collector = new InteractionCollector(msg.client, {
                 channel: msg.channel,
-                interactionType: 2, // ApplicationCommand
+                interactionType: InteractionType.ApplicationCommand, // ApplicationCommand
                 filter: x => {
                     return x.commandName == "trade" && [You.id, Them.id].includes(BigInt(x.user.id));
                 },
                 time: 3 * 60000
             });
+
+            const autoComplete = new InteractionCollector(msg.client, {
+                channel: msg.channel,
+                interactionType: InteractionType.ApplicationCommandAutocomplete,
+                filter: x => {
+                    return x.commandName == "trade" && [You.id, Them.id].includes(BigInt(x.user.id));
+                },
+                time: 3 * 60000
+            });
+
+            autoComplete.on("collect", async (interaction) => {
+                let text = interaction.options.getFocused();
+
+                let user_pokemon = (await msg.client.postgres`SELECT pokemon, s_hp, s_atk, s_def, s_spatk, s_spd, s_spdef, level, idx FROM pokemon WHERE user_id = ${interaction.user.id} AND pokemon LIKE ${text + "%"} LIMIT 20`);
+
+                if (!user_pokemon[0]) return;
+
+                interaction.respond(user_pokemon.map(e => {
+                    return {
+                        name: capitalize(e.pokemon) + " | Level: " + e.level + " | IV: " + (((e.s_hp + e.s_atk + e.s_def + e.s_spatk + e.s_spd + e.s_spdef) / 186) * 100).toFixed(2) + "%",
+                        value: e.idx
+                    }
+                }).splice(0, 25));
+            });
+
+            autoComplete.on("end", () => { });
 
             let cancelled = false;
             let confirmed = false;
@@ -189,7 +215,7 @@ export default {
                     // Assign Cancellation
                     cancelled = true;
                     // Stop Collector
-                    return collector.stop(), true;
+                    return autoComplete.stop(), collector.stop(), true;
                 };
 
                 // Switch Case
@@ -249,7 +275,8 @@ export default {
 
                         if (_trade[You.id].confirm && _trade[Them.id].confirm) {
                             confirmed = true;
-                            return collector.stop(), true;
+                            await m.reply({ ephemeral: true, content: "✅" })
+                            return autoComplete.stop(), collector.stop(), true;
                         }
                         break;
                 }
@@ -270,18 +297,24 @@ export default {
 
                 if (confirmed) {
 
-                    const maxPokemon1 = await msg.client.postgres`SELECT MAX(idx) FROM pokemon WHERE user_id = ${You.id};`
-                    const maxPokemon2 = await msg.client.postgres`SELECT MAX(idx) FROM pokemon WHERE user_id = ${Them.id};`
+                    try {
+                        let [{ max: maxPokemon1 }] = await msg.client.postgres`SELECT MAX(idx) as max FROM pokemon WHERE user_id = ${You.id};`
+                        let [{ max: maxPokemon2 }] = await msg.client.postgres`SELECT MAX(idx) as max FROM pokemon WHERE user_id = ${Them.id};`
 
-                    await msg.client.postgres.begin(sql => [
-                        sql`UPDATE users SET bal = ${_trade[You.id].c} + bal - ${_trade[Them.id].c} , redeem = ${_trade[You.id].r} + redeem - ${_trade[Them.id].r} WHERE id = ${Them.id}`,
-                        sql`UPDATE users SET bal = ${_trade[Them.id].c} + bal - ${_trade[You.id].c} , redeem = ${_trade[Them.id].r} + redeem - ${_trade[You.id].r} WHERE id = ${You.id}`,
-                        ..._trade[You.id].p.map(x => sql`UPDATE pokemon SET idx = ${++maxPokemon1} WHERE id = ${x.id}`)
-                    ]);
+                        await msg.client.postgres.begin(sql => [
+                            sql`UPDATE users SET bal = ${_trade[You.id].c} + bal - ${_trade[Them.id].c} , redeem = ${_trade[You.id].r} + redeem - ${_trade[Them.id].r} WHERE id = ${Them.id}`,
+                            sql`UPDATE users SET bal = ${_trade[Them.id].c} + bal - ${_trade[You.id].c} , redeem = ${_trade[Them.id].r} + redeem - ${_trade[You.id].r} WHERE id = ${You.id}`,
+                            ..._trade[Them.id].p.map(x => sql`UPDATE pokemon SET idx = ${++maxPokemon1}, user_id = ${You.id}, pokemon = ${evolvePokemon(x.pokemon)} WHERE id = ${x.id}`),
+                            ..._trade[You.id].p.map(x => sql`UPDATE pokemon SET idx = ${++maxPokemon2}, user_id = ${Them.id}, pokemon = ${evolvePokemon(x.pokemon)} WHERE id = ${x.id}`)
+                        ]);
 
-                    return await msg.followUp(`Trade confirmed:
-<@${You.id}> was willing to give up ${_trade[You.id].c || 0} credits, ${_trade[You.id].r || 0} redeems, and ${_trade[You.id].p.length} Pokemon
-<@${Them.id}> was willing to give up ${_trade[Them.id].c || 0} credits, ${_trade[Them.id].r || 0} redeems, and ${_trade[Them.id].p.length} Pokemon`);
+                        return await msg.followUp(`Trade confirmed:
+<@${You.id}> was willing to give up ${_trade[You.id].c || 0} credits, ${_trade[You.id].r || 0} redeems, and ${_trade[You.id].p.length} Pokemon.
+<@${Them.id}> was willing to give up ${_trade[Them.id].c || 0} credits, ${_trade[Them.id].r || 0} redeems, and ${_trade[Them.id].p.length} Pokemon.`);
+                    } catch (error) {
+                        console.log(error);
+                        return await msg.followUp("An Error occured... Please try again later.");
+                    }
                 }
                 return await msg.followUp("Apparently nothing happened in time...");
             });
