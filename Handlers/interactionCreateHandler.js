@@ -5,26 +5,34 @@ async function interactionCreateHandler(event) {
         return;
 
     // Init Channel
-    if (!msg.channel.info) msg.channel.info = await msg.client.prisma.channels.findFirst({
-        where: {
-            id: BigInt(msg.channel.id)
-        }
-    }) || {}, msg.channel.configs = Object.assign(...(await msg.client.prisma.command_configuration.findMany({
-        where: {
-            channel_id: BigInt(msg.channel.id)
-        }
-    })).map(x => ({ [x.command]: x })));
+    if (!msg.channel.info) {
+        msg.channel.info = await msg.client.prisma.channels.findFirst({
+            where: {
+                id: BigInt(msg.channel.id)
+            }
+        }) || {};
+        const configs = (await msg.client.prisma.command_configuration.findMany({
+            where: {
+                channel_id: BigInt(msg.channel.id)
+            }
+        }) || []).map(x => ({ [x.command]: x }))
+        msg.channel.configs = configs.length ? Object.assign(...configs) : {};
+    }
 
     // Init Guild
-    if (!msg.guild.info) msg.guild.info = await msg.client.prisma.guilds.findFirst({
-        where: {
-            id: BigInt(msg.guild.id)
-        }
-    }) || {}, msg.guild.configs = Object.assign(...(await msg.client.prisma.command_configuration.findMany({
-        where: {
-            guild_id: BigInt(msg.guild.id)
-        }
-    })).map(x => ({ [x.command]: x })));
+    if (!msg.guild.info) {
+        msg.guild.info = await msg.client.prisma.guilds.findFirst({
+            where: {
+                id: BigInt(msg.guild.id)
+            }
+        }) || {};
+        const configs = (await msg.client.prisma.command_configuration.findMany({
+            where: {
+                guild_id: BigInt(msg.guild.id)
+            }
+        }) || []).map(x => ({ [x.command]: x }))
+        msg.guild.configs = configs.length ? Object.assign(...configs) : {};
+    }
 
     if (msg.client.commands.get(msg.commandName))
         return msg.client.commands.get(msg.commandName)(msg);
