@@ -1,5 +1,3 @@
-import { prisma } from "../Services/Main/index.js";
-
 async function interactionCreateHandler(event) {
     let msg = event;
 
