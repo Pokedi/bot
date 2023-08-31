@@ -12,22 +12,43 @@ async function messageCreate(msg, e) {
         return;
 
     // Spawn System
-    if (!msg.channel.spawn) msg.channel.spawn = { count: chance.integer({ min: 30, max: 140 }), pokemon: {} };
+    if (!msg.channel.spawn) msg.channel.spawn = { count: chance.integer({ min: 30, max: 140 }), pokemon: {}, lastSpawn: Date.now() };
 
     // Decrementing Count for Spawn
     msg.channel.spawn.count--;
 
     // Spawn 
-    if (msg.channel.spawn.count < 0) {
+    spawnIF: if (msg.channel.spawn.count < 0 && Date.now() - msg.channel.spawn.lastSpawn > (1000 * 60 * 2)) {
+        // Reassignment
         msg.channel.spawn.count = chance.integer({ min: 30, max: 200 });
+        msg.channel.spawn.lastSpawn = Date.now();
 
-        // Initializing New Pokemon
-        msg.channel.spawn.pokemon = new Pokemon({});
-        // Spawn Pokemon Execution
-        msg.channel.spawn.pokemon.spawnFriendly();
-        // Send Message Test
-        // msg.channel.send("Pokemon to Spawn Config: " + JSON.stringify(msg.channel.spawn.pokemon));
-        await msg.channel.spawn.pokemon.spawnToChannel(msg);
+        // IF Guild disabled, break
+        if (msg.guild.configs?.spawn?.disabled) break spawnIF;
+
+        const channelToRedirectTo = msg.guild?.configs?.spawn?.config ? chance.pickone(msg.guild.configs.spawn.config.split(",")) : msg.channel.id;
+
+        let channelSelected;
+
+        try {
+            // Fetch selected Channel
+            channelSelected = msg.guild.channels.cache.get(channelToRedirectTo) || await msg.guild.channels.fetch(channelToRedirectTo);
+
+            // Break if doesn't exist
+            if (!channelSelected) break spawnIF;
+
+            // Reassign for newly selected Channel
+            if (!channelSelected.spawn) channelSelected.spawn = { count: chance.integer({ min: 30, max: 140 }), pokemon: {}, lastSpawn: Date.now() };
+
+            // Initializing New Pokemon
+            channelSelected.pokemon = new Pokemon({});
+            // Spawn Pokemon Execution
+            channelSelected.pokemon.spawnFriendly();
+            // Send Spawn
+            await channelSelected.pokemon.spawnToChannel(channelSelected);
+        } catch (err) {
+            break spawnIF;
+        };
     }
 
     if (!msg.author.player) msg.author.player = new Player(msg.author), await msg.author.player.fetch(msg.client.prisma);
