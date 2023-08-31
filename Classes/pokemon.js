@@ -88,25 +88,29 @@ class Pokemon {
     }
 
     // Spawn Pokemon to Channel
-    async spawnToChannel(msg) {
-        // Return spawnImage-generated Image
-        return msg.channel.send({
-            files: [{
-                attachment: await spawnImage(this.pokemon, this.shiny),
-                name: "spawn.png"
-            }],
-            embeds: [{
-                title: Chance().pickone(["A wild pokemon just raided the chat!", "A wild pokemon is looking for attention!", "For some reason a pokemon is here.", "Shot, here we go again.", "Apparently a pokemon is lurking"]),
-                color: time_gradient[(new Date().getHours())],
-                image: {
-                    url: "attachment://spawn.png"
-                },
-                description: "Use the `/catch` command to tame it! Or just ignore it?",
-                footer: {
-                    text: " 🌹 https://pokedi.xyz 🌹"
-                }
-            }]
-        });
+    async spawnToChannel(spawnChannel) {
+        try {
+            // Return spawnImage-generated Image
+            return spawnChannel.send({
+                files: [{
+                    attachment: await spawnImage(this.pokemon, this.shiny),
+                    name: "spawn.png"
+                }],
+                embeds: [{
+                    title: Chance().pickone(["A wild pokemon just raided the chat!", "A wild pokemon is looking for attention!", "For some reason a pokemon is here.", "Shot, here we go again.", "Apparently a pokemon is lurking"]),
+                    color: time_gradient[(new Date().getHours())],
+                    image: {
+                        url: "attachment://spawn.png"
+                    },
+                    description: "Use the `/catch` command to tame it! Or just ignore it?",
+                    footer: {
+                        text: " 🌹 https://pokedi.xyz 🌹"
+                    }
+                }]
+            });
+        } catch (err) {
+            console.log(err); return true;
+        }
     }
 
     getAvailableMoves(base) {
