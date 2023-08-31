@@ -29,13 +29,13 @@ model channels {
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model command_configuration {
+  id         BigInt    @id @default(autoincrement())
   guild_id   BigInt?
   channel_id BigInt?
   command    String?
   disabled   Boolean?  @default(false)
   rate_limit Int?      @default(0)
   config     String?
-  id         BigInt    @id @default(autoincrement())
   channels   channels? @relation(fields: [channel_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   guilds     guilds?   @relation(fields: [guild_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
