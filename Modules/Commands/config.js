@@ -95,7 +95,7 @@ export default {
                 }, {
                     name: "Language",
                     value: "language"
-                }).setRequired(true))
+                }))
 
             .addStringOption(x => x
                 .setName("user_feature")
@@ -123,7 +123,7 @@ export default {
         ),
     async execute(msg = new CommandInteraction()) {
 
-        const enable = !msg.options.getBoolean('state');
+        const enable = !msg.options.getInteger('state');
 
         switch (msg.options.getSubcommand()) {
             case "set": {
@@ -174,49 +174,80 @@ export default {
                                 }
                             }
 
+                            // Found Config for ID
+                            const foundConfig = await msg.client.prisma.command_configuration.findFirst({
+                                where: {
+                                    guild_id: BigInt(msg.guild.id),
+                                    channel_id: null,
+                                    command: "spawn"
+                                }
+                            })
+
                             // Set
                             if (enable) {
+                                // IF Channels exist
                                 if (retrievedChannels.length) {
-                                    await msg.client.prisma.command_configuration.upsert({
-                                        where: {
-                                            guild_id: BigInt(msg.guild.id),
-                                            channel_id: null,
-                                            command: "spawn",
-                                        },
-                                        update: {
-                                            config: retrievedChannels.join()
-                                        },
-                                        create: {
-                                            guild_id: BigInt(msg.guild.id),
-                                            channel_id: null,
-                                            command: "spawn",
-                                            config: retrievedChannels.join()
-                                        }
-                                    });
-                                    msg.guild.configs["spawn"] = { config: retrievedChannels.join() };
+                                    // IF No config then create
+                                    if (!foundConfig) {
+                                        msg.guild.configs["spawn"] = await msg.client.prisma.command_configuration.create({
+                                            data: {
+                                                guild_id: BigInt(msg.guild.id),
+                                                channel_id: null,
+                                                command: "spawn",
+                                                config: retrievedChannels.join()
+                                            }
+                                        });
+                                    } else {
+                                        // Update if Found
+                                        await msg.client.prisma.command_configuration.update({
+                                            where: {
+                                                id: foundConfig.id
+                                            },
+                                            data: {
+                                                guild_id: BigInt(msg.guild.id),
+                                                channel_id: null,
+                                                command: "spawn",
+                                                config: retrievedChannels.join()
+                                            }
+                                        });
+                                        // Reassign
+                                        msg.guild.configs["spawn"].config = retrievedChannels.join();
+                                    }
+                                    // Message
                                     await msg.reply("Spawn will now be redirected to the specified channels.");
                                 } else
+                                    // Reject
                                     return msg.reply("No valid channels were selected");
                             } else {
-                                await msg.client.prisma.command_configuration.upsert({
-                                    where: {
-                                        guild_id: BigInt(msg.guild.id),
-                                        channel_id: null,
-                                        command: "spawn",
-                                    },
-                                    update: {
-                                        config: null,
-                                        disable: true
-                                    },
-                                    create: {
-                                        guild_id: BigInt(msg.guild.id),
-                                        channel_id: null,
-                                        command: "spawn",
-                                        config: null,
-                                        disable: true
-                                    }
-                                });
-                                msg.guild.configs["spawn"] = { disable: true };
+                                // Disable
+                                // IF Not Found
+                                if (!foundConfig) {
+                                    // Create
+                                    msg.guild.configs["spawn"] = await msg.client.prisma.command_configuration.create({
+                                        data: {
+                                            guild_id: BigInt(msg.guild.id),
+                                            channel_id: null,
+                                            command: "spawn",
+                                            disabled: true,
+                                            config: null
+                                        }
+                                    });
+                                } else {
+                                    // Update
+                                    await msg.client.prisma.command_configuration.update({
+                                        where: {
+                                            id: foundConfig.id
+                                        },
+                                        data: {
+                                            guild_id: BigInt(msg.guild.id),
+                                            channel_id: null,
+                                            command: "spawn",
+                                            config: null,
+                                            disabled: true
+                                        }
+                                    });
+                                    msg.guild.configs["spawn"] = { disable: true };
+                                }
                                 return await msg.reply("Spawns were disabled on your server.");
                             }
                         }
@@ -258,7 +289,7 @@ export default {
                         // Remove Config
                         await msg.client.postgres`DELETE FROM command_configuration WHERE guild_id = ${msg.guild.id} AND command = ${msg.options.getString("guild_feature")}`;
                         // If unset guild spawn redirection, unassign
-                        if (msg.options.getString("guild_feature") == "spawn" && msg.guild.info) msg.guild.info.redirects = null;
+                        if (msg.options.getString("guild_feature") == "spawn" && msg.guild.info) msg.guild.configs.spawn = undefined;
                         // Return Success
                         return msg.reply("Successfully unset your feature for your guild");
                     } else msg.reply("Nothing happened...");
