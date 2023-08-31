@@ -19,7 +19,7 @@ export default {
                 // Spawn Pokemon Execution
                 msg.channel.spawn.pokemon.spawnFriendly(content);
                 // Send Message Test
-                await msg.channel.spawn.pokemon.spawnToChannel(msg);
+                await msg.channel.spawn.pokemon.spawnToChannel(msg.channel);
                 // Reply
                 await msg.reply({ ephemeral: true, content: "Pokemon Spawned!" });
             } catch (error) {
