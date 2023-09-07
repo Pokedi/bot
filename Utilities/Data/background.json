@@ -1,0 +1,251 @@
+{
+    "1": {
+        "name": "Default Pokedi",
+        "cost": 0
+    },
+    "2": {
+        "name": "Dialga",
+        "cost": 1000
+    },
+    "3": {
+        "name": "Palkia",
+        "cost": 1000
+    },
+    "4": {
+        "name": "Giratina",
+        "cost": 1000,
+        "c": "white"
+    },
+    "5": {
+        "name": "Darkrai",
+        "cost": 1000,
+        "c": "white"
+    },
+    "6": {
+        "name": "Pikachu",
+        "cost": 1000
+    },
+    "7": {
+        "name": "Eevee",
+        "cost": 1000,
+        "c": "white"
+    },
+    "8": {
+        "name": "Lickilicky",
+        "cost": 1000,
+        "c": "white"
+    },
+    "9": {
+        "name": "Bulbasaur",
+        "cost": 1000,
+        "c": "white",
+        "add": {
+            "1": "stroke=\"black\"",
+            "2": "stroke=\"black\"",
+            "3": "stroke=\"black\"",
+            "4": "stroke=\"black\"",
+            "5": "stroke=\"black\"",
+            "6": "stroke=\"black\""
+        }
+    },
+    "10": {
+        "name": "Abstract",
+        "cost": 1000,
+        "c": "white",
+        "add": {
+            "1": "stroke=\"black\""
+        },
+        "bold": true
+    },
+    "11": {
+        "name": "Flowers",
+        "cost": 300,
+        "jpg": true
+    },
+    "12": {
+        "name": "Flowers 2",
+        "cost": 300,
+        "jpg": true
+    },
+    "13": {
+        "name": "Haxorus",
+        "cost": 1000,
+        "jpg": true
+    },
+    "14": {
+        "name": "Suicune 1",
+        "cost": 1000,
+        "jpg": true
+    },
+    "15": {
+        "name": "Suicune 2",
+        "cost": 1000,
+        "jpg": true
+    },
+    "16": {
+        "name": "Suicune 3",
+        "cost": 1000,
+        "jpg": true
+    },
+    "17": {
+        "name": "Latios",
+        "cost": 1000,
+        "jpg": true
+    },
+    "18": {
+        "name": "Greninja",
+        "cost": 1000,
+        "jpg": true
+    },
+    "19": {
+        "name": "Greninja",
+        "cost": 1000,
+        "jpg": true
+    },
+    "20": {
+        "name": "Kyogre",
+        "cost": 1000,
+        "jpg": true
+    },
+    "21": {
+        "name": "Snom",
+        "cost": 1000,
+        "jpg": true
+    },
+    "22": {
+        "name": "Yamper",
+        "cost": 100
+    },
+    "23": {
+        "name": "Spheal",
+        "cost": 100
+    },
+    "24": {
+        "name": "Hydriegon",
+        "cost": 100
+    },
+    "25": {
+        "name": "Mimikyu",
+        "cost": 100,
+        "jpg": true
+    },
+    "26": {
+        "name": "Cryogonal",
+        "cost": 100,
+        "jpg": true
+    },
+    "27": {
+        "name": "Eiscue",
+        "cost": 100,
+        "jpg": true
+    },
+    "28": {
+        "name": "Alolan Vulpix",
+        "cost": 100,
+        "jpg": true
+    },
+    "29": {
+        "name": "Bidoof",
+        "cost": 100,
+        "jpg": true
+    },
+    "30": {
+        "name": "Ditto",
+        "cost": 100,
+        "jpg": true
+    },
+    "31": {
+        "name": "Shiny Greninja",
+        "cost": 100,
+        "jpg": true
+    },
+    "32": {
+        "name": "Shiny Wooper",
+        "cost": 100,
+        "jpg": true
+    },
+    "33": {
+        "name": "Joltik",
+        "cost": 100,
+        "jpg": true
+    },
+    "34": {
+        "name": "Shiny Ditto",
+        "cost": 100,
+        "jpg": true
+    },
+    "35": {
+        "name": "Anime Suspense",
+        "cost": 100,
+        "jpg": true
+    },
+    "36": {
+        "name": "Cheese is OP",
+        "cost": 100,
+        "jpg": true
+    },
+    "37": {
+        "name": "Arceus' Judgement",
+        "cost": 100,
+        "jpg": true
+    },
+    "38": {
+        "name": "Pikachu Haven [Candy Cane]",
+        "cost": 100,
+        "jpg": true
+    },
+    "39": {
+        "name": "Pikachu Haven",
+        "cost": 100,
+        "jpg": true
+    },
+    "40": {
+        "name": "Toxicroak",
+        "cost": 100,
+        "jpg": true
+    },
+    "41": {
+        "name": "Spheal",
+        "cost": 100,
+        "jpg": true
+    },
+    "42": {
+        "name": "Pikachu Cafe",
+        "cost": 100,
+        "jpg": true
+    },
+    "43": {
+        "name": "Hydriegon Winer",
+        "cost": 100,
+        "jpg": true
+    },
+    "44": {
+        "name": "Eiscue",
+        "cost": 100,
+        "jpg": true
+    },
+    "45": {
+        "name": "Mudkip",
+        "cost": 100,
+        "jpg": true
+    },
+    "70": {
+        "dev": true,
+        "name": "Dusk Lycanroc"
+    },
+    "71": {
+        "dev": true,
+        "name": "Doki Doki Literature Club"
+    },
+    "72": {
+        "dev": true,
+        "name": "The Lycanroc Club"
+    },
+    "73": {
+        "dev": true,
+        "name": "Gible Club",
+        "jpg": true,
+        "members": ["251457346209841152"],
+        "cost": 0
+    }
+}
