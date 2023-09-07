@@ -11,6 +11,8 @@ export default {
             .setDescription("Be sure to fill up all the required options to start your adventure!")
             .addIntegerOption(y => y
                 .setRequired(true)
+                .setName("character")
+                .setDescription("Select the character you connect to most!")
                 .addChoices({
                     "name": "Red",
                     "value": 1
