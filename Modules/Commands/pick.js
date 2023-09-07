@@ -32,6 +32,9 @@ export default {
             }
         });
 
+        // Set it to Collection Cache
+        msg.user.player = userAccount;
+
         const newPokemonForUser = new Pokemon({});
 
         newPokemonForUser.generate(pk._id, { user_id: BigInt(msg.user.id), idx: 1 });
