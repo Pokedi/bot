@@ -16,6 +16,10 @@ class Player {
         this.locale = info.locale;
         this.exp = info.exp || 0;
         this.level = info.level || 1;
+
+        this.character = info.character;
+        this.background = info.background || 1;
+        this.gender = info.gender;
     }
 
     async fetch(prisma) {
@@ -97,6 +101,24 @@ class Player {
     // isTrading?
     async isTrading(redis) {
         return await redis.get(this.id + '-trade');
+    }
+
+    // Check Count Pokemon
+    async countPokemon(prisma) {
+        return await prisma.pokemon.count({
+            where: {
+                user_id: this.id
+            }
+        });
+    }
+
+    // Check Count Pokemon
+    async countDex(prisma) {
+        return await prisma.dex.count({
+            where: {
+                user_id: this.id
+            }
+        });
     }
 }
 
