@@ -1,11 +1,14 @@
 import { SlashCommandBuilder } from "discord.js";
-import client from "../../Services/Database";
 
 export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName('profile')
         .setDescription('Flex your awesome profile and even customize it!')
+        .addSubcommand(x => x
+            .setName("view")
+            .setDescription("See your current Profile")
+        )
         .addSubcommand(x => x
             .setName("start")
             .setDescription("Be sure to fill up all the required options to start your adventure!")
@@ -67,24 +70,36 @@ export default {
 
         switch (subCommand) {
             case "listing": {
-                msg.reply({
+                return await msg.reply({
                     embeds: [{
                         title: "Use the following character code for the start function when needed.",
                         image: {
                             url: "https://i.imgur.com/CqawkU5.png"
                         }
                     }]
-                })
+                });
             }
-                break;
 
             case "start": {
-                if (!msg.user?.player?.started) return msg.reply("Please make sure to /pick a pokemon!");
+                if (!msg.user?.player?.started) return await msg.reply("Please make sure to /pick a pokemon!");
                 if (msg.user.player.character) return await msg.reply("You already started your adventure");
-                
-                // await msg.client.prisma.users.update()
+
+                return await msg.client.prisma.users.update({
+                    where: {
+                        id: BigInt(msg.user.id)
+                    },
+                    data: {
+                        background: 1,
+                        character: msg.options.getInteger("character"),
+                        gender: msg.options.getString("gender")
+                    }
+                }), await msg.reply("Your profile has been created! Use /profile to see it.");
             }
-                break;
+
+            default: {
+
+                return await msg.reply("Your Profile loaded");
+            }
         }
     }
 }
