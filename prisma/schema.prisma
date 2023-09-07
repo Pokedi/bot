@@ -29,13 +29,13 @@ model channels {
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model command_configuration {
-  id         BigInt    @id @default(autoincrement())
   guild_id   BigInt?
   channel_id BigInt?
   command    String?
   disabled   Boolean?  @default(false)
   rate_limit Int?      @default(0)
   config     String?
+  id         BigInt    @id @default(autoincrement())
   channels   channels? @relation(fields: [channel_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   guilds     guilds?   @relation(fields: [guild_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
@@ -59,7 +59,10 @@ model guilds {
   redirects             BigInt[]
   channels              channels[]
   command_configuration command_configuration[]
+  gym_leader            gym_leader[]
   pokemon               pokemon[]
+  profile               profile[]
+  users                 users[]
 }
 
 model market {
@@ -178,16 +181,20 @@ model users {
   locale           String?
   exp              Int?               @default(0)
   level            Int?               @default(1)
-  character        Int?
   background       Int?
+  character        Int?
   gender           String?
+  guild_id         BigInt?
   auction          auction[]
   claimed_vouchers claimed_vouchers[]
   dex              dex[]
+  gym_leader       gym_leader[]
   logs             logs[]
   pokemon          pokemon[]
+  profile          profile[]
   user_inventory   user_inventory[]
   user_vote        user_vote[]
+  guilds           guilds?            @relation(fields: [guild_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model product {
@@ -210,4 +217,23 @@ model logs {
   timestamp DateTime? @default(now()) @db.Timestamptz(6)
   note      String?
   users     users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model profile {
+  id       BigInt  @id @default(autoincrement())
+  user_id  BigInt
+  guild_id BigInt?
+  badges   Int[]
+  guilds   guilds? @relation(fields: [guild_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users    users   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model gym_leader {
+  id         BigInt  @id @default(autoincrement())
+  user_id    BigInt
+  guild_id   BigInt?
+  channel_id BigInt?
+  gym_type   String
+  guilds     guilds? @relation(fields: [guild_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users      users   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
