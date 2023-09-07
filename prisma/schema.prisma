@@ -178,6 +178,9 @@ model users {
   locale           String?
   exp              Int?               @default(0)
   level            Int?               @default(1)
+  character        Int?
+  background       Int?
+  gender           String?
   auction          auction[]
   claimed_vouchers claimed_vouchers[]
   dex              dex[]

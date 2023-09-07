@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
+import client from "../../Services/Database";
 
 export default {
     help: "",
@@ -76,7 +77,10 @@ export default {
                 break;
 
             case "start": {
-
+                if (!msg.user?.player?.started) return msg.reply("Please make sure to /pick a pokemon!");
+                if (msg.user.player.character) return await msg.reply("You already started your adventure");
+                
+                // await msg.client.prisma.users.update()
             }
                 break;
         }
