@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
+import generateProfile from "../../Utilities/User/generateProfile.js";
 
 export default {
     help: "",
@@ -97,8 +98,19 @@ export default {
             }
 
             default: {
-
-                return await msg.reply("Your Profile loaded");
+                if (!msg.user?.player?.started) return await msg.reply("Please make sure to /pick a pokemon!");
+                
+                return await msg.reply({
+                    files: [{
+                        attachment: await generateProfile(msg.client.prisma, msg.user.player),
+                        name: "profile.png"
+                    }],
+                    embeds: [{
+                        image: {
+                            url: "attachment://profile.png"
+                        },
+                    }]
+                });
             }
         }
     }
