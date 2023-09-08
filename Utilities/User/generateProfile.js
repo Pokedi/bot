@@ -4,14 +4,18 @@ import Pokemon from "../../Classes/pokemon.js";
 import background from "../../Utilities/Data/background.json" assert {type: "json"};
 import trainer from "../../Utilities/Data/trainer.json" assert {type: "json"};
 
-async function generateProfile(prisma, user) {
+async function generateProfile(prisma, user, username="No Username Found") {
 
+    // Count Users Pokemon
     const countPokemon = await user.countPokemon(prisma);
-    
+
+    // Count all Dexes
     const countDexes = await user.countDex(prisma);
 
+    // Select User's Pokemon
     const selectedPokemon = new Pokemon({ user_id: user.id });
-    
+
+    // Selected or First IDX
     if (user.selected?.[0]) {
         selectedPokemon.id = user.selected[0];
         await selectedPokemon.fetchPokemon(prisma);
@@ -19,23 +23,32 @@ async function generateProfile(prisma, user) {
         selectedPokemon.idx = 1;
         await selectedPokemon.fetchPokemonByIDX(prisma);
     }
-    
+
+    // Return if nothing found
     if (!selectedPokemon.pokemon)
-        console.log("Nothing found"), process.exit(1);
-    
+        return false;
+
+    // Grab details;
     const pokemonDetails = selectedPokemon.getDetails();
-    
-    let i = sharp(selectedPokemon.shiny && pokemonDetails.shiny ? `../pokedi/pokemon/shiny/${pokemonDetails._id}.png` : `../pokedi/pokemon/regular/${pokemonDetails._id}.png`).png().resize({
+
+    // Ready Pokemon Image
+    let pokemonImage = sharp(selectedPokemon.shiny && pokemonDetails.shiny ? `../pokedi/pokemon/shiny/${pokemonDetails._id}.png` : `../pokedi/pokemon/regular/${pokemonDetails._id}.png`).png().resize({
         width: 400,
         height: 400,
         fit: "contain"
-    })
-        , k = background[user.background];
-    i.options.resizeBackground = [0, 0, 0, 0];
-    let nani = [];
-    
-    let n = sharp(`../pokedi/card/background/${user.background}.${k.jpg ? "jpg" : "png"}`);
-    
+    });
+
+    // Make Resize Background Transparent (Secret trick to help people out later)
+    pokemonImage.options.resizeBackground = [0, 0, 0, 0];
+
+    // Select Background
+    let selectedBackground = background[user.background];
+
+    // Array Base
+    let base = [];
+
+    let backgroundImage = sharp(`../pokedi/card/background/${user.background}.${selectedBackground.jpg ? "jpg" : "png"}`);
+
     // if (user.profile.badge) {
     //     if (user.profile.badge["1"])
     //         nani.push({
@@ -110,45 +123,48 @@ async function generateProfile(prisma, user) {
     //             left: 1490
     //         });
     // } else {
-    nani.push({
-        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="40" ${k && k.add && k.add["6"] ? k.add["6"] : ""} font-size-adjust="0.58" ${k & k.bold ? 'font-weight="bold"' : ""} fill="${k && k.c ? k.c : "black"}">No Gyms Badges Yet</text>\n</svg>`),
+
+    // No Badges Yet
+    base.push({
+        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="40" ${selectedBackground && selectedBackground.add && selectedBackground.add["6"] ? selectedBackground.add["6"] : ""} font-size-adjust="0.58" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">No Gyms Badges Yet</text>\n</svg>`),
         top: 985,
         left: 900
     });
     // }
-    nani.push({
+
+    // Pokemon Character
+    base.push({
         input: `../pokedi/card/trainer/${user.character}.png`,
         top: trainer[user.character] && trainer[user.character].top ? trainer[user.character].top : 150,
         left: trainer[user.character] && trainer[user.character].left ? trainer[user.character].left : 200
     }, {
-        input: Buffer.from(`<svg height="100%" width="130%">\n  <text x="0" y="40"  ${k && k.add && k.add["1"] ? k.add["1"] : ""} font-size="50" ${k & k.bold ? 'font-weight="bold"' : ""} fill="${k && k.c ? k.c : "black"}">${"Ditto Duck Penguin".replace(/[^\x00-\x7F]/g, "").substring(0, 20).replace(/[^\d\w\s]/, "").replace(/<|>/gmi, "-")} [Level ${user.level || "0"}]</text>\n</svg>`),
+        input: Buffer.from(`<svg height="100%" width="130%">\n  <text x="0" y="40"  ${selectedBackground && selectedBackground.add && selectedBackground.add["1"] ? selectedBackground.add["1"] : ""} font-size="50" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">${username.replace(/[^\x00-\x7F]/g, "").substring(0, 20).replace(/[^\d\w\s]/, "").replace(/<|>/gmi, "-")} [Level ${user.level || "0"}]</text>\n</svg>`),
         top: 290,
         left: 750
     }, {
-        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="35" ${k && k.add && k.add["2"] ? k.add["2"] : ""} font-size-adjust="0.58" ${k & k.bold ? 'font-weight="bold"' : ""} fill="${k && k.c ? k.c : "black"}">${user.bal ? user.bal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 100} credits</text>\n</svg>`),
+        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="35" ${selectedBackground && selectedBackground.add && selectedBackground.add["2"] ? selectedBackground.add["2"] : ""} font-size-adjust="0.58" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">${user.bal ? user.bal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 100} credits</text>\n</svg>`),
         top: 445,
         left: 750
     }, {
-        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="40" ${k && k.add && k.add["3"] ? k.add["3"] : ""} font-size-adjust="0.58" ${k & k.bold ? 'font-weight="bold"' : ""} fill="${k && k.c ? k.c : "black"}">${countPokemon ? countPokemon.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0} Caught</text>\n</svg>`),
+        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="40" ${selectedBackground && selectedBackground.add && selectedBackground.add["3"] ? selectedBackground.add["3"] : ""} font-size-adjust="0.58" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">${countPokemon ? countPokemon.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0} Caught</text>\n</svg>`),
         top: 570,
         left: 750
     }, {
-        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="35" ${k && k.add && k.add["4"] ? k.add["4"] : ""} font-size-adjust="0.58" ${k & k.bold ? 'font-weight="bold"' : ""} fill="${k && k.c ? k.c : "black"}">${countDexes ? countDexes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0} Pokemon Dex'd</text>\n</svg>`),
+        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="35" ${selectedBackground && selectedBackground.add && selectedBackground.add["4"] ? selectedBackground.add["4"] : ""} font-size-adjust="0.58" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">${countDexes ? countDexes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0} Pokemon Dex'd</text>\n</svg>`),
         top: 705,
         left: 750
-    }
-    , {
-        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="40" ${k && k.add && k.add["5"] ? k.add["5"] : ""} font-size-adjust="0.58" ${k & k.bold ? 'font-weight="bold"' : ""} fill="${k && k.c ? k.c : "black"}">Solo Player</text>\n</svg>`),
+    }, {
+        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="40" ${selectedBackground && selectedBackground.add && selectedBackground.add["5"] ? selectedBackground.add["5"] : ""} font-size-adjust="0.58" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">Solo Player</text>\n</svg>`),
         top: 845,
         left: 750
-    }
-    , {
-        input: await i.toBuffer(),
+    }, {
+        input: await pokemonImage.toBuffer(),
         top: 420,
         left: 1145
     });
-    n.composite(nani);
-    return await n.toBuffer();
+
+    backgroundImage.composite(base);
+    return await backgroundImage.toBuffer();
 }
 
 export default generateProfile;

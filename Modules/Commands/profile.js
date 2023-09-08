@@ -99,10 +99,14 @@ export default {
 
             default: {
                 if (!msg.user?.player?.started) return await msg.reply("Please make sure to /pick a pokemon!");
-                
+
+                const profileImage = await generateProfile(msg.client.prisma, msg.user.player, msg.user.username);
+
+                if (!profileImage) return await msg.reply("Profile could not be created. Maybe a Pokemon was not selected?");
+
                 return await msg.reply({
                     files: [{
-                        attachment: await generateProfile(msg.client.prisma, msg.user.player),
+                        attachment: profileImage,
                         name: "profile.png"
                     }],
                     embeds: [{
