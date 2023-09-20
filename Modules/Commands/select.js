@@ -19,18 +19,17 @@ export default {
 
         const userDB = new Player({ id: BigInt(msg.user.id) });
 
-        await userDB.fetch(msg.client.prisma);
+        await userDB.fetch(msg.client.postgres);
 
         if (!userDB.started) return msg.reply({ ephemeral: true, content: "User not found" });
 
-        if (clearTeam) return userDB.selected = [], await userDB.save(msg.client.prisma), await msg.reply("Your team was cleared...");
+        if (clearTeam) return userDB.selected = [], await userDB.save(msg.client.postgres), await msg.reply("Your team was cleared...");
 
-        const fetchPokemon = new Pokemon(await msg.client.prisma.pokemon.findFirst({
-            where: {
-                idx: id,
-                user_id: BigInt(msg.user.id)
-            }
-        }));
+        const [queryPokemon] = await msg.client.postgres`SELECT * FROM pokemon WHERE idx = ${id} AND user_id = ${BigInt(msg.user.id)}`;
+
+        if (!queryPokemon) return msg.reply({ ephemeral: true, content: "Pokemon does not exist" });
+
+        const fetchPokemon = new Pokemon(queryPokemon);
 
         if (!fetchPokemon.pokemon) return msg.reply({ ephemeral: true, content: "Pokemon does not exist" });
 
@@ -50,7 +49,7 @@ export default {
 
         userDB.selected = z;
 
-        await userDB.save(msg.client.prisma);
+        await userDB.save(msg.client.postgres);
 
         await msg.reply(`Successfully placed ${capitalize(fetchPokemon.pokemon)} (Nº ${id}) on slot Nº ${slot + 1}`);
 

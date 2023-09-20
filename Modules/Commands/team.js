@@ -11,7 +11,7 @@ export default {
 
         const userDB = new Player({ id: BigInt(msg.user.id) });
 
-        await userDB.fetch(msg.client.prisma);
+        await userDB.fetch(msg.client.postgres);
 
         if (!userDB.started) return msg.reply({ ephemeral: true, content: "User not found" });
 

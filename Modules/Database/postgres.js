@@ -1,4 +1,7 @@
+import { config } from "dotenv";
 import postgres from "postgres";
+
+config()
 
 const sql = postgres({
     hostname: process.env.DATABASE_HOST,

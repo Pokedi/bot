@@ -5,7 +5,7 @@ import { ClusterClient, getInfo } from "discord-hybrid-sharding";
 import { Collection, Client, Events, GatewayIntentBits, REST, Routes } from "discord.js";
 
 // Ready Prisma
-import prisma from "../Database/index.js";
+import prisma from "../../Modules/Database/index.js";
 
 // Init Client
 const client = new Client({
@@ -20,7 +20,7 @@ client.commands = new Collection();
 
 client.prisma = prisma;
 
-import sql from "../Database/postgres.js";
+import sql from "../../Modules/Database/postgres.js";
 client.postgres = sql;
 
 import interactionCreateHandler from "../../Handlers/interactionCreateHandler.js";
@@ -30,7 +30,7 @@ import messageCreate from "../../Handlers/messageCreate.js";
 client.on("messageCreate", messageCreate);
 
 // Init + Ready Redis to BotClient
-import redisClient from "../Database/redis.js";
+import redisClient from "../../Modules/Database/redis.js";
 client.redis = redisClient;
 
 // Ready all Commands

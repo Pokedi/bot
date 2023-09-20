@@ -32,7 +32,7 @@ export default {
         if (setName) queryPokemon.name = setName;
 
         try {
-            await queryPokemon.save(msg.client.prisma);
+            await queryPokemon.save(msg.client.postgres);
 
             await msg.reply(`Your ${capitalize(queryPokemon.pokemon)} (${queryPokemon.idx}) was updated.`);
 

@@ -39,7 +39,7 @@ export default {
 
         newPokemonForUser.generate(pk._id, { user_id: BigInt(msg.user.id), idx: 1 });
 
-        await newPokemonForUser.save(msg.client.prisma);
+        await newPokemonForUser.save(msg.client.postgres);
 
         if (!userAccount) return msg.reply("A problem occurred creating your account.");
 

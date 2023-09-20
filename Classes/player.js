@@ -1,3 +1,4 @@
+import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 import Pokemon from "./pokemon.js";
 
 class Player {
@@ -22,8 +23,23 @@ class Player {
         this.gender = info.gender;
     }
 
-    async fetch(prisma) {
-        return Object.assign(this, await prisma.users.findUnique({ where: { id: BigInt(this.id) } }));
+    async fetch(postgres) {
+
+        const query = builder.select("users", "*").where({ id: BigInt(this.id) });
+
+        const [row] = await postgres.unsafe(query.text, query.values);
+
+        return Object.assign(this, row);
+    }
+
+    async fetchIncome(postgres) {
+        const query = builder.select("users", ["bal", "redeem"]).where({ id: BigInt(this.id) });
+
+        const [row] = await postgres.unsafe(query.text, query.values);
+
+        if (!row) return { bal: 0, redeem: 0 };
+
+        return row;
     }
 
     toJSON() {
@@ -44,32 +60,32 @@ class Player {
         }
     }
 
-    async save(prisma, data) {
+    async save(postgres, data) {
         if (!this.id) return false;
-        return prisma.users.update({
-            where: {
-                id: this.id
-            },
-            data: data || this.toJSON()
-        })
+
+        const query = builder.update("users", data || this.toJSON()).where({ id: BigInt(this.id) });
+
+        const [row] = await postgres.unsafe(query.text, query.values);
+
+        return row;
     }
 
-    async levelUp(prisma) {
-        console.log("Leveling up a User");
+    async levelUp(postgres) {
+
         this.exp += 2;
-        return await prisma.users.update({
-            where: {
-                id: this.id
-            },
-            data: {
-                level: ((this.level || 1) * 30 <= this.exp) ? ++this.level : this.level,
-                exp: ((this.level || 1) * 30 <= this.exp) ? 0 : this.exp
-            }
-        }), ((this.level || 1) * 30 > this.exp);
+
+        const query = builder.update("users", {
+            level: ((this.level || 1) * 30 <= this.exp) ? ++this.level : this.level,
+            exp: ((this.level || 1) * 30 <= this.exp) ? 0 : this.exp
+        }).where({ id: BigInt(this.id) });
+
+        await postgres.unsafe(query.text, query.values);
+
+        return ((this.level || 1) * 30 <= this.exp);
     }
 
     // Pokemon Level up Function via User
-    async pokemonLevelUp(prisma, msg, level) {
+    async pokemonLevelUp(postgres, msg, level) {
 
         // Ignore if no Pokemon selected
         if (!this.selected[0]) return false;
@@ -78,13 +94,13 @@ class Player {
         const pokemon = new Pokemon({ id: this.selected[0] });
 
         // Fetch Pokemon
-        await pokemon.fetchPokemon(prisma);
+        await pokemon.fetchPokemon(postgres);
 
         // Check Pokemon
         if (!pokemon.user_id) return false;
 
         // Level Up
-        return await pokemon.levelUp(prisma, msg, level);
+        return await pokemon.levelUp(postgres, msg, level);
     }
 
     // Set Trade
@@ -104,21 +120,36 @@ class Player {
     }
 
     // Check Count Pokemon
-    async countPokemon(prisma) {
-        return await prisma.pokemon.count({
-            where: {
-                user_id: this.id
-            }
-        });
+    async countPokemon(postgres) {
+
+        const query = builder.select("pokemon", "count(true) as count").where({ user_id: BigInt(this.id) });
+
+        const [row] = await postgres.unsafe(query.text, query.values);
+
+        return row.count;
     }
 
     // Check Count Pokemon
-    async countDex(prisma) {
-        return await prisma.dex.count({
-            where: {
-                user_id: this.id
-            }
-        });
+    async countDex(postgres) {
+
+        const query = builder.select("dex", "count(true) as count").where({ user_id: BigInt(this.id) });
+
+        const [row] = await postgres.unsafe(query.text, query.values);
+
+        return row;
+    }
+
+    async fetchPokemon(postgres) {
+
+        if (!this.selected.length) return [];
+
+        const rows = await postgres`SELECT * FROM pokemon WHERE id in ${postgres(this.selected)}`;
+
+        const pokemon = rows.map(x => new Pokemon(x));
+
+        this.pokemon = pokemon;
+
+        return pokemon;
     }
 }
 

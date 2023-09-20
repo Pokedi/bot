@@ -8,6 +8,7 @@ import spawnImage from "../Utilities/Pokemon/spawnImage.js";
 import time_gradient from "../Utilities/Misc/time_gradient.js";
 import calculateNextLevelEXP from "../Utilities/Pokemon/calculateNextLevelEXP.js";
 import getTime from "../Utilities/Misc/getTime.js";
+import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 const chance = Chance();
 
 class Pokemon {
@@ -38,7 +39,8 @@ class Pokemon {
             this.gender = pokemonObject.gender;
             this.name = pokemonObject.name;
             this.type = this.convertTypes(this.getNature());
-        }
+        } else
+            if (pokemonObject) Object.assign(this, pokemonObject);
     }
 
     getNature() {
@@ -65,7 +67,7 @@ class Pokemon {
         this.nature = Chance().pickone(POKEMON_NATURES)
         this.moves = Chance().shuffle(this.getAvailableMoves(base)).splice(0, 4);
         this.types = this.convertTypes(base.types);
-        Object.assign(this, mergingObject);
+        return Object.assign(this, mergingObject);
     }
 
     // Function to spawn a friendly Pokemon
@@ -145,26 +147,52 @@ class Pokemon {
         }
     }
 
-    async save(prisma, data) {
-        if (!prisma) return false;
-        if (!this.id) return await prisma.pokemon.create({ data: this.toJSON() });
-        return await prisma.pokemon.update({
-            data: data || this.toJSON(),
-            where: {
-                id: this.id
-            }
-        });
+    toDefinedJSON() {
+        return Object.assign(...Object.entries(this.toJSON()).filter(x => x[1] != undefined).map(x => ({ [x[0]]: x[1] })));
     }
 
-    async fetchPokemon(prisma) {
-        if (!prisma) return false;
-        return Object.assign(this, new Pokemon(await prisma.pokemon.findFirst({ where: { id: this.id } }) || {}));
+    async save(postgres, data) {
+
+        if (!postgres) return false;
+
+        if (!this.id) {
+
+            const query = builder.insert("pokemon", this.toDefinedJSON()).returning("*");
+
+            const [row] = await postgres.unsafe(query.text, query.values);
+
+            return row;
+        }
+
+        const query = builder.update("pokemon", data || this.toDefinedJSON()).where({ id: this.id }).returning("*");
+
+        const [row] = await postgres.unsafe(query.text, query.values);
+
+        return await row;
     }
 
-    async fetchPokemonByIDX(prisma) {
-        if (!prisma) return false;
-        if (!this.idx) return this.fetchPokemon(prisma);
-        return Object.assign(this, new Pokemon(await prisma.pokemon.findFirst({ where: { idx: this.idx, user_id: this.user_id } }) || {}));
+    async fetchPokemon(postgres) {
+
+        if (!postgres || !this.id) return false;
+
+        const query = builder.select("pokemon", "*").where({ id: BigInt(this.id) });
+
+        const [row] = await postgres.unsafe(query.text, query.values);
+
+        return Object.assign(this, new Pokemon(row || {}));
+    }
+
+    async fetchPokemonByIDX(postgres) {
+
+        if (!postgres) return false;
+
+        if (!this.idx) return this.fetchPokemon(postgres);
+
+        const query = builder.select("pokemon", "*").where({ idx: this.idx }).and({ user_id: this.user_id });
+
+        const [row] = await postgres.unsafe(query.text, query.values);
+
+        return Object.assign(this, new Pokemon(row || {}));
     }
 
     getDetails() {
@@ -206,32 +234,35 @@ class Pokemon {
         return (((this.stats.hp + this.stats.atk + this.stats.def + this.stats.spatk + this.stats.spd + this.stats.spdef) / 186) * 100).toFixed(2);
     }
 
-    async release(prisma) {
-        return await prisma.pokemon.update({
-            where: {
-                id: this.id
-            },
-            data: {
-                user_id: null
-            }
-        })
+    async release(postgres) {
+
+        const query = builder.update("pokemon", { user_id: null }).where({ id: BigInt(this.id) }).returning("*");
+
+        const [row] = await postgres.unsafe(query.text, query.values);
+
+        return row;
     }
 
-    async addToUserDex(prisma) {
-        return await prisma.dex.upsert({
-            where: {
-                user_id_pokemon: {
-                    user_id: this.user_id,
-                    pokemon: this.pokemon
-                }
-            },
-            update: {
+    async addToUserDex(postgres) {
+
+        const query = builder.select("dex").where({ user_id: BigInt(this.user_id) }).and({ pokemon: this.pokemon });
+
+        const [row] = await postgres.unsafe(query.text, query.values);
+
+        if (row) {
+            const query = builder.update("dex", {
                 count: { increment: this.shiny ? 0 : 1 },
                 shinies: { increment: this.shiny ? 1 : 0 },
                 unclaimed_normal: { increment: this.shiny ? 0 : 1 },
                 unclaimed_shinies: { increment: this.shiny ? 1 : 0 }
-            },
-            create: {
+            }).where({ user_id: BigInt(this.user_id), pokemon: this.pokemon }).returning("*");
+
+            const [row] = await postgres.unsafe(query.text, query.values);
+
+            return row;
+        } else {
+
+            const query = builder.insert("dex", {
                 user_id: this.user_id,
                 pokemon: this.pokemon,
                 count: this.shiny ? 0 : 1,
@@ -239,11 +270,15 @@ class Pokemon {
                 giga: 0,
                 unclaimed_normal: this.shiny ? 0 : 1,
                 unclaimed_shinies: this.shiny ? 1 : 0
-            }
-        });
+            }).returning("*");
+
+            const [row] = await postgres.unsafe(query.text, query.values);
+
+            return row;
+        }
     }
 
-    async levelUp(prisma, msg, increaseLevel = 0) {
+    async levelUp(postgres, msg, increaseLevel = 0) {
         // Return if above Level 100
         if (this.level >= 100) return false;
 
@@ -274,7 +309,7 @@ class Pokemon {
         // Check if Everstone || Ignore if evolution not available
         if (this.item == "everstone" || !info.evolution)
             // Save
-            return await this.save(prisma, { level: this.level, exp: this.exp }),
+            return await this.save(postgres, { level: this.level, exp: this.exp }),
                 // Returned Obj
                 { levelIncreased: preLevel != this.level, level: this.level, pokemon: this.pokemon };
 
@@ -334,7 +369,7 @@ class Pokemon {
         }
 
         // Save
-        return await this.save(prisma, { level: this.level, exp: this.exp, pokemon: evolvedPokemon || this.pokemon }),
+        return await this.save(postgres, { level: this.level, exp: this.exp, pokemon: evolvedPokemon || this.pokemon }),
             // Returned Obj
             { levelIncreased: preLevel != this.level, level: this.level, hasEvolved: evolvedPokemon != this.pokemon, pokemon: this.pokemon, evolvedPokemon };
     }

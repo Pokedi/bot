@@ -1,5 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import commalize from "../../Utilities/Misc/commalize.js";
+import builder from "../Database/QueryBuilder/queryGenerator.js";
+import Player from "../../Classes/player.js";
 
 export default {
     help: "",
@@ -12,12 +14,11 @@ export default {
         .setDescription('Check your credit balance.'),
     aliases: ['balance', 'credits', 'credit'],
     async execute(msg) {
-        const { bal, redeem } = await msg.client.prisma.users.findUnique({ where: { id: BigInt(msg.user.id) } }, {
-            select: {
-                bal: true,
-                redeem: true,
-            }
-        }) || {};
+
+        const player = new Player({ id: msg.user.id });
+
+        const { bal, redeem } = await player.fetchIncome(msg.client.postgres);
+
         return await msg.reply({
             embeds: [{
                 title: "Your Balance",

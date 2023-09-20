@@ -51,13 +51,13 @@ async function messageCreate(msg, e) {
         };
     }
 
-    if (!msg.author.player) msg.author.player = new Player(msg.author), await msg.author.player.fetch(msg.client.prisma);
+    if (!msg.author.player) msg.author.player = new Player(msg.author), await msg.author.player.fetch(msg.client.postgres);
 
     if (!msg.author.count) msg.author.count = { levelUp: 0, pokemonLevelUpCount: chance.integer({ min: 40, max: 300 }) };
 
     if (msg.author.player && msg.author.player.started) {
         if (randomint(10000) < 20) {
-            if (await msg.author.player.levelUp(msg.client.prisma))
+            if (await msg.author.player.levelUp(msg.client.postgres))
                 msg.channel.send("Congrats on being Level " + msg.author.player.level + ", Champ.");
         }
 

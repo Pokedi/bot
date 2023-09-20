@@ -26,7 +26,7 @@ export default {
         const userVerification = await buttonVerification({ interaction: msg });
 
         if (userVerification) {
-            await fetchPokemon.release(msg.client.prisma);
+            await fetchPokemon.release(msg.client.postgres);
 
             await msg.followUp(`Your ${capitalize(fetchPokemon.pokemon)} was released into the wild... ${Chance().pickone(["A pack of Luxios hunted it down...", "Zapdos took it away...", "MewTwo teleported it to its sanctuary! It curses you!", "A monster house took it down!", "It scurried away to find its way back home...", "How sad... it's all alone...", "Will it find its way back?"])}`);
         } else {

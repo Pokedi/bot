@@ -119,7 +119,7 @@ export default {
 
         if (Tradee) {
             // Fetch User
-            await You.fetch(msg.client.prisma);
+            await You.fetch(msg.client.postgres);
 
 
             // Check if User is in Trade
@@ -146,7 +146,7 @@ export default {
             await msg.followUp("Trade verified");
 
             // Fetch User
-            await Them.fetch(msg.client.prisma);
+            await Them.fetch(msg.client.postgres);
 
             if (!Them.started)
                 return msg.followUp("User has not started their adventure. /start just in case. :3");

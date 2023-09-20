@@ -223,7 +223,7 @@ export default {
         ),
     async execute(msg) {
         const player = new Player(msg.user);
-        await player.fetch(msg.client.prisma);
+        await player.fetch(msg.client.postgres);
 
         if (!player.started) return msg.reply("you have not started your adventure. Please try using /start");
 
@@ -256,7 +256,7 @@ export default {
 
                 let selectedPokemon = new Pokemon(id ? { idx: id, user_id: msg.user.id } : { id: player.selected[0] });
 
-                await selectedPokemon.fetchPokemonByIDX(msg.client.prisma);
+                await selectedPokemon.fetchPokemonByIDX(msg.client.postgres);
 
                 if (!selectedPokemon.pokemon) return msg.reply("Pokemon does not exist...");
 
@@ -295,7 +295,7 @@ export default {
 
                     let selectedPokemon = new Pokemon(id ? { idx: id, user_id: msg.user.id } : { id: player.selected[0] });
 
-                    await selectedPokemon.fetchPokemonByIDX(msg.client.prisma);
+                    await selectedPokemon.fetchPokemonByIDX(msg.client.postgres);
 
                     if (!selectedPokemon.pokemon) return msg.reply("Pokemon does not exist...");
 

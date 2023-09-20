@@ -32,10 +32,10 @@ export default {
                 }))?.idx || 0) + 1;
                 
                 // Save to DB
-                await pokemonGrabbed.save(msg.client.prisma);
+                await pokemonGrabbed.save(msg.client.postgres);
 
                 // Add to User's Dex
-                await pokemonGrabbed.addToUserDex(msg.client.prisma);
+                await pokemonGrabbed.addToUserDex(msg.client.postgres);
 
                 return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon)}!`)
             } else

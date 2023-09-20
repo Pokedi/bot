@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { idx } from "../../cache.js";
-import client from "../../../Database/index.js";
+import client from "../../../../Modules/Database/index.js";
 
 const userRouter = Router();
 

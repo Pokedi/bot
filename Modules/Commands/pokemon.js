@@ -90,7 +90,7 @@ export default {
             embeds: [{
                 title: 'Your Pokemon',
                 description: `${passedFilteredPokemon.map(x => {
-                    return `\`${" ".repeat(numberLength - (x.idx).toString().length)}${x.idx}\`　　${capitalize(x.pokemon)} ${x.name ? "\"**" + capitalize(x.name) + "**\"" : ""}${x.shiny ? " ⭐" : ""}　•　Level: ${x.level}　•　**IV**: ${x.totalIV}%`;
+                    return `\`${" ".repeat(numberLength - (x.idx || 0).toString().length)}${x.idx || 0}\`　　${capitalize(x.pokemon)} ${x.name ? "\"**" + capitalize(x.name) + "**\"" : ""}${x.shiny ? " ⭐" : ""}　•　Level: ${x.level}　•　**IV**: ${x.totalIV}%`;
                 }).join("\n")}`,
                 footer: {
                     text: `Showing ${(page + 1) * 20 - 19} - ${(page + 1) * 20} of ${passedFilteredPokemon.length} Pokémon matching this search. [ Page ${page || 1} ]`
