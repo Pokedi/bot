@@ -4,13 +4,13 @@ import Pokemon from "../../Classes/pokemon.js";
 import background from "../../Utilities/Data/background.json" assert {type: "json"};
 import trainer from "../../Utilities/Data/trainer.json" assert {type: "json"};
 
-async function generateProfile(prisma, user, username="No Username Found") {
+async function generateProfile(postgres, user, username="No Username Found") {
 
     // Count Users Pokemon
-    const countPokemon = await user.countPokemon(prisma);
+    const countPokemon = await user.countPokemon(postgres);
 
     // Count all Dexes
-    const countDexes = await user.countDex(prisma);
+    const countDexes = await user.countDex(postgres);
 
     // Select User's Pokemon
     const selectedPokemon = new Pokemon({ user_id: user.id });
@@ -18,10 +18,10 @@ async function generateProfile(prisma, user, username="No Username Found") {
     // Selected or First IDX
     if (user.selected?.[0]) {
         selectedPokemon.id = user.selected[0];
-        await selectedPokemon.fetchPokemon(prisma);
+        await selectedPokemon.fetchPokemon(postgres);
     } else {
         selectedPokemon.idx = 1;
-        await selectedPokemon.fetchPokemonByIDX(prisma);
+        await selectedPokemon.fetchPokemonByIDX(postgres);
     }
 
     // Return if nothing found
