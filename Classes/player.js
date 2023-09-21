@@ -141,15 +141,28 @@ class Player {
 
     async fetchPokemon(postgres) {
 
-        if (!this.selected.length) return [];
+        const rows = this.selected.length ? await postgres`SELECT * FROM pokemon WHERE id in ${postgres(this.selected)}` : await postgres`SELECT * FROM pokemon WHERE user_id = ${this.id} LIMIT 6`;
 
-        const rows = await postgres`SELECT * FROM pokemon WHERE id in ${postgres(this.selected)}`;
+        if (!rows.length) return this.pokemon = [];
 
         const pokemon = rows.map(x => new Pokemon(x));
 
         this.pokemon = pokemon;
 
         return pokemon;
+    }
+
+    // Battle Section
+    readyBattleMode() {
+        // Battle Mode
+        this.battle = {
+            // Selected Pokemon
+            selected: 0,
+            // Inventory
+            inv: {}
+        }
+
+        return this.battle;
     }
 }
 

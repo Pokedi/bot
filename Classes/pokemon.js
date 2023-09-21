@@ -9,6 +9,7 @@ import time_gradient from "../Utilities/Misc/time_gradient.js";
 import calculateNextLevelEXP from "../Utilities/Pokemon/calculateNextLevelEXP.js";
 import getTime from "../Utilities/Misc/getTime.js";
 import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
+import { readySinglePokemonFrontBack } from "../Utilities/Pokemon/pokemonBattleImage.js";
 const chance = Chance();
 
 class Pokemon {
@@ -372,6 +373,51 @@ class Pokemon {
         return await this.save(postgres, { level: this.level, exp: this.exp, pokemon: evolvedPokemon || this.pokemon }),
             // Returned Obj
             { levelIncreased: preLevel != this.level, level: this.level, hasEvolved: evolvedPokemon != this.pokemon, pokemon: this.pokemon, evolvedPokemon };
+    }
+
+
+
+    // Battle Methods
+    readyBattleMode() {
+
+        // Battle Mode
+        this.battle = {
+            // Original Pokemon - In case of Giga + Mega
+            original_pokemon: this.pokemon,
+            // Current Pokemon
+            pokemon: this.pokemon,
+            // Current Stats
+            stat: this.stats,
+            // Position as Image
+            pos: this.getDetails().pos,
+            // Types
+            types: this.types,
+            // Current HP
+            current_hp: Math.floor(((this.getBaseStats().hp + this.stats.hp) * 2 * this.level) / 100 + 5 + this.level),
+            // Max HP
+            max_hp: Math.floor(((this.getBaseStats().hp + this.stats.hp) * 2 * this.level) / 100 + 5 + this.level),
+            // Status of Pokemon - Burn, Frozen, etc.
+            status: {},
+            // Check if Giga'd
+            giga: false
+        }
+
+        return this.battle;
+    }
+
+    async readyBattleImage() {
+
+        // Will not continue without a battle
+        if (!this.battle) return [];
+
+        const { back, front } = await readySinglePokemonFrontBack(this.getDetails(), this.shiny, this.battle.giga);
+
+        this.battle.img = {
+            back,
+            front
+        };
+
+        return this.battle.img;
     }
 }
 
