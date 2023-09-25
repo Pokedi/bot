@@ -1,30 +1,14 @@
-# Pokédi - Pokémon Bot
+# Pokédi - Another Pokémon Bot
 
-This project is licensed under the Pokédi license. Any use of this software must comply with the terms of the license.
+| :bangbang: | Pokedi is currently under heavy development. Functionality may change, and code will likely drastically change over time |
+| :--------: | :----------------------------------------------------------------------------------------------------------------------- |
 
-**Copyright Notice**
+[![Discord](https://img.shields.io/discord/716390832034414685?logo=discord&style=for-the-badge)](https://discord.gg/BUnZdjY)
+![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![License](https://img.shields.io/github/license/Pokedi/bot?style=for-the-badge)
 
-Copyright (c) Pokédi 2023. All rights reserved.
+The source code here is provided for educational purposes. It is not recommended to run your own instance of this bot, and no support will be given for you to do so. Instead use the invite slash command or the "Add to Server" button on the bot's profile.
 
-**Prohibition Against Theft of Code or Replication of Software**
+## Contributing
 
-It is strictly prohibited to steal any of the code in this project or to replicate this software in any way. Any person who violates this prohibition will be liable for damages, including reasonable attorneys' fees.
-
-**Reporting Copyright Violations**
-
-If you believe that your copyright has been violated, please create an issue request.
-
-**Thank you for your compliance.** 
-
-# Pokedi
-
-# TODO
-- Migrate all commands from original Bot
--- Convert to interaction commands
-- Create Spawn System
-- Make flexible spawn command
--- This will be used in the redeem and fragments command later
-
-# Bugs to Fix
-- Info Command is not selectable
-- So many more things to fix
+We're open to contributions. However, make an issue first if you want to contribute to the bot as the code is convoluted in areas and may not be easily understood.
