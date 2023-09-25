@@ -3,7 +3,7 @@
 | :bangbang: | Pokedi is currently under heavy development. Functionality may change, and code will likely drastically change over time |
 | :--------: | :----------------------------------------------------------------------------------------------------------------------- |
 
-[![Discord](https://img.shields.io/discord/716390832034414685?logo=discord&style=for-the-badge)](https://discord.gg/BUnZdjY)
+[![Discord](https://img.shields.io/discord/716293571166208001?logo=discord&style=for-the-badge)](https://discord.gg/BUnZdjY)
 ![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 ![License](https://img.shields.io/github/license/Pokedi/bot?style=for-the-badge)
 
