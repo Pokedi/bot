@@ -8,6 +8,8 @@ class Duel {
 
         if (!attacking_user) return false;
 
+        const whatTeam = this.teamA[attacking_user] || this.teamB[attacking_user];
+
     }
 
     move(name) {

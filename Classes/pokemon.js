@@ -10,6 +10,9 @@ import calculateNextLevelEXP from "../Utilities/Pokemon/calculateNextLevelEXP.js
 import getTime from "../Utilities/Misc/getTime.js";
 import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 import { readySinglePokemonFrontBack } from "../Utilities/Pokemon/pokemonBattleImage.js";
+import moves from "../Utilities/Data/moves.json" assert {type: "json"};
+import capitalize from "../Utilities/Misc/capitalize.js";
+
 const chance = Chance();
 
 class Pokemon {
@@ -39,6 +42,7 @@ class Pokemon {
             this.nature = pokemonObject.nature;
             this.gender = pokemonObject.gender;
             this.name = pokemonObject.name;
+            this.types = this.getNature();
             this.type = this.convertTypes(this.getNature());
         } else
             if (pokemonObject) Object.assign(this, pokemonObject);
@@ -375,7 +379,14 @@ class Pokemon {
             { levelIncreased: preLevel != this.level, level: this.level, hasEvolved: evolvedPokemon != this.pokemon, pokemon: this.pokemon, evolvedPokemon };
     }
 
-
+    returnMoves() {
+        return this.moves.map(x => ({ ...moves[x], id: x })).map((x, i) => {
+            const obj = { ...x };
+            obj.name = capitalize(obj.id.replace(/-/gmi, ' '));
+            obj.type = ENUM_POKEMON_TYPES[obj.t];
+            return obj;
+        });
+    }
 
     // Battle Methods
     readyBattleMode() {
@@ -398,6 +409,8 @@ class Pokemon {
             max_hp: Math.floor(((this.getBaseStats().hp + this.stats.hp) * 2 * this.level) / 100 + 5 + this.level),
             // Status of Pokemon - Burn, Frozen, etc.
             status: {},
+            // Modifiers - Defense, Attack, etc.
+            mods: {},
             // Check if Giga'd
             giga: false
         }

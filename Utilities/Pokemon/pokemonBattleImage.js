@@ -245,4 +245,39 @@ function battleBoxFields(teamA = {}, teamB = {}) {
     ];
 }
 
-export { readySinglePokemonFrontBack, generateSinglePokemonBox, generateBattleBox, returnBattleBox, battleBoxFields };
+async function returnEmbedBox(teamA = {}, teamB = {}) {
+    return {
+        fetchReply: true,
+        files: [{
+            attachment: await returnBattleBox(generateBattleBox(teamA, teamB)),
+            name: "battle.png"
+        }],
+        embeds: [{
+            image: {
+                url: "attachment://battle.png"
+            },
+            fields: battleBoxFields(teamA, teamB),
+            author: {
+                icon_url: "https://cdn.discordapp.com/attachments/716304762395426816/1154365538303217774/225px-Sun_Moon_Professor_Kukui.png",
+                name: "Professor Kukui"
+            }
+        }]
+    }
+}
+
+function returnNewFieldEmbed(embed = {}, extraNotes = [], teamA = {}, teamB = {}) {
+
+    embed.embeds[0].fields = battleBoxFields(teamA, teamB);
+
+    embed.embeds[0].fields.push({
+        name: "----",
+        value: extraNotes.map((x, i) => {
+            return (i + 1) + ") " + x;
+        }
+        ).join("\n") || "Yeah, they hit each other lots."
+    });
+
+    return embed;
+}
+
+export { readySinglePokemonFrontBack, generateSinglePokemonBox, generateBattleBox, returnBattleBox, battleBoxFields, returnEmbedBox, returnNewFieldEmbed };

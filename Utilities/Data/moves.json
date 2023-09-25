@@ -1,0 +1,5083 @@
+{
+    "razor-wind": {
+        "t": "n",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "swords-dance": {
+        "t": "n",
+        "s": "st",
+        "d": 0,
+        "a": null,
+        "mod": {
+            "atk": 2
+        }
+    },
+    "tackle": {
+        "t": "n",
+        "s": "p",
+        "d": 40,
+        "a": 100
+    },
+    "cut": {
+        "t": "n",
+        "s": "p",
+        "d": 50,
+        "a": 95
+    },
+    "bind": {
+        "t": "n",
+        "s": "p",
+        "d": 15,
+        "a": 85
+    },
+    "vine-whip": {
+        "t": "g",
+        "s": "p",
+        "d": 45,
+        "a": 100
+    },
+    "headbutt": {
+        "t": "n",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "body-slam": {
+        "t": "n",
+        "s": "p",
+        "d": 85,
+        "a": 100,
+        "par": 30
+    },
+    "take-down": {
+        "t": "n",
+        "s": "p",
+        "d": 90,
+        "a": 85
+    },
+    "double-edge": {
+        "t": "n",
+        "s": "p",
+        "d": 120,
+        "a": 100
+    },
+    "growl": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "atk": 1
+        }
+    },
+    "strength": {
+        "t": "n",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "mega-drain": {
+        "t": "g",
+        "s": "s",
+        "d": 40,
+        "a": 100
+    },
+    "leech-seed": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": 90
+    },
+    "razor-leaf": {
+        "t": "g",
+        "s": "p",
+        "d": 55,
+        "a": 95
+    },
+    "growth": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "spatk": 1
+        }
+    },
+    "solar-beam": {
+        "t": "g",
+        "s": "s",
+        "d": 120,
+        "a": 100
+    },
+    "poison-powder": {
+        "t": "p",
+        "s": "st",
+        "d": null,
+        "a": 75,
+        "psn": 100
+    },
+    "sleep-powder": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": 75,
+        "slp": 100
+    },
+    "petal-dance": {
+        "t": "g",
+        "s": "s",
+        "d": 120,
+        "a": 100
+    },
+    "string-shot": {
+        "t": "b",
+        "s": "st",
+        "d": null,
+        "a": 95,
+        "demod": {
+            "spd": 2
+        }
+    },
+    "toxic": {
+        "t": "p",
+        "s": "st",
+        "d": null,
+        "a": 90,
+        "psn": 100
+    },
+    "rage": {
+        "t": "n",
+        "s": "p",
+        "d": 20,
+        "a": 100,
+        "mod": {
+            "atk": 1
+        }
+    },
+    "mimic": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "double-team": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "defense-curl": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 1
+        }
+    },
+    "light-screen": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "reflect": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "bide": {
+        "t": "n",
+        "s": "p",
+        "d": null,
+        "a": null
+    },
+    "sludge": {
+        "t": "p",
+        "s": "s",
+        "d": 65,
+        "a": 100,
+        "psn": 30
+    },
+    "skull-bash": {
+        "t": "n",
+        "s": "p",
+        "d": 130,
+        "a": 100,
+        "mod": {
+            "def": 1
+        }
+    },
+    "amnesia": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "spdef": 2
+        }
+    },
+    "flash": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "rest": {
+        "t": "ps",
+        "s": "st",
+        "d": 0,
+        "a": 100,
+        "slp": 100
+    },
+    "substitute": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "snore": {
+        "t": "n",
+        "s": "s",
+        "d": 50,
+        "a": 100
+    },
+    "curse": {
+        "t": "gh",
+        "s": "st",
+        "d": 0,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "def": 1
+        },
+        "demod": {
+            "spd": 1
+        }
+    },
+    "protect": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "sludge-bomb": {
+        "t": "p",
+        "s": "s",
+        "d": 90,
+        "a": 100,
+        "psn": 30
+    },
+    "mud-slap": {
+        "t": "gr",
+        "s": "s",
+        "d": 20,
+        "a": 100
+    },
+    "giga-drain": {
+        "t": "g",
+        "s": "s",
+        "d": 75,
+        "a": 100
+    },
+    "endure": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": 4
+    },
+    "charm": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "atk": 2
+        }
+    },
+    "swagger": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 85,
+        "cnf": 100,
+        "mod": {
+            "atk": 2
+        }
+    },
+    "fury-cutter": {
+        "t": "b",
+        "s": "p",
+        "d": 40,
+        "a": 95
+    },
+    "attract": {
+        "t": "n",
+        "s": "st",
+        "d": 0,
+        "a": 100
+    },
+    "sleep-talk": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "return": {
+        "t": "n",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "frustration": {
+        "t": "n",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "safeguard": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "sweet-scent": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "synthesis": {
+        "t": "g",
+        "s": "st",
+        "d": 0,
+        "a": null
+    },
+    "hidden-power": {
+        "t": "n",
+        "s": "s",
+        "d": 60,
+        "a": 100
+    },
+    "sunny-day": {
+        "t": "f",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "rock-smash": {
+        "t": "fi",
+        "s": "p",
+        "d": 40,
+        "a": 100,
+        "demod": {
+            "def": 1
+        }
+    },
+    "facade": {
+        "t": "n",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "nature-power": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "ingrain": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "knock-off": {
+        "t": "da",
+        "s": "p",
+        "d": 65,
+        "a": 100
+    },
+    "secret-power": {
+        "t": "n",
+        "s": "p",
+        "d": 70,
+        "a": 100,
+        "slp": 30,
+        "frz": 30,
+        "par": 30,
+        "brn": 30,
+        "psn": 30,
+        "cnf": 30,
+        "demod": {
+            "atk": 1,
+            "def": 1,
+            "spatk": 1,
+            "spd": 1
+        }
+    },
+    "grass-whistle": {
+        "t": "g",
+        "s": "st",
+        "d": 0,
+        "a": 55,
+        "slp": 100
+    },
+    "bullet-seed": {
+        "t": "g",
+        "s": "p",
+        "d": 25,
+        "a": 100,
+        "ms": 5
+    },
+    "magical-leaf": {
+        "t": "g",
+        "s": "s",
+        "d": 60,
+        "a": "∞"
+    },
+    "natural-gift": {
+        "t": "n",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "worry-seed": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "seed-bomb": {
+        "t": "g",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "energy-ball": {
+        "t": "g",
+        "s": "s",
+        "d": 90,
+        "a": 100,
+        "demod": {
+            "spdef": 1
+        }
+    },
+    "leaf-storm": {
+        "t": "g",
+        "s": "s",
+        "d": 130,
+        "a": 90,
+        "demod": {
+            "spatk": 2
+        }
+    },
+    "power-whip": {
+        "t": "g",
+        "s": "p",
+        "d": 120,
+        "a": 85
+    },
+    "captivate": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "spatk": 2
+        }
+    },
+    "grass-knot": {
+        "t": "g",
+        "s": "s",
+        "d": null,
+        "a": 100
+    },
+    "venoshock": {
+        "t": "p",
+        "s": "s",
+        "d": 65,
+        "a": 100,
+        "psn": 100
+    },
+    "round": {
+        "t": "n",
+        "s": "s",
+        "d": 60,
+        "a": 100
+    },
+    "echoed-voice": {
+        "t": "n",
+        "s": "s",
+        "d": 40,
+        "a": 100
+    },
+    "grass-pledge": {
+        "t": "g",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "work-up": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "spatk": 1
+        }
+    },
+    "grassy-terrain": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "confide": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "demod": {
+            "spatk": 1
+        }
+    },
+    "whirlwind": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": -6
+    },
+    "fly": {
+        "t": "fl",
+        "s": "p",
+        "d": 90,
+        "a": 95
+    },
+    "leer": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "def": 1
+        }
+    },
+    "hyper-beam": {
+        "t": "n",
+        "s": "s",
+        "d": 150,
+        "a": 90
+    },
+    "peck": {
+        "t": "fl",
+        "s": "p",
+        "d": 35,
+        "a": 100
+    },
+    "drill-peck": {
+        "t": "fl",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "agility": {
+        "t": "ps",
+        "s": "st",
+        "d": 0,
+        "a": null,
+        "mod": {
+            "spd": 2
+        }
+    },
+    "mirror-move": {
+        "t": "fl",
+        "s": "st",
+        "d": 0,
+        "a": null
+    },
+    "swift": {
+        "t": "n",
+        "s": "s",
+        "d": 60,
+        "a": "∞"
+    },
+    "sky-attack": {
+        "t": "fl",
+        "s": "p",
+        "d": 140,
+        "a": 90
+    },
+    "thief": {
+        "t": "da",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "detect": {
+        "t": "fi",
+        "s": "st",
+        "d": 0,
+        "a": null,
+        "pr": 4
+    },
+    "false-swipe": {
+        "t": "n",
+        "s": "p",
+        "d": 40,
+        "a": 100
+    },
+    "steel-wing": {
+        "t": "s",
+        "s": "p",
+        "d": 70,
+        "a": 90,
+        "mod": {
+            "def": 1
+        }
+    },
+    "pursuit": {
+        "t": "da",
+        "s": "p",
+        "d": 40,
+        "a": 100
+    },
+    "twister": {
+        "t": "dr",
+        "s": "s",
+        "d": 40,
+        "a": 100
+    },
+    "rain-dance": {
+        "t": "w",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "uproar": {
+        "t": "n",
+        "s": "s",
+        "d": 90,
+        "a": 100
+    },
+    "heat-wave": {
+        "t": "f",
+        "s": "s",
+        "d": 95,
+        "a": 90,
+        "brn": 10
+    },
+    "precipice-blades": {
+        "t": "gr",
+        "s": "p",
+        "d": 120,
+        "a": 85
+    },
+    "air-cutter": {
+        "t": "fl",
+        "s": "s",
+        "d": 60,
+        "a": 95
+    },
+    "aerial-ace": {
+        "t": "fl",
+        "s": "p",
+        "d": 60,
+        "a": "∞"
+    },
+    "roost": {
+        "t": "fl",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "pluck": {
+        "t": "fl",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "tailwind": {
+        "t": "fl",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "spd": 1
+        }
+    },
+    "u-turn": {
+        "t": "b",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "assurance": {
+        "t": "da",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "giga-impact": {
+        "t": "n",
+        "s": "p",
+        "d": 150,
+        "a": 90
+    },
+    "defog": {
+        "t": "fl",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "ominous-wind": {
+        "t": "gh",
+        "s": "s",
+        "d": 60,
+        "a": 100,
+        "mod": {
+            "atk": 1,
+            "def": 1,
+            "spatk": 1,
+            "spdef": 1,
+            "spd": 1
+        }
+    },
+    "drill-run": {
+        "t": "gr",
+        "s": "p",
+        "d": 80,
+        "a": 95
+    },
+    "focus-energy": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "fury-attack": {
+        "t": "n",
+        "s": "p",
+        "d": 15,
+        "a": 85,
+        "ms": 5
+    },
+    "mega-punch": {
+        "t": "n",
+        "s": "p",
+        "d": 80,
+        "a": 85
+    },
+    "pay-day": {
+        "t": "n",
+        "s": "p",
+        "d": 40,
+        "a": 100
+    },
+    "thunder-punch": {
+        "t": "e",
+        "s": "p",
+        "d": 75,
+        "a": 100,
+        "par": 10
+    },
+    "slam": {
+        "t": "n",
+        "s": "p",
+        "d": 80,
+        "a": 75
+    },
+    "mega-kick": {
+        "t": "n",
+        "s": "p",
+        "d": 120,
+        "a": 75
+    },
+    "tail-whip": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "def": 1
+        }
+    },
+    "surf": {
+        "t": "w",
+        "s": "s",
+        "d": 90,
+        "a": 100
+    },
+    "submission": {
+        "t": "fi",
+        "s": "p",
+        "d": 80,
+        "a": 80
+    },
+    "counter": {
+        "t": "fi",
+        "s": "p",
+        "d": null,
+        "a": 100,
+        "pr": -5
+    },
+    "seismic-toss": {
+        "t": "fi",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "thunder-shock": {
+        "t": "e",
+        "s": "s",
+        "d": 40,
+        "a": 100,
+        "par": 10
+    },
+    "thunderbolt": {
+        "t": "e",
+        "s": "s",
+        "d": 90,
+        "a": 100,
+        "par": 10
+    },
+    "thunder-wave": {
+        "t": "e",
+        "s": "st",
+        "d": 0,
+        "a": 90,
+        "par": 100
+    },
+    "thunder": {
+        "t": "e",
+        "s": "s",
+        "d": 110,
+        "a": 70,
+        "par": 30
+    },
+    "dig": {
+        "t": "gr",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "quick-attack": {
+        "t": "n",
+        "s": "p",
+        "d": 40,
+        "a": 100,
+        "pr": 1
+    },
+    "zap-cannon": {
+        "t": "e",
+        "s": "s",
+        "d": 120,
+        "a": 50,
+        "par": 100
+    },
+    "rollout": {
+        "t": "r",
+        "s": "p",
+        "d": 30,
+        "a": 90
+    },
+    "spark": {
+        "t": "e",
+        "s": "p",
+        "d": 65,
+        "a": 100,
+        "par": 30
+    },
+    "dynamic-punch": {
+        "t": "fi",
+        "s": "p",
+        "d": 100,
+        "a": 50,
+        "cnf": 100
+    },
+    "iron-tail": {
+        "t": "s",
+        "s": "p",
+        "d": 100,
+        "a": 75,
+        "demod": {
+            "def": 1
+        }
+    },
+    "focus-punch": {
+        "t": "fi",
+        "s": "p",
+        "d": 150,
+        "a": 100,
+        "pr": -3
+    },
+    "helping-hand": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": 5
+    },
+    "brick-break": {
+        "t": "fi",
+        "s": "p",
+        "d": 75,
+        "a": 100
+    },
+    "signal-beam": {
+        "t": "b",
+        "s": "s",
+        "d": 75,
+        "a": 100,
+        "cnf": 10
+    },
+    "covet": {
+        "t": "n",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "shock-wave": {
+        "t": "e",
+        "s": "s",
+        "d": 60,
+        "a": "∞"
+    },
+    "feint": {
+        "t": "n",
+        "s": "p",
+        "d": 30,
+        "a": 100,
+        "pr": 2
+    },
+    "fling": {
+        "t": "da",
+        "s": "p",
+        "d": null,
+        "a": 100,
+        "par": 100,
+        "brn": 100,
+        "psn": 100
+    },
+    "magnet-rise": {
+        "t": "e",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "discharge": {
+        "t": "e",
+        "s": "s",
+        "d": 80,
+        "a": 100,
+        "par": 30
+    },
+    "charge-beam": {
+        "t": "e",
+        "s": "s",
+        "d": 50,
+        "a": 90,
+        "mod": {
+            "spatk": 1
+        }
+    },
+    "electro-ball": {
+        "t": "e",
+        "s": "s",
+        "d": null,
+        "a": 100
+    },
+    "volt-switch": {
+        "t": "e",
+        "s": "s",
+        "d": 70,
+        "a": 100
+    },
+    "electroweb": {
+        "t": "e",
+        "s": "s",
+        "d": 55,
+        "a": 95,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "wild-charge": {
+        "t": "e",
+        "s": "p",
+        "d": 90,
+        "a": 100
+    },
+    "play-nice": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "demod": {
+            "atk": 1
+        }
+    },
+    "nuzzle": {
+        "t": "e",
+        "s": "p",
+        "d": 20,
+        "a": 100,
+        "par": 100
+    },
+    "double-slap": {
+        "t": "n",
+        "s": "p",
+        "d": 15,
+        "a": 85,
+        "ms": 5
+    },
+    "fire-punch": {
+        "t": "f",
+        "s": "p",
+        "d": 75,
+        "a": 100,
+        "brn": 10
+    },
+    "ice-punch": {
+        "t": "i",
+        "s": "p",
+        "d": 75,
+        "a": 100,
+        "frz": 10
+    },
+    "sing": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 55,
+        "slp": 100
+    },
+    "flamethrower": {
+        "t": "f",
+        "s": "s",
+        "d": 90,
+        "a": 100,
+        "brn": 10
+    },
+    "water-gun": {
+        "t": "w",
+        "s": "s",
+        "d": 40,
+        "a": 100
+    },
+    "ice-beam": {
+        "t": "i",
+        "s": "s",
+        "d": 90,
+        "a": 100,
+        "frz": 10
+    },
+    "blizzard": {
+        "t": "i",
+        "s": "s",
+        "d": 110,
+        "a": 70,
+        "frz": 10
+    },
+    "bubble-beam": {
+        "t": "w",
+        "s": "s",
+        "d": 65,
+        "a": 100,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "psychic": {
+        "t": "ps",
+        "s": "s",
+        "d": 90,
+        "a": 100,
+        "demod": {
+            "spdef": 1
+        }
+    },
+    "teleport": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": -6
+    },
+    "minimize": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "metronome": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "fire-blast": {
+        "t": "f",
+        "s": "s",
+        "d": 110,
+        "a": 85,
+        "brn": 10
+    },
+    "soft-boiled": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "dream-eater": {
+        "t": "ps",
+        "s": "s",
+        "d": 100,
+        "a": 100
+    },
+    "psywave": {
+        "t": "ps",
+        "s": "s",
+        "d": null,
+        "a": 100
+    },
+    "tri-attack": {
+        "t": "n",
+        "s": "s",
+        "d": 80,
+        "a": 100,
+        "frz": 6,
+        "par": 6,
+        "brn": 6
+    },
+    "nightmare": {
+        "t": "gh",
+        "s": "st",
+        "d": 0,
+        "a": 100
+    },
+    "icy-wind": {
+        "t": "i",
+        "s": "s",
+        "d": 55,
+        "a": 95,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "heal-bell": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "moonlight": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "psych-up": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "shadow-ball": {
+        "t": "gh",
+        "s": "s",
+        "d": 80,
+        "a": 100,
+        "demod": {
+            "spdef": 1
+        }
+    },
+    "trick": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "role-play": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "magic-coat": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": 4
+    },
+    "recycle": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "endeavor": {
+        "t": "n",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "snatch": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "hyper-voice": {
+        "t": "n",
+        "s": "s",
+        "d": 90,
+        "a": 100
+    },
+    "bounce": {
+        "t": "fl",
+        "s": "p",
+        "d": 85,
+        "a": 85,
+        "par": 30
+    },
+    "calm-mind": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "spatk": 1,
+            "spdef": 1
+        }
+    },
+    "water-pulse": {
+        "t": "w",
+        "s": "s",
+        "d": 60,
+        "a": 100,
+        "cnf": 20
+    },
+    "gravity": {
+        "t": "ps",
+        "s": "st",
+        "d": 0,
+        "a": null
+    },
+    "last-resort": {
+        "t": "n",
+        "s": "p",
+        "d": 140,
+        "a": 100
+    },
+    "drain-punch": {
+        "t": "fi",
+        "s": "p",
+        "d": 75,
+        "a": 100
+    },
+    "focus-blast": {
+        "t": "fi",
+        "s": "s",
+        "d": 120,
+        "a": 70,
+        "demod": {
+            "spdef": 1
+        }
+    },
+    "zen-headbutt": {
+        "t": "ps",
+        "s": "p",
+        "d": 80,
+        "a": 90
+    },
+    "stealth-rock": {
+        "t": "r",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "wonder-room": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "psyshock": {
+        "t": "ps",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "telekinesis": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "after-you": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "incinerate": {
+        "t": "f",
+        "s": "s",
+        "d": 60,
+        "a": 100
+    },
+    "retaliate": {
+        "t": "n",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "disarming-voice": {
+        "t": "fr",
+        "s": "s",
+        "d": 40,
+        "a": "∞"
+    },
+    "dazzling-gleam": {
+        "t": "fr",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "power-up-punch": {
+        "t": "fi",
+        "s": "p",
+        "d": 40,
+        "a": 100,
+        "mod": {
+            "atk": 1
+        }
+    },
+    "spotlight": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "pound": {
+        "t": "n",
+        "s": "p",
+        "d": 40,
+        "a": 100
+    },
+    "encore": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "follow-me": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": 2
+    },
+    "meteor-mash": {
+        "t": "s",
+        "s": "p",
+        "d": 90,
+        "a": 90,
+        "mod": {
+            "atk": 1
+        }
+    },
+    "cosmic-power": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 1,
+            "spdef": 1
+        }
+    },
+    "wake-up-slap": {
+        "t": "fi",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "healing-wish": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "lucky-chant": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "stored-power": {
+        "t": "ps",
+        "s": "s",
+        "d": 20,
+        "a": 100
+    },
+    "bestow": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "moonblast": {
+        "t": "fr",
+        "s": "s",
+        "d": 95,
+        "a": 100,
+        "demod": {
+            "spatk": 1
+        }
+    },
+    "horn-drill": {
+        "t": "n",
+        "s": "p",
+        "d": null,
+        "a": 30
+    },
+    "toxic-spikes": {
+        "t": "p",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "psn": 100
+    },
+    "shadow-claw": {
+        "t": "gh",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "hone-claws": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1
+        }
+    },
+    "double-kick": {
+        "t": "fi",
+        "s": "p",
+        "d": 30,
+        "a": 100,
+        "ms": 2
+    },
+    "poison-jab": {
+        "t": "p",
+        "s": "p",
+        "d": 80,
+        "a": 100,
+        "psn": 30
+    },
+    "smart-strike": {
+        "t": "s",
+        "s": "p",
+        "d": 70,
+        "a": null
+    },
+    "poison-sting": {
+        "t": "p",
+        "s": "p",
+        "d": 15,
+        "a": 100,
+        "psn": 30
+    },
+    "flatter": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "cnf": 100,
+        "mod": {
+            "spatk": 1
+        }
+    },
+    "horn-attack": {
+        "t": "n",
+        "s": "p",
+        "d": 65,
+        "a": 100
+    },
+    "sucker-punch": {
+        "t": "da",
+        "s": "p",
+        "d": 70,
+        "a": 100,
+        "pr": 1
+    },
+    "super-fang": {
+        "t": "n",
+        "s": "p",
+        "d": null,
+        "a": 90
+    },
+    "roar": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": -6
+    },
+    "disable": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "ember": {
+        "t": "f",
+        "s": "s",
+        "d": 40,
+        "a": 100,
+        "brn": 10
+    },
+    "fire-spin": {
+        "t": "f",
+        "s": "s",
+        "d": 35,
+        "a": 85
+    },
+    "hypnosis": {
+        "t": "ps",
+        "s": "st",
+        "d": 0,
+        "a": 60,
+        "slp": 100
+    },
+    "confuse-ray": {
+        "t": "gh",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "cnf": 100
+    },
+    "flail": {
+        "t": "n",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "spite": {
+        "t": "gh",
+        "s": "st",
+        "d": 0,
+        "a": 100
+    },
+    "feint-attack": {
+        "t": "da",
+        "s": "p",
+        "d": 60,
+        "a": "∞"
+    },
+    "pain-split": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "will-o-wisp": {
+        "t": "f",
+        "s": "st",
+        "d": null,
+        "a": 85,
+        "brn": 100
+    },
+    "imprison": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "grudge": {
+        "t": "gh",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "overheat": {
+        "t": "f",
+        "s": "s",
+        "d": 130,
+        "a": 90,
+        "demod": {
+            "spatk": 2
+        }
+    },
+    "extrasensory": {
+        "t": "ps",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "howl": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1
+        }
+    },
+    "payback": {
+        "t": "da",
+        "s": "p",
+        "d": 50,
+        "a": 100
+    },
+    "power-swap": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "flare-blitz": {
+        "t": "f",
+        "s": "p",
+        "d": 120,
+        "a": 100,
+        "brn": 10
+    },
+    "dark-pulse": {
+        "t": "da",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "flame-burst": {
+        "t": "f",
+        "s": "s",
+        "d": 70,
+        "a": 100
+    },
+    "flame-charge": {
+        "t": "f",
+        "s": "p",
+        "d": 50,
+        "a": 100,
+        "mod": {
+            "spd": 1
+        }
+    },
+    "foul-play": {
+        "t": "da",
+        "s": "p",
+        "d": 95,
+        "a": 100
+    },
+    "hex": {
+        "t": "gh",
+        "s": "s",
+        "d": 65,
+        "a": 100,
+        "psn": 80
+    },
+    "inferno": {
+        "t": "f",
+        "s": "s",
+        "d": 100,
+        "a": 50,
+        "brn": 100
+    },
+    "tail-slap": {
+        "t": "n",
+        "s": "p",
+        "d": 25,
+        "a": 85,
+        "ms": 5
+    },
+    "baby-doll-eyes": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "atk": 1
+        },
+        "pr": 1
+    },
+    "nasty-plot": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "spatk": 2
+        }
+    },
+    "gust": {
+        "t": "fl",
+        "s": "s",
+        "d": 40,
+        "a": 100
+    },
+    "wing-attack": {
+        "t": "fl",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "bite": {
+        "t": "da",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "supersonic": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 55,
+        "cnf": 100
+    },
+    "absorb": {
+        "t": "g",
+        "s": "s",
+        "d": 20,
+        "a": 100
+    },
+    "haze": {
+        "t": "i",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "leech-life": {
+        "t": "b",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "mean-look": {
+        "t": "n",
+        "s": "st",
+        "d": 0,
+        "a": null
+    },
+    "torment": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "taunt": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "poison-fang": {
+        "t": "p",
+        "s": "p",
+        "d": 50,
+        "a": 100
+    },
+    "astonish": {
+        "t": "gh",
+        "s": "p",
+        "d": 30,
+        "a": 100
+    },
+    "air-slash": {
+        "t": "fl",
+        "s": "s",
+        "d": 75,
+        "a": 95
+    },
+    "brave-bird": {
+        "t": "fl",
+        "s": "p",
+        "d": 120,
+        "a": 100
+    },
+    "quick-guard": {
+        "t": "fi",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": 3
+    },
+    "acrobatics": {
+        "t": "fl",
+        "s": "p",
+        "d": 55,
+        "a": 100
+    },
+    "venom-drench": {
+        "t": "p",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "atk": 1,
+            "spatk": 1,
+            "spd": 1
+        }
+    },
+    "acid": {
+        "t": "p",
+        "s": "s",
+        "d": 40,
+        "a": 100,
+        "demod": {
+            "def": 1,
+            "spdef": 1
+        }
+    },
+    "stun-spore": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": 75,
+        "par": 100
+    },
+    "teeter-dance": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "cnf": 100
+    },
+    "tickle": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "atk": 1,
+            "def": 1
+        }
+    },
+    "gastro-acid": {
+        "t": "p",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "strength-sap": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "atk": 1
+        }
+    },
+    "infestation": {
+        "t": "b",
+        "s": "s",
+        "d": 20,
+        "a": 100
+    },
+    "screech": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 85,
+        "demod": {
+            "def": 2
+        }
+    },
+    "aromatherapy": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "petal-blizzard": {
+        "t": "g",
+        "s": "p",
+        "d": 90,
+        "a": 100
+    },
+    "scratch": {
+        "t": "n",
+        "s": "p",
+        "d": 40,
+        "a": 100
+    },
+    "psybeam": {
+        "t": "ps",
+        "s": "s",
+        "d": 65,
+        "a": 100,
+        "cnf": 10
+    },
+    "slash": {
+        "t": "n",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "metal-claw": {
+        "t": "s",
+        "s": "p",
+        "d": 50,
+        "a": 95,
+        "mod": {
+            "atk": 1
+        }
+    },
+    "x-scissor": {
+        "t": "b",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "cross-poison": {
+        "t": "p",
+        "s": "p",
+        "d": 70,
+        "a": 100,
+        "psn": 10
+    },
+    "bug-bite": {
+        "t": "b",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "rage-powder": {
+        "t": "b",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": 2
+    },
+    "struggle-bug": {
+        "t": "b",
+        "s": "s",
+        "d": 50,
+        "a": 100,
+        "demod": {
+            "spatk": 1
+        }
+    },
+    "rototiller": {
+        "t": "gr",
+        "s": "st",
+        "d": 0,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "spatk": 1
+        }
+    },
+    "fell-stinger": {
+        "t": "b",
+        "s": "p",
+        "d": 50,
+        "a": 100,
+        "mod": {
+            "atk": 3
+        }
+    },
+    "confusion": {
+        "t": "ps",
+        "s": "s",
+        "d": 50,
+        "a": 100,
+        "cnf": 10
+    },
+    "baton-pass": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "wide-guard": {
+        "t": "r",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": 3
+    },
+    "skill-swap": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "foresight": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "morning-sun": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "spore": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "slp": 100
+    },
+    "sand-attack": {
+        "t": "gr",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "earthquake": {
+        "t": "gr",
+        "s": "p",
+        "d": 100,
+        "a": 100
+    },
+    "fissure": {
+        "t": "gr",
+        "s": "p",
+        "d": null,
+        "a": 30
+    },
+    "fury-swipes": {
+        "t": "n",
+        "s": "p",
+        "d": 18,
+        "a": 80,
+        "ms": 5
+    },
+    "rock-slide": {
+        "t": "r",
+        "s": "p",
+        "d": 75,
+        "a": 90
+    },
+    "reversal": {
+        "t": "fi",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "sandstorm": {
+        "t": "r",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "magnitude": {
+        "t": "gr",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "ancient-power": {
+        "t": "r",
+        "s": "s",
+        "d": 60,
+        "a": 100,
+        "mod": {
+            "atk": 1,
+            "def": 1,
+            "spatk": 1,
+            "spdef": 1,
+            "spd": 1
+        }
+    },
+    "beat-up": {
+        "t": "da",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "rock-tomb": {
+        "t": "r",
+        "s": "p",
+        "d": 60,
+        "a": 95,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "earth-power": {
+        "t": "gr",
+        "s": "s",
+        "d": 90,
+        "a": 100,
+        "demod": {
+            "spdef": 1
+        }
+    },
+    "mud-bomb": {
+        "t": "gr",
+        "s": "s",
+        "d": 65,
+        "a": 85
+    },
+    "final-gambit": {
+        "t": "fi",
+        "s": "s",
+        "d": null,
+        "a": 100
+    },
+    "bulldoze": {
+        "t": "gr",
+        "s": "p",
+        "d": 60,
+        "a": 100,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "silver-wind": {
+        "t": "b",
+        "s": "s",
+        "d": 60,
+        "a": 100,
+        "mod": {
+            "atk": 1,
+            "def": 1,
+            "spatk": 1,
+            "spdef": 1,
+            "spd": 1
+        }
+    },
+    "bug-buzz": {
+        "t": "b",
+        "s": "s",
+        "d": 90,
+        "a": 100,
+        "demod": {
+            "spdef": 1
+        }
+    },
+    "quiver-dance": {
+        "t": "b",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "spatk": 1,
+            "spdef": 1,
+            "spd": 1
+        }
+    },
+    "sand-tomb": {
+        "t": "g",
+        "s": "p",
+        "d": 35,
+        "a": 85
+    },
+    "night-slash": {
+        "t": "da",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "stone-edge": {
+        "t": "r",
+        "s": "p",
+        "d": 100,
+        "a": 80
+    },
+    "sludge-wave": {
+        "t": "p",
+        "s": "s",
+        "d": 95,
+        "a": 100,
+        "psn": 10
+    },
+    "hydro-pump": {
+        "t": "w",
+        "s": "s",
+        "d": 110,
+        "a": 80
+    },
+    "low-kick": {
+        "t": "fi",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "waterfall": {
+        "t": "w",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "whirlpool": {
+        "t": "w",
+        "s": "s",
+        "d": 35,
+        "a": 85
+    },
+    "hail": {
+        "t": "i",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "dive": {
+        "t": "w",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "water-sport": {
+        "t": "w",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "brine": {
+        "t": "w",
+        "s": "s",
+        "d": 65,
+        "a": 100
+    },
+    "me-first": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "aqua-tail": {
+        "t": "w",
+        "s": "p",
+        "d": 90,
+        "a": 90
+    },
+    "aqua-jet": {
+        "t": "w",
+        "s": "p",
+        "d": 40,
+        "a": 100,
+        "pr": 1
+    },
+    "soak": {
+        "t": "w",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "low-sweep": {
+        "t": "fi",
+        "s": "p",
+        "d": 65,
+        "a": 100,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "scald": {
+        "t": "w",
+        "s": "s",
+        "d": 80,
+        "a": 100,
+        "brn": 30
+    },
+    "fake-out": {
+        "t": "n",
+        "s": "p",
+        "d": 40,
+        "a": 100,
+        "pr": 3
+    },
+    "embargo": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "power-gem": {
+        "t": "r",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "switcheroo": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "gunk-shot": {
+        "t": "p",
+        "s": "p",
+        "d": 120,
+        "a": 80,
+        "psn": 30
+    },
+    "play-rough": {
+        "t": "fr",
+        "s": "p",
+        "d": 90,
+        "a": 90,
+        "demod": {
+            "atk": 1
+        }
+    },
+    "rock-climb": {
+        "t": "n",
+        "s": "p",
+        "d": 90,
+        "a": 85,
+        "cnf": 20
+    },
+    "karate-chop": {
+        "t": "fi",
+        "s": "p",
+        "d": 50,
+        "a": 100
+    },
+    "thrash": {
+        "t": "n",
+        "s": "p",
+        "d": 120,
+        "a": 100
+    },
+    "meditate": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1
+        }
+    },
+    "outrage": {
+        "t": "dr",
+        "s": "p",
+        "d": 120,
+        "a": 100
+    },
+    "cross-chop": {
+        "t": "fi",
+        "s": "p",
+        "d": 100,
+        "a": 80
+    },
+    "smelling-salts": {
+        "t": "n",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "revenge": {
+        "t": "fi",
+        "s": "p",
+        "d": 60,
+        "a": 100,
+        "pr": -4
+    },
+    "bulk-up": {
+        "t": "fi",
+        "s": "st",
+        "d": 0,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "def": 1
+        }
+    },
+    "close-combat": {
+        "t": "fi",
+        "s": "p",
+        "d": 120,
+        "a": 100,
+        "demod": {
+            "def": 1,
+            "spdef": 1
+        }
+    },
+    "punishment": {
+        "t": "da",
+        "s": "p",
+        "d": 0,
+        "a": 100
+    },
+    "vacuum-wave": {
+        "t": "fi",
+        "s": "s",
+        "d": 40,
+        "a": 100,
+        "pr": 1
+    },
+    "smack-down": {
+        "t": "r",
+        "s": "p",
+        "d": 50,
+        "a": 100
+    },
+    "dual-chop": {
+        "t": "dr",
+        "s": "p",
+        "d": 40,
+        "a": 90,
+        "ms": 2
+    },
+    "power-trip": {
+        "t": "da",
+        "s": "p",
+        "d": 20,
+        "a": 100
+    },
+    "stomping-tantrum": {
+        "t": "gr",
+        "s": "p",
+        "d": 75,
+        "a": 100
+    },
+    "mind-reader": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "splash": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "belly-drum": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 3
+        }
+    },
+    "ice-ball": {
+        "t": "i",
+        "s": "p",
+        "d": 30,
+        "a": 90
+    },
+    "refresh": {
+        "t": "n",
+        "s": "st",
+        "d": 0,
+        "a": null
+    },
+    "bubble": {
+        "t": "w",
+        "s": "s",
+        "d": 40,
+        "a": 100,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "mist": {
+        "t": "i",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "mud-shot": {
+        "t": "g",
+        "s": "s",
+        "d": 55,
+        "a": 95,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "circle-throw": {
+        "t": "fi",
+        "s": "p",
+        "d": 60,
+        "a": 90,
+        "pr": -6
+    },
+    "barrier": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 2
+        }
+    },
+    "psycho-shift": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "slp": 100,
+        "par": 100,
+        "brn": 100,
+        "psn": 100
+    },
+    "guard-swap": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "guard-split": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 4,
+            "spdef": 1
+        },
+        "demod": {
+            "def": 2,
+            "spdef": 2
+        }
+    },
+    "trick-room": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": -7
+    },
+    "magic-room": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "ally-switch": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": 2
+    },
+    "psychic-terrain": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "power-trick": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "def": 4
+        },
+        "demod": {
+            "atk": 2,
+            "def": 2
+        }
+    },
+    "recover": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "kinesis": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": 80
+    },
+    "future-sight": {
+        "t": "ps",
+        "s": "s",
+        "d": 120,
+        "a": 100
+    },
+    "miracle-eye": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "psycho-cut": {
+        "t": "ps",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "scary-face": {
+        "t": "n",
+        "s": "st",
+        "d": 0,
+        "a": 100,
+        "demod": {
+            "spd": 2
+        }
+    },
+    "vital-throw": {
+        "t": "fi",
+        "s": "p",
+        "d": 70,
+        "a": "∞",
+        "pr": -1
+    },
+    "superpower": {
+        "t": "fi",
+        "s": "p",
+        "d": 120,
+        "a": 100,
+        "demod": {
+            "atk": 1,
+            "def": 1
+        }
+    },
+    "wrap": {
+        "t": "n",
+        "s": "p",
+        "d": 15,
+        "a": 90
+    },
+    "wring-out": {
+        "t": "n",
+        "s": "s",
+        "d": null,
+        "a": 100
+    },
+    "acid-spray": {
+        "t": "p",
+        "s": "s",
+        "d": 40,
+        "a": 100,
+        "demod": {
+            "spdef": 2
+        }
+    },
+    "weather-ball": {
+        "t": "n",
+        "s": "s",
+        "d": 50,
+        "a": 100
+    },
+    "belch": {
+        "t": "p",
+        "s": "s",
+        "d": 120,
+        "a": 90
+    },
+    "clear-smog": {
+        "t": "p",
+        "s": "s",
+        "d": 50,
+        "a": null
+    },
+    "constrict": {
+        "t": "n",
+        "s": "p",
+        "d": 10,
+        "a": 100,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "reflect-type": {
+        "t": "n",
+        "s": "st",
+        "d": 0,
+        "a": null
+    },
+    "stomp": {
+        "t": "n",
+        "s": "p",
+        "d": 65,
+        "a": 100
+    },
+    "flame-wheel": {
+        "t": "f",
+        "s": "p",
+        "d": 60,
+        "a": 100,
+        "brn": 10
+    },
+    "high-horsepower": {
+        "t": "gr",
+        "s": "p",
+        "d": 95,
+        "a": 95
+    },
+    "rock-throw": {
+        "t": "r",
+        "s": "p",
+        "d": 50,
+        "a": 90
+    },
+    "harden": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 1
+        }
+    },
+    "self-destruct": {
+        "t": "n",
+        "s": "p",
+        "d": "200",
+        "a": 100
+    },
+    "explosion": {
+        "t": "n",
+        "s": "p",
+        "d": 250,
+        "a": 100
+    },
+    "mud-sport": {
+        "t": "gr",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "iron-defense": {
+        "t": "s",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 2
+        }
+    },
+    "block": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "rock-blast": {
+        "t": "r",
+        "s": "p",
+        "d": 25,
+        "a": 90,
+        "ms": 5
+    },
+    "gyro-ball": {
+        "t": "s",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "rock-polish": {
+        "t": "r",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "spd": 2
+        }
+    },
+    "megahorn": {
+        "t": "b",
+        "s": "p",
+        "d": 120,
+        "a": 85
+    },
+    "yawn": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "slp": 100
+    },
+    "slack-off": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "heal-pulse": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "avalanche": {
+        "t": "i",
+        "s": "p",
+        "d": 60,
+        "a": 100,
+        "pr": -4
+    },
+    "sonic-boom": {
+        "t": "n",
+        "s": "s",
+        "d": 0,
+        "a": 90
+    },
+    "metal-sound": {
+        "t": "s",
+        "s": "st",
+        "d": null,
+        "a": 85,
+        "demod": {
+            "spdef": 2
+        }
+    },
+    "mirror-shot": {
+        "t": "s",
+        "s": "s",
+        "d": 65,
+        "a": 85
+    },
+    "flash-cannon": {
+        "t": "s",
+        "s": "s",
+        "d": 80,
+        "a": 100,
+        "demod": {
+            "spdef": 1
+        }
+    },
+    "withdraw": {
+        "t": "w",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 1
+        }
+    },
+    "magnet-bomb": {
+        "t": "s",
+        "s": "p",
+        "d": 60,
+        "a": "∞"
+    },
+    "lock-on": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "feather-dance": {
+        "t": "fl",
+        "s": "st",
+        "d": 0,
+        "a": 100,
+        "demod": {
+            "atk": 2
+        }
+    },
+    "leaf-blade": {
+        "t": "g",
+        "s": "p",
+        "d": 90,
+        "a": 100
+    },
+    "simple-beam": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "electric-terrain": {
+        "t": "e",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "double-hit": {
+        "t": "n",
+        "s": "p",
+        "d": 35,
+        "a": 90,
+        "ms": 2
+    },
+    "trump-card": {
+        "t": "n",
+        "s": "s",
+        "d": null,
+        "a": "∞"
+    },
+    "brutal-swing": {
+        "t": "da",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "first-impression": {
+        "t": "b",
+        "s": "p",
+        "d": 90,
+        "a": 100,
+        "pr": 2
+    },
+    "acupressure": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 2,
+            "def": 2,
+            "spatk": 2,
+            "spdef": 2,
+            "spd": 2
+        }
+    },
+    "jump-kick": {
+        "t": "fi",
+        "s": "p",
+        "d": 100,
+        "a": 95
+    },
+    "lick": {
+        "t": "gh",
+        "s": "p",
+        "d": 30,
+        "a": 100,
+        "par": 30
+    },
+    "acid-armor": {
+        "t": "p",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 2
+        }
+    },
+    "spit-up": {
+        "t": "n",
+        "s": "s",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "def": 1,
+            "spdef": 1
+        }
+    },
+    "swallow": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "demod": {
+            "def": 1,
+            "spdef": 1
+        }
+    },
+    "shadow-sneak": {
+        "t": "gh",
+        "s": "p",
+        "d": 40,
+        "a": 100,
+        "pr": 1
+    },
+    "stockpile": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 1,
+            "spdef": 1
+        }
+    },
+    "perish-song": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "poison-gas": {
+        "t": "p",
+        "s": "st",
+        "d": null,
+        "a": 90,
+        "psn": 100
+    },
+    "shadow-punch": {
+        "t": "gh",
+        "s": "p",
+        "d": 60,
+        "a": "∞"
+    },
+    "aqua-ring": {
+        "t": "w",
+        "s": "st",
+        "d": 0,
+        "a": null
+    },
+    "aurora-beam": {
+        "t": "i",
+        "s": "s",
+        "d": 65,
+        "a": 100,
+        "demod": {
+            "atk": 1
+        }
+    },
+    "icicle-spear": {
+        "t": "i",
+        "s": "p",
+        "d": 25,
+        "a": 100,
+        "ms": 5
+    },
+    "entrainment": {
+        "t": "n",
+        "s": "st",
+        "d": 0,
+        "a": 100
+    },
+    "ice-shard": {
+        "t": "i",
+        "s": "p",
+        "d": 40,
+        "a": 100,
+        "pr": 1
+    },
+    "clamp": {
+        "t": "w",
+        "s": "p",
+        "d": 35,
+        "a": 85
+    },
+    "spike-cannon": {
+        "t": "n",
+        "s": "p",
+        "d": 20,
+        "a": 100,
+        "ms": 5
+    },
+    "spikes": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "shell-smash": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 2,
+            "spatk": 2,
+            "spd": 2
+        },
+        "demod": {
+            "def": 1,
+            "spdef": 1
+        }
+    },
+    "frost-breath": {
+        "t": "i",
+        "s": "s",
+        "d": 60,
+        "a": 90
+    },
+    "icicle-crash": {
+        "t": "i",
+        "s": "p",
+        "d": 85,
+        "a": 90
+    },
+    "night-shade": {
+        "t": "gh",
+        "s": "s",
+        "d": 0,
+        "a": 100
+    },
+    "destiny-bond": {
+        "t": "gh",
+        "s": "st",
+        "d": 0,
+        "a": null
+    },
+    "power-split": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "spatk": 4
+        },
+        "demod": {
+            "atk": 2,
+            "spatk": 2
+        }
+    },
+    "assist": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "synchronoise": {
+        "t": "ps",
+        "s": "s",
+        "d": 120,
+        "a": 100
+    },
+    "crabhammer": {
+        "t": "w",
+        "s": "p",
+        "d": 100,
+        "a": 90
+    },
+    "guillotine": {
+        "t": "n",
+        "s": "p",
+        "d": null,
+        "a": 30
+    },
+    "vice-grip": {
+        "t": "n",
+        "s": "p",
+        "d": 55,
+        "a": 100
+    },
+    "chip-away": {
+        "t": "n",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "charge": {
+        "t": "e",
+        "s": "st",
+        "d": 0,
+        "a": null,
+        "mod": {
+            "spdef": 1
+        }
+    },
+    "quash": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "mirror-coat": {
+        "t": "ps",
+        "s": "s",
+        "d": null,
+        "a": 100,
+        "pr": -5
+    },
+    "eerie-impulse": {
+        "t": "e",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "spatk": 2
+        }
+    },
+    "magnetic-flux": {
+        "t": "e",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 1,
+            "spdef": 1
+        }
+    },
+    "bullet-punch": {
+        "t": "s",
+        "s": "p",
+        "d": 40,
+        "a": 100,
+        "pr": 1
+    },
+    "comet-punch": {
+        "t": "n",
+        "s": "p",
+        "d": 18,
+        "a": 85,
+        "ms": 5
+    },
+    "egg-bomb": {
+        "t": "n",
+        "s": "p",
+        "d": 100,
+        "a": 75
+    },
+    "high-jump-kick": {
+        "t": "fi",
+        "s": "p",
+        "d": 130,
+        "a": 90
+    },
+    "mach-punch": {
+        "t": "fi",
+        "s": "p",
+        "d": 40,
+        "a": 100,
+        "pr": 1
+    },
+    "bone-club": {
+        "t": "gr",
+        "s": "p",
+        "d": 65,
+        "a": 85
+    },
+    "iron-head": {
+        "t": "s",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "bonemerang": {
+        "t": "gr",
+        "s": "p",
+        "d": 50,
+        "a": 90,
+        "ms": 2
+    },
+    "rolling-kick": {
+        "t": "fi",
+        "s": "p",
+        "d": 60,
+        "a": 85
+    },
+    "sky-uppercut": {
+        "t": "fi",
+        "s": "p",
+        "d": 85,
+        "a": 90
+    },
+    "bone-rush": {
+        "t": "gr",
+        "s": "p",
+        "d": 25,
+        "a": 90,
+        "ms": 5
+    },
+    "blaze-kick": {
+        "t": "f",
+        "s": "p",
+        "d": 85,
+        "a": 90,
+        "brn": 10
+    },
+    "barrage": {
+        "t": "n",
+        "s": "p",
+        "d": 15,
+        "a": 85,
+        "ms": 5
+    },
+    "smog": {
+        "t": "p",
+        "s": "s",
+        "d": 30,
+        "a": 70,
+        "psn": 40
+    },
+    "smokescreen": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "dizzy-punch": {
+        "t": "n",
+        "s": "p",
+        "d": 70,
+        "a": 100,
+        "cnf": 20
+    },
+    "crunch": {
+        "t": "da",
+        "s": "p",
+        "d": 80,
+        "a": 100,
+        "demod": {
+            "def": 1,
+            "spdef": 1
+        }
+    },
+    "crush-claw": {
+        "t": "n",
+        "s": "p",
+        "d": 75,
+        "a": 95,
+        "demod": {
+            "def": 1
+        }
+    },
+    "hammer-arm": {
+        "t": "fi",
+        "s": "p",
+        "d": 100,
+        "a": 90,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "dragon-pulse": {
+        "t": "dr",
+        "s": "s",
+        "d": 85,
+        "a": 100
+    },
+    "dragon-tail": {
+        "t": "dr",
+        "s": "p",
+        "d": 60,
+        "a": 90,
+        "pr": -6
+    },
+    "dragon-breath": {
+        "t": "dr",
+        "s": "s",
+        "d": 60,
+        "a": 100,
+        "par": 30
+    },
+    "dragon-dance": {
+        "t": "dr",
+        "s": "st",
+        "d": 0,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "spd": 1
+        }
+    },
+    "octazooka": {
+        "t": "w",
+        "s": "s",
+        "d": 65,
+        "a": 85
+    },
+    "muddy-water": {
+        "t": "w",
+        "s": "s",
+        "d": 90,
+        "a": 85
+    },
+    "dragon-rage": {
+        "t": "dr",
+        "s": "s",
+        "d": null,
+        "a": 100
+    },
+    "rapid-spin": {
+        "t": "n",
+        "s": "p",
+        "d": 50,
+        "a": 100,
+        "mod": {
+            "spd": 1
+        }
+    },
+    "misty-terrain": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "copycat": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "storm-throw": {
+        "t": "fi",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "freeze-dry": {
+        "t": "i",
+        "s": "s",
+        "d": 70,
+        "a": 100,
+        "frz": 10
+    },
+    "sheer-cold": {
+        "t": "i",
+        "s": "s",
+        "d": 70,
+        "a": 30
+    },
+    "hurricane": {
+        "t": "fl",
+        "s": "s",
+        "d": 110,
+        "a": 70,
+        "cnf": 30
+    },
+    "ice-fang": {
+        "t": "i",
+        "s": "p",
+        "d": 65,
+        "a": 95,
+        "frz": 10
+    },
+    "wish": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "fake-tears": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "spdef": 2
+        }
+    },
+    "lava-plume": {
+        "t": "f",
+        "s": "s",
+        "d": 80,
+        "a": 100,
+        "brn": 30
+    },
+    "fire-fang": {
+        "t": "f",
+        "s": "p",
+        "d": 65,
+        "a": 95,
+        "brn": 10
+    },
+    "conversion": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "conversion-2": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "sharpen": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1
+        }
+    },
+    "draco-meteor": {
+        "t": "dr",
+        "s": "s",
+        "d": 130,
+        "a": 90,
+        "demod": {
+            "spatk": 2
+        }
+    },
+    "dragon-rush": {
+        "t": "dr",
+        "s": "p",
+        "d": 100,
+        "a": 75
+    },
+    "extreme-speed": {
+        "t": "n",
+        "s": "p",
+        "d": 80,
+        "a": 100,
+        "pr": 2
+    },
+    "aura-sphere": {
+        "t": "fi",
+        "s": "s",
+        "d": 80,
+        "a": "∞"
+    },
+    "psystrike": {
+        "t": "ps",
+        "s": "s",
+        "d": 100,
+        "a": 100
+    },
+    "laser-focus": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "heavy-slam": {
+        "t": "s",
+        "s": "p",
+        "d": 0,
+        "a": 100
+    },
+    "eruption": {
+        "t": "f",
+        "s": "s",
+        "d": 150,
+        "a": 100
+    },
+    "burn-up": {
+        "t": "f",
+        "s": "s",
+        "d": 130,
+        "a": 100
+    },
+    "blast-burn": {
+        "t": "f",
+        "s": "s",
+        "d": 150,
+        "a": 90
+    },
+    "fire-pledge": {
+        "t": "f",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "dragon-claw": {
+        "t": "dr",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "water-pledge": {
+        "t": "w",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "sticky-web": {
+        "t": "b",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "lunge": {
+        "t": "b",
+        "s": "p",
+        "d": 80,
+        "a": 100,
+        "demod": {
+            "atk": 1
+        }
+    },
+    "spider-web": {
+        "t": "b",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "coil": {
+        "t": "p",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "def": 1
+        }
+    },
+    "toxic-thread": {
+        "t": "p",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "psn": 100,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "twineedle": {
+        "t": "b",
+        "s": "p",
+        "d": 25,
+        "a": 100,
+        "ms": 2,
+        "psn": 20
+    },
+    "pin-missile": {
+        "t": "b",
+        "s": "p",
+        "d": 25,
+        "a": 95,
+        "ms": 5
+    },
+    "ion-deluge": {
+        "t": "e",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "volt-tackle": {
+        "t": "e",
+        "s": "p",
+        "d": 120,
+        "a": 100,
+        "par": 10
+    },
+    "sweet-kiss": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": 75,
+        "cnf": 100
+    },
+    "present": {
+        "t": "n",
+        "s": "p",
+        "d": null,
+        "a": 90
+    },
+    "cotton-spore": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "spd": 2
+        }
+    },
+    "wood-hammer": {
+        "t": "g",
+        "s": "p",
+        "d": 120,
+        "a": 100
+    },
+    "cotton-guard": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 3
+        }
+    },
+    "tearful-look": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "demod": {
+            "atk": 1,
+            "spatk": 1
+        }
+    },
+    "sketch": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "glare": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "par": 100
+    },
+    "camouflage": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "head-smash": {
+        "t": "r",
+        "s": "p",
+        "d": 150,
+        "a": 80
+    },
+    "odor-sleuth": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "snarl": {
+        "t": "da",
+        "s": "s",
+        "d": 55,
+        "a": 95,
+        "demod": {
+            "spatk": 1
+        }
+    },
+    "thunder-fang": {
+        "t": "e",
+        "s": "p",
+        "d": 65,
+        "a": 95,
+        "par": 10
+    },
+    "triple-kick": {
+        "t": "fi",
+        "s": "p",
+        "d": 10,
+        "a": 90
+    },
+    "autotomize": {
+        "t": "s",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "spd": 2
+        }
+    },
+    "boomburst": {
+        "t": "n",
+        "s": "s",
+        "d": 140,
+        "a": 100
+    },
+    "heart-stamp": {
+        "t": "ps",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "lovely-kiss": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 75,
+        "slp": 100
+    },
+    "sky-drop": {
+        "t": "fl",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "aurora-veil": {
+        "t": "i",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "powder-snow": {
+        "t": "i",
+        "s": "s",
+        "d": 40,
+        "a": 100,
+        "frz": 10
+    },
+    "arm-thrust": {
+        "t": "fi",
+        "s": "p",
+        "d": 15,
+        "a": 100,
+        "ms": 5
+    },
+    "force-palm": {
+        "t": "fi",
+        "s": "p",
+        "d": 60,
+        "a": 100,
+        "par": 30
+    },
+    "metal-burst": {
+        "t": "s",
+        "s": "p",
+        "d": 0,
+        "a": 100
+    },
+    "psychic-fangs": {
+        "t": "ps",
+        "s": "p",
+        "d": 85,
+        "a": 100
+    },
+    "poison-tail": {
+        "t": "p",
+        "s": "p",
+        "d": 50,
+        "a": 100,
+        "psn": 10
+    },
+    "water-spout": {
+        "t": "w",
+        "s": "s",
+        "d": 150,
+        "a": 100
+    },
+    "draining-kiss": {
+        "t": "fr",
+        "s": "s",
+        "d": 50,
+        "a": 100
+    },
+    "fairy-wind": {
+        "t": "fr",
+        "s": "s",
+        "d": 40,
+        "a": 100
+    },
+    "heal-block": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "noble-roar": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "atk": 1,
+            "spatk": 1
+        }
+    },
+    "doom-desire": {
+        "t": "s",
+        "s": "s",
+        "d": 140,
+        "a": 100
+    },
+    "hydro-cannon": {
+        "t": "w",
+        "s": "s",
+        "d": 150,
+        "a": 90
+    },
+    "heal-order": {
+        "t": "b",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "attack-order": {
+        "t": "b",
+        "s": "p",
+        "d": 90,
+        "a": 100
+    },
+    "tail-glow": {
+        "t": "b",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "spatk": 3
+        }
+    },
+    "defend-order": {
+        "t": "b",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 1,
+            "spdef": 1
+        }
+    },
+    "sacred-fire": {
+        "t": "f",
+        "s": "p",
+        "d": 100,
+        "a": 95,
+        "brn": 50
+    },
+    "liquidation": {
+        "t": "w",
+        "s": "p",
+        "d": 85,
+        "a": 100,
+        "demod": {
+            "def": 1
+        }
+    },
+    "gear-grind": {
+        "t": "s",
+        "s": "p",
+        "d": 50,
+        "a": 85,
+        "ms": 2
+    },
+    "shift-gear": {
+        "t": "s",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "spd": 2
+        }
+    },
+    "gear-up": {
+        "t": "s",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "spatk": 1
+        }
+    },
+    "phantom-force": {
+        "t": "gh",
+        "s": "p",
+        "d": 90,
+        "a": 100
+    },
+    "fiery-dance": {
+        "t": "f",
+        "s": "s",
+        "d": 80,
+        "a": 100,
+        "mod": {
+            "spatk": 1
+        }
+    },
+    "leaf-tornado": {
+        "t": "g",
+        "s": "s",
+        "d": 65,
+        "a": 90
+    },
+    "sacred-sword": {
+        "t": "fi",
+        "s": "p",
+        "d": 90,
+        "a": 100
+    },
+    "blue-flare": {
+        "t": "f",
+        "s": "s",
+        "d": 130,
+        "a": 85,
+        "brn": 20
+    },
+    "fusion-flare": {
+        "t": "f",
+        "s": "s",
+        "d": 100,
+        "a": 100
+    },
+    "glaciate": {
+        "t": "i",
+        "s": "s",
+        "d": 65,
+        "a": 95,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "relic-song": {
+        "t": "n",
+        "s": "s",
+        "d": 75,
+        "a": 100,
+        "slp": 10
+    },
+    "needle-arm": {
+        "t": "g",
+        "s": "p",
+        "d": 60,
+        "a": 100
+    },
+    "mystical-fire": {
+        "t": "f",
+        "s": "s",
+        "d": 75,
+        "a": 100,
+        "demod": {
+            "spatk": 1
+        }
+    },
+    "mat-block": {
+        "t": "fi",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "water-shuriken": {
+        "t": "w",
+        "s": "s",
+        "d": 15,
+        "a": 100,
+        "ms": 5,
+        "pr": 1
+    },
+    "powder": {
+        "t": "b",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "pr": 1
+    },
+    "flower-shield": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 1
+        }
+    },
+    "horn-leech": {
+        "t": "g",
+        "s": "p",
+        "d": 75,
+        "a": 100
+    },
+    "milk-drink": {
+        "t": "n",
+        "s": "st",
+        "d": 0,
+        "a": null
+    },
+    "kings-shield": {
+        "t": "s",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "razor-shell": {
+        "t": "w",
+        "s": "p",
+        "d": 75,
+        "a": 95,
+        "demod": {
+            "def": 1
+        }
+    },
+    "parabolic-charge": {
+        "t": "e",
+        "s": "s",
+        "d": 65,
+        "a": 100
+    },
+    "electrify": {
+        "t": "e",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "forests-curse": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "fairy-lock": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "crafty-shield": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "pr": 3
+    },
+    "trick-or-treat": {
+        "t": "gh",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "oblivion-wing": {
+        "t": "fl",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "leafage": {
+        "t": "g",
+        "s": "p",
+        "d": 40,
+        "a": 100
+    },
+    "diamond-storm": {
+        "t": "r",
+        "s": "p",
+        "d": 100,
+        "a": 95,
+        "mod": {
+            "def": 2
+        }
+    },
+    "darkest-lariat": {
+        "t": "da",
+        "s": "p",
+        "d": 85,
+        "a": 100
+    },
+    "aromatic-mist": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "spdef": 1
+        }
+    },
+    "throat-chop": {
+        "t": "da",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "sparkling-aria": {
+        "t": "w",
+        "s": "s",
+        "d": 90,
+        "a": 100
+    },
+    "beak-blast": {
+        "t": "fl",
+        "s": "p",
+        "d": 100,
+        "a": 100,
+        "brn": 100,
+        "pr": -3
+    },
+    "hyper-fang": {
+        "t": "n",
+        "s": "p",
+        "d": 80,
+        "a": 90
+    },
+    "speed-swap": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "spd": 1
+        },
+        "demod": {
+            "spd": 2
+        }
+    },
+    "revelation-dance": {
+        "t": "n",
+        "s": "s",
+        "d": 90,
+        "a": 100
+    },
+    "pollen-puff": {
+        "t": "b",
+        "s": "s",
+        "d": 90,
+        "a": 100
+    },
+    "accelerock": {
+        "t": "r",
+        "s": "p",
+        "d": 40,
+        "a": 100,
+        "pr": 1
+    },
+    "judgement": {
+        "t": "n",
+        "s": "p",
+        "d": 100,
+        "a": 100
+    },
+    "eternabeam": {
+        "t": "dr",
+        "s": "s",
+        "d": 160,
+        "a": 90
+    },
+    "baneful-bunker": {
+        "t": "p",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "psn": 100,
+        "pr": 4
+    },
+    "trop-kick": {
+        "t": "g",
+        "s": "p",
+        "d": 70,
+        "a": 100,
+        "demod": {
+            "atk": 1
+        }
+    },
+    "instruct": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "floral-healing": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "purify": {
+        "t": "p",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "anchor-shot": {
+        "t": "s",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "natures-madness": {
+        "t": "fr",
+        "s": "s",
+        "d": null,
+        "a": 90
+    },
+    "sunsteel-strike": {
+        "t": "s",
+        "s": "p",
+        "d": 100,
+        "a": 100
+    },
+    "prismatic-laser": {
+        "t": "ps",
+        "s": "s",
+        "d": 160,
+        "a": 100
+    },
+    "photon-geyser": {
+        "t": "ps",
+        "s": "s",
+        "d": 100,
+        "a": 100
+    },
+    "mind-blown": {
+        "t": "f",
+        "s": "s",
+        "d": 150,
+        "a": 100
+    },
+    "plasma-fists": {
+        "t": "e",
+        "s": "p",
+        "d": 100,
+        "a": 100
+    },
+    "transform": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "frenzy-plant": {
+        "t": "g",
+        "s": "s",
+        "d": 150,
+        "a": 90
+    },
+    "shore-up": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "multi-attack": {
+        "t": "n",
+        "s": "p",
+        "d": 120,
+        "a": 100
+    },
+    "parting-shot": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "atk": 1,
+            "spatk": 1
+        }
+    },
+    "shell-trap": {
+        "t": "f",
+        "s": "s",
+        "d": 150,
+        "a": 100,
+        "pr": -3
+    },
+    "zing-zap": {
+        "t": "e",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "spiky-shield": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "spectral-thief": {
+        "t": "gh",
+        "s": "p",
+        "d": 90,
+        "a": 100
+    },
+    "fleur-cannon": {
+        "t": "fr",
+        "s": "s",
+        "d": 130,
+        "a": 90,
+        "demod": {
+            "spatk": 2
+        }
+    },
+    "heart-swap": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "life-dew": {
+        "t": "w",
+        "s": "st",
+        "d": 0,
+        "a": null
+    },
+    "shell-side-arm": {
+        "t": "p",
+        "s": "s",
+        "d": null,
+        "a": null,
+        "psn": 20
+    },
+    "strange-steam": {
+        "t": "fr",
+        "s": "s",
+        "d": 90,
+        "a": 95,
+        "cnf": 20
+    },
+    "vise-grip": {
+        "t": "n",
+        "s": "p",
+        "d": 55,
+        "a": 100
+    },
+    "aeroblast": {
+        "t": "fl",
+        "s": "s",
+        "d": 100,
+        "a": 95
+    },
+    "mist-ball": {
+        "t": "ps",
+        "s": "s",
+        "d": 70,
+        "a": 100,
+        "demod": {
+            "spatk": 1
+        }
+    },
+    "luster-purge": {
+        "t": "ps",
+        "s": "s",
+        "d": 70,
+        "a": 100,
+        "demod": {
+            "spdef": 1
+        }
+    },
+    "origin-pulse": {
+        "t": "w",
+        "s": "s",
+        "d": 110,
+        "a": 85
+    },
+    "psycho-boost": {
+        "t": "ps",
+        "s": "s",
+        "d": 140,
+        "a": 90,
+        "demod": {
+            "spatk": 2
+        }
+    },
+    "chatter": {
+        "t": "fl",
+        "s": "s",
+        "d": 65,
+        "a": 100,
+        "cnf": 100
+    },
+    "rock-wrecker": {
+        "t": "r",
+        "s": "p",
+        "d": 150,
+        "a": 90
+    },
+    "roar-of-time": {
+        "t": "dr",
+        "s": "s",
+        "d": 150,
+        "a": 90
+    },
+    "magma-storm": {
+        "t": "f",
+        "s": "s",
+        "d": 100,
+        "a": 75
+    },
+    "shadow-force": {
+        "t": "gh",
+        "s": "p",
+        "d": 120,
+        "a": 100
+    },
+    "crush-grip": {
+        "t": "n",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "lunar-dance": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "dark-void": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": 50,
+        "slp": 100
+    },
+    "seed-flare": {
+        "t": "g",
+        "s": "s",
+        "d": 120,
+        "a": 85,
+        "demod": {
+            "spdef": 2
+        }
+    },
+    "searing-shot": {
+        "t": "f",
+        "s": "s",
+        "d": 100,
+        "a": 100,
+        "brn": 30
+    },
+    "judgment": {
+        "t": "n",
+        "s": "s",
+        "d": 100,
+        "a": 100
+    },
+    "heat-crash": {
+        "t": "f",
+        "s": "p",
+        "d": null,
+        "a": 100
+    },
+    "steamroller": {
+        "t": "b",
+        "s": "p",
+        "d": 65,
+        "a": 100
+    },
+    "night-daze": {
+        "t": "da",
+        "s": "s",
+        "d": 85,
+        "a": 95
+    },
+    "fire-lash": {
+        "t": "f",
+        "s": "p",
+        "d": 80,
+        "a": 100,
+        "demod": {
+            "def": 1
+        }
+    },
+    "fusion-bolt": {
+        "t": "e",
+        "s": "p",
+        "d": 100,
+        "a": 100
+    },
+    "bolt-strike": {
+        "t": "e",
+        "s": "p",
+        "d": 130,
+        "a": 85,
+        "par": 20
+    },
+    "freeze-shock": {
+        "t": "i",
+        "s": "p",
+        "d": 140,
+        "a": 90,
+        "par": 30
+    },
+    "ice-burn": {
+        "t": "i",
+        "s": "s",
+        "d": 140,
+        "a": 90,
+        "brn": 30
+    },
+    "techno-blast": {
+        "t": "n",
+        "s": "s",
+        "d": 120,
+        "a": 100
+    },
+    "king's-shield": {
+        "t": "s",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "demod": {
+            "atk": 1
+        },
+        "pr": 4
+    },
+    "topsy-turvy": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "flying-press": {
+        "t": "fi",
+        "s": "p",
+        "d": 100,
+        "a": 95
+    },
+    "forest's-curse": {
+        "t": "g",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "geomancy": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "spatk": 2,
+            "spdef": 2,
+            "spd": 2
+        }
+    },
+    "land's-wrath": {
+        "t": "gr",
+        "s": "p",
+        "d": 90,
+        "a": 100
+    },
+    "hyperspace-hole": {
+        "t": "ps",
+        "s": "s",
+        "d": 80,
+        "a": "∞"
+    },
+    "hyperspace-fury": {
+        "t": "da",
+        "s": "p",
+        "d": 100,
+        "a": "∞"
+    },
+    "spirit-shackle": {
+        "t": "gh",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "ice-hammer": {
+        "t": "i",
+        "s": "p",
+        "d": 100,
+        "a": 90,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "solar-blade": {
+        "t": "g",
+        "s": "p",
+        "d": 125,
+        "a": 100
+    },
+    "clanging-scales": {
+        "t": "dr",
+        "s": "s",
+        "d": 110,
+        "a": 100,
+        "demod": {
+            "def": 1
+        }
+    },
+    "nature's-madness": {
+        "t": "fr",
+        "s": "s",
+        "d": null,
+        "a": 90
+    },
+    "moongeist-beam": {
+        "t": "gh",
+        "s": "s",
+        "d": 100,
+        "a": 100
+    },
+    "double-iron-bash": {
+        "t": "s",
+        "s": "p",
+        "d": 60,
+        "a": 100,
+        "ms": 2
+    },
+    "branch-poke": {
+        "t": "g",
+        "s": "p",
+        "d": 40,
+        "a": 100
+    },
+    "drum-beating": {
+        "t": "g",
+        "s": "p",
+        "d": 80,
+        "a": 100,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "pyro-ball": {
+        "t": "f",
+        "s": "p",
+        "d": 120,
+        "a": 90,
+        "brn": 10
+    },
+    "court-change": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "snipe-shot": {
+        "t": "w",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "stuff-cheeks": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "def": 1
+        }
+    },
+    "jaw-lock": {
+        "t": "da",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "tar-shot": {
+        "t": "r",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "spd": 1
+        }
+    },
+    "grav-apple": {
+        "t": "g",
+        "s": "p",
+        "d": 80,
+        "a": 100,
+        "demod": {
+            "def": 1
+        }
+    },
+    "apple-acid": {
+        "t": "g",
+        "s": "s",
+        "d": 80,
+        "a": 100,
+        "demod": {
+            "spdef": 1
+        }
+    },
+    "overdrive": {
+        "t": "e",
+        "s": "s",
+        "d": 80,
+        "a": 100
+    },
+    "octolock": {
+        "t": "fi",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "def": 1,
+            "spdef": 1
+        }
+    },
+    "teatime": {
+        "t": "n",
+        "s": "st",
+        "d": null,
+        "a": null
+    },
+    "magic-powder": {
+        "t": "ps",
+        "s": "st",
+        "d": null,
+        "a": 100
+    },
+    "false-surrender": {
+        "t": "da",
+        "s": "p",
+        "d": 80,
+        "a": "∞"
+    },
+    "spirit-break": {
+        "t": "fr",
+        "s": "p",
+        "d": 75,
+        "a": 100,
+        "demod": {
+            "spatk": 1
+        }
+    },
+    "obstruct": {
+        "t": "da",
+        "s": "st",
+        "d": null,
+        "a": 100,
+        "demod": {
+            "def": 2
+        }
+    },
+    "meteor-assault": {
+        "t": "fi",
+        "s": "p",
+        "d": 150,
+        "a": 100
+    },
+    "decorate": {
+        "t": "fr",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 2,
+            "spatk": 2
+        }
+    },
+    "no-retreat": {
+        "t": "fi",
+        "s": "st",
+        "d": null,
+        "a": null,
+        "mod": {
+            "atk": 1,
+            "def": 1,
+            "spatk": 1,
+            "spdef": 1,
+            "spd": 1
+        }
+    },
+    "aura-wheel": {
+        "t": "e",
+        "s": "p",
+        "d": 110,
+        "a": 100,
+        "mod": {
+            "spd": 1
+        }
+    },
+    "bolt-beak": {
+        "t": "e",
+        "s": "p",
+        "d": 85,
+        "a": 100
+    },
+    "fishious-rend": {
+        "t": "w",
+        "s": "p",
+        "d": 85,
+        "a": 100
+    },
+    "breaking-swipe": {
+        "t": "dr",
+        "s": "p",
+        "d": 60,
+        "a": 100,
+        "demod": {
+            "atk": 1
+        }
+    },
+    "dragon-darts": {
+        "t": "dr",
+        "s": "p",
+        "d": 50,
+        "a": 100,
+        "ms": 2
+    },
+    "dynamax-cannon": {
+        "t": "dr",
+        "s": "s",
+        "d": 100,
+        "a": 100
+    },
+    "dragon-hammer": {
+        "t": "dr",
+        "s": "p",
+        "d": 90,
+        "a": 100
+    },
+    "spacial-rend": {
+        "t": "dr",
+        "s": "s",
+        "d": 100,
+        "a": 95
+    },
+    "head-charge": {
+        "t": "n",
+        "s": "p",
+        "d": 120,
+        "a": 100
+    },
+    "body-press": {
+        "t": "fi",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "surging-strikes": {
+        "t": "w",
+        "s": "p",
+        "d": 25,
+        "a": 100
+    },
+    "wicked-blow": {
+        "t": "da",
+        "s": "p",
+        "d": 80,
+        "a": 100
+    },
+    "v-create": {
+        "t": "f",
+        "s": "p",
+        "d": 180,
+        "a": 95,
+        "mod": {
+            "def": -1,
+            "spdef": -1,
+            "spd": -1
+        }
+    },
+    "revenge-of-the-beta": {
+        "t": "da",
+        "s": "s",
+        "d": 1000,
+        "a": 100
+    },
+    "tap": {
+        "t": "n",
+        "s": "p",
+        "d": 1,
+        "a": 1
+    },
+    "sword-dance": {
+        "d": 0,
+        "a": 100,
+        "t": "n",
+        "s": "st",
+        "mod": {
+            "atk": 2
+        }
+    },
+    "dragon-ascent": {
+        "t": "fl",
+        "s": "p",
+        "d": 120,
+        "a": 100,
+        "mod": {
+            "def": -1,
+            "spdef": -1
+        }
+    },
+    "steam-eruption": {
+        "t": "w",
+        "s": "s",
+        "d": 110,
+        "a": 95,
+        "brn": 30
+    },
+    "behemoth-blade": {
+        "t": "s",
+        "s": "p",
+        "d": 100,
+        "a": 100
+    },
+    "astral-barrage": {
+        "t": "gh",
+        "s": "s",
+        "d": 120,
+        "a": 100
+    },
+    "glacial-lance": {
+        "t": "i",
+        "s": "p",
+        "d": 130,
+        "a": 100
+    },
+    "dragon-energy": {
+        "t": "dr",
+        "s": "s",
+        "d": 150,
+        "a": 100
+    },
+    "thunder-cage": {
+        "t": "e",
+        "s": "s",
+        "d": 80,
+        "a": 90
+    },
+    "fiery-wrath": {
+        "t": "da",
+        "s": "s",
+        "d": 90,
+        "a": 100
+    },
+    "thunderous-kick": {
+        "t": "fi",
+        "s": "p",
+        "d": 90,
+        "a": 100,
+        "demod": {
+            "def": -1
+        }
+    },
+    "freezing-glare": {
+        "t": "ps",
+        "s": "s",
+        "d": 90,
+        "a": 100,
+        "frz": 10
+    },
+    "baddy-bad": {
+        "t": "da",
+        "s": "s",
+        "d": 80,
+        "a": 95
+    },
+    "behemoth-bash": {
+        "t": "s",
+        "s": "p",
+        "d": 100,
+        "a": 100
+    },
+    "bouncy-bubble": {
+        "t": "w",
+        "s": "s",
+        "d": 60,
+        "a": 100
+    },
+    "burning-jealousy": {
+        "t": "f",
+        "s": "s",
+        "d": 70,
+        "a": 100,
+        "brn": 100
+    },
+    "buzzy-buzz": {
+        "t": "e",
+        "s": "s",
+        "d": 60,
+        "a": 100,
+        "par": 100
+    },
+    "core-enforcer": {
+        "t": "dr",
+        "s": "s",
+        "d": 100,
+        "a": 100
+    },
+    "dual-wingbeat": {
+        "t": "dr",
+        "s": "s",
+        "d": 40,
+        "a": 90,
+        "ms": 2
+    },
+    "eerie-spell": {
+        "t": "ps",
+        "s": "s",
+        "d": 80,
+        "a": 10
+    },
+    "floaty-fall": {
+        "t": "fl",
+        "s": "p",
+        "d": 90,
+        "a": 95
+    },
+    "grassy-glide": {
+        "t": "g",
+        "s": "p",
+        "d": 70,
+        "a": 100
+    },
+    "lash-out": {
+        "t": "da",
+        "s": "p",
+        "d": 75,
+        "a": 100
+    },
+    "secret-sword": {
+        "t": "fi",
+        "s": "s",
+        "d": 85,
+        "a": 100
+    },
+    "light-of-ruin": {
+        "t": "fr",
+        "s": "s",
+        "d": 140,
+        "a": 90
+    },
+    "i-would-like-to-speak-to-your-manager": {
+        "t": "fi",
+        "s": "p",
+        "d": 140,
+        "a": 40
+    }
+}

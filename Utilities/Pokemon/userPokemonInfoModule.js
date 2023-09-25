@@ -23,7 +23,8 @@ function userPokemonInfoModule(obj = null, details = null, msg = null, count = 1
 **Defense:** ${def} - **IV**: ${obj.stats.def}/31
 **Sp. Attack:** ${spatk} - **IV**: ${obj.stats.spatk}/31
 **Sp. Defense:** ${spdef} - **IV**: ${obj.stats.spdef}/31
-**Speed:** ${spd} - **IV**: ${obj.stats.spd}/31`
+**Speed:** ${spd} - **IV**: ${obj.stats.spd}/31
+**Total IV**: ${obj.calculateTotalIV()}%`
             }, {
                 name: "Natures",
                 value: capitalize(obj.nature),
