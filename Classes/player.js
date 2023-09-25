@@ -159,7 +159,9 @@ class Player {
             // Selected Pokemon
             selected: 0,
             // Inventory
-            inv: {}
+            inv: {},
+            // Giga Boolean
+            giga: false
         }
 
         return this.battle;

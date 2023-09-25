@@ -141,7 +141,6 @@ export default {
         }
 
         if (teamAConstructs.find(x => !x.selected.length) || teamBConstructs.find(x => !x.selected.length))
-            // Change to Follow Up after enabling Verification
             return await msg.followUp("One of the players does not have a Pokemon selected.");
 
         // Ready Teams
@@ -150,7 +149,6 @@ export default {
 
         for (const member in teamA) {
             await teamA[member].fetchPokemon(msg.client.postgres);
-            // Change to Follow Up after enabling Verification
             if (!teamA[member].pokemon.length) return await msg.followUp("Duel cancelled, <@" + member + "> does not have any Pokemon selected");
             teamA[member].readyBattleMode();
             if (teamA[member].pokemon) {
@@ -163,7 +161,6 @@ export default {
 
         for (const member in teamB) {
             await teamB[member].fetchPokemon(msg.client.postgres);
-            // Change to Follow Up after enabling Verification
             if (!teamB[member].pokemon.length) return await msg.followUp("Duel cancelled, <@" + member + "> does not have any Pokemon selected");
             teamB[member].readyBattleMode();
             if (teamB[member].pokemon) {
@@ -176,8 +173,7 @@ export default {
 
         let battleEmbed = await returnEmbedBox(teamA, teamB);
 
-        // Change to Follow Up after enabling Verification
-        const battleMessage = await msg.followUp(battleEmbed);
+        let battleMessage = await msg.followUp(battleEmbed);
 
         const battleCollector = new InteractionCollector(msg.client, {
             channel: msg.channel,
@@ -197,13 +193,13 @@ export default {
         }
 
         function checkComplete(teamA = {}, teamB = {}) {
-            return (Object.values(teamA).filter(x => x.pokemon.filter(x => x.battle.current_hp > 0)).length + Object.values(teamB).filter(x => x.pokemon.filter(x => x.battle.current_hp > 0)).length <= userCommands.length);
+            return (Object.values(teamA).filter(x => x.pokemon.find(x => x.battle.current_hp > 0)).length + Object.values(teamB).filter(x => x.pokemon.find(x => x.battle.current_hp > 0)).length <= userCommands.length);
         }
 
         function sortCommands(commands, teamA = {}, teamB = {}) {
             return commands.sort((x, y) => {
                 let player_1 = teamA[x.user] || teamA[x.user]
-                    , player_2 = teamB[x.user] || teamB[x.user]
+                    , player_2 = teamB[y.user] || teamB[y.user]
 
                 if (!player_1 || !player_2)
                     return;
@@ -249,7 +245,15 @@ export default {
                         if (player_pokemon.battle.current_hp <= 0 || opponent_pokemon.battle.current_hp <= 0)
                             break;
 
-                        const move = command.move;
+                        // Select move or use Default "Tackle"
+                        const move = command.move || {
+                            "id": "tackle",
+                            "name": "Tackle",
+                            "t": "n",
+                            "s": "p",
+                            "d": 40,
+                            "a": 100
+                        };
 
                         let [atk, def] = move.s == "p" ? ["atk", 'def'] : ["spatk", 'spdef'];
 
@@ -300,7 +304,7 @@ export default {
         }
 
         function checkIfPokemonFainted(teamA, teamB) {
-            return !![...Object.values(teamA), ...Object.values(teamB)].find(x => x.pokemon.find(x => x.battle.current_hp <= 0));
+            return [...Object.values(teamA), ...Object.values(teamB)].find(x => x.pokemon[x.battle.selected].battle.current_hp <= 0);
         }
 
         function checkOpposingPokemonFainted(teamA, teamB) {
@@ -316,7 +320,27 @@ export default {
             return false;
         }
 
+        function keepOrRemoveGiga(selectedPokemon, msg) {
+            // Reduce Count
+            if (selectedPokemon.battle.giga) selectedPokemon.battle.giga--;
+            // Check if Count = 0
+            if (selectedPokemon.battle.giga === 0) {
+                // Reverting to Normal
+                selectedPokemon.battle.giga = false;
+                selectedPokemon.battle.current_hp = Math.round(selectedPokemon.battle.current_hp - selectedPokemon.battle.current_hp * .5);
+                selectedPokemon.battle.max_hp = Math.round(selectedPokemon.battle.max_hp - selectedPokemon.battle.max_hp * .5);
+                // Change Image
+                imageChanged = 1;
+                // Respond back to user
+                msg.channel.send(`${capitalize(selectedPokemon.pokemon)} has reverted back...`);
+            }
+
+            return false;
+        }
+
         let sequenceState = 1;
+
+        let imageChanged = 0;
 
         battleCollector.on('collect', async m => {
             // ID of user
@@ -366,53 +390,86 @@ export default {
                     });
             }
 
+            // Giga-DynaMax
+            if (m.options.getBoolean("dyna-giga") == true) {
+                if (selectedPokemon.battle.giga)
+                    return await m.reply({ content: "This Pokemon is already a Giga/Dynamax" });
+
+                if (player.battle.giga)
+                    return await m.reply({ content: "A Pokemon has already Giga/Dynamaxed" });
+
+                // Set to True
+                selectedPokemon.battle.giga = 3;
+
+                // Alter Health
+                selectedPokemon.battle.current_hp += Math.round(selectedPokemon.battle.current_hp * .5);
+                selectedPokemon.battle.max_hp += Math.round(selectedPokemon.battle.max_hp + .5);
+
+                // Allow Image Alteration
+                imageChanged = 1;
+
+                // Respond to User
+                m.reply(`${player.globalName}, your ${capitalize(selectedPokemon.pokemon)} giga-chad'd`);
+            }
+
             // Running Away
             if (m.options.getBoolean("run-away"))
                 return battleState = 0, battleCollector.stop(), m.reply({ content: "✅", ephemeral: true });
 
             // Attack Sequence
-            if (m.options.getInteger("attack") && sequenceState && selectedPokemon.battle.current_hp > 0) {
-                // Add Command with details
-                if (!addUserCommand(id, "attack", { toAttack: (m.options.getInteger("attack-user") || 1) - 1, move: selectedPokemon.returnMoves()[m.options.getInteger("attack") - 1] }))
-                    m.reply({ content: "You already responded", ephemeral: true })
-                else
-                    m.reply({ content: "✅", ephemeral: true });
-            } else if (m.options.getInteger("attack") && !sequenceState)
-                m.reply({ content: "Please wait till all fainted Pokemon have been called", ephemeral: true });
+            if (m.options.getInteger("attack"))
+                if (sequenceState && selectedPokemon.battle.current_hp > 0) {
+                    // Add Command with details
+                    if (!addUserCommand(id, "attack", { toAttack: (m.options.getInteger("attack-user") || 1) - 1, move: selectedPokemon.returnMoves()[m.options.getInteger("attack") - 1] }))
+                        m.reply({ content: "You already responded", ephemeral: true })
+                    else
+                        keepOrRemoveGiga(selectedPokemon, m),
+                            m.reply({ content: "✅", ephemeral: true });
+                } else if (!sequenceState)
+                    m.reply({ content: "Please wait till all fainted Pokemon have been called", ephemeral: true });
 
             if (m.options.getInteger("switch")) {
 
                 const switchPokemon = m.options.getInteger("switch") - 1;
 
                 if (!player.pokemon[switchPokemon])
-                    return await msg.reply("Yeah that Pokemon does not exist");
+                    return await m.reply("Yeah that Pokemon does not exist");
                 if (player.pokemon[switchPokemon].battle.current_hp <= 0)
-                    return await msg.reply("That Pokemon cannot move right now");
+                    return await m.reply("That Pokemon cannot move right now");
                 if (player.battle.selected == switchPokemon)
-                    return await msg.reply("Your Pokemon is currently on the field. It recollects the time you forgot it in the supermarket.");
+                    return await m.reply("Your Pokemon is currently on the field. It recollects the time you forgot it in the supermarket.");
 
 
                 if (!sequenceState) {
-                    // if (player.pokemon[player.battle.selected].battle.current_hp > 0)
-                    //     return await msg.reply({ephemeral: true, content: "You cannot switch Pokemon while"});
+                    if (player.pokemon[player.battle.selected].battle.current_hp > 0)
+                        return await m.reply({ ephemeral: true, content: "You cannot switch Pokemon while another person's preparing a funeral" });
                     player.battle.selected = switchPokemon;
                     m.reply(`${player.globalName}: ${capitalize(player.pokemon[player.battle.selected].pokemon)}! ${Chance().pickone(["I choose you!", "Hang in there!", "Just a little bit more!", "Please don't die on me too!", "I'll buy you KFC if we win this!"])}`);
-                    if (checkIfPokemonFainted(teamA, teamB)) {
+                    if (!checkIfPokemonFainted(teamA, teamB)) {
                         sequenceState = 1;
+                        imageChanged = 1;
                         m.channel.send("Begin attacking again!");
                     }
                 } else {
+
+                    // Return to Normal
+                    if (selectedPokemon.battle.giga) selectedPokemon.battle.giga = false;
+
                     if (!addUserCommand(id, "ball", { selected: switchPokemon }))
                         m.reply({ content: "You already responded", ephemeral: true })
                     else
-                        m.reply({ content: "✅", ephemeral: true });
+                        keepOrRemoveGiga(selectedPokemon, m),
+                            imageChanged = 1,
+                            m.reply({ content: "✅", ephemeral: true });
                 }
             }
 
             // Check if Completed
             if (checkComplete(teamA, teamB)) {
                 const extraNotes = processCommands(userCommands, teamA, teamB);
-                await m.channel.send(returnNewFieldEmbed(battleEmbed, extraNotes, teamA, teamB));
+                battleMessage = await m.channel.send(returnNewFieldEmbed(imageChanged ? await returnEmbedBox(teamA, teamB) : { embeds: [battleMessage.embeds[0].data] }, extraNotes, teamA, teamB));
+                if (imageChanged) imageChanged = 0;
+
                 if (checkIfPokemonFainted(teamA, teamB))
                     sequenceState = 0;
 

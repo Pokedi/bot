@@ -24,29 +24,35 @@ async function readySinglePokemonFrontBack(pokemon, isShiny, isGiga) {
     let back = await generateSinglePokemonBox(`../image-server/assets/duel/back${doesExistBack && pokemon.shiny && isShiny ? "-shiny" : ""}/${doesExistBack ? pokemon._id + ".png" : (foundPokemon?.id || 'unown-qm.png')}`, "southwest");
     let front = await generateSinglePokemonBox(`../image-server/assets/duel/front${doesExistFront && pokemon.shiny && isShiny ? "-shiny" : ""}/${doesExistFront ? pokemon._id + ".png" : (foundPokemon?.id || 'unown-qm.png')}`);
 
-    if (isGiga) {
-        back = back.clone().composite([{
-            input: await back.clone().tint(color('#FF1493')).convolve({
-                width: 3,
-                height: 3,
-                kernel: [-1, 0, 1, -2, 0, 2, -1, 0, 1]
-            }).blur(2).toBuffer(),
-            top: 0,
-            left: 0
-        }]);
-
-        front = front.clone().composite([{
-            input: await front.clone().tint(color('#FF1493')).convolve({
-                width: 3,
-                height: 3,
-                kernel: [-1, 0, 1, -2, 0, 2, -1, 0, 1]
-            }).blur(2).toBuffer(),
-            top: 0,
-            left: 0
-        }]);
-    }
-
     return { back, front };
+}
+
+async function normalOrGiga(image, isGiga, frontOrBack) {
+
+    // Return Image
+    if (!isGiga) return image;
+
+    // Return Giga Front
+    if (frontOrBack == "front") return image.clone().composite([{
+        input: await image.clone().tint(color('#FF1493')).convolve({
+            width: 3,
+            height: 3,
+            kernel: [-1, 0, 1, -2, 0, 2, -1, 0, 1]
+        }).blur(2).toBuffer(),
+        top: 0,
+        left: 0
+    }]);
+
+    // Return Giga Back
+    return image.clone().composite([{
+        input: await image.clone().tint(color('#FF1493')).convolve({
+            width: 3,
+            height: 3,
+            kernel: [-1, 0, 1, -2, 0, 2, -1, 0, 1]
+        }).blur(2).toBuffer(),
+        top: 0,
+        left: 0
+    }]);
 }
 
 // Step 1 - Ready Front + Back
@@ -164,7 +170,7 @@ function generateBattleBox(A, B) {
         }
 
         return {
-            input: await x.pokemon[x.battle.selected].battle.img.back.toBuffer(),
+            input: await (await normalOrGiga(x.pokemon[x.battle.selected].battle.img.back, x.pokemon[x.battle.selected].battle.giga, "back")).toBuffer(),
             top,
             left
         };
@@ -209,7 +215,7 @@ function generateBattleBox(A, B) {
         }
 
         return {
-            input: await x.pokemon[x.battle.selected].battle.img.front.toBuffer(),
+            input: await (await normalOrGiga(x.pokemon[x.battle.selected].battle.img.front, x.pokemon[x.battle.selected].battle.giga, "front")).toBuffer(),
             top,
             left
         };
