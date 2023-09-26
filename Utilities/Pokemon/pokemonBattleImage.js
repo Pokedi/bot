@@ -233,7 +233,7 @@ function battleBoxFields(teamA = {}, teamB = {}) {
         return Object.values(team).map(x => {
             const selectedPokemon = x.pokemon[x.battle.selected];
             return `- **${x.globalName}**
-> **${capitalize(selectedPokemon.pokemon)}**: ${selectedPokemon.battle.current_hp} / ${selectedPokemon.battle.max_hp}`;
+> **${capitalize(selectedPokemon.pokemon)}**: ${selectedPokemon.battle.current_hp} / ${selectedPokemon.battle.max_hp} ${(selectedPokemon.battle.status.par) ? '<:paralysis:740214778097696870> ' : ''}${selectedPokemon.battle.status.frz ? '<:frozen:740215495629733889> ' : ""}${selectedPokemon.battle.status.brn ? "<:burn:740258098752520322> " : ''}${selectedPokemon.battle.status.psn ? "<:poison:740292687630172240> " : ''}${selectedPokemon.battle.status.slp ? "<:sleep:742282057346187285> " : ''}`;
         }).join("\n");
     };
 

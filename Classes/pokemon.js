@@ -418,6 +418,7 @@ class Pokemon {
         return this.battle;
     }
 
+    // Ready Battle Images
     async readyBattleImage() {
 
         // Will not continue without a battle
@@ -432,6 +433,8 @@ class Pokemon {
 
         return this.battle.img;
     }
+
+    // Handle Pokemon Status Effects
 }
 
 export default Pokemon;

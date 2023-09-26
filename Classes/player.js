@@ -119,6 +119,22 @@ class Player {
         return await redis.get(this.id + '-trade');
     }
 
+    // Set User Duels True
+    async setOnGoingDuels(redis) {
+        return await redis.set(this.id + '-duel', Date.now());
+    }
+
+    // Remove User Duel state from Redis
+    async removeDuelsState(redis) {
+        return await redis.del(this.id + '-duel');
+    }
+
+    // isDueling?
+    async isInDuel(redis) {
+        const isDueling = await redis.get(this.id + '-duel');
+        return isDueling && Date.now() - isDueling < 5 * 60000 ? isDueling : false;
+    }
+
     // Check Count Pokemon
     async countPokemon(postgres) {
 
@@ -145,7 +161,7 @@ class Player {
 
         if (!rows.length) return this.pokemon = [];
 
-        const pokemon = rows.map(x => new Pokemon(x));
+        const pokemon = this.selected.map(x => new Pokemon(rows.find(y => y.id == x)||{})).filter(x => x.id);
 
         this.pokemon = pokemon;
 

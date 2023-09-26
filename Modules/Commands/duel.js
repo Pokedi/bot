@@ -109,7 +109,10 @@ export default {
         // if (msg.user.id != "688446585524584502") return await msg.reply("Yeah, this is currently being remade");
 
         if (msg.options.getSubcommand() != "start")
-            return true;//await msg[msg.replied ? "followUp" : "reply"]({ ephemeral: true, content: "✅" });
+            return true;
+
+        if (msg.options.getBoolean("run-away"))
+            return await msg[msg.replied ? "followUp" : "reply"]({ ephemeral: true, content: "Please wait 5-10 minutes till you can use this." });
 
         const teamAIDs = removeDuplicates([msg.user.id, msg.options.getUser('2-user-vs'), msg.options.getUser('3-user-vs')]).filter(x => x);
         const teamBIDs = removeDuplicates([msg.options.getUser('vs-user-1'), msg.options.getUser('vs-user-2'), msg.options.getUser('vs-user-3')]).filter(x => x);
@@ -129,15 +132,35 @@ export default {
 
         // Fetch Details
         for (const member of teamAConstructs) {
+            // Is Dueling?
+            if (await member.isInDuel(msg.client.redis))
+                return await msg.followUp(`<@${member.id}> is currently in a duel right now...`);
+
+            // Is Trading
+            if (await member.isTrading(msg.client.redis))
+                return await msg.followUp(`<@${member.id}> is currently in a trade right now...`);
+
             await member.fetch(msg.client.postgres);
             member.username = msg.client.users.cache.get(member.id)?.username;
             member.globalName = msg.client.users.cache.get(member.id)?.globalName;
+            // Set Duel state
+            await member.setOnGoingDuels(msg.client.redis, msg.id);
         }
 
         for (const member of teamBConstructs) {
+            // Is Dueling?
+            if (await member.isInDuel(msg.client.redis))
+                return await msg.followUp(`<@${member.id}> is currently in a duel right now...`);
+
+            // Is Trading
+            if (await member.isTrading(msg.client.redis))
+                return await msg.followUp(`<@${member.id}> is currently in a trade right now...`);
+
             await member.fetch(msg.client.postgres);
             member.username = msg.client.users.cache.get(member.id)?.username;
             member.globalName = msg.client.users.cache.get(member.id)?.globalName;
+            // Set Duel state
+            await member.setOnGoingDuels(msg.client.redis, msg.id);
         }
 
         if (teamAConstructs.find(x => !x.selected.length) || teamBConstructs.find(x => !x.selected.length))
@@ -184,6 +207,7 @@ export default {
             time: 5 * 60000
         });
 
+        let isPokemonBattle = false;
         let battleState = 1;
         let userCommands = [];
 
@@ -245,6 +269,24 @@ export default {
                         if (player_pokemon.battle.current_hp <= 0 || opponent_pokemon.battle.current_hp <= 0)
                             break;
 
+                        // Handle Player Pokemon Status Effects
+
+                        /*-- Start Player Status Effects --*/
+
+                        // Cold
+                        if (player_pokemon.battle.status.frz && randomint(100) <= 20) {
+                            player_pokemon.battle.status.frz = void 0;
+                            messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} broke out of the ice.`);
+                        }
+
+                        // Confusion
+                        if (player_pokemon.battle.status.cnf && randomint(100) <= 33) {
+                            player_pokemon.battle.status.cnf = void 0;
+                            messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} snapped out of confusion.`);
+                        }
+
+                        /*-- End Player Status Effects --*/
+
                         // Select move or use Default "Tackle"
                         const move = command.move || {
                             "id": "tackle",
@@ -266,19 +308,89 @@ export default {
 
                         let last_notes = '';
 
-                        var attack_damage = move.d ? Math.ceil(((((2 * player_pokemon.level) / 5 + 2) * (move.d || 0) * (player_iv / opponent_iv)) / 50 + 2) * multiplier * ((randomint(38) + 217) / 255) * (player_pokemon.battle.status.brn && move.s == "p" ? 0.5 : 1) * (multi_strike)) : 0;
+                        const isStatusBlocked = player_pokemon.battle.status.frz || player_pokemon.battle.status.cnf || player_pokemon.battle.status.slp || player_pokemon.battle.status.par && randomint(100) < 75;
 
+                        let didNotMiss = !move.a || move.a && randomint(100) <= parseInt(move.a.toString().replace(/∞/i, '100'));
+
+                        var attack_damage = (!isStatusBlocked && didNotMiss) && move.d ? Math.ceil(((((2 * player_pokemon.level) / 5 + 2) * (move.d || 0) * (player_iv / opponent_iv)) / 50 + 2) * multiplier * ((randomint(38) + 217) / 255) * (player_pokemon.battle.status.brn && move.s == "p" ? 0.5 : 1) * (multi_strike)) : 0;
+
+                        // Reduce HP of Opponent
                         opponent_pokemon.battle.current_hp -= attack_damage;
 
-                        if (["self-destruct", "explosion"].includes(move.id))
-                            player_pokemon.battle.current_hp = 0,
-                                messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} exploded.`);
+                        // If User's Pokemon is NOT StatusBlocked + Hit Chance approved
+                        if (!isStatusBlocked && didNotMiss) {
+                            /*-- Start Opponent Status Effects --*/
+                            // Paralysis
+                            // - If Move permits & Pokemon is NOT Electrical 
+                            if (move.par && randomint(100) <= move.par && !opponent_pokemon.types.includes("e"))
+                                // Reduce Speed by 50%
+                                opponent_pokemon.stats.spd = opponent_pokemon.stats.spd * .5,
+                                    // Mark as Paralyzed
+                                    opponent_pokemon.battle.status.par = true,
+                                    // Output result
+                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was paralyzed`);
 
-                        messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} used ${move.name} and did ${attack_damage * -1} damage on ${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)}. ${multi_strike > 1 ? `It struck ${multi_strike} times.` : ''}`);
+                            // Poison
+                            // - If Move permits & Pokemon is NOT Poison OR Steel
+                            if (move.psn && randomint(100) <= move.psn && (!opponent_pokemon.types.includes(['p']) && !opponent_pokemon.types.includes(['s'])))
+                                // Mark as Poisoned
+                                opponent_pokemon.battle.status.psn = true,
+                                    // Output result
+                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was poisoned`);
 
-                        if (opponent_pokemon.battle.current_hp <= 0)
-                            opponent_pokemon.battle.current_hp = 0,
-                                messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} fainted.`);
+                            // Frozen
+                            // - If Move permits & Pokemon is not Ice
+                            if (move.frz && randomint(100) <= move.frz && !opponent_pokemon.types.includes("i"))
+                                // Mark as Poisoned
+                                opponent_pokemon.battle.status.frz = true,
+                                    // Output result
+                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was frozen`);
+
+                            // Frozen Pokemon being Thawed
+                            // - If Pokemon is Frozen + Fire Move is used
+                            if (opponent_pokemon.battle.status.frz && ["flame-wheel", "sacred-fire", 'flare-blitz', 'fusion-flare', 'scald', 'steam-eruption', 'burn-up', 'pyro-ball'].includes(move.id)) {
+                                // Mark as Unfrozen
+                                opponent_pokemon.battle.status.frz = void 0;
+                                // Output result
+                                messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} is no longer frozen`);
+                            }
+
+                            // Sleep
+                            // - If Move permits
+                            if (move.slp && randomint(100) <= move.slp)
+                                // Mark as Sleep
+                                opponent_pokemon.battle.status.slp = true,
+                                    // Output result
+                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} fell fast asleep`);
+
+                            if (move.cnf && randomint(100) <= move.cnf)
+                                // Mark as Sleep
+                                opponent_pokemon.battle.status.cnf = true,
+                                    // Output result
+                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was confused`);
+
+                            /*-- End Opponent Status Effects --*/
+
+                            // Finish HP of Player if specified moves are used
+                            if (["self-destruct", "explosion"].includes(move.id))
+                                player_pokemon.battle.current_hp = 0,
+                                    messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} exploded.`);
+
+                            messages.push(didNotMiss ? `${player.globalName}'s ${capitalize(player_pokemon.pokemon)} used ${move.name} and did ${attack_damage * -1} damage on ${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)}. ${multi_strike > 1 ? `It struck ${multi_strike} times.` : ''}` : `${player.globalName}'s ${capitalize(player_pokemon.pokemon)} used ${move.name} and missed.`);
+
+                            if (opponent_pokemon.battle.current_hp <= 0)
+                                opponent_pokemon.battle.current_hp = 0,
+                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} fainted.`);
+                        }
+
+                        // If Player's Pokemon was burnt or poisoned
+                        if (player_pokemon.battle.status.brn || player_pokemon.battle.status.psn) {
+                            let statusDamage = Math.round(player_pokemon.battle.current_hp * (1 / 16));
+                            // Reduce HP
+                            player_pokemon.battle.current_hp -= statusDamage;
+                            // Output result
+                            messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} was ${player_pokemon.battle.status.brn ? "Burnt" : "Poisoned"} and took ${statusDamage} damage.`);
+                        }
 
                         if (last_notes)
                             messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} is now: ${notes}`);
@@ -391,7 +503,7 @@ export default {
             }
 
             // Giga-DynaMax
-            if (m.options.getBoolean("dyna-giga") == true) {
+            if (m.options.getBoolean("dyna-giga")) {
                 if (selectedPokemon.battle.giga)
                     return await m.reply({ content: "This Pokemon is already a Giga/Dynamax" });
 
@@ -413,7 +525,7 @@ export default {
             }
 
             // Running Away
-            if (m.options.getBoolean("run-away"))
+            if (isPokemonBattle && m.options.getBoolean("run-away"))
                 return battleState = 0, battleCollector.stop(), m.reply({ content: "✅", ephemeral: true });
 
             // Attack Sequence
@@ -424,7 +536,7 @@ export default {
                         m.reply({ content: "You already responded", ephemeral: true })
                     else
                         keepOrRemoveGiga(selectedPokemon, m),
-                            m.reply({ content: "✅", ephemeral: true });
+                            m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "✅" })
                 } else if (!sequenceState)
                     m.reply({ content: "Please wait till all fainted Pokemon have been called", ephemeral: true });
 
@@ -460,7 +572,7 @@ export default {
                     else
                         keepOrRemoveGiga(selectedPokemon, m),
                             imageChanged = 1,
-                            m.reply({ content: "✅", ephemeral: true });
+                            m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "✅" })
                 }
             }
 
@@ -484,6 +596,15 @@ export default {
         battleCollector.on("end", m => {
 
             console.log(`Collected ${m.size} items`);
+
+            // Remove duel State
+            for (const member in teamA) {
+                teamA[member].removeDuelsState(msg.client.redis);
+            }
+
+            for (const member in teamB) {
+                teamB[member].removeDuelsState(msg.client.redis);
+            }
 
             if (!battleState) return msg.channel.send("User ran away!");
 

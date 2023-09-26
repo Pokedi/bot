@@ -6,10 +6,16 @@ export default {
     data: new SlashCommandBuilder()
         .setName('reload')
         .setDescription('Reload Cache')
+        .addBooleanOption(x => x.setName("reset-states").setDescription("[Admin Only]"))
         .addBooleanOption(x => x.setName("reset-commands").setDescription("[Admin Only]")),
     async execute(msg) {
         if (process.env.DEVIDS && JSON.parse(process.env.DEVIDS).includes(msg.user.id)) {
             const resetCommands = msg.options.getBoolean('reset-commands');
+
+            if (msg.options.getBoolean('reset-states')) {
+                await msg.client.redis.del(msg.user.id + '-duel');
+                return msg.reply("Pass");
+            }
 
             if (resetCommands) {
 
