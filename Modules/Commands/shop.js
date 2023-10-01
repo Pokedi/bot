@@ -236,12 +236,10 @@ export default {
                     if (player.bal < 200 * (amount)) return msg.reply("You do not have enough money for that.");
 
                     await player.save({
-                        bal: {
-                            decrement: 50 * (amount)
-                        }
+                        bal: player.bal - 50 * (amount)
                     });
 
-                    await player.pokemonLevelUp(msg.client.prisma, msg, amount);
+                    await player.pokemonLevelUp(msg.client.postgres, msg, amount);
 
                     return msg.reply({ ephemeral: true, content: "Pokemon Leveled up! ✅" });
                 }
@@ -262,12 +260,10 @@ export default {
 
                 const selectedNature = msg.options.getString("nature");
 
-                selectedPokemon.save(msg.client.prisma, { nature: selectedNature })
+                selectedPokemon.save(msg.client.postgres, { nature: selectedNature })
 
-                await player.save(msg.client.prisma, {
-                    bal: {
-                        decrement: 500
-                    }
+                await player.save(msg.client.postgres, {
+                    bal: player.bal - 500
                 });
 
                 return msg.reply(`Your ${capitalize(selectedPokemon.pokemon)} was given a ${selectedNature} mint. ${Chance().pickone(
@@ -287,7 +283,7 @@ export default {
                 {
                     const product = msg.options.getString("stone") || msg.options.getString("item-name");
 
-                    const productData = await msg.client.prisma.product.findFirst({ where: { id: product } });
+                    const [productData] = await msg.client.postgres`SELECT * FROM product WHERE id = ${product} LIMIT 1`;
 
                     if (player.bal < productData.cost) return msg.reply(`you need at least ${productData.cost} pokedits for that.`);
 
@@ -305,12 +301,10 @@ export default {
 
                     if (!evoPokemon) return msg.reply("❎ Yeah that Item doesn't work for this lil guy. Sorry. ❎");
 
-                    await selectedPokemon.save(msg.client.prisma, { pokemon: evoPokemon });
+                    await selectedPokemon.save(msg.client.postgres, { pokemon: evoPokemon });
 
-                    await player.save(msg.client.prisma, {
-                        bal: {
-                            decrement: productData.cost || 0
-                        }
+                    await player.save(msg.client.postgres, {
+                        bal: player.bal - (productData.cost || 0)
                     });
 
                     return msg.reply(`Your ${capitalize(selectedPokemon.pokemon)} was given a ${productData.name}. ${Chance().pickone(

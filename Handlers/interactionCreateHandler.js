@@ -1,8 +1,12 @@
+import autoComplete from "../Modules/Events/autoComplete.js";
+
 async function interactionCreateHandler(event) {
     let msg = event;
 
     if (!msg.guild || (msg.member && msg.member.user.bot))
         return;
+
+    if (msg.isAutocomplete()) return autoComplete(msg);
 
     // Init Channel
     if (!msg.channel.info) {
