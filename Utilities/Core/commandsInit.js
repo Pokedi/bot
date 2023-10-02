@@ -7,7 +7,7 @@ const rest = new REST().setToken(process.env.DEVTOKEN);
 const commands = [];
 
 // Ready Commands
-export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release", "select", "team", "forcespawn", "order", "shop", "trade", "sql", "config", "profile", "duel", "moves"], client) => {
+export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release", "select", "team", "forcespawn", "order", "shop", "trade", "sql", "config", "profile", "duel", "moves", "daily"], client) => {
 
     // Clear just in-case of reuse
     commands.splice(0, commands.length);
@@ -32,6 +32,14 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
         const data = await rest.put(Routes.applicationGuildCommands(process.env.DEVID, "716293571166208001"), { body: commands })
 
         console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+
+        // Configure Rest Command IDs
+        for (const command of data) {
+            client.commands.get(command.name).rest = command;
+        }
+
+        // Output
+        console.log("Successfully loaded application (/) commands to cache.");
     } catch (error) {
         // And of course, make sure you catch and log any errors!
         console.error(error);
