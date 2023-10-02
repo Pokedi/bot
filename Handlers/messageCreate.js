@@ -63,7 +63,7 @@ async function messageCreate(msg, e) {
 
         if (--msg.author.count.pokemonLevelUpCount <= 0) {
             msg.author.count.pokemonLevelUpCount = chance.integer({ min: 40, max: 300 });
-            const checkStats = await msg.author.player.pokemonLevelUp(msg.client.prisma, msg);
+            const checkStats = await msg.author.player.pokemonLevelUp(msg.client.postgres, msg);
 
             if (checkStats) {
                 if (checkStats.hasEvolved) return msg.reply(`Congratulations! Your ${capitalize(checkStats.pokemon)} has evolved to ${capitalize(checkStats.evolvedPokemon)}!`);
