@@ -4,9 +4,6 @@ import { ClusterClient, getInfo } from "discord-hybrid-sharding";
 // Ready Client + Collection
 import { Collection, Client, Events, GatewayIntentBits, REST, Routes } from "discord.js";
 
-// Ready Prisma
-import prisma from "../../Modules/Database/index.js";
-
 // Init Client
 const client = new Client({
     shards: getInfo().SHARD_LIST, // An array of shards that will get spawned
@@ -17,8 +14,6 @@ const client = new Client({
 client.cluster = new ClusterClient(client); // initialize the Client, so we access the .broadcastEval()
 
 client.commands = new Collection();
-
-client.prisma = prisma;
 
 import sql from "../../Modules/Database/postgres.js";
 client.postgres = sql;
@@ -45,4 +40,4 @@ process.on("SIGINT", () => {
     process.exit();
 })
 
-export { client, prisma };
+export { client };
