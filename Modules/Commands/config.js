@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
-import builder from "../Database/QueryBuilder/queryGenerator";
+import builder from "../Database/QueryBuilder/queryGenerator.js";
 
 export default {
     help: "",
