@@ -32,6 +32,14 @@ client.redis = redisClient;
 import commandsInit from "../../Utilities/Core/commandsInit.js";
 commandsInit(undefined, client);
 
+// Shard Controller
+client.shardID = 0;
+
+// Assign ShardID to Client when Ready
+client.on("shardReady", async id => {
+    client.shardID = id;
+});
+
 client.login(process.env.DEVTOKEN);
 
 process.on("SIGINT", () => {
