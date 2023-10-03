@@ -148,11 +148,9 @@ class Player {
     // Check Count Pokemon
     async countDex(postgres) {
 
-        const query = builder.select("dex", "count(true) as count").where({ user_id: BigInt(this.id) });
+        const [{ count }] = await postgres`SELECT count(true) as count FROM dex WHERE user_id = ${this.id}`;
 
-        const [row] = await postgres.unsafe(query.text, query.values);
-
-        return row;
+        return count;
     }
 
     async fetchPokemon(postgres) {
@@ -161,7 +159,7 @@ class Player {
 
         if (!rows.length) return this.pokemon = [];
 
-        const pokemon = this.selected.map(x => new Pokemon(rows.find(y => y.id == x)||{})).filter(x => x.id);
+        const pokemon = this.selected.map(x => new Pokemon(rows.find(y => y.id == x) || {})).filter(x => x.id);
 
         this.pokemon = pokemon;
 
