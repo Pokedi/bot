@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { idx } from "../../cache.js";
-import client from "../../../../Modules/Database/index.js";
+import sql from "../../../../Modules/Database/postgres.js";
 
 const userRouter = Router();
 
@@ -13,17 +13,7 @@ userRouter.get('/idx/:id', async (req, res) => {
 
     if (idxFound) return res.json({ idx: idxFound });
 
-    const foundPokemon = await client.pokemon.findFirst({
-        where: {
-            user_id: BigInt(id)
-        },
-        select: {
-            idx: true
-        },
-        orderBy: {
-            idx: "desc"
-        }
-    });
+    const [foundPokemon] = await sql`SELECT idx FROM pokemon WHERE user_id = ${id} ORDER BY idx DESC`;
 
     idx.set(id, foundPokemon ? foundPokemon.idx : 1);
     return res.json({ idx: idx.get(id) });
