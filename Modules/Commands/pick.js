@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import Pokemon from "../../Classes/pokemon.js";
 import findPokemon from "../../Utilities/Pokemon/findPokemon.js";
+import builder from "../Database/QueryBuilder/queryGenerator.js";
 
 export default {
     data: "",
@@ -23,14 +24,14 @@ export default {
         if (!pk || !["bulbasaur", "charmander", "squirtle", "pikachu", "eevee", "chikorita", "cyndaquil", "totodile", "treecko", "torchic", "mudkip", "turtwig", "chimchar", "piplup", "snivy", "tepig", "oshawott", "chespin", "fennekin", "froakie", "rowlet", "litten", "popplio", "grookey", "scorbunny", "sobble", "pumpkinsaur"].includes(pk._id))
             return msg.reply("sorry, but that's not a valid starter! Please try again by selecting whatever is available in `/start`!")
 
-        const userAccount = await msg.client.prisma.users.create({
-            data: {
-                id: BigInt(msg.user.id),
-                bal: 200,
-                started: new Date(),
-                selected: [1]
-            }
-        });
+        const { text, values } = builder.insert("users", {
+            id: BigInt(msg.user.id),
+            bal: 200,
+            started: new Date(),
+            selected: [1]
+        }).returning("*");
+
+        const [userAccount] = await msg.client.postgres.unsafe(text, values);
 
         // Set it to Collection Cache
         msg.user.player = userAccount;

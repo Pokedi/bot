@@ -18,12 +18,9 @@ export default {
 
         const resetPokemon = msg.options.getBoolean('reset');
 
-        const queryPokemon = new Pokemon(await msg.client.prisma.pokemon.findFirst({
-            where: {
-                idx: pokemonID,
-                user_id: BigInt(msg.user.id)
-            }
-        }));
+        const queryPokemon = new Pokemon({user_id: msg.user.id, idx: pokemonID});
+
+        await queryPokemon.fetchPokemonByIDX(msg.client.postgres)
 
         if (!queryPokemon.pokemon) return await msg.reply("Pokemon of that ID does not exist.");
 

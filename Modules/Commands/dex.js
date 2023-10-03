@@ -163,12 +163,7 @@ export default {
 
             if (page * 20 > grabPokemonLength) return msg.reply("Sorry, no pokemon to display in that page");
 
-            const user_dex = await msg.client.prisma.dex.findMany({
-                where: {
-                    pokemon: { in: selectedPokemon.map(x => x._id) },
-                    user_id: BigInt(msg.user.id)
-                }
-            }) || [{}];
+            const user_dex = await msg.client.postgres`SELECT * FROM dex WHERE pokemon in ${msg.client.postgres(selectedPokemon.map(x => x._id))} AND user_id = ${msg.user.id}` || [{}];
 
             // if (!user_dex[0]) return msg.reply("You didn't catch anything yet");
 
@@ -199,24 +194,7 @@ export default {
         const claim = msg.options.getBoolean('claim');
 
         if (claim) {
-            const unclaimedPokemon = await msg.client.prisma.dex.findMany({
-                where: {
-                    user_id: BigInt(msg.user.id),
-                    OR: [{
-                        unclaimed_normal: {
-                            gt: 0
-                        }
-                    }, {
-                        unclaimed_shinies: {
-                            gt: 0
-                        }
-                    }]
-                },
-                select: {
-                    unclaimed_normal: true,
-                    unclaimed_shinies: true
-                }
-            });
+            const unclaimedPokemon = await msg.client.postgres`SELECT unclaimed_normal, unclaimed_shinies FROM dex WHERE user_id = ${msg.user.id} AND (unclaimed_normal > 0 OR unclaimed_shiny > 0)`;
 
             if (!unclaimedPokemon.length) return msg.reply("No Pokemon available to be claimed");
 
@@ -228,32 +206,11 @@ export default {
             }
 
             try {
-                await msg.client.prisma.$transaction([msg.client.prisma.dex.updateMany({
-                    where: {
-                        user_id: BigInt(msg.user.id),
-                        OR: [{
-                            unclaimed_normal: {
-                                gt: 0
-                            }
-                        }, {
-                            unclaimed_shinies: {
-                                gt: 0
-                            }
-                        }]
-                    },
-                    data: {
-                        unclaimed_normal: 0,
-                        unclaimed_shinies: 0
-                    }
-                }), msg.client.prisma.users.update({
-                    where: {
-                        id: BigInt(msg.user.id)
-                    }, data: {
-                        bal: {
-                            increment: credits
-                        }
-                    }
-                })]);
+                await msg.client.postgres.begin(sql => [
+                    sql`UPDATE dex SET unclaimed_normal = 0, unclaimed_shinies = 0 WHERE user_id = ${msg.user.id} AND (unclaimed_normal > 0 OR unclaimed_shinies > 0)`,
+                    sql`UPDATE users SET bal = bal + ${credits} WHERE id = ${msg.user.id}`
+                ]);
+                
                 return msg.reply(`Congrats! You got ${credits} pokedits for claiming ${unclaimedPokemon.length} Pokemon!`);
             } catch (error) {
                 return msg.reply(`An error occurred claiming your pokedits. Contact an admin!`);

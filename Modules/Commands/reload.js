@@ -31,7 +31,7 @@ export default {
             }
 
             try {
-                msg.user.info = await msg.client.prisma.users.findUnique({ where: { id: BigInt(msg.user.id) } }) || {};
+                msg.user.info = (await msg.client.postgres`SELECT * FROM users WHERE id = ${msg.user.id}`)?.[0];
                 msg.reply("Reloaded");
             } catch (error) {
                 console.log(error);

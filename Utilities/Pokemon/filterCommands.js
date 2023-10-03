@@ -81,6 +81,11 @@ const filterCommands = {
     // Random Pokemon selector
     "random": (list = []) => {
         return Chance().pickset(list, 20);
+    },
+
+    // Custom Filters
+    "frog": (list = []) => {
+        return list.filter(x => ["ivysaur", "venusaur", "poliwag", "poliwhirl", "poliwrath", "politoed", "lotad", "croagunk", "toxicroak", "tympole", "palpitoad", "seismitoad", "froakie", "frogadier", "greninja"].includes(x.pokemon));
     }
 }
 

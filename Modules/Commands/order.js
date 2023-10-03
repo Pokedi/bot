@@ -21,18 +21,11 @@ export default {
             name: "Descending", value: "desc"
         })),
     async execute(msg) {
-        
+
         let orderType = msg.options.getString("style"),
             orderFlow = msg.options.getString("order");
 
-        await msg.client.prisma.users.update({
-            where: {
-                id: BigInt(msg.user.id)
-            },
-            data: {
-                order_by: `${orderType}-${orderFlow}`
-            }
-        });
+        await msg.client.postgres`UPDATE users SET order_by = ${`${orderType}-${orderFlow}`} WHERE id = ${msg.user.id}`
 
         await msg.reply("Order was updated!");
 

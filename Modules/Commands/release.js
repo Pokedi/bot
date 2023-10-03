@@ -13,12 +13,12 @@ export default {
     async execute(msg) {
         const id = msg.options.getInteger('id');
 
-        const fetchPokemon = new Pokemon(await msg.client.prisma.pokemon.findFirst({
-            where: {
-                idx: id,
-                user_id: BigInt(msg.user.id)
-            }
-        }));
+        const fetchPokemon = new Pokemon({
+            idx: id,
+            user_id: BigInt(msg.user.id)
+        });
+
+        await fetchPokemon.fetchPokemonByIDX(msg.client.postgres);
 
         if (!fetchPokemon.pokemon) return msg.reply({ ephemeral: true, content: "Pokemon does not exist" });
 

@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
+import builder from "../Database/QueryBuilder/queryGenerator";
 
 export default {
     help: "",
@@ -175,13 +176,7 @@ export default {
                             }
 
                             // Found Config for ID
-                            const foundConfig = await msg.client.prisma.command_configuration.findFirst({
-                                where: {
-                                    guild_id: BigInt(msg.guild.id),
-                                    channel_id: null,
-                                    command: "spawn"
-                                }
-                            })
+                            const [foundConfig] = await msg.client.postgres`SELECT * FROM command_configuration WHERE guild_id = ${msg.guild.id} AND channel_id = ${null} AND command = 'spawn' LIMIT 1`;
 
                             // Set
                             if (enable) {
@@ -189,27 +184,31 @@ export default {
                                 if (retrievedChannels.length) {
                                     // IF No config then create
                                     if (!foundConfig) {
-                                        msg.guild.configs["spawn"] = await msg.client.prisma.command_configuration.create({
-                                            data: {
-                                                guild_id: BigInt(msg.guild.id),
-                                                channel_id: null,
-                                                command: "spawn",
-                                                config: retrievedChannels.join()
-                                            }
-                                        });
+                                        // Ready Query Engine
+                                        const { values, text } = builder.insert('command_configuration', {
+                                            guild_id: BigInt(msg.guild.id),
+                                            channel_id: null,
+                                            command: "spawn",
+                                            config: retrievedChannels.join()
+                                        }).returning("*");
+
+                                        // Use Unsafe to Execute Query
+                                        const [row] = await msg.client.postgres.unsafe(text, values);
+
+                                        // Save Query to Guild Config
+                                        msg.guild.configs["spawn"] = row;
                                     } else {
-                                        // Update if Found
-                                        await msg.client.prisma.command_configuration.update({
-                                            where: {
-                                                id: foundConfig.id
-                                            },
-                                            data: {
-                                                guild_id: BigInt(msg.guild.id),
-                                                channel_id: null,
-                                                command: "spawn",
-                                                config: retrievedChannels.join()
-                                            }
-                                        });
+                                        // Update if Found + Ready Query Engine
+                                        const { values, text } = builder.update('command_configuration', {
+                                            guild_id: BigInt(msg.guild.id),
+                                            channel_id: null,
+                                            command: "spawn",
+                                            config: retrievedChannels.join()
+                                        }).where({ id: foundConfig.id }).returning("*");
+
+                                        // Use Unsafe to Execute Query
+                                        const [row] = await msg.client.postgres.unsafe(text, values);
+
                                         // Reassign
                                         msg.guild.configs["spawn"].config = retrievedChannels.join();
                                     }
@@ -223,29 +222,32 @@ export default {
                                 // IF Not Found
                                 if (!foundConfig) {
                                     // Create
-                                    msg.guild.configs["spawn"] = await msg.client.prisma.command_configuration.create({
-                                        data: {
-                                            guild_id: BigInt(msg.guild.id),
-                                            channel_id: null,
-                                            command: "spawn",
-                                            disabled: true,
-                                            config: null
-                                        }
-                                    });
+                                    // Ready Query Engine
+                                    const { values, text } = builder.insert('command_configuration', {
+                                        guild_id: BigInt(msg.guild.id),
+                                        channel_id: null,
+                                        command: "spawn",
+                                        disabled: true,
+                                        config: null
+                                    }).returning("*");
+
+                                    // Use Unsafe to Execute Query
+                                    const [row] = await msg.client.postgres.unsafe(text, values);
+
+                                    msg.guild.configs["spawn"] = row
                                 } else {
-                                    // Update
-                                    await msg.client.prisma.command_configuration.update({
-                                        where: {
-                                            id: foundConfig.id
-                                        },
-                                        data: {
-                                            guild_id: BigInt(msg.guild.id),
-                                            channel_id: null,
-                                            command: "spawn",
-                                            config: null,
-                                            disabled: true
-                                        }
-                                    });
+                                    // Update if Found + Ready Query Engine
+                                    const { values, text } = builder.update('command_configuration', {
+                                        guild_id: BigInt(msg.guild.id),
+                                        channel_id: null,
+                                        command: "spawn",
+                                        config: null,
+                                        disabled: true
+                                    }).where({ id: foundConfig.id }).returning("*");
+
+                                    // Use Unsafe to Execute Query
+                                    const [row] = await msg.client.postgres.unsafe(text, values);
+
                                     msg.guild.configs["spawn"] = { disable: true };
                                 }
                                 return await msg.reply("Spawns were disabled on your server.");

@@ -17,19 +17,8 @@ export default {
 
         if (!userDB.selected[0]) return msg.reply({ ephemeral: true, content: "No one's home..." });
 
-        const selectedPokemon = await msg.client.prisma.pokemon.findMany({
-            where: {
-                OR: userDB.selected.map(x => ({ id: x }))
-            },
-            select: {
-                id: true,
-                idx: true,
-                level: true,
-                name: true,
-                pokemon: true
-            }
-        });
-
+        const selectedPokemon = await msg.client.postgres`SELECT id, idx, level, name, pokemon FROM pokemon WHERE id in ${msg.client.postgres(userDB.selected)}`;
+        
         await msg.reply({
             embeds: [{
                 title: "Your Team",

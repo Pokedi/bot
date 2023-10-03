@@ -13,6 +13,10 @@ const port = 483;
 import userRouter from "./Routers/User/index.js";
 Server.use('/user/', userRouter);
 
+// Vote Router
+import voteRouter from "./Routers/Votes/index.js";
+Server.use("/vote/", voteRouter);
+
 Server.listen(port, ()=>{
     console.log("Pokemon Server running on port:", port)
 });

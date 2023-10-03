@@ -85,16 +85,8 @@ export default {
                 if (!msg.user?.player?.started) return await msg.reply("Please make sure to /pick a pokemon!");
                 if (msg.user.player.character) return await msg.reply("You already started your adventure");
 
-                return await msg.client.prisma.users.update({
-                    where: {
-                        id: BigInt(msg.user.id)
-                    },
-                    data: {
-                        background: 1,
-                        character: msg.options.getInteger("character"),
-                        gender: msg.options.getString("gender")
-                    }
-                }), await msg.reply("Your profile has been created! Use /profile to see it.");
+                return await msg.client.postgres`UPDATE users SET background = 1, character = ${msg.options.getInteger("character")}, gender = ${msg.options.getString("gender")} WHERE id = ${msg.user.id}`,
+                    await msg.reply("Your profile has been created! Use /profile to see it.");
             }
 
             default: {

@@ -42,14 +42,7 @@ export default {
         if (!allPokemon.length) return await msg.reply("You got no Pokemon, my dude...");
 
         // User Defaults
-        let userDefault = (await msg.client.prisma.users.findFirst({
-            where: {
-                id: BigInt(msg.user.id)
-            },
-            select: {
-                order_by: true
-            }
-        }))?.order_by;
+        let userDefault = (await msg.client.postgres`SELECT order_by FROM users WHERE id = ${msg.user.id}`)?.order_by
 
         if (!orderBy && userDefault) {
             if (userDefault.startsWith("idx")) orderBy = 1;

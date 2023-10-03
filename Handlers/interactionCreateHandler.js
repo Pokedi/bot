@@ -10,31 +10,19 @@ async function interactionCreateHandler(event) {
 
     // Init Channel
     if (!msg.channel.info) {
-        msg.channel.info = await msg.client.prisma.channels.findFirst({
-            where: {
-                id: BigInt(msg.channel.id)
-            }
-        }) || {};
-        const configs = (await msg.client.prisma.command_configuration.findMany({
-            where: {
-                channel_id: BigInt(msg.channel.id)
-            }
-        }) || []).map(x => ({ [x.command]: x }))
+        msg.channel.info = (await msg.client.postgres`SELECT * FROM channels WHERE id = ${msg.channel.id} LIMIT 1`)?.[0] || {};
+
+        const configs = (await msg.client.postgres`SELECT * FROM command_configuration WHERE channel_id = ${msg.channel.id}`).map(x => ({ [x.command]: x }));
+
         msg.channel.configs = configs.length ? Object.assign(...configs) : {};
     }
 
     // Init Guild
     if (!msg.guild.info) {
-        msg.guild.info = await msg.client.prisma.guilds.findFirst({
-            where: {
-                id: BigInt(msg.guild.id)
-            }
-        }) || {};
-        const configs = (await msg.client.prisma.command_configuration.findMany({
-            where: {
-                guild_id: BigInt(msg.guild.id)
-            }
-        }) || []).map(x => ({ [x.command]: x }))
+        msg.guild.info = (await msg.client.postgres`SELECT * FROM guilds WHERE id = ${msg.guild.id} LIMIT 1`)?.[0] || {};
+
+        const configs = (await msg.client.postgres`SELECT * FROM command_configuration WHERE guild_id = ${msg.guild.id}`).map(x => ({ [x.command]: x }));
+
         msg.guild.configs = configs.length ? Object.assign(...configs) : {};
     }
 
