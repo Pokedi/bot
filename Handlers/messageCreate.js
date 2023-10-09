@@ -1,8 +1,8 @@
 import Chance from "chance";
-import Pokemon from "../Classes/pokemon.js";
 import Player from "../Classes/player.js";
 import randomint from "../Utilities/Misc/randomint.js";
 import capitalize from "../Utilities/Misc/capitalize.js";
+import Pokedex from "../Classes/pokedex.js";
 
 const chance = Chance();
 
@@ -41,9 +41,9 @@ async function messageCreate(msg, e) {
             if (!channelSelected.spawn) channelSelected.spawn = { count: chance.integer({ min: 30, max: 140 }), pokemon: {}, lastSpawn: Date.now() };
 
             // Initializing New Pokemon
-            channelSelected.pokemon = new Pokemon({});
+            channelSelected.pokemon = new Pokedex({});
             // Spawn Pokemon Execution
-            channelSelected.pokemon.spawnFriendly();
+            channelSelected.pokemon.SpawnFriendlyV2();
             // Send Spawn
             await channelSelected.pokemon.spawnToChannel(channelSelected);
         } catch (err) {

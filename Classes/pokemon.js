@@ -12,6 +12,7 @@ import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 import { readySinglePokemonFrontBack } from "../Utilities/Pokemon/pokemonBattleImage.js";
 import moves from "../Utilities/Data/moves.json" assert {type: "json"};
 import capitalize from "../Utilities/Misc/capitalize.js";
+import pokeapisql from "../Modules/Database/pokedb.js";
 
 const chance = Chance();
 
@@ -44,6 +45,7 @@ class Pokemon {
             this.name = pokemonObject.name;
             this.types = this.getNature();
             this.type = this.convertTypes(this.getNature());
+            this.pokedex = {};
         } else
             if (pokemonObject) Object.assign(this, pokemonObject);
     }
@@ -57,15 +59,15 @@ class Pokemon {
         if (pokemonName) { base = findPokemon(pokemonName) } else { base = findPokemon() };
         this.pokemon = base._id;
         this.stats = {
-            hp: randomint(),
+            hp: randomint() || 1,
 
-            atk: randomint(),
-            def: randomint(),
+            atk: randomint() || 1,
+            def: randomint() || 1,
 
-            spatk: randomint(),
-            spdef: randomint(),
+            spatk: randomint() || 1,
+            spdef: randomint() || 1,
 
-            spd: randomint()
+            spd: randomint() || 1
         }
         this.level = randomint(60);
         this.exp = 1;
@@ -100,7 +102,7 @@ class Pokemon {
             // Return spawnImage-generated Image
             return spawnChannel.send({
                 files: [{
-                    attachment: await spawnImage(this.pokemon, this.shiny),
+                    attachment: await spawnImage(this.pokemon.toLowerCase(), this.shiny),
                     name: "spawn.png"
                 }],
                 embeds: [{

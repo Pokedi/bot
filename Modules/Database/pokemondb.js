@@ -3,12 +3,12 @@ import postgres from "postgres";
 
 config()
 
-const pokemondb = postgres({
+const pokeapisql = postgres({
     hostname: process.env.DATABASE_HOST,
-    database: "pokeapi",
+    database: "pokemondb",
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
 });
 
-export default pokemondb;
+export default pokeapisql;

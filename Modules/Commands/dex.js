@@ -1,8 +1,9 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, SlashCommandBuilder } from "discord.js";
+import { ActionRowBuilder, AttachmentBuilder, AttachmentFlags, ButtonBuilder, ButtonStyle, ComponentType, SlashCommandBuilder } from "discord.js";
 import findPokemon from "../../Utilities/Pokemon/findPokemon.js";
 import dexPokemonInfoModule from "../../Utilities/Pokemon/dexPokemonInfoModule.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 import filterPokemon from "../../Utilities/Pokemon/filterPokemon.js";
+import Pokedex from "../../Classes/pokedex.js";
 
 export default {
     help: "",
@@ -19,27 +20,40 @@ export default {
 
         if (pokemonName) {
 
-            let selectedPokemon = findPokemon(pokemonName, false);
+            let selectedPokemon = new Pokedex();
+
+            await selectedPokemon.searchForID(pokemonName);
+
+            // findPokemon(pokemonName, false);
 
             if (!selectedPokemon) return msg.reply("This pokemon does not exist, for some reason?");
 
-            selectedPokemon.shiny = msg.options.getBoolean("shiny") && selectedPokemon.shiny;
+            // Fetch dex Data
+            await selectedPokemon.fetchDexData()
+
+            // Check if User wants a Shiny
+            selectedPokemon.pokedex.shiny = msg.options.getBoolean("shiny");
 
             // Pokemon Embed
-            const pokemonEmbed = dexPokemonInfoModule(selectedPokemon);
+            const pokemonEmbed = dexPokemonInfoModule(selectedPokemon.pokedex);
 
             // Components
             const buttonComponent = [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('info-button').setEmoji('ℹ').setStyle(ButtonStyle.Secondary))];
 
+            const file = new AttachmentBuilder(`../pokedi/pokemon/${selectedPokemon.pokedex.shiny ? "shiny" : "regular"}/${selectedPokemon.pokedex.name_id}.png`);
+
             // Send Embed
-            const message = await msg.reply({ embeds: [pokemonEmbed], fetchReply: true, components: buttonComponent });
+            const message = await msg.reply({
+                embeds: [pokemonEmbed], fetchReply: true, components: buttonComponent,
+                files: [file]
+            });
 
             // Ready Other Embed
             const secondEmbed = {
-                title: `#${selectedPokemon.id} - ${capitalize(selectedPokemon._id)}`,
+                title: `#${selectedPokemon.id} - ${(selectedPokemon.pokedex.name)}`,
                 fields: [],
                 thumbnail: {
-                    url: "attachment://spawn.png"
+                    url: `attachment://${selectedPokemon.pokedex.name_id}.png`
                 },
                 image: null,
                 components: buttonComponent
@@ -48,12 +62,12 @@ export default {
             // Push Buyable Items
             secondEmbed.fields.push({
                 name: "Items", value: (() => {
-                    if (!selectedPokemon?.evolution?.items)
+                    if (!selectedPokemon.pokedex.evolution_chain.length || !selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "use-item"))
                         return "~ Nothing ~";
-                    return Object.entries(selectedPokemon.evolution.items).map(x => {
-                        return `**${capitalize(selectedPokemon._id)}** + **${capitalize(x[0])}** => **${capitalize(x[1].name)}** ${x[1].cost ? "(💵" + (x[1].cost) + ")" : ""}`
-                    }
-                    ).join("\n") + "\n To buy the item, just `p!buy <item name>`";
+
+                    return selectedPokemon.pokedex.evolution_chain.filter(x => x.trigger == "use-item").map(x => {
+                        return `**${(selectedPokemon.pokedex.name)}** + **${capitalize(x.item_name)}** => **${capitalize(x.name)}** ${x.item_price ? "(💵" + (x.item_price) + ")" : ""}`
+                    }).join("\n") + "\n To buy the item, just `/shop item:<item name>`";
                 }
                 )()
             });
@@ -210,7 +224,7 @@ export default {
                     sql`UPDATE dex SET unclaimed_normal = 0, unclaimed_shinies = 0 WHERE user_id = ${msg.user.id} AND (unclaimed_normal > 0 OR unclaimed_shinies > 0)`,
                     sql`UPDATE users SET bal = bal + ${credits} WHERE id = ${msg.user.id}`
                 ]);
-                
+
                 return msg.reply(`Congrats! You got ${credits} pokedits for claiming ${unclaimedPokemon.length} Pokemon!`);
             } catch (error) {
                 return msg.reply(`An error occurred claiming your pokedits. Contact an admin!`);

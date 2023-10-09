@@ -23,6 +23,15 @@ const ENUM_POKEMON_TYPES = {
 
 const POKEMON_NATURES = ["hardy", "lonely", "brave", "adamant", "naughty", "bold", "docile", "relaxed", "impish", "lax", "timid", "hasty", "serious", "jolly", "naive", "modest", "mild", "quiet", "bashful", "rash", "calm", "gentle", "sassy", "careful", "quirky"];
 
+const ENUM_POKEMON_BASE_STATS = {
+    "hp": "hp",
+    "atk": "attack",
+    "def": "defense",
+    "spatk": "special-attack",
+    "spdef": "special-defense",
+    "spd": "speed"
+}
+
 function reverseENUM(ENUM = {}, item) {
     return Object.entries(ENUM).find(x => x[1] == item)[0];
 }
@@ -48,4 +57,4 @@ const ENUM_TYPE_COLORS = {
     'Fairy': 0xD685AD,
 }
 
-export { POKEMON_NATURES, ENUM_POKEMON_TYPES, reverseENUM, ENUM_TYPE_COLORS };
+export { POKEMON_NATURES, ENUM_POKEMON_TYPES, reverseENUM, ENUM_TYPE_COLORS, ENUM_POKEMON_BASE_STATS };

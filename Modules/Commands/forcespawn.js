@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
-import Pokemon from "../../Classes/pokemon.js";
+import Pokedex from "../../Classes/pokedex.js";
 
 export default {
     help: "",
@@ -15,9 +15,11 @@ export default {
                 // Init Spawn if not existent
                 if (!msg.channel.spawn) msg.channel.spawn = {};
                 // Initializing New Pokemon
-                msg.channel.spawn.pokemon = new Pokemon({});
+                msg.channel.spawn.pokemon = new Pokedex({});
+                // Custom
+                await msg.channel.spawn.pokemon.searchForID(content);
                 // Spawn Pokemon Execution
-                msg.channel.spawn.pokemon.spawnFriendly(content);
+                msg.channel.spawn.pokemon.SpawnFriendlyV2();
                 // Send Message Test
                 await msg.channel.spawn.pokemon.spawnToChannel(msg.channel);
                 // Reply

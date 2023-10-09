@@ -21,14 +21,14 @@ export default {
                         }
                         ),
                         "footer": {
-                            text: `Running Pokedi Shard: ${msg.client.shardID}`
+                            text: `Current Cluster: ${msg.client.cluster.id}\nRunning Pokedi Shard: ${msg.client.shardID}`
                         }, timestamp: new Date(),
                         "description": (() => {
                             let total = x.map(y => [y[0], y[1], y[3], parseFloat(stats[y[2]].cpu.toFixed(2)), y[4]]).reduce((y, z) => {
                                 return [y[0] + 1, parseInt(y[1]) + parseInt(z[1]), y[2] + z[2], y[3] + z[3], y[4] + z[4]];
                             }
                             );
-                            return `**Total Memory:** \`${total[1]}MB\`\n**Total CPU**: \`${total[3].toFixed(2)}%\`\n**Total Servers**: \`${total[2]}\`\n**Average Ping**:\`${(total[4] / (total[0] + 1)).toFixed(2)}ms\``
+                            return `**Total Memory:** \`${total[1]}MB\`\n**Total Clusters**: ${msg.client.cluster.count}\n**Total Shards in Cluster**: ${msg.client.cluster.ids.size}\n**Total CPU**: \`${total[3].toFixed(2)}%\`\n**Total Servers**: \`${total[2]}\`\n**Average Ping**:\`${(total[4] / (total[0] + 1)).toFixed(2)}ms\``
                         }
                         )()
                     }]
