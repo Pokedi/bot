@@ -1,0 +1,58 @@
+[
+    {
+        "item_id": 671,
+        "item_name": "dna-splicers",
+        "evolved_pokemon": "kyurem white",
+        "first_pokemon": "kyurem",
+        "second_pokemon": "reshiram"
+    },
+    {
+        "item_id": 671,
+        "item_name": "dna-splicers",
+        "evolved_pokemon": "kyurem-black",
+        "first_pokemon": "kyurem",
+        "second_pokemon": "zekrom"
+    },
+    {
+        "item_id": 989,
+        "item_name": "n-solarizer",
+        "evolved_pokemon": "necrozma-dusk",
+        "first_pokemon": "necrozma",
+        "second_pokemon": "solgaleo"
+    },
+    {
+        "item_id": 990,
+        "item_name": "n-lunarizer",
+        "evolved_pokemon": "necrozma-dawn",
+        "first_pokemon": "necrozma",
+        "second_pokemon": "lunala"
+    },
+    {
+        "item_id": 1658,
+        "item_name": "reins-of-unity",
+        "evolved_pokemon": "calyrex-ice",
+        "first_pokemon": "glastrier",
+        "second_pokemon": "calyrex"
+    },
+    {
+        "item_id": 1658,
+        "item_name": "reins-of-unity",
+        "evolved_pokemon": "calyrex-shadow",
+        "first_pokemon": "spectrier",
+        "second_pokemon": "calyrex"
+    },
+    {
+        "item_id": 1658,
+        "item_name": "reins-of-unity",
+        "evolved_pokemon": "calyrex-shadow",
+        "first_pokemon": "calyrex",
+        "second_pokemon": "spectrier"
+    },
+    {
+        "item_id": 1658,
+        "item_name": "reins-of-unity",
+        "evolved_pokemon": "calyrex-ice",
+        "first_pokemon": "calyrex",
+        "second_pokemon": "glastrier"
+    }
+]

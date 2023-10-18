@@ -43,9 +43,10 @@ class Pokemon {
             this.nature = pokemonObject.nature;
             this.gender = pokemonObject.gender;
             this.name = pokemonObject.name;
-            this.types = this.getNature();
-            this.type = this.convertTypes(this.getNature());
+            this.types = pokemonObject.types || []; //this.getNature();
+            this.type = this.convertTypes(this.types);
             this.pokedex = {};
+            this.price = pokemonObject.price;
         } else
             if (pokemonObject) Object.assign(this, pokemonObject);
     }
@@ -223,7 +224,7 @@ class Pokemon {
     }
 
     calculateIV(type = "hp") {
-        return IVCalculator(this.getBaseStats()[type], this.stats[type], this.level, type, this.nature);
+        return IVCalculator({}, this.stats[type], this.level, type, this.nature);
     }
 
     calculatedStats() {

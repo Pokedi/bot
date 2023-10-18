@@ -5,15 +5,15 @@ import capitalize from "../Misc/capitalize.js";
 function dexPokemonInfoModule(details = null) {
     if (!details) return false;
     const msgObj = {
-        title: `#${details.id} - ${details.name}${details.shiny ? " ⭐" : ""}`,
+        title: `#${details.id} - ${capitalize(details.name.replace(/-/gmi, ' '), true)}${details.shiny ? " ⭐" : ""}`,
         color: 16776960,
         description: (() => {
 
             let finalText = '';
 
-            if (details.description.flavor_text) finalText += details.description.flavor_text.replace(/\n/gmi, ' ');
+            if (details.description?.flavor_text) finalText += details.description.flavor_text.replace(/\n/gmi, ' ');
 
-            let levelEvolution = details.evolution_chain.length ? (details.evolution_chain.filter(x => x.pokemon_id < 10000 && (x.trigger == "level-up" || !x.trigger)).sort((x, y) => x.pokemon_id - y.pokemon_id)).map(x => {
+            let levelEvolution = details.evolution_chain.length ? (details.evolution_chain.filter(x => x.pokemon_id < 10000 && (x.trigger == "level-up" || !x.trigger) && !x.time_of_day && !x.min_happiness && !x.min_affection).sort((x, y) => x.pokemon_id - y.pokemon_id)).map(x => {
                 const obj = ({ name: x.name, level: x.min_level });
 
                 if (!obj.level)
@@ -58,7 +58,7 @@ ${details.types.map(x => capitalize(x)).join(" | ")}`,
             return field_array;
         })(),
         image: {
-            url: `attachment://${details.name_id}.png`
+            url: `attachment://${details._id}.png`
         },
         footer: {
             text: `Pokédi: ${details.id || 1}/${1015}${details.art ? ` Art drawn by ${details.art}` : ""}`

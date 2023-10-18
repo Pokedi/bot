@@ -126,12 +126,19 @@ export default {
             if (await You.isTrading(msg.client.redis))
                 return msg.reply("No. You're still trading my dude. =w=");
 
+            // Check if User is in the Market
+            if (await You.isMarketing(msg.client.redis))
+                return msg.reply("Finish your shopping you bum.");
+
             const Them = new Player({ id: BigInt(Tradee.id) });
 
             // Check if Tradee is in Trade
             if (await Them.isTrading(msg.client.redis))
-                return msg.reply("Your dude is trading somewhere else. =w=");
+                return await msg.reply("Your dude is trading somewhere else. =w=");
 
+            // Check if User is in the Market
+            if (await Them.isMarketing(msg.client.redis))
+                return await msg.reply("Your friend here needs to finish shopping.");
 
             // Reject self-trading
             if (Them.id == You.id) return msg.reply("No, you cannot trade with yourself. That's just... sad...");

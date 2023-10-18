@@ -1,8 +1,14 @@
 import pokeapisql from "../Modules/Database/pokedb.js";
-import { ENUM_POKEMON_BASE_STATS, POKEMON_NATURES, reverseENUM } from "../Utilities/Data/enums.js";
+import { ENUM_POKEMON_BASE_STATS, POKEMON_NATURES, reverseENUM, ENUM_POKEMON_TYPES_ID, ENUM_POKEMON_FULL_TYPES_ID } from "../Utilities/Data/enums.js";
 import Pokemon from "./pokemon.js";
 import randomint from "../Utilities/Misc/randomint.js";
 import { Chance } from "chance";
+import fusionPokemon from "../Utilities/Data/PokemonDB/fusions.json" assert {type: "json"};
+import capitalize from "../Utilities/Misc/capitalize.js";
+import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
+import IVCalculator from "../Utilities/Pokemon/IVCalculator.js";
+// import allPokemon from "../Utilities/Data/pokemon.js";
+
 const chance = Chance();
 
 class Pokedex extends Pokemon {
@@ -70,25 +76,29 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return this.pokedex.move_prices;
     }
 
-    async searchForID(name) {
+    async fetchByID() {
         // Check first DB
-        let [row] = await pokeapisql`SELECT s.pokemon_species_id, p.name, s.name as pokemon_name FROM pokemon_v2_pokemonspeciesname as s INNER JOIN pokemon_v2_pokemon as p on (s.pokemon_species_id = p.pokemon_species_id) WHERE s.name ilike ${name} LIMIT 1`;
+        let [row] = await pokeapisql`SELECT * FROM pokemon_dex WHERE _id = ${this.pokemon} LIMIT 1`;
 
         if (row)
-            return this.pokedex.id = row.pokemon_species_id,
-                this.pokedex.name = row.pokemon_name,
-                this.pokedex.name_id = row.name,
-                this.pokemon = row.name,
+            return this.pokedex = row,
+                this.pokedex._id = this.pokedex._id.trim(),
+                this.pokedex.name = this.pokedex.name.trim(),
+                await this.getTypesV2(true),
                 this.pokedex;
 
-        // Check Second DB
-        let [row2] = await pokeapisql`SELECT id, name FROM pokedi_v2_pokemon WHERE name ilike ${name}`;
+        return false;
+    }
 
-        if (row2)
-            return this.pokedex.custom = true,
-                this.pokedex.id = row2.id,
-                this.pokedex.name = row2.name,
-                this.pokemon = row2.name,
+    async searchForID(name = this.pokemon) {
+        // Check first DB
+        let [row] = await pokeapisql`SELECT * FROM pokemon_dex WHERE name ilike ${'%' + (name) + '%'} OR _id ilike ${'%' + (name) + '%'} OR _id ilike ${'%' + (name.replace(/ /gmi, '-')) + '%'} LIMIT 1`;
+
+        if (row)
+            return this.pokedex = row,
+                this.pokedex._id = this.pokedex._id.trim(),
+                this.pokedex.name = this.pokedex.name.trim(),
+                await this.getTypesV2(true),
                 this.pokedex;
 
         return false;
@@ -99,7 +109,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         if (!this.pokedex.id) return false;
 
         // Check Status
-        const check = this.pokedex.custom ? await pokeapisql`SELECT * FROM pokedi_v2_pokemonrarity WHERE pokemon_id = ${this.pokedex.id}` : await pokeapisql`SELECT * FROM pokemon_v2_pokemonrarity WHERE pokemon_id = ${this.pokedex.id}`;
+        const check = await pokeapisql`SELECT * FROM pokemon_v2_pokemonrarity WHERE pokemon_id = ${this.pokedex.id}`;
 
         // Assignment Rarity
         this.pokedex.rarity = check.map(x => x.rarity_id);
@@ -177,16 +187,64 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return (this.pokedex.custom ? await pokeapisql`SELECT m.name FROM pokedi_v2_pokemonmove as p LEFT JOIN pokemon_v2_move as m ON (p.move_id = m.id) WHERE pokemon_id = ${this.pokedex.id} AND p.move_learn_method_id = 1 AND p.version_group_id = ${version_group_id} AND level <= ${this.level || 1}` : await pokeapisql`SELECT m.name FROM pokemon_v2_pokemonmove as p LEFT JOIN pokemon_v2_move as m ON (p.move_id = m.id) WHERE pokemon_id = ${this.pokedex.id} AND p.move_learn_method_id = 1 AND p.version_group_id = ${version_group_id} AND level <= ${this.level || 1}`).map(x => x.name);
     }
 
-    async getTypesV2() {
-        if (!this.pokedex.id) return [];
+    async getColumnsByID(columns = "id, types, hp, atk, def, spatk, spdef, spd") {
+        const { text, values } = builder.select("pokemon_dex", columns);
 
-        return (await pokeapisql.unsafe(`SELECT t.name FROM ${(this.pokedex.custom ? "pokedi" : "pokemon") + "_v2_pokemontype"} LEFT JOIN pokemon_v2_type as t on (type_id = t.id ) WHERE pokemon_id = ${this.pokedex.id} ORDER BY slot ASC;`)).map(x => x.name);
+        let [row] = await pokeapisql.unsafe(text, values);
+
+        if (!row) return false;
+
+        this.pokedex = Object.assign(this.pokedex, row);
+
+        return this.pokedex;
     }
 
-    async getStatsV2() {
+    async getTypesV2(fallBack) {
+        if (!this.pokedex.id || this.types?.length) return [];
+
+        const info = this.custom ? this.types : this.pokedex.types;
+
+        if (!fallBack) return info;
+
+        this.pokedex.types = info.map(x => ENUM_POKEMON_FULL_TYPES_ID[x]);
+
+        this.types = info.map(x => ENUM_POKEMON_TYPES_ID[x]);
+
+        return this.pokedex.types;
+    }
+
+    calculateIV(type = "hp") {
+        return IVCalculator(this.pokedex.stats[type], this.stats[type], this.level, type, this.nature);
+    }
+
+    calculatedStats() {
+        return {
+            hp: this.calculateIV("hp"),
+            atk: this.calculateIV("atk"),
+            def: this.calculateIV("def"),
+            spatk: this.calculateIV("spatk"),
+            spdef: this.calculateIV("spdef"),
+            spd: this.calculateIV("spd")
+        };
+    }
+
+    async getStatsV2(fallBack) {
         if (!this.pokedex.id || this.pokedex.custom) return [];
 
-        return Object.assign(...(await pokeapisql.unsafe(`SELECT base_stat, s.name FROM ${(this.pokedex.custom ? "pokedi" : "pokemon") + "_v2_pokemonstat"} LEFT JOIN pokemon_v2_stat as s on (stat_id = s.id ) WHERE pokemon_id = ${this.pokedex.id};`)).map(x => ({ [reverseENUM(ENUM_POKEMON_BASE_STATS, x.name)]: x.base_stat })));
+        const info = {
+            hp: this.pokedex.hp,
+            atk: this.pokedex.atk,
+            def: this.pokedex.def,
+            spatk: this.pokedex.spatk,
+            spdef: this.pokedex.spdef,
+            spd: this.pokedex.spd
+        };
+
+        if (!fallBack) return info;
+
+        this.pokedex.stats = info;
+
+        return this.pokedex.stats;
     }
 
     async getDescriptionV2() {
@@ -201,10 +259,16 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return await pokeapisql`SELECT p.name, iso3166 as flagcode FROM pokemon_v2_pokemonspeciesname as p LEFT JOIN pokemon_v2_language as l ON (p.language_id = l.id) WHERE pokemon_species_id = ${this.pokedex.id}`;
     }
 
-    async getBasicInfoV2() {
+    async getBasicInfoV2(fallBack) {
         if (!this.pokedex.id || this.pokedex.custom) return false;
 
-        return await pokeapisql`SELECT * FROM pokemon_v2_pokemonspecies as s LEFT JOIN pokemon_v2_pokemon as p ON (p.pokemon_species_id = s.id) WHERE s.id = ${this.pokedex.id} ORDER BY s.id ASC LIMIT 1`;
+        const info = await pokeapisql`SELECT * FROM pokemon_v2_pokemonspecies as s LEFT JOIN pokemon_v2_pokemon as p ON (p.pokemon_species_id = s.id) WHERE s.id = ${this.pokedex.id} ORDER BY s.id ASC LIMIT 1`;
+
+        if (!fallBack) return info;
+
+        this.pokedex = Object.assign(info[0], this.pokedex);
+
+        return this.pokedex;
     }
 
     async getEvolutionV2() {
@@ -230,38 +294,56 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
     }
 
     async getEvolutionFromSpeciesV2(id, from) {
-        return await pokeapisql.unsafe(`SELECT s.id as pokemon_id, o.id, s.name, pre.name as evolved_from_name, o.evolves_from_species_id as evolved_from, p.min_level, p.min_happiness, p.min_affection, p.time_of_day, p.evolution_item_id, item.name as item_name, t.name as trigger, item.cost as item_price
-        FROM pokemon_v2_pokemonspecies as s
+        return await pokeapisql.unsafe(`SELECT s.id as pokemon_id, o.id, s.name, pre.name as evolved_from_name, o.evolves_from_species_id as evolved_from, p.min_level, p.min_happiness, p.min_affection, p.time_of_day, p.evolution_item_id, item.name as item_name, t.name as trigger, item.cost as item_price, trade_evo.name as trade_pokemon
+        FROM pokemon_dex as s
         LEFT JOIN pokemon_v2_pokemonevolution as p on (p.evolved_species_id = s.id)
-        LEFT JOIN pokemon_v2_pokemonspecies as o on (s.id = o.id)
+        LEFT JOIN pokemon_dex as o on (s.id = o.id)
         LEFT JOIN pokemon_v2_evolutiontrigger as t on (t.id = p.evolution_trigger_id)
-        LEFT JOIN pokemon_v2_pokemonspecies as pre on (pre.id = o.evolves_from_species_id)
+        LEFT JOIN pokemon_dex as trade_evo on p.trade_species_id = trade_evo.id
+        LEFT JOIN pokemon_dex as pre on (pre.id = o.evolves_from_species_id)
         LEFT JOIN pokemon_v2_item as item on (item.id = p.evolution_item_id)
         WHERE ${from ? "o.evolves_from_species_id" : "s.id"} = ${id || this.pokedex.id} AND p.location_id is null;`)
     }
 
     async getEvolutionFormsV2(name) {
-        return await pokeapisql`SELECT id, name, pokemon_species_id, is_default FROM pokemon_v2_pokemonform WHERE name ilike ${name || this.pokedex.name_id}`;
+        return await pokeapisql`SELECT id, name, _id FROM pokemon_dex WHERE name ilike ${'%' + (name || this.pokedex._id) + '%'} AND _id != ${(name || this.pokedex._id)}`;
+    }
+
+    async getFusionsV2() {
+        return fusionPokemon.filter(x => x.first_pokemon == this.pokedex._id || x.second_pokemon == this.pokedex._id);
     }
 
     async fetchDexData() {
         if (!this.pokedex.id) return;
+
         await this.checkRarity();
-        this.pokedex.types = await this.getTypesV2();
-        this.pokedex.stats = await this.getStatsV2();
+
+        await this.getTypesV2(true);
+
+        await this.getStatsV2(true);
+
         [this.pokedex.description] = await this.getDescriptionV2();
         this.pokedex.altNames = [];
+
         const altNames = await this.getAltNamesV2();
         for (const altName of altNames.reverse()) {
             if (!this.pokedex.altNames.find(x => x.flagcode == altName.flagcode || x.name == altName.name)) this.pokedex.altNames.push(altName);
         }
-        const [basicInfo] = await this.getBasicInfoV2();
-        this.pokedex = Object.assign(basicInfo, this.pokedex);
+
         this.pokedex.weight /= 10;
         this.pokedex.height /= 10;
+
         this.pokedex.evolution_chain = await this.getEvolutionV2();
+
         this.pokedex.forms = await this.getEvolutionFormsV2();
+
+        this.pokedex.fusions = this.getFusionsV2();
+
         return this.pokedex;
+    }
+
+    async basicInfo() {
+
     }
 }
 

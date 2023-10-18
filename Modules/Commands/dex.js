@@ -4,6 +4,7 @@ import dexPokemonInfoModule from "../../Utilities/Pokemon/dexPokemonInfoModule.j
 import capitalize from "../../Utilities/Misc/capitalize.js";
 import filterPokemon from "../../Utilities/Pokemon/filterPokemon.js";
 import Pokedex from "../../Classes/pokedex.js";
+import pokemondb from "../Database/pokedb.js";
 
 export default {
     help: "",
@@ -26,10 +27,10 @@ export default {
 
             // findPokemon(pokemonName, false);
 
-            if (!selectedPokemon) return msg.reply("This pokemon does not exist, for some reason?");
+            if (!selectedPokemon || !selectedPokemon.pokedex.id) return msg.reply("This pokemon does not exist, for some reason?");
 
             // Fetch dex Data
-            await selectedPokemon.fetchDexData()
+            await selectedPokemon.fetchDexData();
 
             // Check if User wants a Shiny
             selectedPokemon.pokedex.shiny = msg.options.getBoolean("shiny");
@@ -40,7 +41,7 @@ export default {
             // Components
             const buttonComponent = [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('info-button').setEmoji('ℹ').setStyle(ButtonStyle.Secondary))];
 
-            const file = new AttachmentBuilder(`../pokedi/pokemon/${selectedPokemon.pokedex.shiny ? "shiny" : "regular"}/${selectedPokemon.pokedex.name_id}.png`);
+            const file = new AttachmentBuilder(`../pokedi/pokemon/${selectedPokemon.pokedex.shiny ? "shiny" : "regular"}/${selectedPokemon.pokedex._id}.png`);
 
             // Send Embed
             const message = await msg.reply({
@@ -50,88 +51,124 @@ export default {
 
             // Ready Other Embed
             const secondEmbed = {
-                title: `#${selectedPokemon.id} - ${(selectedPokemon.pokedex.name)}`,
+                title: `#${selectedPokemon.pokedex.id} - ${(selectedPokemon.pokedex.name)}`,
                 fields: [],
                 thumbnail: {
-                    url: `attachment://${selectedPokemon.pokedex.name_id}.png`
+                    url: `attachment://${selectedPokemon.pokedex._id}.png`
                 },
                 image: null,
                 components: buttonComponent
             };
 
-            // Push Buyable Items
-            secondEmbed.fields.push({
-                name: "Items", value: (() => {
-                    if (!selectedPokemon.pokedex.evolution_chain.length || !selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "use-item"))
-                        return "~ Nothing ~";
+            if (selectedPokemon.pokedex.evolution_chain.length) {
 
-                    return selectedPokemon.pokedex.evolution_chain.filter(x => x.trigger == "use-item").map(x => {
-                        return `**${(selectedPokemon.pokedex.name)}** + **${capitalize(x.item_name)}** => **${capitalize(x.name)}** ${x.item_price ? "(💵" + (x.item_price) + ")" : ""}`
-                    }).join("\n") + "\n To buy the item, just `/shop item:<item name>`";
-                }
-                )()
-            });
+                if (selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "use-item" && x.name != selectedPokemon.pokedex._id))
+                    // Push Buyable Items
+                    secondEmbed.fields.push({
+                        name: "🛍️ Items", value: (() => {
+                            if (!selectedPokemon.pokedex.evolution_chain.length || !selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "use-item" && x.name != selectedPokemon.pokedex._id))
+                                return "~ Nothing ~";
 
-            // Push Tradable Evolutions
-            secondEmbed.fields.push({
-                name: "Trade Evolution",
-                value: Object.entries(selectedPokemon?.evolution?.['trade'] || {}).map(x => `**${capitalize(x[0] == "null" ? "No Item Required" : x[0].replace(/-/g, ''))}** + Trade => ${capitalize(x[1])}`).join("\n") || "~ Not Available ~",
-                inline: true
-            })
-
-            // Push Fusions
-            secondEmbed.fields.push({
-                name: "Fusion",
-                value: (() => {
-                    if (!selectedPokemon?.evolution?.fusion)
-                        return "~ Nope ~";
-                    let c = '';
-                    Object.keys(selectedPokemon.evolution.fusion).forEach(q => {
-                        Object.entries(selectedPokemon.evolution.fusion[q]).forEach(y => {
-                            c += `**${capitalize(q)}**  + **${capitalize(y[0])}** => **${capitalize(y[1].name)}**\n`;
+                            return selectedPokemon.pokedex.evolution_chain.filter(x => x.trigger == "use-item").map(x => {
+                                return `**${(selectedPokemon.pokedex.name)}** + **${capitalize(x.item_name)}** => **${capitalize(x.name)}** ${x.item_price ? "(💵" + (x.item_price) + ")" : ""}`
+                            }).join("\n") + "\n To buy the item, just `/shop item:<item name>`";
                         }
-                        )
-                    }
-                    );
-                    return c;
-                }
-                )()
-            });
+                        )()
+                    });
 
-            // Push Misc Conditions
-            (selectedPokemon?.evolution?.mega && (secondEmbed.fields.push({
-                name: "Mega",
-                value: capitalize(selectedPokemon.evolution.mega.name),
-                inline: true
-            })));
-            (selectedPokemon?.evolution?.['mega-x'] && (secondEmbed.fields.push({
-                name: "Mega X",
-                value: capitalize(selectedPokemon.evolution['mega-x'].name),
-                inline: true
-            })));
-            (selectedPokemon?.evolution?.['mega-y'] && (secondEmbed.fields.push({
-                name: "Mega Y",
-                value: capitalize(selectedPokemon.evolution['mega-y'].name),
-                inline: true
-            })));
-            (selectedPokemon?.evolution?.['primal'] && (secondEmbed.fields.push({
-                name: "Primal",
-                value: capitalize(selectedPokemon.evolution['primal'].name),
-                inline: true
-            })));
-            (selectedPokemon?.evolution?.['move'] && (secondEmbed.fields.push({
-                name: "Move",
-                value: Object.entries(selectedPokemon.evolution['move'] || {}).map(x => `**${capitalize(x[0].replace(/-/g, ''))}** + Duels => ${capitalize(x[1])}`).join("\n") || "~ Not Available ~",
-            })));
-            (selectedPokemon?.evolution?.['time'] && (secondEmbed.fields.push({
-                name: "Time",
-                value: Object.entries(selectedPokemon.evolution['time'] || {}).map(x => `**${capitalize(x[0])}** + Level Up ${x[1].level ? "to Level " + x[1].level + " " : ""}=> ${capitalize(x[1].name)}`).join("\n") || "~ Not Available ~",
-            })));
-            (selectedPokemon?.evolution?.['name'] && (secondEmbed.fields.push({
-                name: "Channel Name",
-                value: Object.entries(selectedPokemon.evolution['name'] || {}).map(x => `Channel with the name "**${capitalize(x[0])}**" + Level Up${x[1].level ? " to " + x[1].level : ""} => ${capitalize(x[1].name)}`).join("\n") || "~ Not Available ~",
-            })));
+                // Push Tradable Evolutions
+                if (selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "trade" && x.name != selectedPokemon.pokedex._id))
+                    secondEmbed.fields.push({
+                        name: "🗃️ Trade Evolution",
+                        value: selectedPokemon.pokedex.evolution_chain.filter(x => x.trigger == "trade").map(x => `**${capitalize(!x.item_name ? "No Item Required" : x.item_name.replace(/-/g, ''))}** + Trade => ${capitalize(x.name)}`).join("\n") || "~ Not Available ~",
+                        inline: true
+                    })
+            }
 
+            if (selectedPokemon.pokedex.fusions.length)
+                // Push Fusions
+                secondEmbed.fields.push({
+                    name: "♊ Fusion",
+                    value: selectedPokemon.pokedex.fusions.map(x => `**${capitalize(x.first_pokemon)}** + **${capitalize(x.second_pokemon)}** => **${capitalize(x.evolved_pokemon)}**`).join("\n")
+                });
+
+            if (selectedPokemon.pokedex.forms.length) {
+
+                const forms = selectedPokemon.pokedex.forms;
+                // Push Misc Conditions
+                // Mega
+                const megaPokemon = forms.find(x => x.name.endsWith("mega"))
+                if (megaPokemon) {
+                    secondEmbed.fields.push({
+                        name: "🔴 Mega",
+                        value: capitalize(megaPokemon.name.replace(/-/gmi, ' ')),
+                        inline: true
+                    });
+                };
+
+                // MegaX
+                const megaXPokemon = forms.find(x => x.name.endsWith("mega-x"))
+                if (megaXPokemon) {
+                    secondEmbed.fields.push({
+                        name: "🔴 Mega X",
+                        value: capitalize(megaXPokemon.name.replace(/-/gmi, ' ')),
+                        inline: true
+                    });
+                };
+
+                // Mega Y
+                const megaYPokemon = forms.find(x => x.name.endsWith("mega-y"))
+                if (megaYPokemon) {
+                    secondEmbed.fields.push({
+                        name: "🔴 Mega Y",
+                        value: capitalize(megaYPokemon.name.replace(/-/gmi, ' ')),
+                        inline: true
+                    });
+                };
+
+                // Mega Y
+                const primalPokemon = forms.find(x => x.name.endsWith("primal"))
+                if (primalPokemon) {
+                    secondEmbed.fields.push({
+                        name: "🟡 Primal",
+                        value: capitalize(primalPokemon.name.replace(/-/gmi, ' ')),
+                        inline: true
+                    });
+                };
+
+                const timeEvolution = selectedPokemon.pokedex.evolution_chain.filter(x => x.time_of_day);
+                if (timeEvolution.length)
+                    secondEmbed.fields.push({
+                        name: "🕰️ Time",
+                        value: timeEvolution.map(x => `${capitalize(selectedPokemon.pokedex.name)} + ${capitalize(x.time_of_day)} + Level Up${x.min_level ? " to " + x.min_level : ""} => ${capitalize(x.name)}`).join("\n"),
+                        inline: true
+                    });
+
+                // To-Do: Evolve by Pokemon Name
+                // To-Do: Evolve by Channel Name
+
+                const affectionEvolution = selectedPokemon.pokedex.evolution_chain.filter(x => x.min_happiness);
+                if (affectionEvolution.length)
+                    secondEmbed.fields.push({
+                        name: "💖 Affection",
+                        value: affectionEvolution.map(x => `${capitalize(selectedPokemon.pokedex.name)} + Love + Level Up${x.min_level ? " to " + x.min_level : ""} => ${capitalize(x.name)}`).join("\n"),
+                        inline: false
+                    });
+
+                const otherForms = selectedPokemon.pokedex.forms.filter(x => x._id && ![megaXPokemon, megaYPokemon, primalPokemon].concat().filter(x => x).map(y => y._id).includes(x._id))
+                if (otherForms.length)
+                    secondEmbed.fields.push({
+                        name: "🌅 Other Forms",
+                        value: otherForms.map(x => `${capitalize(selectedPokemon.pokedex.name)} + ❓ => ${capitalize((x._id).replace(/-/gmi, ' '))}`).join("\n") + "\n- You must find out how to get them to turn into these! Your adventure awaits!",
+                        inline: false
+                    });
+            }
+
+            if (!secondEmbed.fields.length)
+                secondEmbed.fields.push({
+                    name: "Note",
+                    value: "This Pokemon does not seem to have any other evolutionary information available at the moment."
+                });
 
             // await message.react("ℹ️");
 
@@ -164,41 +201,37 @@ export default {
 
         if (progress) {
 
-            const grabPokemon = filterPokemon(x => !x.legendary || !["nonspawn", "nonspawn-legendary", "nonspawn-mythical", "custom"].includes(x.legendary)).sort((x, y) => {
-                return x.id - y.id;
-            }
-            ).map(x => x);
-
             const page = (msg.options.getInteger("page") || 1) - 1;
 
-            const selectedPokemon = grabPokemon.splice(page * 20, page + 20);
+            const [{ count: grabPokemonLength }] = await pokemondb`SELECT count(true) as count FROM pokemon_v2_pokemonspecies`;
 
-            const grabPokemonLength = grabPokemon.length;
+            const selectedPokemon = await pokemondb`SELECT id, name FROM pokemon_v2_pokemonspecies ORDER BY id ASC LIMIT 20 OFFSET ${page * 20}`;
 
             if (page * 20 > grabPokemonLength) return msg.reply("Sorry, no pokemon to display in that page");
 
-            const user_dex = await msg.client.postgres`SELECT * FROM dex WHERE pokemon in ${msg.client.postgres(selectedPokemon.map(x => x._id))} AND user_id = ${msg.user.id}` || [{}];
+            const user_dex = await msg.client.postgres`SELECT * FROM dex WHERE pokemon in ${msg.client.postgres(selectedPokemon.map(x => x.name))} AND user_id = ${msg.user.id}` || [{}];
 
             // if (!user_dex[0]) return msg.reply("You didn't catch anything yet");
 
             let startingID = 0;
+
             let userDex = user_dex[0] ? Object.assign(...user_dex.map(x => ({ [x.pokemon]: x }))) : [];
 
             return await msg.reply({
                 embeds: [{
                     title: "Pokedex",
-                    description: `You've got ${user_dex.count} pokemon so far, where ${grabPokemonLength - user_dex.count} are unclaimed. Use \`/pokedex claim\` to claim all.`,
+                    description: `You've got ${user_dex.count} pokemon so far, where ${grabPokemonLength - user_dex.count} are uncaught. Use \`/pokedex claim\` to claim all rewards.`,
                     fields: selectedPokemon.map(pk => {
                         if (!startingID) startingID = pk.id;
-                        if (!userDex[pk._id]) userDex[pk._id] = {}
+                        if (!userDex[pk.name]) userDex[pk.name] = { count: 0 };
                         return {
-                            name: capitalize(pk._id) + " #" + pk.id,
+                            name: capitalize(pk.name.replace(/-/gmi, ' ')) + " #" + pk.id,
                             inline: true,
-                            value: true ? `Caught ${(userDex[pk._id].count || 0) > 0 ? userDex[pk._id].count + userDex[pk._id].shinies : 0}! ${(userDex[pk._id].unclaimed_normal || userDex[pk._id]?.unclaimed_shinies) ? "💰" : ""}` : "Not caught yet"
+                            value: userDex[pk.name].count ? `Caught ${(userDex[pk.name].count || 0) > 0 ? userDex[pk.name].count + userDex[pk.name].shinies : 0}! ${(userDex[pk.name].unclaimed_normal || userDex[pk.name]?.unclaimed_shinies) ? "💰" : ""}` : "Not caught yet"
                         };
                     }),
                     footer: {
-                        text: `Showing ${startingID}-${startingID + 20} of ${grabPokemon.length} Pokémon.`
+                        text: `Showing ${startingID}-${startingID + 20} of ${grabPokemonLength} Pokémon.`
                     },
                     color: 44678
                 }]

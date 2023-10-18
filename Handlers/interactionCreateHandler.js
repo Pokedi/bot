@@ -3,7 +3,7 @@ import autoComplete from "../Modules/Events/autoComplete.js";
 async function interactionCreateHandler(event) {
     let msg = event;
 
-    if (!msg.guild || (msg.member && msg.member.user.bot))
+    if (!msg.guild || (msg.member && msg.member.user.bot) || msg.isModalSubmit())
         return;
 
     if (msg.isAutocomplete()) return autoComplete(msg);
@@ -26,10 +26,12 @@ async function interactionCreateHandler(event) {
         msg.guild.configs = configs.length ? Object.assign(...configs) : {};
     }
 
-    if (msg.client.commands.get(msg.commandName))
-        return msg.client.commands.get(msg.commandName)(msg);
-
-    // msg.reply("Interaction Found, good job");
+    try {
+        if (msg.client.commands.get(msg.commandName))
+            return msg.client.commands.get(msg.commandName)(msg);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export default interactionCreateHandler;

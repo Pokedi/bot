@@ -1,4 +1,5 @@
 import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
+import Pokedex from "./pokedex.js";
 import Pokemon from "./pokemon.js";
 
 class Player {
@@ -124,6 +125,22 @@ class Player {
         return await redis.set(this.id + '-duel', Date.now());
     }
 
+    // Set User Market True
+    async setOnGoingMarket(redis) {
+        return await redis.set(this.id + '-market', Date.now());
+    }
+
+    // isMarketing?
+    async isMarketing(redis) {
+        const isMarket = await redis.get(this.id + '-market');
+        return isMarket && Date.now() - isMarket < 6e5 ? isMarket : false;
+    }
+
+    // Remove User Duel state from Redis
+    async removeMarket(redis) {
+        return await redis.del(this.id + '-market');
+    }
+
     // Remove User Duel state from Redis
     async removeDuelsState(redis) {
         return await redis.del(this.id + '-duel');
@@ -159,11 +176,19 @@ class Player {
 
         if (!rows.length) return this.pokemon = [];
 
-        const pokemon = this.selected.map(x => new Pokemon(rows.find(y => y.id == x) || {})).filter(x => x.id);
+        const pokemon = this.selected.map(x => new Pokedex(rows.find(y => y.id == x) || {})).filter(x => x.id);
 
         this.pokemon = pokemon;
 
         return pokemon;
+    }
+
+    async fetchPokemonByIDX(idx = 1, postgres) {
+        const [row] = await postgres`SELECT * FROM pokemon WHERE idx = ${idx}`;
+
+        if (!row) return [];
+
+        return new Pokemon(row);
     }
 
     // Battle Section

@@ -18,7 +18,16 @@ const ENUM_POKEMON_TYPES = {
     "fi": "fighting",
     "s": "steel",
     "u": "unknown",
+    "sh": "shadow",
     "x": "ultimate"
+}
+
+const ENUM_POKEMON_FULL_TYPES_ID = {
+    "1": "normal", "2": "fighting", "3": "flying", "4": "poison", "5": "ground", "6": "rock", "7": "bug", "8": "ghost", "9": "steel", "10": "fire", "11": "water", "12": "grass", "13": "electric", "14": "psychic", "15": "ice", "16": "dragon", "17": "dark", "18": "fairy", "10001": "unknown", "10002": "shadow"
+}
+
+const ENUM_POKEMON_TYPES_ID = {
+    "1": "n", "2": "fi", "3": "fl", "4": "p", "5": "gr", "6": "r", "7": "b", "8": "gh", "9": "s", "10": "f", "11": "w", "12": "g", "13": "e", "14": "ps", "15": "i", "16": "dr", "17": "da", "18": "fr", "10001": "un", "10002": "sh"
 }
 
 const POKEMON_NATURES = ["hardy", "lonely", "brave", "adamant", "naughty", "bold", "docile", "relaxed", "impish", "lax", "timid", "hasty", "serious", "jolly", "naive", "modest", "mild", "quiet", "bashful", "rash", "calm", "gentle", "sassy", "careful", "quirky"];
@@ -29,7 +38,20 @@ const ENUM_POKEMON_BASE_STATS = {
     "def": "defense",
     "spatk": "special-attack",
     "spdef": "special-defense",
-    "spd": "speed"
+    "spd": "speed",
+    "acc": "accuracy",
+    "eva": "evasion"
+}
+
+const ENUM_POKEMON_BASE_STATS_IDS = {
+    1: "hp",
+    2: "attack",
+    3: "defense",
+    4: "special-attack",
+    5: "special-defense",
+    6: "speed",
+    7: "accuracy",
+    8: "evasion"
 }
 
 function reverseENUM(ENUM = {}, item) {
@@ -57,4 +79,4 @@ const ENUM_TYPE_COLORS = {
     'Fairy': 0xD685AD,
 }
 
-export { POKEMON_NATURES, ENUM_POKEMON_TYPES, reverseENUM, ENUM_TYPE_COLORS, ENUM_POKEMON_BASE_STATS };
+export { ENUM_POKEMON_TYPES_ID, ENUM_POKEMON_FULL_TYPES_ID, ENUM_POKEMON_BASE_STATS_IDS, POKEMON_NATURES, ENUM_POKEMON_TYPES, reverseENUM, ENUM_TYPE_COLORS, ENUM_POKEMON_BASE_STATS };

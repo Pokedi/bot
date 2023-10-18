@@ -177,6 +177,8 @@ export default {
             if (teamA[member].pokemon) {
                 for (const row of teamA[member].pokemon) {
                     row.readyBattleMode();
+                    // await row.fetchByID();
+                    await row.getTypesV2();
                     await row.readyBattleImage();
                 }
             }
@@ -189,6 +191,8 @@ export default {
             if (teamB[member].pokemon) {
                 for (const row of teamB[member].pokemon) {
                     row.readyBattleMode();
+                    // await row.fetchByID();
+                    await row.getTypesV2();
                     await row.readyBattleImage();
                 }
             }

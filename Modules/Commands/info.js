@@ -1,7 +1,8 @@
-import { SlashCommandBuilder } from "discord.js";
-import Pokemon from "../../Classes/pokemon.js";
+import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
 import userPokemonInfoModule from "../../Utilities/Pokemon/userPokemonInfoModule.js";
 import builder from "../Database/QueryBuilder/queryGenerator.js";
+import Player from "../../Classes/player.js";
+import Pokedex from "../../Classes/pokedex.js";
 
 export default {
     help: "",
@@ -15,6 +16,10 @@ export default {
         // isID?
         const isID = !isNaN(parseInt(content)) && parseInt(content);
 
+        const player = new Player({ id: BigInt(msg.user.id) });
+
+        await player.fetch(msg.client.postgres);
+
         // Queries
         const { values, text } = builder.select('pokemon', "*").where(content.includes("l") ? {
             user_id: BigInt(msg.user.id)
@@ -25,14 +30,20 @@ export default {
 
         const [selectedPokemon] = await msg.client.postgres.unsafe(text + (isID && parseInt(content) < 0 ? "OFFSET " + (-1 * parseInt(content)) : ""), values)
 
-        let processedPokemon = new Pokemon(selectedPokemon);
+        let processedPokemon = new Pokedex(selectedPokemon);
 
         if (!processedPokemon.id)
             return msg.reply("pokemon does not exist.");
 
         // Count Total Pokemon
-        const [{ count: countPokemon }] = await msg.client.postgres`SELECT COUNT(*) as count FROM pokemon WHERE user_id = ${player.id} LIMIT 1`
+        const [{ count: countPokemon }] = await msg.client.postgres`SELECT COUNT(*) as count FROM pokemon WHERE user_id = ${player.id} LIMIT 1`;
 
-        msg.reply({ embeds: [userPokemonInfoModule(processedPokemon, processedPokemon.getDetails(), null, countPokemon)] });
+        await processedPokemon.searchForID(processedPokemon.pokemon);
+
+        await processedPokemon.getStatsV2(true);
+
+        const file = new AttachmentBuilder(`../pokedi/pokemon/${processedPokemon.shiny ? "shiny" : "regular"}/${processedPokemon.pokedex._id}.png`);
+
+        msg.reply({ embeds: [userPokemonInfoModule(processedPokemon, null, countPokemon)], files: [file] });
     }
 }
