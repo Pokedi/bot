@@ -165,7 +165,11 @@ class Pokemon {
 
         if (!this.id) {
 
-            const query = builder.insert("pokemon", this.toDefinedJSON()).returning("*");
+            const toSaveData = this.toDefinedJSON();
+
+            toSaveData.idx = `((SELECT MAX(idx) as id FROM pokemon WHERE user_id = ${this.user_id} LIMIT 1) + 1)`;
+
+            const query = builder.insert("pokemon", toSaveData).returning("*");
 
             const [row] = await postgres.unsafe(query.text, query.values);
 

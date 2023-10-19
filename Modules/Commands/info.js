@@ -38,7 +38,7 @@ export default {
         // Count Total Pokemon
         const [{ count: countPokemon }] = await msg.client.postgres`SELECT COUNT(*) as count FROM pokemon WHERE user_id = ${player.id} LIMIT 1`;
 
-        await processedPokemon.fetchByID(processedPokemon.pokemon);
+        await processedPokemon.fetchByID();
 
         if (!processedPokemon.pokedex.id)
             return await msg.reply("This pokemon has not been registered in the database, please contact an admin for more help...");

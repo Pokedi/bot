@@ -51,7 +51,7 @@ export default {
 
         await userDB.save(msg.client.postgres);
 
-        await msg.reply(`Successfully placed ${capitalize(fetchPokemon.pokemon)} (Nº ${id}) on slot Nº ${slot + 1}`);
+        await msg.reply(`Successfully placed ${capitalize(fetchPokemon.pokemon, true)} (Nº ${id}) on slot Nº ${slot + 1}`);
 
     }
 }

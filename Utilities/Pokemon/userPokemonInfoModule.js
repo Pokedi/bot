@@ -1,5 +1,5 @@
 import Pokedex from "../../Classes/pokedex.js";
-import { ENUM_POKEMON_TYPES } from "../Data/enums.js";
+import { ENUM_GENDER_EMOJIS, ENUM_POKEMON_TYPES } from "../Data/enums.js";
 import capitalize from "../Misc/capitalize.js";
 import calculateNextLevelEXP from "./calculateNextLevelEXP.js";
 
@@ -9,7 +9,7 @@ function userPokemonInfoModule(obj = new Pokedex(), msg = null, count = 1) {
     const details = obj.pokedex;
 
     const msgObj = {
-        title: `#${details.id} - ${capitalize(obj.name || obj.pokemon, true)}${obj.shiny ? " ⭐" : ""}`,
+        title: `#${details.id} - ${capitalize(obj.name || obj.pokemon, true)}${obj.shiny ? " ⭐" : ""} ${ENUM_GENDER_EMOJIS[obj.gender || 4]}`,
         color: 16776960,
         fields: (() => {
 

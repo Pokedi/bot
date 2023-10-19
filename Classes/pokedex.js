@@ -76,9 +76,9 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return this.pokedex.move_prices;
     }
 
-    async fetchByID() {
+    async fetchByID(id) {
         // Check first DB
-        let [row] = await pokeapisql`SELECT * FROM pokemon_dex WHERE _id = ${this.pokemon} LIMIT 1`;
+        let [row] = await pokeapisql`SELECT * FROM pokemon_dex WHERE _id = ${this.pokemon || id} LIMIT 1`;
 
         if (row)
             return this.pokedex = row,
@@ -125,7 +125,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
             await this.selectRandomV2();
         };
         // Ready Base
-        this.pokemon = this.pokemon.toLowerCase();
+        this.pokemon = (this.pokemon || this.pokedex._id).toLowerCase();
         this.level = randomint(60);
         this.stats = {
             hp: randomint() || 1,
@@ -139,25 +139,34 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
             spd: randomint() || 1
         };
         this.exp = 1;
-        this.nature = Chance().pickone(POKEMON_NATURES)
+        this.nature = Chance().pickone(POKEMON_NATURES);
         this.moves = Chance().shuffle(await this.getAvailableMovesV2()).splice(0, 4);
-        this.types = await this.getTypesV2();
+        this.gender = this.determineGender();
         this.rarity = await this.checkRarity();
         return Object.assign(this, mergingObject);
     }
 
+    determineGender(ratio = this.pokedex.gender_rate = 4) {
+        if (ratio == -1) return 3;
+
+        return (ratio <= Chance().d8()) ? 1 : 2;
+    }
+
     async selectRandomV2() {
         // Randomly Select Pokemon
-        const [{ totalpokemon }] = await pokeapisql`SELECT MAX(id) as totalPokemon FROM pokemon_v2_pokemonspecies WHERE id < 10000`;
+        const [{ totalpokemon }] = await pokeapisql`SELECT MAX(id) as totalPokemon FROM pokemon_dex WHERE id < 10000`;
 
         // Find Row of Pokemon
-        const [foundRow] = await pokeapisql`SELECT name, id FROM pokemon_v2_pokemonspecies WHERE id = ${randomint(totalpokemon)} LIMIT 1`;
+        const [foundRow] = await pokeapisql`SELECT name, id, gender_rate FROM pokemon_dex WHERE id = ${randomint(totalpokemon)} LIMIT 1`;
 
         // Assign Pokemon _ID
         this.pokemon = foundRow.name;
 
         // Fix Pokedex
         this.pokedex.id = foundRow.id;
+
+        // Gender Rate
+        this.pokedex.gender_rate = foundRow.gender_rate;
 
         return this.pokemon;
     }

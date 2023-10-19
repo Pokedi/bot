@@ -15,11 +15,11 @@ export default {
 
         const postgres = msg.client.postgres;
 
-        const userPokemon = await postgres`SELECT id FROM pokemon WHERE user_id = ${msg.user.id}`;
+        const userPokemon = await postgres`SELECT id FROM pokemon WHERE user_id = ${msg.user.id} ORDER BY id ASC;`;
 
         await sentMessage.edit("Clearing Pokemon indexes... 50%");
 
-        await posgres`UPDATE pokemon SET idx = 0 WHERE user_id = ${msg.user.id}`;
+        await postgres`UPDATE pokemon SET idx = 0 WHERE user_id = ${msg.user.id}`;
 
         await sentMessage.edit("Reindexing Pokemon... 75%");
 
