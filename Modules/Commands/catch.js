@@ -26,7 +26,7 @@ export default {
 
                 // Increment readied IDX
                 const [idx] = await msg.client.postgres`SELECT idx FROM pokemon WHERE user_id = ${msg.user.id} ORDER BY idx desc`;
-                
+
                 pokemonGrabbed.idx = (idx.idx || 0) + 1;
 
                 // Save to DB
@@ -35,7 +35,7 @@ export default {
                 // Add to User's Dex
                 await pokemonGrabbed.addToUserDex(msg.client.postgres);
 
-                return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon)}!`)
+                return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon, true)}!`)
             } else
                 msg.reply({ ephemeral: true, content: "Wrong guess!" });
         } else msg.reply({ ephemeral: true, content: "No Pokemon right now!" });

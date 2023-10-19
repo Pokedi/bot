@@ -182,7 +182,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
 
         const findAltNames = this.pokedex.custom ? [] : await pokeapisql`SELECT name FROM pokemon_v2_pokemonspeciesname WHERE pokemon_species_id = ${this.pokedex.id}`;
 
-        this.spawn_names = findAltNames.map(x => x.name);
+        this.spawn_names = [this.pokedex.name].concat(findAltNames.map(x => x.name)).filter(x => x);
 
         return generatedPokemon;
     }
