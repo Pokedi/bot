@@ -432,8 +432,6 @@ export default {
                                     sql`UPDATE pokemon SET market = true WHERE id = ${foundPokemon.id}`
                                 ]);
 
-                                console.log(sqlCompletion);
-
                                 if (sqlCompletion)
                                     return modalResponse.reply(`Marketing Confirmed ✅ Your Lvl ${foundPokemon.level} ${capitalize(foundPokemon.pokemon, true)} was put for sale for ${price} Pokedits. #\`${foundPokemon.id}\``);
                             }

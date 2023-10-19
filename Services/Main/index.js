@@ -42,10 +42,16 @@ client.on("shardReady", async id => {
 
 client.login(process.env.DEVTOKEN);
 
+// Graceful Exit
 process.on("SIGINT", () => {
     console.log(`[${new Date().toLocaleString()}][WATCHDOG] Process was exited!`)
     client.destroy();
     process.exit();
-})
+});
+
+// unCaught Exception handler
+process.on("uncaughtException", (e) => {
+    console.log(e);
+});
 
 export { client };
