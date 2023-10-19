@@ -19,7 +19,7 @@ export default {
                 // Custom
                 await msg.channel.spawn.pokemon.searchForID(content);
                 // Spawn Pokemon Execution
-                msg.channel.spawn.pokemon.SpawnFriendlyV2();
+                msg.channel.spawn.pokemon.SpawnFriendlyV2(true);
                 // Send Message Test
                 await msg.channel.spawn.pokemon.spawnToChannel(msg.channel);
                 // Reply
