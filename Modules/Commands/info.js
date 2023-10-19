@@ -38,9 +38,12 @@ export default {
         // Count Total Pokemon
         const [{ count: countPokemon }] = await msg.client.postgres`SELECT COUNT(*) as count FROM pokemon WHERE user_id = ${player.id} LIMIT 1`;
 
-        await processedPokemon.searchForID(processedPokemon.pokemon);
+        await processedPokemon.fetchByID(processedPokemon.pokemon);
 
-        await processedPokemon.getStatsV2(true);
+        if (!processedPokemon.pokedex.id)
+            return await msg.reply("This pokemon has not been registered in the database, please contact an admin for more help...");
+
+        // await processedPokemon.getStatsV2(true);
 
         const file = new AttachmentBuilder(`../pokedi/pokemon/${processedPokemon.shiny ? "shiny" : "regular"}/${processedPokemon.pokedex._id}.png`);
 

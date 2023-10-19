@@ -85,6 +85,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
                 this.pokedex._id = this.pokedex._id.trim(),
                 this.pokedex.name = this.pokedex.name.trim(),
                 await this.getTypesV2(true),
+                await this.getStatsV2(true),
                 this.pokedex;
 
         return false;
