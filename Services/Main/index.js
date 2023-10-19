@@ -40,6 +40,9 @@ client.on("shardReady", async id => {
     client.shardID = id;
 });
 
+// Error Handler
+client.on("error", (error) => console.log(error));
+
 client.login(process.env.DEVTOKEN);
 
 // Graceful Exit
