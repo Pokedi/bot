@@ -70,7 +70,7 @@ export default {
                                 return "~ Nothing ~";
 
                             return selectedPokemon.pokedex.evolution_chain.filter(x => x.trigger == "use-item").map(x => {
-                                return `**${(selectedPokemon.pokedex.name)}** + **${capitalize(x.item_name)}** => **${capitalize(x.name)}** ${x.item_price ? "(💵" + (x.item_price) + ")" : ""}`
+                                return `**${capitalize(selectedPokemon.pokedex.name, true)}** + **${capitalize(x.item_name)}** => **${capitalize(x.name)}** ${x.item_price ? "(💵" + (x.item_price) + ")" : ""}`
                             }).join("\n") + "\n To buy the item, just `/shop item:<item name>`";
                         }
                         )()
