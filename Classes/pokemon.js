@@ -267,9 +267,9 @@ class Pokemon {
                 unclaimed_shinies: row.unclaimed_shinies + (this.shiny ? 1 : 0)
             }).where({ user_id: BigInt(this.user_id), pokemon: this.pokemon }).returning("*");
 
-            const [row] = await postgres.unsafe(query.text, query.values);
+            const [R] = await postgres.unsafe(query.text, query.values);
 
-            return row;
+            return R;
         } else {
 
             const query = builder.insert("dex", {
@@ -282,9 +282,9 @@ class Pokemon {
                 unclaimed_shinies: this.shiny ? 1 : 0
             }).returning("*");
 
-            const [row] = await postgres.unsafe(query.text, query.values);
+            const [R] = await postgres.unsafe(query.text, query.values);
 
-            return row;
+            return R;
         }
     }
 
