@@ -131,7 +131,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return Object.assign(this, mergingObject);
     }
 
-    determineGender(ratio = this.pokedex.gender_rate = 4) {
+    determineGender(ratio = this.pokedex.gender_rate || 4) {
         if (ratio == -1) return 3;
 
         return (ratio <= Chance().d8()) ? 1 : 2;
@@ -168,6 +168,8 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         const findAltNames = this.pokedex.custom ? [] : await pokeapisql`SELECT name FROM pokemon_v2_pokemonspeciesname WHERE pokemon_species_id = ${this.pokedex.id}`;
 
         this.spawn_names = [this.pokedex.name].concat(findAltNames.map(x => x.name)).filter(x => x);
+
+        this.pokemon = this.pokedex._id;
 
         return generatedPokemon;
     }

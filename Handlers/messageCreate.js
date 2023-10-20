@@ -43,7 +43,7 @@ async function messageCreate(msg, e) {
             // Initializing New Pokemon
             channelSelected.pokemon = new Pokedex({});
             // Spawn Pokemon Execution
-            channelSelected.pokemon.SpawnFriendlyV2();
+            await channelSelected.pokemon.SpawnFriendlyV2();
             // Send Spawn
             await channelSelected.pokemon.spawnToChannel(channelSelected);
         } catch (err) {
