@@ -105,20 +105,6 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return false;
     }
 
-    async checkRarity() {
-        // Reject if not valid
-        if (!this.pokedex.id) return false;
-
-        // Check Status
-        const check = await pokeapisql`SELECT * FROM pokemon_v2_pokemonrarity WHERE pokemon_id = ${this.pokedex.id}`;
-
-        // Assignment Rarity
-        this.pokedex.rarity = check.map(x => x.rarity_id);
-
-        // Return Rarity
-        return this.pokedex.rarity;
-    }
-
     async generateV2(id, mergingObject = {}) {
         // Select Randomly if nothing is specified
         if (!id && !this.pokemon && !this.pokedex?.id) {
@@ -142,7 +128,6 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         this.nature = Chance().pickone(POKEMON_NATURES);
         this.moves = Chance().shuffle(await this.getAvailableMovesV2()).splice(0, 4);
         this.gender = this.determineGender();
-        this.rarity = await this.checkRarity();
         return Object.assign(this, mergingObject);
     }
 
@@ -178,7 +163,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         // Reject if cannot be generated
         if (!generatedPokemon) return false;
 
-        if (!forced && (generatedPokemon.rarity.includes(6) || generatedPokemon.rarity.includes(4) && chance.d100() > 10)) return this.spawnFriendly();
+        if (!forced && (generatedPokemon.is_nonspawnable || (generatedPokemon.is_legendary || generatedPokemon.is_sublegendary || generatedPokemon.is_mythical) && chance.d100() > 10)) return this.spawnFriendly();
 
         const findAltNames = this.pokedex.custom ? [] : await pokeapisql`SELECT name FROM pokemon_v2_pokemonspeciesname WHERE pokemon_species_id = ${this.pokedex.id}`;
 
@@ -325,8 +310,6 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
 
     async fetchDexData() {
         if (!this.pokedex.id) return;
-
-        await this.checkRarity();
 
         await this.getTypesV2(true);
 
