@@ -5,7 +5,7 @@ import capitalize from "../Misc/capitalize.js";
 function dexPokemonInfoModule(details = null) {
     if (!details) return false;
     const msgObj = {
-        title: `#${details.id} - ${capitalize(details.name.replace(/-/gmi, ' '), true)}${details.shiny ? " ⭐" : ""}`,
+        title: `#${details.dexid || details.id} - ${capitalize(details.name.replace(/-/gmi, ' '), true)}${details.shiny ? " ⭐" : ""}`,
         color: 16776960,
         description: (() => {
 
@@ -65,7 +65,7 @@ ${details.types.map(x => capitalize(x)).join(" | ")}`,
             url: `attachment://${details._id}.png`
         },
         footer: {
-            text: `Pokédi: ${details.id || 1}/${1015}${details.art ? ` Art drawn by ${details.art}` : ""}`
+            text: `Pokédi: ${details.dexid || details.id || 1}/${1015}${details.art ? ` Art drawn by ${details.art}` : ""}`
         },
         author: Chance().pickone([{
             icon_url: "https://cdn.discordapp.com/attachments/716304762395426816/1136766675895734363/Juniper_Xtransceiver_2.png", name: `Professor Juniper`
