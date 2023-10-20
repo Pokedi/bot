@@ -261,10 +261,10 @@ class Pokemon {
 
         if (row) {
             const query = builder.update("dex", {
-                count: row.count + (this.shiny ? 0 : 1),
-                shinies: row.shinies + (this.shiny ? 1 : 0),
-                unclaimed_normal: row.unclaimed_normal + (this.shiny ? 0 : 1),
-                unclaimed_shinies: row.unclaimed_shinies + (this.shiny ? 1 : 0)
+                count: (row.count || 0) + (this.shiny ? 0 : 1),
+                shinies: (row.shinies || 0) + (this.shiny ? 1 : 0),
+                unclaimed_normal: (row.unclaimed_normal || 0) + (this.shiny ? 0 : 1),
+                unclaimed_shinies: (row.unclaimed_shinies || 0) + (this.shiny ? 1 : 0)
             }).where({ user_id: BigInt(this.user_id), pokemon: this.pokemon }).returning("*");
 
             const [R] = await postgres.unsafe(query.text, query.values);
