@@ -78,7 +78,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
 
     async fetchByID(id) {
         // Check first DB
-        let [row] = await pokeapisql`SELECT * FROM pokemon_dex WHERE _id = ${this.pokemon || id} LIMIT 1`;
+        let [row] = await pokeapisql`SELECT * FROM pokemon_dex WHERE _id = ${this.pokemon || id} OR _id = ${(this.pokemon || id).replace(/ /gmi, '-')} LIMIT 1`;
 
         if (row)
             return this.pokedex = row,
