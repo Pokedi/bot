@@ -7,6 +7,7 @@ import fusionPokemon from "../Utilities/Data/PokemonDB/fusions.json" assert {typ
 import capitalize from "../Utilities/Misc/capitalize.js";
 import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 import IVCalculator from "../Utilities/Pokemon/IVCalculator.js";
+import { readySinglePokemonFrontBack } from "../Utilities/Pokemon/pokemonBattleImage.js";
 // import allPokemon from "../Utilities/Data/pokemon.js";
 
 const chance = Chance();
@@ -339,6 +340,52 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
 
     async basicInfo() {
 
+    }
+
+    // Battle Methods
+    readyBattleMode() {
+
+        // Battle Mode
+        this.battle = {
+            // Original Pokemon - In case of Giga + Mega
+            original_pokemon: this.pokemon,
+            // Current Pokemon
+            pokemon: this.pokemon,
+            // Current Stats
+            stat: this.stats,
+            // Position as Image
+            // pos: this.getDetails().pos,
+            // Types
+            types: this.types,
+            // Current HP
+            current_hp: Math.floor(((this.pokedex.hp + this.stats.hp) * 2 * this.level) / 100 + 5 + this.level),
+            // Max HP
+            max_hp: Math.floor(((this.pokedex.hp + this.stats.hp) * 2 * this.level) / 100 + 5 + this.level),
+            // Status of Pokemon - Burn, Frozen, etc.
+            status: {},
+            // Modifiers - Defense, Attack, etc.
+            mods: {},
+            // Check if Giga'd
+            giga: false
+        }
+
+        return this.battle;
+    }
+
+    // Ready Battle Images
+    async readyBattleImage() {
+
+        // Will not continue without a battle
+        if (!this.battle) return [];
+
+        const { back, front } = await readySinglePokemonFrontBack(this.pokedex, this.shiny, this.battle.giga);
+
+        this.battle.img = {
+            back,
+            front
+        };
+
+        return this.battle.img;
     }
 }
 

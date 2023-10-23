@@ -36,13 +36,13 @@ export default {
         const exportOption = msg.options.getString('export');
 
         // Query all Pokemon from Postgres
-        const allPokemon = await msg.client.postgres`SELECT * FROM pokemon WHERE user_id = ${msg.user.id}`;
+        const allPokemon = await msg.client.postgres`SELECT id, idx, pokemon, s_atk, s_hp, s_def, s_spatk, s_spdef, s_spd, nature, level, shiny, name FROM pokemon WHERE user_id = ${msg.user.id}`;
 
         // Return if No Pokemon
         if (!allPokemon.length) return await msg.reply("You got no Pokemon, my dude...");
 
         // User Defaults
-        let userDefault = (await msg.client.postgres`SELECT order_by FROM users WHERE id = ${msg.user.id}`)?.order_by
+        let userDefault = (await msg.client.postgres`SELECT order_by FROM users WHERE id = ${msg.user.id}`)?.[0]?.order_by;
 
         if (!orderBy && userDefault) {
             if (userDefault.startsWith("idx")) orderBy = 1;
@@ -86,7 +86,7 @@ export default {
                     return `\`${" ".repeat(numberLength - (x.idx || 0).toString().length)}${x.idx || 0}\`　　${capitalize(x.pokemon, true)} ${x.name ? "\"**" + capitalize(x.name) + "**\"" : ""}${x.shiny ? " ⭐" : ""}　•　Level: ${x.level}　•　**IV**: ${x.totalIV}%`;
                 }).join("\n")}`,
                 footer: {
-                    text: `Showing ${(page + 1) * 20 - 19} - ${(page + 1) * 20} of ${passedFilteredPokemon.length} Pokémon matching this search. [ Page ${page || 1} ]`
+                    text: `Showing ${(page + 1) * 20 - 19} - ${(page + 1) * 20} of ${passedFilteredPokemon.length} Pokémon matching this search. [ Page ${page || 1} of ${Math.round(page / 20)} ]`
                 },
                 color: 44678
             }]

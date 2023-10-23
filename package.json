@@ -11,6 +11,7 @@
     "express": "^4.18.2",
     "minisearch": "^6.1.0",
     "moment": "^2.29.4",
+    "pg": "^8.11.3",
     "pidusage": "^3.0.0",
     "postgres": "^3.2.4",
     "redis": "^4.3.0",

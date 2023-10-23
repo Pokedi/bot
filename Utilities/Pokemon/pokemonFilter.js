@@ -18,7 +18,11 @@ function pokemonFilter(list = [], query = "", page, orderBy = 1, orderType) {
             case 3:
                 return orderType ? x.level - y.level : y.level - x.level;
             case 4:
-                return orderType ? x.pokemon[0] - y.pokemon[0] : y.pokemon[0] - x.pokemon[0];
+                const textA = x.pokemon.toLowerCase();
+                const textB = y.pokemon.toLowerCase();
+                if (textA < textB) return orderType ? -1 : 1;
+                if (textA > textB) return orderType ? 1 : -1;
+                return 0;
         }
     });
 

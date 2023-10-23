@@ -9,7 +9,7 @@ export default (pokemon_type, some_move, t) => {
     let note = "";
 
     pokemon_type.forEach(p=>{
-        switch (some_move.t) {
+        switch (some_move.type) {
         case "n":
             if (["r", "s"].includes(p)) {
                 multiplier *= 1 / 2;

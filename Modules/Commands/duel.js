@@ -9,6 +9,7 @@ import calculateModifier from "../../Utilities/Pokemon/calculateModifier.js";
 import randomint from "../../Utilities/Misc/randomint.js";
 import damageMultiplier from "../../Utilities/Pokemon/damageMultiplier.js";
 import { Chance } from "chance";
+import { ENUM_POKEMON_TYPES, reverseENUM } from "../../Utilities/Data/enums.js";
 
 export default {
     help: "",
@@ -176,8 +177,9 @@ export default {
             teamA[member].readyBattleMode();
             if (teamA[member].pokemon) {
                 for (const row of teamA[member].pokemon) {
-                    row.readyBattleMode();
                     await row.fetchByID();
+                    await row.fetchMoves();
+                    row.readyBattleMode();
                     // await row.getTypesV2();
                     await row.readyBattleImage();
                 }
@@ -190,8 +192,9 @@ export default {
             teamB[member].readyBattleMode();
             if (teamB[member].pokemon) {
                 for (const row of teamB[member].pokemon) {
-                    row.readyBattleMode();
                     await row.fetchByID();
+                    await row.fetchMoves();
+                    row.readyBattleMode();
                     // await row.getTypesV2();
                     await row.readyBattleImage();
                 }
@@ -292,21 +295,51 @@ export default {
                         /*-- End Player Status Effects --*/
 
                         // Select move or use Default "Tackle"
-                        const move = command.move || {
-                            "id": "tackle",
-                            "name": "Tackle",
-                            "t": "n",
-                            "s": "p",
-                            "d": 40,
-                            "a": 100
+                        const move = {
+                            ...(command.move || {
+                                "id": "",
+                                "name": "Tackle",
+                                "type": "normal",
+                                "damage_type": "physical",
+                                "power": 40,
+                                "accuracy": 100
+                            })
                         };
 
-                        let [atk, def] = move.s == "p" ? ["atk", 'def'] : ["spatk", 'spdef'];
+                        move.type = reverseENUM(ENUM_POKEMON_TYPES, move.type);
+
+                        let [atk, def] = move.damage_type == "physical" ? ["atk", 'def'] : ["spatk", 'spdef'];
 
                         const player_iv = player_pokemon.calculateIV(atk) * calculateModifier(player_pokemon.battle.mod, atk);
                         const opponent_iv = opponent_pokemon.calculateIV(def) * calculateModifier(opponent_pokemon.battle.mod, def);
 
-                        const multi_strike = move.ms ? randomint(move.ms) + 1 : 1;
+                        const move_ms = move.meta && move.meta.max_hits ? move.meta.max_hits : 0;
+
+                        // Ailment Handler
+                        if (move.meta && move.meta.ailment && move.meta.ailment != 'none') {
+                            switch (move.meta.ailment) {
+                                case "burn":
+                                    move.brn = move.ailment_chance || move.accuracy;
+                                    break;
+                                case "paralysis":
+                                    move.par = move.ailment_chance || move.accuracy;
+                                    break;
+                                case "sleep":
+                                    move.slp = move.ailment_chance || move.accuracy;
+                                    break;
+                                case "poison":
+                                    move.psn = move.ailment_chance || move.accuracy;
+                                    break;
+                                case "freeze":
+                                    move.frz = move.ailment_chance || move.accuracy;
+                                    break;
+                                case "confusion":
+                                    move.cnf = move.ailment_chance || move.accuracy;
+                                    break;
+                            }
+                        }
+
+                        const multi_strike = move_ms ? randomint(move_ms) + 1 : 1;
 
                         const [multiplier, notes] = damageMultiplier(opponent_pokemon.types, move, player_pokemon.types);
 
@@ -314,9 +347,9 @@ export default {
 
                         const isStatusBlocked = player_pokemon.battle.status.frz || player_pokemon.battle.status.cnf || player_pokemon.battle.status.slp || player_pokemon.battle.status.par && randomint(100) < 75;
 
-                        let didNotMiss = !move.a || move.a && randomint(100) <= parseInt(move.a.toString().replace(/∞/i, '100'));
+                        let didNotMiss = !move.accuracy || move.accuracy && randomint(100) <= move.accuracy;
 
-                        var attack_damage = (!isStatusBlocked && didNotMiss) && move.d ? Math.ceil(((((2 * player_pokemon.level) / 5 + 2) * (move.d || 0) * (player_iv / opponent_iv)) / 50 + 2) * multiplier * ((randomint(38) + 217) / 255) * (player_pokemon.battle.status.brn && move.s == "p" ? 0.5 : 1) * (multi_strike)) : 0;
+                        var attack_damage = (!isStatusBlocked && didNotMiss) && move.power ? Math.ceil(((((2 * player_pokemon.level) / 5 + 2) * (move.power || 0) * (player_iv / opponent_iv)) / 50 + 2) * multiplier * ((randomint(38) + 217) / 255) * (player_pokemon.battle.status.brn && move.damage_type == "physical" ? 0.5 : 1) * (multi_strike)) : 0;
 
                         // Reduce HP of Opponent
                         opponent_pokemon.battle.current_hp -= attack_damage;
@@ -476,10 +509,10 @@ export default {
                         ephemeral: true,
                         embeds: [{
                             title: `Moveset of ${capitalize()}`,
-                            fields: selectedPokemon.returnMoves().map((x, i) => {
+                            fields: selectedPokemon.processedMoves.map((x, i) => {
                                 return {
                                     name: (i + 1) + ") " + x.name,
-                                    value: `**Type**: ${capitalize(x.type)}\n**Damage**: ${x.d}`,
+                                    value: `**Type**: ${capitalize(x.type)}\n**Damage**: ${x.power}`,
                                     inline: true
                                 };
                             }
@@ -536,7 +569,7 @@ export default {
             if (m.options.getInteger("attack"))
                 if (sequenceState && selectedPokemon.battle.current_hp > 0) {
                     // Add Command with details
-                    if (!addUserCommand(id, "attack", { toAttack: (m.options.getInteger("attack-user") || 1) - 1, move: selectedPokemon.returnMoves()[m.options.getInteger("attack") - 1] }))
+                    if (!addUserCommand(id, "attack", { toAttack: (m.options.getInteger("attack-user") || 1) - 1, move: selectedPokemon.processedMoves[m.options.getInteger("attack") - 1] }))
                         m.reply({ content: "You already responded", ephemeral: true })
                     else
                         keepOrRemoveGiga(selectedPokemon, m),

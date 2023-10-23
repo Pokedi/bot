@@ -18,27 +18,27 @@ const filterCommands = {
     },
     // Ultra Beasts filter
     "ub": (list = []) => {
-        const allUltraBeasts = filterPokemon(x => x.legendary == "ub").map(x => x._id);
+        const allUltraBeasts = ["buzzwole", "pheromosa", "xurkitree", "celesteela", "kartana", "guzzlord", "stakataka", "blacephalon", "nihilego"];
         return list.filter(x => allUltraBeasts.includes(x.pokemon))
     },
     // Legendary Filter
     "legendary": (list = []) => {
-        const allLegendaries = filterPokemon(x => ["legendary", !0, "nonspawn-legendary"].includes(x.legendary)).map(x => x._id);
+        const allLegendaries = filterPokemon(x => x.is_legendary).map(x => x._id);
         return list.filter(x => allLegendaries.includes(x.pokemon))
     },
     // Mythical Filter
     "mythic": (list = []) => {
-        const allMythicals = filterPokemon(x => ["mythical", "nonspawn-mythical"].includes(x.legendary)).map(x => x._id);
+        const allMythicals = filterPokemon(x => x.is_mythical).map(x => x._id);
         return list.filter(x => allMythicals.includes(x.pokemon))
     },
     // Alola Filter
     "alola": (list = []) => {
-        const allAlolas = filterPokemon(x => "alola" == x.region).map(x => x._id);
+        const allAlolas = filterPokemon(x => x._id.startsWith("alola")).map(x => x._id);
         return list.filter(x => allAlolas.includes(x.pokemon));
     },
     // Galar Filter
     "galar": (list = []) => {
-        const allGalars = filterPokemon(x => "galar" == x.region).map(x => x._id);
+        const allGalars = filterPokemon(x => x._id.startsWith("galar")).map(x => x._id);
         return list.filter(x => allGalars.includes(x.pokemon));
     },
     // Shiny Filter

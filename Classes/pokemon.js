@@ -12,7 +12,8 @@ import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 import { readySinglePokemonFrontBack } from "../Utilities/Pokemon/pokemonBattleImage.js";
 import moves from "../Utilities/Data/moves.json" assert {type: "json"};
 import capitalize from "../Utilities/Misc/capitalize.js";
-import pokeapisql from "../Modules/Database/pokedb.js";
+import pokemondb from "../Modules/Database/pokedb.js";
+import Move from "./move.js";
 
 const chance = Chance();
 
@@ -382,6 +383,14 @@ class Pokemon {
         return await this.save(postgres, { level: this.level, exp: this.exp, pokemon: evolvedPokemon || this.pokemon }),
             // Returned Obj
             { levelIncreased: preLevel != this.level, level: this.level, hasEvolved: evolvedPokemon != this.pokemon, pokemon: this.pokemon, evolvedPokemon };
+    }
+
+    async fetchMoves() {
+        // Fetch Move Information
+        this.processedMoves = await Promise.all(this.moves.map(x => new Move().fetch(x, false)));
+
+        // Return
+        return this.processedMoves;
     }
 
     returnMoves() {
