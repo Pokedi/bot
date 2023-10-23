@@ -8,8 +8,13 @@ import sql from "../../Modules/Database/postgres.js";
 const filterCommands = {
     // Name-based Filter
     "name": (queryObject, value = '') => {
+        // Add a condition to the queryObject to search for records where the 'pokemon' or 'name' column contains the given value
+        // The value is wrapped with '%' to perform a partial match
+        // The condition is applied using the 'ilike' operator, which performs a case-insensitive pattern match
+        // The 'or' parameter specifies that either the 'pokemon' or 'name' condition should be satisfied
         queryObject = queryObject.and({ pokemon: "%" + value + "%", name: "%" + value + "%" }, 'ilike', 'or');
 
+        // Return the updated queryObject
         return queryObject;
     },
     // Nickname Filter
@@ -63,6 +68,9 @@ const filterCommands = {
     // Tri-Stat Filter
     "tri": (queryObject, value = '') => {
 
+        // Return the updated queryObject with a condition that checks if the sum of the cases satisfies the condition 
+        // Each case checks if the corresponding stat (s_atk, s_def, s_hp, s_spatk, s_spdef, s_spd) is greater than or equal to the given value 
+        // If the condition is satisfied for at least 3 stats, the overall condition is true 
         return queryObject = queryObject.and(`(
             (case when s_atk >= ${parseInt(value || 20)} then 1 else 0 end) + 
             (case when s_def >= ${parseInt(value || 20)} then 1 else 0 end) + 
@@ -76,6 +84,9 @@ const filterCommands = {
     // Qua-Stat Filter
     "qua": (queryObject, value = '') => {
 
+        // Return the updated queryObject with a condition that checks if the sum of the cases satisfies the condition 
+        // Each case checks if the corresponding stat (s_atk, s_def, s_hp, s_spatk, s_spdef, s_spd) is greater than or equal to the given value 
+        // If the condition is satisfied for at least 4 stats, the overall condition is true 
         return queryObject = queryObject.and(`(
             (case when s_atk >= ${parseInt(value || 20)} then 1 else 0 end) + 
             (case when s_def >= ${parseInt(value || 20)} then 1 else 0 end) + 
@@ -89,19 +100,26 @@ const filterCommands = {
     // IV Filter
     "iv": (queryObject, value = '') => {
 
-        let operator = "="
+        // Set the initial value of the operator variable to "="
+        let operator = "=";
 
+        // Use regular expression to extract the operator and value from the given value
         let [v, a] = value.match(/([><\d]+)/g);
 
+        // Check if the extracted operator is ">" and update the operator variable accordingly
         if (v == ">")
             operator = ">=";
+
+        // Check if the extracted operator is "<" and update the operator variable accordingly
         if (v == "<")
             operator = "<=";
+
+        // Check if the extracted operator exists and the value does not exist, then assign the extracted operator to the value
         if (v && !a)
             a = v;
 
+        // Return the updated queryObject with a condition based on the calculated value and operator
         return queryObject = queryObject.and({ "((CAST(s_atk + s_spatk + s_def + s_spdef + s_spd + s_hp AS FLOAT)/186) * 100)": parseInt(a || 20) }, (operator));
-
     },
 
     // Display Eggs 
@@ -143,6 +161,7 @@ IVs.forEach(y => {
 
 function dbFilterCommands(queryObject = builder.select('pokemon', 'id, idx, pokemon, s_atk, s_hp, s_def, s_spatk, s_spdef, s_spd, nature, level, shiny, name'), query = "") {
 
+    // Add default starting value
     queryObject = queryObject.where({ 1: 1 });
 
     // Default --name filter if not used but other files used
