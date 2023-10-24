@@ -164,13 +164,11 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         // Reject if cannot be generated
         if (!generatedPokemon) return false;
 
-        if (!forced && (generatedPokemon.is_nonspawnable || (generatedPokemon.is_legendary || generatedPokemon.is_sublegendary || generatedPokemon.is_mythical) && chance.d100() > 10)) return this.spawnFriendly();
+        if (!forced && (generatedPokemon.is_nonspawnable || (generatedPokemon.is_legendary || generatedPokemon.is_sublegendary || generatedPokemon.is_mythical) && chance.d100() > 10)) return this.SpawnFriendlyV2();
 
         const findAltNames = this.pokedex.custom ? [] : await pokeapisql`SELECT name FROM pokemon_v2_pokemonspeciesname WHERE pokemon_species_id = ${this.pokedex.id}`;
 
         this.spawn_names = [this.pokedex.name].concat(findAltNames.map(x => x.name)).filter(x => x);
-
-        this.pokemon = this.pokedex._id;
 
         return generatedPokemon;
     }

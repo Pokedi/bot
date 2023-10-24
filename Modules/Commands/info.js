@@ -20,13 +20,17 @@ export default {
 
         await player.fetch(msg.client.postgres);
 
+        // Count Total Pokemon
+        const [{ count: countPokemon }] = await msg.client.postgres`SELECT MAX(idx) as count FROM pokemon WHERE user_id = ${player.id} LIMIT 1`;
+
         // Queries
         const { values, text } = builder.select('pokemon', "*").where(content.includes("l") ? {
-            user_id: BigInt(msg.user.id)
-        } : !isID && msg.user.player.selected[0] ? { id: msg.user.player.selected[0] } : {
-            user_id: BigInt(msg.user.id),
-            idx: parseInt(content)
-        }).limit(1);
+            idx: countPokemon,
+            user_id: player.id
+        } : (!isID && player.selected[0] ? { id: player.selected[0] } : {
+            user_id: player.id,
+            idx: parseInt(content || player)
+        })).limit(1);
 
         const [selectedPokemon] = await msg.client.postgres.unsafe(text + (isID && parseInt(content) < 0 ? "OFFSET " + (-1 * parseInt(content)) : ""), values)
 
@@ -34,9 +38,6 @@ export default {
 
         if (!processedPokemon.id)
             return msg.reply("pokemon does not exist.");
-
-        // Count Total Pokemon
-        const [{ count: countPokemon }] = await msg.client.postgres`SELECT COUNT(*) as count FROM pokemon WHERE user_id = ${player.id} LIMIT 1`;
 
         await processedPokemon.fetchByID();
 

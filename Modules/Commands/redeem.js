@@ -93,10 +93,10 @@ export default {
                         return await msg.reply("That Pokemon does not exist");
 
                     // Fetch Rarity
-                    const rarity = await pokedex.checkRarity();
+                    // const rarity = await pokedex.checkRarity();
 
                     // IF nonSpawn, reject
-                    if (rarity.includes(6))
+                    if (pokedex.pokedex.is_custom || pokedex.pokedex.is_nonspawnable)
                         return await msg.reply("That Pokemon cannot be given or spawned.");
 
                     if (spawn) {

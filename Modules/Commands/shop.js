@@ -235,7 +235,7 @@ export default {
                 if (msg.options.getInteger("buy") == 4) {
                     if (player.bal < 200 * (amount)) return msg.reply("You do not have enough money for that.");
 
-                    await player.save({
+                    await player.save(msg.client.postgres, {
                         bal: player.bal - 50 * (amount)
                     });
 

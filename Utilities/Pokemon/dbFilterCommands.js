@@ -166,7 +166,7 @@ function dbFilterCommands(queryObject = builder.select('pokemon', 'id, idx, poke
 
     // Default --name filter if not used but other files used
     if (query && /^\w+/gmi.test(query) && !query.includes("--name"))
-        queryObject = queryObject.and({ pokemon: query, name: query }, 'ilike');
+        queryObject = queryObject.and({ pokemon: query, name: query }, 'ilike', 'or');
 
     const simplifiedQuery = query.split(/(--\w+|—\w+)/gim).map(x => x.trim()).filter(x => x);
 

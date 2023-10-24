@@ -11,6 +11,24 @@ async function messageCreate(msg, e) {
     if (!msg.guild || (msg.member && msg.member.user.bot))
         return;
 
+    // Init Channel
+    if (!msg.channel.info) {
+        msg.channel.info = (await msg.client.postgres`SELECT * FROM channels WHERE id = ${msg.channel.id} LIMIT 1`)?.[0] || {};
+
+        const configs = (await msg.client.postgres`SELECT * FROM command_configuration WHERE channel_id = ${msg.channel.id}`).map(x => ({ [x.command]: x }));
+
+        msg.channel.configs = configs.length ? Object.assign(...configs) : {};
+    }
+
+    // Init Guild
+    if (!msg.guild.info) {
+        msg.guild.info = (await msg.client.postgres`SELECT * FROM guilds WHERE id = ${msg.guild.id} LIMIT 1`)?.[0] || {};
+
+        const configs = (await msg.client.postgres`SELECT * FROM command_configuration WHERE guild_id = ${msg.guild.id}`).map(x => ({ [x.command]: x }));
+
+        msg.guild.configs = configs.length ? Object.assign(...configs) : {};
+    }
+
     // Spawn System
     if (!msg.channel.spawn) msg.channel.spawn = { count: chance.integer({ min: 30, max: 140 }), pokemon: {}, lastSpawn: Date.now() };
 
@@ -41,11 +59,11 @@ async function messageCreate(msg, e) {
             if (!channelSelected.spawn) channelSelected.spawn = { count: chance.integer({ min: 30, max: 140 }), pokemon: {}, lastSpawn: Date.now() };
 
             // Initializing New Pokemon
-            channelSelected.pokemon = new Pokedex({});
+            channelSelected.spawn.pokemon = new Pokedex({});
             // Spawn Pokemon Execution
-            await channelSelected.pokemon.SpawnFriendlyV2();
+            await channelSelected.spawn.pokemon.SpawnFriendlyV2();
             // Send Spawn
-            await channelSelected.pokemon.spawnToChannel(channelSelected);
+            await channelSelected.spawn.pokemon.spawnToChannel(channelSelected);
         } catch (err) {
             break spawnIF;
         };

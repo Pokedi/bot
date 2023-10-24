@@ -23,7 +23,7 @@ async function pokemonFilter(user_id, query = "", page = 0, orderBy = "idx", ord
     }
 
     // Call the dbFilterCommands function with undefined select query and user_id condition, and apply orderBy and limit
-    const { text, values } = dbFilterCommands(undefined, query).and(user_id ? `user_id = ${user_id}` : `1=1`).orderby(orderBy + " " + orderType).limit(20, page * 20);
+    const { text, values } = dbFilterCommands(undefined, query).and(user_id ? `user_id = ${user_id}` : `1=1`).orderby(orderBy + " " + (orderType || "asc")).limit(20, page * 20);
 
     // Execute the SQL query and retrieve the list of Pokemon
     let list = await sql.unsafe(text, values);
