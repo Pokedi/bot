@@ -94,7 +94,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
 
     async searchForID(name = this.pokemon) {
         // Check first DB
-        let [row] = await pokeapisql`SELECT * FROM pokemon_dex WHERE name ilike ${'%' + (name) + '%'} OR _id ilike ${'%' + (name) + '%'} OR _id ilike ${'%' + (name.replace(/ /gmi, '-')) + '%'} LIMIT 1`;
+        let [row] = await pokeapisql`SELECT * FROM pokemon_dex WHERE name ilike ${'%' + (name) + '%'} OR _id ilike ${'%' + (name) + '%'} OR _id ilike ${'%' + (name.replace(/ /gmi, '-')) + '%'} ORDER BY id ASC LIMIT 1`;
 
         if (row)
             return this.pokedex = row,
