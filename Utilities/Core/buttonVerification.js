@@ -23,14 +23,14 @@ const buttonMaker = ({ users = [], disable = [], title = "main" }) => {
             .setStyle(ButtonStyle.Primary)), content];
 }
 
-async function buttonVerification({ interaction, filter, time = 15000, button_id, users = [] }) {
+async function buttonVerification({ interaction, filter, time = 15000, button_id, users = [], textContent }) {
     return new Promise(async (resolve) => {
 
         if (!users[0]) users = [interaction.user.id];
 
         const [buttons, content] = buttonMaker({ users, title: button_id || "trade" });
 
-        const replied = await interaction.reply({ components: [buttons], embeds: [{ description: content }], fetchReply: true });
+        const replied = await interaction.reply({ components: [buttons], embeds: [{ description: content }], fetchReply: true, content: textContent });
 
         let disable = [];
 

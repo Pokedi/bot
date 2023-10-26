@@ -7,23 +7,30 @@ import { Chance } from "chance";
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .addIntegerOption(option => option.setName("id").setRequired(true).setDescription("ID of the Pokemon you intend to release").setMinValue(1))
+        .addIntegerOption(option => option.setName("id").setDescription("ID of the Pokemon you intend to release").setMinValue(1))
+        .addBooleanOption(option => option.setName("latest").setDescription("Selects the last pokemon to release"))
         .setName('release')
         .setDescription('Release your Pokemon!'),
     async execute(msg) {
+
         const id = msg.options.getInteger('id');
 
-        const fetchPokemon = new Pokemon({
-            idx: id,
-            user_id: BigInt(msg.user.id)
-        });
+        const latest = msg.options.getBoolean('latest');
 
-        await fetchPokemon.fetchPokemonByIDX(msg.client.postgres);
+        if (!id && latest == null)
+            return msg.reply("Please select one of the available options...");
+
+        const [fetchPokemonRow] = await msg.client.postgres`SELECT pokemon, id FROM pokemon WHERE user_id = ${msg.user.id} ${id ? msg.client.postgres`OR idx = ${id}` : msg.client.postgres``} ORDER BY idx DESC LIMIT 1`;
+
+        if (!fetchPokemonRow)
+            return msg.reply("No pokemon found... You're quite lonely to want to abandon someone that doesn't exist.");
+
+        const fetchPokemon = new Pokemon(fetchPokemonRow);
 
         if (!fetchPokemon.pokemon) return msg.reply({ ephemeral: true, content: "Pokemon does not exist" });
 
         // Confirmation from User
-        const userVerification = await buttonVerification({ interaction: msg });
+        const userVerification = await buttonVerification({ interaction: msg, textContent: `You are currently releasing your ${capitalize(fetchPokemon.pokemon, true)}. You serious about this abandonment? You know you'll lose all custody, right?` });
 
         if (userVerification) {
             await fetchPokemon.release(msg.client.postgres);
