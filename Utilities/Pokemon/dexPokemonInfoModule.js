@@ -41,7 +41,7 @@ function dexPokemonInfoModule(details = null) {
 **Speed:** ${spd}
 -----------
 **Gender Rate**:
-${details.gender_rate == -1 ? "Genderless" : (details.gender_rate ? `- ♀️ ${((details.gender_rate / 8) * 100).toFixed(2)}%
+${details.gender_rate == -1 ? "Genderless" : (details.gender_rate != null ? `- ♀️ ${((details.gender_rate / 8) * 100).toFixed(2)}%
 - ♂️ ${(100 - ((details.gender_rate / 8) * 100)).toFixed(2)}%` : "Not Found")}`,
                 inline: true
             }, {
