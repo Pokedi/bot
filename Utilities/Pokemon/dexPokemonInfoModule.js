@@ -11,7 +11,7 @@ function dexPokemonInfoModule(details = null) {
 
             let finalText = '';
 
-            if (details.description?.flavor_text) finalText += details.description.flavor_text.replace(/\n/gmi, ' ');
+            if (details.description?.flavor_text) finalText += details.description.flavor_text.replace(/\n/gmi, ' ') + "\n-----------\n";
 
             let levelEvolution = details.evolution_chain.length ? (details.evolution_chain.filter(x => x.pokemon_id < 10000 && (x.trigger == "level-up" || !x.trigger) && !x.time_of_day && !x.min_happiness && !x.min_affection).sort((x, y) => x.pokemon_id - y.pokemon_id)).map(x => {
                 const obj = ({ name: x.name, level: x.min_level });
@@ -22,7 +22,7 @@ function dexPokemonInfoModule(details = null) {
                 return `Evolves into ${capitalize(obj.name)} at level ${obj.level}`;
             }).splice(0, 3).join(" → ") : ''
 
-            if (levelEvolution) finalText = "**Evolution:**\n" + levelEvolution + "\n\n";
+            if (levelEvolution) finalText += "**Evolution:**\n" + levelEvolution + "\n\n";
 
             return finalText || "-- ╰(*°▽°*)╯ --";
         })(),
