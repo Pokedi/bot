@@ -53,6 +53,10 @@ export default async (msg, obj = { command: 0 }) => {
                 if (msg.options.getString("pokemon"))
                     shortval = msg.options.getString("pokemon");
                 break;
+            case "nickname":
+                if (msg.options.getString('new-name'))
+                    shortval = msg.options.getString('new-name');
+                break;
         }
 
     const { text, values } = builder.insert("logs", {
