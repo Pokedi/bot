@@ -264,5 +264,7 @@ export default {
                 return msg.reply(`An error occurred claiming your pokedits. Contact an admin!`);
             }
         }
+
+        await msg.reply(`For your progress \`/dex progress: true\` and for the Dex Pokemon \`/dex pokemon: Charizard\``);
     }
 }

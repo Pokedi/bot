@@ -2,6 +2,7 @@ import { SlashCommandBuilder } from "discord.js";
 import Pokemon from "../../Classes/pokemon.js";
 import findPokemon from "../../Utilities/Pokemon/findPokemon.js";
 import builder from "../Database/QueryBuilder/queryGenerator.js";
+import Player from "../../Classes/player.js";
 
 export default {
     data: "",
@@ -15,7 +16,12 @@ export default {
         .addStringOption(option => option.setName('pokemon').setDescription('Type in the name of a starter Pokemon').setRequired(true)
         ),
     async execute(msg) {
-        if (msg.user.info.started)
+
+        const player = new Player({ id: msg.user.id });
+
+        await player.fetch(msg.client.postgres);
+
+        if (player.started)
             return msg.reply("you already have started");
 
         let content = msg.options.getString("pokemon").toLowerCase();
