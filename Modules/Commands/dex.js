@@ -52,7 +52,7 @@ export default {
 
             // Ready Other Embed
             const secondEmbed = {
-                title: `#${selectedPokemon.pokedex.id} - ${(selectedPokemon.pokedex.name)}`,
+                title: `#${selectedPokemon.pokedex.id} - ${capitalize(selectedPokemon.pokedex.name)}`,
                 fields: [],
                 thumbnail: {
                     url: `attachment://${selectedPokemon.pokedex._id}.png`
