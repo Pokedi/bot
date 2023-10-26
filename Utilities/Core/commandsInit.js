@@ -7,7 +7,7 @@ const rest = new REST().setToken(process.env.DEVTOKEN);
 const commands = [];
 
 // Ready Commands
-export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release", "select", "team", "forcespawn", "order", "shop", "trade", "sql", "config", "profile", "duel", "moves", "daily", "shardstats", "redeem", "market"], client) => {
+export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release", "select", "team", "forcespawn", "order", "shop", "trade", "sql", "config", "profile", "duel", "moves", "daily", "shardstats", "redeem", "market"], client, justClient = false) => {
 
     // Clear just in-case of reuse
     commands.splice(0, commands.length);
@@ -29,7 +29,7 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
         console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
         // The put method is used to fully refresh all commands in the guild with the current set
-        const data = await rest.put(Routes.applicationGuildCommands(process.env.DEVID, "716293571166208001"), { body: commands })
+        const data = !justClient ? await rest.put(Routes.applicationGuildCommands(process.env.DEVID, "716293571166208001"), { body: commands }) : []
 
         console.log(`Successfully reloaded ${data.length} application (/) commands.`);
 
