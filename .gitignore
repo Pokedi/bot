@@ -16,3 +16,6 @@ Bot/yarn.lock
 .env
 secretREADME.md
 *test.js
+
+/Services/PokeAPI
+Services/PokeAPI/*
