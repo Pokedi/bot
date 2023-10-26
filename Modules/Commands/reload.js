@@ -7,6 +7,7 @@ export default {
         .setName('reload')
         .setDescription('Reload Cache')
         .addBooleanOption(x => x.setName("reset-states").setDescription("[Admin Only]"))
+        .addBooleanOption(x => x.setName("reset-commands-rest").setDescription("[Admin Only]"))
         .addBooleanOption(x => x.setName("reset-commands").setDescription("[Admin Only]")),
     async execute(msg) {
         if (process.env.DEVIDS && JSON.parse(process.env.DEVIDS).includes(msg.user.id)) {
@@ -20,7 +21,7 @@ export default {
             if (resetCommands) {
 
                 try {
-                    await commandsInit(undefined, msg.client);
+                    await commandsInit(undefined, msg.client, !msg.options.getBoolean('reset-commands-rest'));
                     await msg.reply("Commands reloaded");
                 } catch (error) {
                     console.log(error);
