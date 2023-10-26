@@ -100,7 +100,7 @@ export default {
             subcommand
                 .setName("request")
                 .setDescription('Mention a user you wish to trade with')
-                .addUserOption(option => option.setName('user').setDescription('Select a user'))
+                .addMentionableOption(option => option.setName('user').setDescription('Select a user'))
         ).addSubcommand(subcommand =>
             subcommand
                 .setName("confirm")
@@ -112,15 +112,20 @@ export default {
         ),
     async execute(msg) {
 
-        const Tradee = msg.options.getUser('user');
+        // Get Member instead of ID
+        const Tradee = msg.options.getMember('user');
 
         // Ready User [Will be used in multiple places regardless]
         const You = new Player(msg.user);
 
         if (Tradee) {
+
+            // First Level restriction
+            if (!Tradee.user || Tradee.user.id == msg.user.id)
+                return msg.reply("You did not mention a user...");
+
             // Fetch User
             await You.fetch(msg.client.postgres);
-
 
             // Check if User is in Trade
             if (await You.isTrading(msg.client.redis))
@@ -130,7 +135,7 @@ export default {
             if (await You.isMarketing(msg.client.redis))
                 return msg.reply("Finish your shopping you bum.");
 
-            const Them = new Player({ id: BigInt(Tradee.id) });
+            const Them = new Player({ id: BigInt(Tradee.user.id) });
 
             // Check if Tradee is in Trade
             if (await Them.isTrading(msg.client.redis))
