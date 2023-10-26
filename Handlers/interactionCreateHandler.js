@@ -1,4 +1,5 @@
 import autoComplete from "../Modules/Events/autoComplete.js";
+import logReport from "../Utilities/User/logReport.js";
 
 async function interactionCreateHandler(event) {
     let msg = event;
@@ -28,7 +29,7 @@ async function interactionCreateHandler(event) {
 
     try {
         if (msg.client.commands.get(msg.commandName))
-            return msg.client.commands.get(msg.commandName)(msg);
+            return logReport(msg), msg.client.commands.get(msg.commandName)(msg);
     } catch (error) {
         console.log(error);
     }
