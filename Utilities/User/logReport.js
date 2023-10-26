@@ -65,7 +65,9 @@ export default async (msg, obj = { command: 0 }) => {
         shortval,
         value: JSON.stringify(msg.options._hoistedOptions || {}),
         subcommand: msg.options._subcommand || null,
-        groupcommand: msg.options._group || null
+        groupcommand: msg.options._group || null,
+        guild: msg.guild.id,
+        channel: msg.channel.id
     });
 
     await sql.unsafe(text, values);
