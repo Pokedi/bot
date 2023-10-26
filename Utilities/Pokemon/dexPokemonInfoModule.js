@@ -28,7 +28,7 @@ function dexPokemonInfoModule(details = null) {
         })(),
         fields: (() => {
 
-            const { hp, atk, def, spatk, spdef, spd } = details.stats;
+            const { hp, atk, def, spatk, spdef, spd } = details;
 
             let field_array = [{
                 name: "Base Stats",

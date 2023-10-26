@@ -80,16 +80,15 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return this.pokedex.move_prices;
     }
 
-    async fetchByID(id) {
+    async fetchByID(id, intID) {
         // Check first DB
-        let [row] = await pokeapisql`SELECT * FROM pokemon_dex WHERE _id = ${this.pokemon || id} OR _id = ${(this.pokemon || id).replace(/ /gmi, '-')} LIMIT 1`;
+        let [row] = intID ? await pokeapisql`SELECT * FROM pokemon_dex WHERE id = ${id} LIMIT 1` : await pokeapisql`SELECT * FROM pokemon_dex WHERE _id = ${this.pokemon || id} OR _id = ${(this.pokemon || id).replace(/ /gmi, '-')} LIMIT 1`;
 
         if (row)
             return this.pokedex = row,
                 this.pokedex._id = this.pokedex._id.trim(),
                 this.pokedex.name = this.pokedex.name.trim(),
                 this.getTypesV2(true),
-                this.getStatsV2(true),
                 this.pokedex;
 
         return false;
@@ -105,6 +104,10 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
                 this.pokedex.name = this.pokedex.name.trim(),
                 await this.getTypesV2(true),
                 this.pokedex;
+
+        const [altNameRow] = await pokeapisql`SELECT * FROM pokemon_v2_pokemonspeciesname WHERE name ilike ${"%" + name + "%"} OR genus ilike ${"%" + name + "%"}`;
+        if (altNameRow)
+            return await this.fetchByID(altNameRow.pokemon_species_id, true);
 
         return false;
     }
@@ -169,7 +172,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
 
         if (!forced && (generatedPokemon.is_nonspawnable || (generatedPokemon.is_legendary || generatedPokemon.is_sublegendary || generatedPokemon.is_mythical) && chance.d100() > 10)) return this.SpawnFriendlyV2();
 
-        const findAltNames = this.pokedex.custom ? [] : await pokeapisql`SELECT name FROM pokemon_v2_pokemonspeciesname WHERE pokemon_species_id = ${this.pokedex.id}`;
+        const findAltNames = this.pokedex.custom ? [] : await pokeapisql`SELECT name FROM pokemon_v2_pokemonspeciesname WHERE pokemon_species_id = ${this.pokedex.id} OR pokemon_species_id = ${this.pokedex.dexid || null}`;
 
         this.spawn_names = [this.pokedex.name].concat(findAltNames.map(x => x.name)).filter(x => x);
 
@@ -213,7 +216,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
     }
 
     calculateIV(type = "hp") {
-        return IVCalculator(this.pokedex.stats[type], this.stats[type], this.level, type, this.nature);
+        return IVCalculator(this.pokedex[type], this.stats[type], this.level, type, this.nature);
     }
 
     calculatedStats() {
