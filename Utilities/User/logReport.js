@@ -41,11 +41,19 @@ export default async (msg, obj = { command: 0 }) => {
     if (commandName && ["sql", "eval"].includes(commandName))
         return;
 
-    // Trade
-    if (commandName == "trade") {
-        if (msg.options.getMember('user')?.user)
-            shortval = msg.options.getMember('user').user.id;
-    }
+    if (commandName)
+        switch (commandName) {
+            // Trade
+            case "trade":
+                if (msg.options.getMember('user')?.user)
+                    shortval = msg.options.getMember('user').user.id;
+                break;
+            case "pick":
+            case "catch":
+                if (msg.options.getString("pokemon"))
+                    shortval = msg.options.getString("pokemon");
+                break;
+        }
 
     const { text, values } = builder.insert("logs", {
         command: commandName ? reverseENUM(ENUM_COMMANDS, commandName) : obj.command,
