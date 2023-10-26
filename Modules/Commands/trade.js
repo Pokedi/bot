@@ -37,7 +37,7 @@ let trade_pokemon = {
     kadabra: "alakazam",
     machoke: "machamp",
     graveler: "golem",
-    "alolan graveler": "alolan golem",
+    "graveler-alola": "golem-alola",
     haunter: "gengar",
     boldore: "gigalith",
     gurdurr: "conkeldurr",

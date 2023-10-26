@@ -25,9 +25,9 @@ export default {
                 pokemonGrabbed.user_id = BigInt(msg.user.id);
 
                 // Increment readied IDX
-                const [idx] = await msg.client.postgres`SELECT idx FROM pokemon WHERE user_id = ${msg.user.id} ORDER BY idx desc`;
+                const [{idx}] = await msg.client.postgres`SELECT MAX(idx) as idx FROM pokemon WHERE user_id = ${msg.user.id}`;
 
-                pokemonGrabbed.idx = (idx.idx || 0) + 1;
+                pokemonGrabbed.idx = (idx || 0) + 1;
 
                 // Save to DB
                 await pokemonGrabbed.save(msg.client.postgres);

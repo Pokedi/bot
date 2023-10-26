@@ -182,11 +182,11 @@ class Pokemon {
         return await row;
     }
 
-    async fetchPokemon(postgres) {
+    async fetchPokemon(postgres, columns = "*") {
 
         if (!postgres || !this.id) return false;
 
-        const query = builder.select("pokemon", "*").where({ id: BigInt(this.id) });
+        const query = builder.select("pokemon", columns).where({ id: BigInt(this.id) });
 
         const [row] = await postgres.unsafe(query.text, query.values);
 
@@ -295,6 +295,7 @@ class Pokemon {
 
         // Check if Info available
         const info = this.getDetails();
+        
         // Return if Not-Existent
         if (!info) return true;
 

@@ -8,6 +8,9 @@ import capitalize from "../Utilities/Misc/capitalize.js";
 import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 import IVCalculator from "../Utilities/Pokemon/IVCalculator.js";
 import { readySinglePokemonFrontBack } from "../Utilities/Pokemon/pokemonBattleImage.js";
+import calculateNextLevelEXP from "../Utilities/Pokemon/calculateNextLevelEXP.js";
+import getTime from "../Utilities/Misc/getTime.js";
+import { Moon } from "lunarphase-js";
 // import allPokemon from "../Utilities/Data/pokemon.js";
 
 const chance = Chance();
@@ -85,8 +88,8 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
             return this.pokedex = row,
                 this.pokedex._id = this.pokedex._id.trim(),
                 this.pokedex.name = this.pokedex.name.trim(),
-                await this.getTypesV2(true),
-                await this.getStatsV2(true),
+                this.getTypesV2(true),
+                this.getStatsV2(true),
                 this.pokedex;
 
         return false;
@@ -183,8 +186,8 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return (this.pokedex.custom ? await pokeapisql`SELECT m.name FROM pokedi_v2_pokemonmove as p LEFT JOIN pokemon_v2_move as m ON (p.move_id = m.id) WHERE pokemon_id = ${this.pokedex.id} AND p.move_learn_method_id = 1 AND p.version_group_id = ${version_group_id} AND level <= ${this.level || 1}` : await pokeapisql`SELECT m.name FROM pokemon_v2_pokemonmove as p LEFT JOIN pokemon_v2_move as m ON (p.move_id = m.id) WHERE pokemon_id = ${this.pokedex.id} AND p.move_learn_method_id = 1 AND p.version_group_id = ${version_group_id} AND level <= ${this.level || 1}`).map(x => x.name);
     }
 
-    async getColumnsByID(columns = "id, types, hp, atk, def, spatk, spdef, spd") {
-        const { text, values } = builder.select("pokemon_dex", columns);
+    async getColumnsByID(columns = "id, types, hp, atk, def, spatk, spdef, spd", where) {
+        const { text, values } = builder.select("pokemon_dex", columns).where(where).limit(1);
 
         let [row] = await pokeapisql.unsafe(text, values);
 
@@ -195,7 +198,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return this.pokedex;
     }
 
-    async getTypesV2(fallBack) {
+    getTypesV2(fallBack) {
         if (!this.pokedex.id || this.types?.length) return [];
 
         const info = this.custom ? this.types : this.pokedex.types;
@@ -224,7 +227,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         };
     }
 
-    async getStatsV2(fallBack) {
+    getStatsV2(fallBack) {
         if (!this.pokedex.id || this.pokedex.custom) return [];
 
         const info = {
@@ -297,8 +300,22 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         LEFT JOIN pokemon_v2_evolutiontrigger as t on (t.id = p.evolution_trigger_id)
         LEFT JOIN pokemon_dex as trade_evo on p.trade_species_id = trade_evo.id
         LEFT JOIN pokemon_dex as pre on (pre.id = o.evolves_from_species_id)
-        LEFT JOIN pokemon_v2_item as item on (item.id = p.evolution_item_id)
+        LEFT JOIN pokemon_v2_item as item on (item.id = p.evolution_item_id OR item.id = p.held_item_id)
         WHERE ${from ? "o.evolves_from_species_id" : "s.id"} = ${id || this.pokedex.id} AND p.location_id is null;`)
+    }
+
+    getNextLevelEXP(level = this.level) {
+        return calculateNextLevelEXP(level, this.pokedex.base_experience);
+    }
+
+    gainedEXP(level = this.level) {
+        const faintedPokemonLevel = Chance().d12();
+        const gainedEXP = (((this.pokedex.base_experience * faintedPokemonLevel) / (5 * 1)) * Math.pow(((faintedPokemonLevel * 2 + 10) / (faintedPokemonLevel + level + 10)), 2.5) + 1);
+        return gainedEXP;
+    }
+
+    async getLevelUpEvolutionsV2(id = this.pokedex.id) {
+        return await pokeapisql`SELECT pd.id, _id, min_level, time_of_day, min_happiness, min_affection, pe.gender_id FROM pokemon_dex as pd INNER JOIN pokemon_v2_pokemonevolution as pe ON (evolved_species_id = pd.id AND evolution_trigger_id = 1) WHERE evolves_from_species_id = ${id} ORDER BY min_level ASC, gender_rate DESC`;
     }
 
     async getEvolutionFormsV2(name) {
@@ -384,6 +401,74 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         };
 
         return this.battle.img;
+    }
+
+    async levelUp(postgres, msg, increaseLevel = 0) {
+        // Return if above Level 100
+        if (this.level >= 100) return false;
+
+        // Check if Info available
+        const info = await this.getLevelUpEvolutionsV2();
+
+        // Return if Not-Existent
+        // if (!info) return true;
+
+        // Gained EXP
+        const nextEXP = this.gainedEXP(this.level);
+
+        // Reassign EXP
+        this.exp += parseInt(nextEXP);
+
+        // toReach
+        const expToReach = this.getNextLevelEXP(this.level + 1) - this.getNextLevelEXP(this.level);
+
+        // Pre-Level
+        const preLevel = this.level;
+
+        // Increase EXP
+        if (this.exp >= expToReach) this.level++, this.exp = 0;
+        // Increase Level if forced
+        if (increaseLevel) this.level += increaseLevel;
+        // Fix overIncreased Level
+        if (this.level >= 100) this.level = 100;
+
+        // Check if Everstone || Ignore if evolution not available
+        if (this.item == "everstone" || !info.length)
+            // Save
+            return await this.save(postgres, { level: this.level, exp: this.exp }),
+                // Returned Obj
+                { levelIncreased: preLevel != this.level, level: this.level, pokemon: this.pokemon };
+
+        // Check Pokemon through Levels
+        // const { level: evoLevel, time: evoTime, name: evoName } = info.evolution;
+        const evoLevel = info;
+
+        // Evolved Pokemon Variable
+        let evolvedPokemon;
+
+        // Level Evolutions
+        if (evoLevel) {
+            // let currentPokemon = this.pokemon;
+            // const pokemonLevel = Object.entries(evoLevel).find(x => x[1].name == currentPokemon)[0];
+            for (const row of evoLevel) {
+                const levelPokemon = row._id;
+                if (parseInt(row.min_level) <= this.level
+                    // Gender Evolution
+                    && (!row.gender_id || row.gender_id == this.gender)
+                    // Time-Based Evolution + Moon Phase
+                    && (!row.time_of_day || row.time_of_day == getTime() || row.time_of_day == Moon.lunarPhase(new Date(), {
+                        hemisphere: Hemisphere.NORTHERN
+                    }).toLowerCase())
+                    // Name Based Evolution - To-Do
+                    // Channel Name Based Evolution - To-Do
+                ) evolvedPokemon = levelPokemon;
+            }
+        }
+
+        // Save
+        return await this.save(postgres, { level: this.level, exp: this.exp, pokemon: evolvedPokemon || this.pokemon }),
+            // Returned Obj
+            { levelIncreased: preLevel != this.level, level: this.level, hasEvolved: evolvedPokemon != this.pokemon, pokemon: this.pokemon, evolvedPokemon };
     }
 }
 

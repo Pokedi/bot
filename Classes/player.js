@@ -92,13 +92,16 @@ class Player {
         if (!this.selected[0]) return false;
 
         // Ready Pokemon Class
-        const pokemon = new Pokemon({ id: this.selected[0] });
+        const pokemon = new Pokedex({ id: this.selected[0] });
 
         // Fetch Pokemon
-        await pokemon.fetchPokemon(postgres);
+        await pokemon.fetchPokemon(postgres, "level, pokemon, exp, user_id, gender, item, id");
 
         // Check Pokemon
         if (!pokemon.user_id) return false;
+
+        // Ready Pokemon
+        await pokemon.getColumnsByID('id, _id, base_experience', {_id: pokemon.pokemon});
 
         // Level Up
         return await pokemon.levelUp(postgres, msg, level);

@@ -239,9 +239,9 @@ export default {
                         bal: player.bal - 50 * (amount)
                     });
 
-                    await player.pokemonLevelUp(msg.client.postgres, msg, amount);
+                    const details = await player.pokemonLevelUp(msg.client.postgres, msg, amount);
 
-                    return msg.reply({ ephemeral: true, content: "Pokemon Leveled up! ✅" });
+                    return msg.reply({ ephemeral: true, content: "Pokemon Leveled up! ✅" + (details.evolvedPokemon ? " Seems like an evolution has taken place as well. Check it out!" : "") });
                 }
             }
                 break;
