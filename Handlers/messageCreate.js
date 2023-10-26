@@ -80,7 +80,9 @@ async function messageCreate(msg, e) {
         }
 
         if (--msg.author.count.pokemonLevelUpCount <= 0) {
+            
             msg.author.count.pokemonLevelUpCount = chance.integer({ min: 40, max: 300 });
+
             const checkStats = await msg.author.player.pokemonLevelUp(msg.client.postgres, msg);
 
             if (checkStats) {
