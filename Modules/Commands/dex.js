@@ -200,7 +200,7 @@ export default {
 
         const progress = msg.options.getBoolean('progress');
 
-        if (progress) {
+        if (progress || !progress) {
 
             const page = (msg.options.getInteger("page") || 1) - 1;
 
