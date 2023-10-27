@@ -3,6 +3,7 @@ import Pokemon from "../../Classes/pokemon.js";
 
 import background from "../../Utilities/Data/background.json" assert {type: "json"};
 import trainer from "../../Utilities/Data/trainer.json" assert {type: "json"};
+import Pokedex from "../../Classes/pokedex.js";
 
 async function generateProfile(postgres, user, username="No Username Found") {
 
@@ -13,7 +14,7 @@ async function generateProfile(postgres, user, username="No Username Found") {
     const countDexes = await user.countDex(postgres);
 
     // Select User's Pokemon
-    const selectedPokemon = new Pokemon({ user_id: user.id });
+    const selectedPokemon = new Pokedex({ user_id: user.id });
 
     // Selected or First IDX
     if (user.selected?.[0]) {
@@ -29,10 +30,9 @@ async function generateProfile(postgres, user, username="No Username Found") {
         return false;
 
     // Grab details;
-    const pokemonDetails = selectedPokemon.getDetails();
 
     // Ready Pokemon Image
-    let pokemonImage = sharp(selectedPokemon.shiny && pokemonDetails.shiny ? `../pokedi/pokemon/shiny/${pokemonDetails._id}.png` : `../pokedi/pokemon/regular/${pokemonDetails._id}.png`).png().resize({
+    let pokemonImage = sharp(selectedPokemon.shiny ? `../pokedi/pokemon/shiny/${selectedPokemon.pokemon}.png` : `../pokedi/pokemon/regular/${selectedPokemon.pokemon}.png`).png().resize({
         width: 400,
         height: 400,
         fit: "contain"

@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import generateProfile from "../../Utilities/User/generateProfile.js";
+import Player from "../../Classes/player.js";
 
 export default {
     help: "",
@@ -82,17 +83,27 @@ export default {
             }
 
             case "start": {
-                if (!msg.user?.player?.started) return await msg.reply("Please make sure to /pick a pokemon!");
-                if (msg.user.player.character) return await msg.reply("You already started your adventure");
+
+                const player = new Player({ id: msg.user.id });
+
+                await player.fetch(msg.client.postgres);
+
+                if (!player.started) return await msg.reply("Please make sure to /pick a pokemon!");
+                if (player.character) return await msg.reply("You already started your adventure");
 
                 return await msg.client.postgres`UPDATE users SET background = 1, character = ${msg.options.getInteger("character")}, gender = ${msg.options.getString("gender")} WHERE id = ${msg.user.id}`,
                     await msg.reply("Your profile has been created! Use /profile to see it.");
             }
 
             default: {
-                if (!msg.user?.player?.started) return await msg.reply("Please make sure to /pick a pokemon!");
+                
+                const player = new Player({ id: msg.user.id });
 
-                const profileImage = await generateProfile(msg.client.postgres, msg.user.player, msg.user.username);
+                await player.fetch(msg.client.postgres);
+                
+                if (!player.started) return await msg.reply("Please make sure to /pick a pokemon!");
+
+                const profileImage = await generateProfile(msg.client.postgres, player, msg.user.username);
 
                 if (!profileImage) return await msg.reply("Profile could not be created. Maybe a Pokemon was not selected?");
 
