@@ -193,13 +193,13 @@ class Pokemon {
         return Object.assign(this, new Pokemon(row || {}));
     }
 
-    async fetchPokemonByIDX(postgres) {
+    async fetchPokemonByIDX(postgres, columns = "*") {
 
         if (!postgres) return false;
 
         if (!this.idx) return this.fetchPokemon(postgres);
 
-        const query = builder.select("pokemon", "*").where({ idx: this.idx }).and({ user_id: this.user_id });
+        const query = builder.select("pokemon", columns).where({ idx: this.idx }).and({ user_id: this.user_id });
 
         const [row] = await postgres.unsafe(query.text, query.values);
 

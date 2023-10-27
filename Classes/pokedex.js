@@ -141,7 +141,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
     determineGender(ratio = this.pokedex.gender_rate || 4) {
         if (ratio == -1) return 3;
 
-        return (ratio <= Chance().d8()) ? 1 : 2;
+        return (ratio < Chance().d8()) ? 1 : 2;
     }
 
     async selectRandomV2() {
@@ -319,6 +319,24 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
 
     async getLevelUpEvolutionsV2(id = this.pokedex.id) {
         return await pokeapisql`SELECT pd.id, _id, min_level, time_of_day, min_happiness, min_affection, pe.gender_id FROM pokemon_dex as pd INNER JOIN pokemon_v2_pokemonevolution as pe ON (evolved_species_id = pd.id AND evolution_trigger_id = 1) WHERE evolves_from_species_id = ${id} ORDER BY min_level ASC, gender_rate DESC`;
+    }
+
+    async getItemEvolutionsV2(id = this.pokedex.id) {
+        return await pokeapisql`SELECT pe.id as evoid, pd.id, _id, min_level, time_of_day, min_happiness, min_affection, pe.gender_id, i.name, i.cost FROM pokemon_dex as pd 
+        LEFT JOIN pokemon_v2_pokemonevolution as pe ON (evolved_species_id = pd.id AND evolution_trigger_id = 3) 
+        INNER JOIN pokemon_v2_item as i ON (evolution_item_id = i.id) 
+        WHERE evolves_from_species_id = ${id} ORDER BY min_level ASC, gender_rate DESC`;
+    }
+
+    async fetchEvolutionByID(id) {
+        if (!id) return {};
+
+        const [row] = await pokeapisql`SELECT pe.id, pdd._id as pre_id, pd._id, evolution_item_id as itemid, pe.gender_id FROM pokemon_v2_pokemonevolution as pe 
+        LEFT JOIN pokemon_dex as pd ON (pd.id = pe.evolved_species_id)
+        LEFT JOIN pokemon_dex as pdd ON (pdd.id = pd.evolves_from_species_id)
+        WHERE pe.id = ${id};`
+
+        return row;
     }
 
     async getEvolutionFormsV2(name) {

@@ -33,6 +33,21 @@ class Player {
         return Object.assign(this, row);
     }
 
+    async fetchColumns(postgres, columns = "*") {
+
+        const query = builder.select("users", columns).where({ id: BigInt(this.id) });
+
+        const [row] = await postgres.unsafe(query.text, query.values);
+
+        return Object.assign(this, row);
+    }
+
+    async isValid(postgres, id) {
+        const [row] = await postgres`SELECT started, id FROM users WHERE id = ${id || this.id}`;
+
+        return row;
+    }
+
     async fetchIncome(postgres) {
         const query = builder.select("users", ["bal", "redeem"]).where({ id: BigInt(this.id) });
 

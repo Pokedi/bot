@@ -3,6 +3,8 @@ import Player from "../../Classes/player.js";
 import Pokemon from "../../Classes/pokemon.js";
 import { Chance } from "chance";
 import capitalize from "../../Utilities/Misc/capitalize.js";
+import Pokedex from "../../Classes/pokedex.js";
+import pokemondb from "../Database/pokedb.js";
 
 export default {
     help: "",
@@ -45,43 +47,45 @@ export default {
             .addSubcommand(y => y
                 .setName("stones")
                 .setDescription("Evolution Stones used for evolving your Pokemon")
-                .addStringOption(z => z
+                .addIntegerOption(z => z
                     .setName("stone")
                     .setDescription("Give a stone to your Pokemon to evolve from")
-                    .addChoices({
-                        name: "Dawn Stone || 250c",
-                        value: "dawn"
-                    }, {
-                        name: "Dusk Stone || 250c",
-                        value: "dusk"
-                    }, {
-                        name: "Fire Stone || 250c",
-                        value: "fire",
-                    }, {
-                        name: "Ice Stone || 250c",
-                        value: "ice"
-                    }, {
-                        name: "Leaf Stone || 250c",
-                        value: "leaf"
-                    }, {
-                        name: "Moon Stone || 250c",
-                        value: "moon"
-                    }, {
-                        name: "Shiny Stone || 250c",
-                        value: "oval"
-                    }, {
-                        name: "Sun Stone || 250c",
-                        value: "sun"
-                    }, {
-                        name: "Thunder Stone || 250c",
-                        value: "thunder"
-                    }, {
-                        name: "Water Stone || 250c",
-                        value: "water"
-                    }, {
-                        name: "Friendship Bracelet || 250c",
-                        value: "friendship"
-                    }).setRequired(true)
+                    // .addChoices({
+                    //     name: "Dawn Stone || 250c",
+                    //     value: "dawn"
+                    // }, {
+                    //     name: "Dusk Stone || 250c",
+                    //     value: "dusk"
+                    // }, {
+                    //     name: "Fire Stone || 250c",
+                    //     value: "fire",
+                    // }, {
+                    //     name: "Ice Stone || 250c",
+                    //     value: "ice"
+                    // }, {
+                    //     name: "Leaf Stone || 250c",
+                    //     value: "leaf"
+                    // }, {
+                    //     name: "Moon Stone || 250c",
+                    //     value: "moon"
+                    // }, {
+                    //     name: "Shiny Stone || 250c",
+                    //     value: "oval"
+                    // }, {
+                    //     name: "Sun Stone || 250c",
+                    //     value: "sun"
+                    // }, {
+                    //     name: "Thunder Stone || 250c",
+                    //     value: "thunder"
+                    // }, {
+                    //     name: "Water Stone || 250c",
+                    //     value: "water"
+                    // }, {
+                    //     name: "Friendship Bracelet || 250c",
+                    //     value: "friendship"
+                    // })
+                    .setAutocomplete(true)
+                    .setRequired(true)
                 ).addIntegerOption(y => y
                     .setName("id")
                     .setDescription("ID of the pokemon if provided")
@@ -205,7 +209,7 @@ export default {
             .addSubcommand(y => y
                 .setName("forms")
                 .setDescription("Forms & Mega Evolutions || Items & Plates, ya know?")
-                .addStringOption(x => x.setName('item-name').setDescription("Name of the Form, Item, or State."))
+                .addIntegerOption(x => x.setName('item-name').setDescription("Name of the Form, Item, or State.").setAutocomplete(true))
                 .addIntegerOption(y => y
                     .setName("id")
                     .setDescription("ID of the pokemon if provided")
@@ -226,6 +230,14 @@ export default {
         await player.fetch(msg.client.postgres);
 
         if (!player.started) return msg.reply("you have not started your adventure. Please try using /start");
+
+        // Is Dueling?
+        if (await player.isInDuel(msg.client.redis))
+            return await msg.followUp(`You are currently in a duel right now...`);
+
+        // Is Trading
+        if (await player.isTrading(msg.client.redis))
+            return await msg.followUp(`You are currently in a trade right now...`);
 
         const subCommand = msg.options.getSubcommand();
 
@@ -281,36 +293,44 @@ export default {
             case "stones":
             case "forms":
                 {
-                    const product = msg.options.getString("stone") || msg.options.getString("item-name");
-
-                    const [productData] = await msg.client.postgres`SELECT * FROM product WHERE id = ${product} LIMIT 1`;
-
-                    if (player.bal < productData.cost) return msg.reply(`you need at least ${productData.cost} pokedits for that.`);
+                    const product = msg.options.getInteger("stone") || msg.options.getInteger("item-name");
 
                     const id = msg.options.getInteger("id");
 
-                    let selectedPokemon = new Pokemon(id ? { idx: id, user_id: msg.user.id } : { id: player.selected[0] });
+                    let selectedPokemon = new Pokedex(id ? { idx: id, user_id: msg.user.id } : { id: player.selected[0] });
 
-                    await selectedPokemon.fetchPokemonByIDX(msg.client.postgres);
+                    const evolution = await selectedPokemon.fetchEvolutionByID(product);
+
+                    if (!evolution || !evolution._id || !evolution.pre_id)
+                        return msg.reply("Evolution not found");
+
+                    const [productData] = await pokemondb`SELECT cost, name FROM pokemon_v2_item WHERE id = ${evolution.itemid} LIMIT 1`;
+
+                    if (!productData)
+                        return msg.reply("Product not found.");
+
+                    if (player.bal < productData.cost) return msg.reply(`you need at least ${productData.cost} pokedits for that.`);
+
+                    await selectedPokemon.fetchPokemonByIDX(msg.client.postgres, "id, pokemon, gender");
 
                     if (!selectedPokemon.pokemon) return msg.reply("Pokemon does not exist...");
 
-                    const basePokemon = selectedPokemon.getDetails();
+                    if (evolution.gender_id != null && evolution.gender_id != selectedPokemon.gender)
+                        return msg.reply("Gender Confliction met, cannot proceed.");
 
-                    const evoPokemon = basePokemon?.evolution?.items?.[product]?.name;
+                    if (selectedPokemon.pokemon != evolution.pre_id)
+                        return msg.reply("Pokemon do not match. Nice try.");
 
-                    if (!evoPokemon) return msg.reply("❎ Yeah that Item doesn't work for this lil guy. Sorry. ❎");
-
-                    await selectedPokemon.save(msg.client.postgres, { pokemon: evoPokemon });
+                    await selectedPokemon.save(msg.client.postgres, { pokemon: evolution._id });
 
                     await player.save(msg.client.postgres, {
                         bal: player.bal - (productData.cost || 0)
                     });
 
-                    return msg.reply(`Your ${capitalize(selectedPokemon.pokemon)} was given a ${productData.name}. ${Chance().pickone(
+                    return msg.reply(`Your ${capitalize(selectedPokemon.pokemon, true)} was given a ${capitalize(productData.name, true)}. ${Chance().pickone(
                         [
-                            "It posed like Sailor Moon and turned into a " + capitalize(evoPokemon),
-                            "Power Rangers Pokemon Fury! Go! I summon you, " + capitalize(evoPokemon),
+                            "It posed like Sailor Moon and turned into a " + capitalize(evolution._id, true),
+                            "Power Rangers Pokemon Fury! Go! I summon you, " + capitalize(evolution._id, true),
                             "Wow, puberty hits harder these days.",
                             "I don't know if it's the meds but something's different about them.",
                             "My sweet child has grown up so fast. Give grandpa a kiss."
