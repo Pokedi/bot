@@ -183,7 +183,7 @@ export default {
                 {
                     color: Color("#ffeb3b").rgbNumber(),
                     title: `Current Moves of your Level ${pokemon.level} ${capitalize(pokemon.pokemon)}`,
-                    description: `In order to set a move, please \`/moves <move-id> <move-slot>\``,
+                    description: `In order to set a move, please \`/moves store <move-id> <move-slot>\` and to check the available moves, use \`/moves info level-moves:true\``,
                     fields: [{
                         name: "Current Moves",
                         value: moves.map((x, i) => `**Move ${i + 1}**: ${capitalize(x.name.replace(/-/gim, " "))}\n`).join(""),
@@ -199,7 +199,7 @@ export default {
                 msg.options.getBoolean("level-moves") ? {
                     color: Color("#3f50b5").rgbNumber(),
                     title: `Level-Based moves for your Level ${pokemon.level} ${capitalize(pokemon.pokemon)}`,
-                    description: `In order to set a move, please \`/moves <move-id> <move-slot>\``,
+                    description: `In order to set a move, please \`/moves store <move-id> <move-slot>\` and to check the available moves, use \`/moves info level-moves:true\``,
                     fields:
                         // Available Moves - By Leveling Up
                         availableMoves ? separateArray(availableMoves, 20).map(x => ({
@@ -221,7 +221,7 @@ export default {
                 msg.options.getBoolean("tm-moves") ? {
                     color: Color('#f44336').rgbNumber(),
                     title: `TM Moves for your Level ${pokemon.level} ${capitalize(pokemon.pokemon)}`,
-                    description: `In order to set a move, please \`/moves <move-id> <move-slot>\``,
+                    description: `In order to set a move, please \`/moves store <move-id> <move-slot>\` and to check the available moves, use \`/moves info level-moves:true\``,
                     fields: [                    // Available Moves - By TMs
                         ...(tmAvailableMoves ? separateArray(tmAvailableMoves, 20).map(x => ({
                             name: "Available TM Moves",
