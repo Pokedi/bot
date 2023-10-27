@@ -54,6 +54,64 @@ const ENUM_POKEMON_BASE_STATS_IDS = {
     8: "evasion"
 }
 
+const ENUM_POKEMON_BASE_STATS_SHORTIDS = {
+    1: "hp",
+    2: "atk",
+    3: "def",
+    4: "spatk",
+    5: "spdef",
+    6: "spd",
+    7: "acc",
+    8: "eva"
+}
+
+const ENUM_MOVE_TARGET_IDS = {
+    '1': 'specific-move',
+    '2': 'selected-pokemon-me-first',
+    '3': 'ally',
+    '4': 'users-field',
+    '5': 'user-or-ally',
+    '6': 'opponents-field',
+    '7': 'user',
+    '8': 'random-opponent',
+    '9': 'all-other-pokemon',
+    '10': 'selected-pokemon',
+    '11': 'all-opponents',
+    '12': 'entire-field',
+    '13': 'user-and-allies',
+    '14': 'all-pokemon',
+    '15': 'all-allies',
+    '16': 'fainting-pokemon'
+}
+
+const ENUM_MOVE_CATEGORY = {
+    '0': 'damage',
+    '1': 'ailment',
+    '2': 'net-good-stats',
+    '3': 'heal',
+    '4': 'damage+ailment',
+    '5': 'swagger',
+    '6': 'damage+lower',
+    '7': 'damage+raise',
+    '8': 'damage+heal',
+    '9': 'ohko',
+    '10': 'whole-field-effect',
+    '11': 'field-effect',
+    '12': 'force-switch',
+    '13': 'unique'
+}
+
+const ENUM_STAT_MOD_COMMENTS = {
+    4: "won't go any higher",
+    3: "sharply rose!",
+    2: "rose drastically!",
+    1: "rose!",
+    [-1]: "fell!",
+    [-2]: "harshly fell!",
+    [-3]: "severely fell!",
+    [-4]: "won't go any lower",
+}
+
 function reverseENUM(ENUM = {}, item) {
     return Object.entries(ENUM).find(x => x[1] == item)[0];
 }
@@ -92,4 +150,4 @@ const ENUM_GENDER_EMOJIS = {
     4: "☠️"
 }
 
-export { ENUM_GENDER_EMOJIS, ENUM_GENDER, ENUM_POKEMON_TYPES_ID, ENUM_POKEMON_FULL_TYPES_ID, ENUM_POKEMON_BASE_STATS_IDS, POKEMON_NATURES, ENUM_POKEMON_TYPES, reverseENUM, ENUM_TYPE_COLORS, ENUM_POKEMON_BASE_STATS };
+export { ENUM_STAT_MOD_COMMENTS, ENUM_POKEMON_BASE_STATS_SHORTIDS, ENUM_MOVE_CATEGORY, ENUM_MOVE_TARGET_IDS, ENUM_GENDER_EMOJIS, ENUM_GENDER, ENUM_POKEMON_TYPES_ID, ENUM_POKEMON_FULL_TYPES_ID, ENUM_POKEMON_BASE_STATS_IDS, POKEMON_NATURES, ENUM_POKEMON_TYPES, reverseENUM, ENUM_TYPE_COLORS, ENUM_POKEMON_BASE_STATS };

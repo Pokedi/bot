@@ -9,7 +9,7 @@ import calculateModifier from "../../Utilities/Pokemon/calculateModifier.js";
 import randomint from "../../Utilities/Misc/randomint.js";
 import damageMultiplier from "../../Utilities/Pokemon/damageMultiplier.js";
 import { Chance } from "chance";
-import { ENUM_POKEMON_TYPES, reverseENUM } from "../../Utilities/Data/enums.js";
+import { ENUM_POKEMON_BASE_STATS_IDS, ENUM_POKEMON_BASE_STATS_SHORTIDS, ENUM_POKEMON_TYPES, ENUM_STAT_MOD_COMMENTS, reverseENUM } from "../../Utilities/Data/enums.js";
 
 export default {
     help: "",
@@ -260,153 +260,103 @@ export default {
             let messages = [];
 
             for (let command of sortCommands(commands, teamA, teamB)) {
-                switch (command.command) {
-                    case "attack": {
-                        const user = command.user;
-                        const enemyTeam = teamA[user] ? teamB : teamA;
+                try {
+                    switch (command.command) {
+                        case "attack": {
+                            const user = command.user;
+                            const enemyTeam = teamA[user] ? teamB : teamA;
 
-                        const player = teamA[user] || teamB[user];
-                        const opponent_selected = Object.keys(enemyTeam)[command.toAttack];
-                        const opponent = teamA[opponent_selected] || teamB[opponent_selected];
+                            const player = teamA[user] || teamB[user];
+                            const opponent_selected = Object.keys(enemyTeam)[command.toAttack];
+                            const opponent = teamA[opponent_selected] || teamB[opponent_selected];
 
-                        const player_pokemon = player.pokemon[player.battle.selected];
-                        const opponent_pokemon = opponent.pokemon[opponent.battle.selected];
+                            const player_pokemon = player.pokemon[player.battle.selected];
+                            const opponent_pokemon = opponent.pokemon[opponent.battle.selected];
 
-                        // Ignore if Pokemon already fainted
-                        if (player_pokemon.battle.current_hp <= 0 || opponent_pokemon.battle.current_hp <= 0)
-                            break;
+                            // Ignore if Pokemon already fainted
+                            if (player_pokemon.battle.current_hp <= 0 || opponent_pokemon.battle.current_hp <= 0)
+                                break;
 
-                        // Handle Player Pokemon Status Effects
+                            // Handle Player Pokemon Status Effects
 
-                        /*-- Start Player Status Effects --*/
+                            /*-- Start Player Status Effects --*/
 
-                        // Cold
-                        if (player_pokemon.battle.status.frz && randomint(100) <= 20) {
-                            player_pokemon.battle.status.frz = void 0;
-                            messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} broke out of the ice.`);
-                        }
-
-                        // Confusion
-                        if (player_pokemon.battle.status.cnf && randomint(100) <= 33) {
-                            player_pokemon.battle.status.cnf = void 0;
-                            messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} snapped out of confusion.`);
-                        }
-
-                        /*-- End Player Status Effects --*/
-
-                        // Select move or use Default "Tackle"
-                        const move = {
-                            ...(command.move || {
-                                "id": "",
-                                "name": "Tackle",
-                                "type": "normal",
-                                "damage_type": "physical",
-                                "power": 40,
-                                "accuracy": 100
-                            })
-                        };
-
-                        move.type = reverseENUM(ENUM_POKEMON_TYPES, move.type);
-
-                        let [atk, def] = move.damage_type == "physical" ? ["atk", 'def'] : ["spatk", 'spdef'];
-
-                        const player_iv = player_pokemon.calculateIV(atk) * calculateModifier(player_pokemon.battle.mod, atk);
-                        const opponent_iv = opponent_pokemon.calculateIV(def) * calculateModifier(opponent_pokemon.battle.mod, def);
-
-                        const move_ms = move.meta && move.meta.max_hits ? move.meta.max_hits : 0;
-
-                        // Ailment Handler
-                        if (move.meta && move.meta.ailment && move.meta.ailment != 'none') {
-                            switch (move.meta.ailment) {
-                                case "burn":
-                                    move.brn = move.ailment_chance || move.accuracy;
-                                    break;
-                                case "paralysis":
-                                    move.par = move.ailment_chance || move.accuracy;
-                                    break;
-                                case "sleep":
-                                    move.slp = move.ailment_chance || move.accuracy;
-                                    break;
-                                case "poison":
-                                    move.psn = move.ailment_chance || move.accuracy;
-                                    break;
-                                case "freeze":
-                                    move.frz = move.ailment_chance || move.accuracy;
-                                    break;
-                                case "confusion":
-                                    move.cnf = move.ailment_chance || move.accuracy;
-                                    break;
-                            }
-                        }
-
-                        const multi_strike = move_ms ? randomint(move_ms) + 1 : 1;
-
-                        const [multiplier, notes] = damageMultiplier(opponent_pokemon.types, move, player_pokemon.types);
-
-                        let last_notes = '';
-
-                        const isStatusBlocked = player_pokemon.battle.status.frz || player_pokemon.battle.status.cnf || player_pokemon.battle.status.slp || player_pokemon.battle.status.par && randomint(100) < 75;
-
-                        let didNotMiss = !move.accuracy || move.accuracy && randomint(100) <= move.accuracy;
-
-                        var attack_damage = (!isStatusBlocked && didNotMiss) && move.power ? Math.ceil(((((2 * player_pokemon.level) / 5 + 2) * (move.power || 0) * (player_iv / opponent_iv)) / 50 + 2) * multiplier * ((randomint(38) + 217) / 255) * (player_pokemon.battle.status.brn && move.damage_type == "physical" ? 0.5 : 1) * (multi_strike)) : 0;
-
-                        // Reduce HP of Opponent
-                        opponent_pokemon.battle.current_hp -= attack_damage;
-
-                        // If User's Pokemon is NOT StatusBlocked + Hit Chance approved
-                        if (!isStatusBlocked && didNotMiss) {
-                            /*-- Start Opponent Status Effects --*/
-                            // Paralysis
-                            // - If Move permits & Pokemon is NOT Electrical 
-                            if (move.par && randomint(100) <= move.par && !opponent_pokemon.types.includes("e"))
-                                // Reduce Speed by 50%
-                                opponent_pokemon.stats.spd = opponent_pokemon.stats.spd * .5,
-                                    // Mark as Paralyzed
-                                    opponent_pokemon.battle.status.par = true,
-                                    // Output result
-                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was paralyzed`);
-
-                            // Poison
-                            // - If Move permits & Pokemon is NOT Poison OR Steel
-                            if (move.psn && randomint(100) <= move.psn && (!opponent_pokemon.types.includes(['p']) && !opponent_pokemon.types.includes(['s'])))
-                                // Mark as Poisoned
-                                opponent_pokemon.battle.status.psn = true,
-                                    // Output result
-                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was poisoned`);
-
-                            // Frozen
-                            // - If Move permits & Pokemon is not Ice
-                            if (move.frz && randomint(100) <= move.frz && !opponent_pokemon.types.includes("i"))
-                                // Mark as Poisoned
-                                opponent_pokemon.battle.status.frz = true,
-                                    // Output result
-                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was frozen`);
-
-                            // Frozen Pokemon being Thawed
-                            // - If Pokemon is Frozen + Fire Move is used
-                            if (opponent_pokemon.battle.status.frz && ["flame-wheel", "sacred-fire", 'flare-blitz', 'fusion-flare', 'scald', 'steam-eruption', 'burn-up', 'pyro-ball'].includes(move.id)) {
-                                // Mark as Unfrozen
-                                opponent_pokemon.battle.status.frz = void 0;
-                                // Output result
-                                messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} is no longer frozen`);
+                            // Cold
+                            if (player_pokemon.battle.status.frz && randomint(100) <= 20) {
+                                player_pokemon.battle.status.frz = void 0;
+                                messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} broke out of the ice.`);
                             }
 
-                            // Sleep
-                            // - If Move permits
-                            if (move.slp && randomint(100) <= move.slp)
-                                // Mark as Sleep
-                                opponent_pokemon.battle.status.slp = true,
-                                    // Output result
-                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} fell fast asleep`);
+                            // Confusion
+                            if (player_pokemon.battle.status.cnf && randomint(100) <= 33) {
+                                player_pokemon.battle.status.cnf = void 0;
+                                messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} snapped out of confusion.`);
+                            }
 
-                            if (move.cnf && randomint(100) <= move.cnf)
-                                // Mark as Sleep
-                                opponent_pokemon.battle.status.cnf = true,
-                                    // Output result
-                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was confused`);
+                            /*-- End Player Status Effects --*/
 
-                            /*-- End Opponent Status Effects --*/
+                            // Select move or use Default "Tackle"
+                            const move = {
+                                ...(command.move || {
+                                    "id": "",
+                                    "name": "Tackle",
+                                    "type": "normal",
+                                    "damage_type": "physical",
+                                    "power": 40,
+                                    "accuracy": 100
+                                })
+                            };
+
+                            move.type = reverseENUM(ENUM_POKEMON_TYPES, move.type);
+
+                            let [atk, def] = move.damage_type == "physical" ? ["atk", 'def'] : ["spatk", 'spdef'];
+
+                            const player_iv = player_pokemon.calculateIV(atk) * calculateModifier(player_pokemon.battle.mod, atk);
+                            const opponent_iv = opponent_pokemon.calculateIV(def) * calculateModifier(opponent_pokemon.battle.mod, def);
+
+                            const move_ms = move.meta && move.meta.max_hits ? move.meta.max_hits : 0;
+
+                            // Ailment Handler
+                            if (move.meta && move.meta.ailment && move.meta.ailment != 'none') {
+                                switch (move.meta.ailment) {
+                                    case "burn":
+                                        move.brn = move.ailment_chance || move.accuracy;
+                                        break;
+                                    case "paralysis":
+                                        move.par = move.ailment_chance || move.accuracy;
+                                        break;
+                                    case "sleep":
+                                        move.slp = move.ailment_chance || move.accuracy;
+                                        break;
+                                    case "poison":
+                                        move.psn = move.ailment_chance || move.accuracy;
+                                        break;
+                                    case "freeze":
+                                        move.frz = move.ailment_chance || move.accuracy;
+                                        break;
+                                    case "confusion":
+                                        move.cnf = move.ailment_chance || move.accuracy;
+                                        break;
+                                }
+                            }
+
+                            const multi_strike = move_ms ? randomint(move_ms) + 1 : 1;
+
+                            const [multiplier, notes] = damageMultiplier(opponent_pokemon.types, move, player_pokemon.types);
+
+                            let last_notes = '';
+
+                            // is Pokemon allowed to attack?
+                            const isStatusBlocked = player_pokemon.battle.status.frz || player_pokemon.battle.status.cnf || player_pokemon.battle.status.slp || player_pokemon.battle.status.par && randomint(100) < 75;
+
+                            // Determine chances of being missed
+                            let didNotMiss = !move.accuracy || move.accuracy && randomint(100) <= move.accuracy;
+
+                            // Calculate Damage
+                            let attack_damage = (!isStatusBlocked && didNotMiss) && move.power ? Math.ceil(((((2 * player_pokemon.level) / 5 + 2) * (move.power || 0) * (player_iv / opponent_iv)) / 50 + 2) * multiplier * ((randomint(38) + 217) / 255) * (player_pokemon.battle.status.brn && move.damage_type == "physical" ? 0.5 : 1) * (multi_strike)) : 0;
+
+                            // Reduce HP of Opponent
+                            opponent_pokemon.battle.current_hp -= attack_damage;
 
                             // Finish HP of Player if specified moves are used
                             if (["self-destruct", "explosion"].includes(move.id))
@@ -415,35 +365,138 @@ export default {
 
                             messages.push(didNotMiss ? `${player.globalName}'s ${capitalize(player_pokemon.pokemon)} used ${move.name} and did ${attack_damage * -1} damage on ${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)}. ${multi_strike > 1 ? `It struck ${multi_strike} times.` : ''}` : `${player.globalName}'s ${capitalize(player_pokemon.pokemon)} used ${move.name} and missed.`);
 
-                            if (opponent_pokemon.battle.current_hp <= 0)
-                                opponent_pokemon.battle.current_hp = 0,
-                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} fainted.`);
+                            // If User's Pokemon is NOT StatusBlocked + Hit Chance approved
+                            if (!isStatusBlocked && didNotMiss) {
+                                /*-- Start Opponent Status Effects --*/
+                                // Paralysis
+                                // - If Move permits & Pokemon is NOT Electrical 
+                                if (move.par && randomint(100) <= move.par && !opponent_pokemon.types.includes("e"))
+                                    // Reduce Speed by 50%
+                                    opponent_pokemon.stats.spd = opponent_pokemon.stats.spd * .5,
+                                        // Mark as Paralyzed
+                                        opponent_pokemon.battle.status.par = true,
+                                        // Output result
+                                        messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was paralyzed`);
+
+                                // Poison
+                                // - If Move permits & Pokemon is NOT Poison OR Steel
+                                if (move.psn && randomint(100) <= move.psn && (!opponent_pokemon.types.includes(['p']) && !opponent_pokemon.types.includes(['s'])))
+                                    // Mark as Poisoned
+                                    opponent_pokemon.battle.status.psn = true,
+                                        // Output result
+                                        messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was poisoned`);
+
+                                // Frozen
+                                // - If Move permits & Pokemon is not Ice
+                                if (move.frz && randomint(100) <= move.frz && !opponent_pokemon.types.includes("i"))
+                                    // Mark as Poisoned
+                                    opponent_pokemon.battle.status.frz = true,
+                                        // Output result
+                                        messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was frozen`);
+
+                                // Frozen Pokemon being Thawed
+                                // - If Pokemon is Frozen + Fire Move is used
+                                if (opponent_pokemon.battle.status.frz && ["flame-wheel", "sacred-fire", 'flare-blitz', 'fusion-flare', 'scald', 'steam-eruption', 'burn-up', 'pyro-ball'].includes(move.id)) {
+                                    // Mark as Unfrozen
+                                    opponent_pokemon.battle.status.frz = void 0;
+                                    // Output result
+                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} is no longer frozen`);
+                                }
+
+                                // Sleep
+                                // - If Move permits
+                                if (move.slp && randomint(100) <= move.slp)
+                                    // Mark as Sleep
+                                    opponent_pokemon.battle.status.slp = true,
+                                        // Output result
+                                        messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} fell fast asleep`);
+
+                                if (move.cnf && randomint(100) <= move.cnf)
+                                    // Mark as Sleep
+                                    opponent_pokemon.battle.status.cnf = true,
+                                        // Output result
+                                        messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} was confused`);
+
+                                /*-- End Opponent Status Effects --*/
+
+                                if (opponent_pokemon.battle.current_hp <= 0)
+                                    opponent_pokemon.battle.current_hp = 0,
+                                        messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} fainted.`);
+                            }
+
+                            // If Player's Pokemon was burnt or poisoned
+                            if (player_pokemon.battle.status.brn || player_pokemon.battle.status.psn) {
+                                let statusDamage = Math.round(player_pokemon.battle.current_hp * (1 / 16));
+                                // Reduce HP
+                                player_pokemon.battle.current_hp -= statusDamage;
+                                // Output result
+                                messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} was ${player_pokemon.battle.status.brn ? "Burnt" : "Poisoned"} and took ${statusDamage} damage.`);
+                            }
+
+                            // Player's Pokemon Stat Modifiers
+                            if (move.changes.length)
+                                // Loop Over each (De)Buff
+                                for (const change of move.changes) {
+                                    // Check if Stat ID Valid
+                                    if (change.stat_id) {
+                                        const shortStatID = ENUM_POKEMON_BASE_STATS_SHORTIDS[change.stat_id];
+                                        switch (change.target_id) {
+                                            case 2:
+                                            case 3:
+                                            case 4:
+                                            case 5:
+                                            case 7:
+                                            case 13:
+                                            case 15: {
+                                                player_pokemon.battle.mods[shortStatID] = (player_pokemon.battle.mods[shortStatID] || 0) + change.change;
+                                                const tooExtreme = player_pokemon.battle.mods[shortStatID] > 6 || player_pokemon.battle.mods[shortStatID] < -6
+                                                if (tooExtreme) {
+                                                    player_pokemon.battle.mods[shortStatID] = player_pokemon.battle.mods[shortStatID] > 6 ? 6 : -6;
+                                                    messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} ${capitalize(change.stat, true)} cannot go any ${change.change < 0 ? "lower" : "higher"}`);
+                                                } else {
+                                                    messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} ${capitalize(change.stat, true)} ${ENUM_STAT_MOD_COMMENTS[change.change]}`)
+                                                }
+                                            }
+                                                break;
+                                            case 6:
+                                            case 8:
+                                            case 9:
+                                            case 10:
+                                            case 11:
+                                            case 12:
+                                            case 14: {
+                                                opponent_pokemon.battle.mods[shortStatID] = (opponent_pokemon.battle.mods[shortStatID] || 0) + change.change;
+                                                const tooExtreme = opponent_pokemon.battle.mods[shortStatID] > 6 || opponent_pokemon.battle.mods[shortStatID] < -6
+                                                if (tooExtreme) {
+                                                    opponent_pokemon.battle.mods[shortStatID] = opponent_pokemon.battle.mods[shortStatID] > 6 ? 6 : -6;
+                                                    messages.push(`${opponent.globalName}'s ${capitalize(player_pokemon.pokemon)} ${capitalize(change.stat, true)} cannot go any ${change.change < 0 ? "lower" : "higher"}`);
+                                                } else {
+                                                    messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} ${capitalize(change.stat, true)} ${ENUM_STAT_MOD_COMMENTS[change.change]}`)
+                                                }
+                                            }
+                                                break;
+                                        }
+                                    }
+                                }
+
+                            if (last_notes)
+                                messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} is now: ${notes}`);
+
                         }
+                            break;
+                        case "ball": {
+                            const user = command.user;
 
-                        // If Player's Pokemon was burnt or poisoned
-                        if (player_pokemon.battle.status.brn || player_pokemon.battle.status.psn) {
-                            let statusDamage = Math.round(player_pokemon.battle.current_hp * (1 / 16));
-                            // Reduce HP
-                            player_pokemon.battle.current_hp -= statusDamage;
-                            // Output result
-                            messages.push(`${player.globalName}'s ${capitalize(player_pokemon.pokemon)} was ${player_pokemon.battle.status.brn ? "Burnt" : "Poisoned"} and took ${statusDamage} damage.`);
+                            const player = teamA[user] || teamB[user];
+
+                            player.battle.selected = command.selected;
+
+                            messages.push(`${player.globalName} brought out ${capitalize(player.pokemon[player.battle.selected].pokemon)}!`);
                         }
-
-                        if (last_notes)
-                            messages.push(`${opponent.globalName}'s ${capitalize(opponent_pokemon.pokemon)} is now: ${notes}`);
-
+                            break;
                     }
-                        break;
-                    case "ball": {
-                        const user = command.user;
-
-                        const player = teamA[user] || teamB[user];
-
-                        player.battle.selected = command.selected;
-
-                        messages.push(`${player.globalName} brought out ${capitalize(player.pokemon[player.battle.selected].pokemon)}!`);
-                    }
-                        break;
+                } catch (error) {
+                    console.log(error);
                 }
             }
 
