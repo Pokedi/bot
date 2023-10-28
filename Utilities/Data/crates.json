@@ -1,0 +1,149 @@
+[
+    {
+        "name": "Wooden Crate",
+        "description": "A trusty o' crate found from the well near the garden. Ain't much but it's honest work.",
+        "items": [
+            [
+                {
+                    "type": 0,
+                    "name": "Credits",
+                    "min": 100,
+                    "max": 500
+                }
+            ],
+            [
+                {
+                    "type": 2,
+                    "item_id": 132,
+                    "name": "Oran Berry",
+                    "amount": 1,
+                    "chance": 30
+                }
+            ]
+        ],
+        "chance": 99
+    },
+    {
+        "name": "Silver Create",
+        "description": "Modern times require modern solutions.",
+        "items": [
+            [
+                {
+                    "type": 0,
+                    "name": "Credits",
+                    "min": 200,
+                    "max": 600
+                }
+            ],
+            [
+                {
+                    "type": 2,
+                    "item_id": 132,
+                    "name": "Oran Berry",
+                    "amount": 1,
+                    "chance": 40
+                }
+            ],
+            [
+                {
+                    "type": 2,
+                    "item_id": 126,
+                    "name": "Cheri Berry",
+                    "amount": 1,
+                    "chance": 40
+                },
+                {
+                    "type": 2,
+                    "item_id": 127,
+                    "name": "Chesto Berry",
+                    "amount": 1,
+                    "chance": 40
+                },
+                {
+                    "type": 2,
+                    "item_id": 134,
+                    "name": "Lum Berry",
+                    "amount": 1,
+                    "chance": 20
+                }
+            ]
+        ],
+        "chance": 1
+    },
+    {
+        "name": "Ivy Crate",
+        "description": "Heed champion, what you seek is indeed worthy of only the chosen.",
+        "items": [
+            [
+                {
+                    "type": 2,
+                    "item_id": 132,
+                    "name": "Oran Berry",
+                    "min": 1,
+                    "max": 4,
+                    "chance": 40
+                },
+                {
+                    "type": 2,
+                    "item_id": 127,
+                    "name": "Chesto Berry",
+                    "amount": 3
+                },
+                {
+                    "type": 2,
+                    "item_id": 134,
+                    "name": "Lum Berry",
+                    "amount": 3
+                },
+                {
+                    "type": 2,
+                    "item_id": 126,
+                    "name": "Cheri Berry",
+                    "amount": 3
+                },
+                {
+                    "type": 2,
+                    "item_id": 128,
+                    "name": "Pecha Berry",
+                    "amount": 3
+                },
+                {
+                    "type": 2,
+                    "item_id": 129,
+                    "name": "Rawst Berry",
+                    "amount": 3
+                }
+            ]
+        ],
+        "chance": 0.01
+    },
+    {
+        "name": "Ancient Crate",
+        "description": "A paper with ancient text... To summon either a demon or angel.",
+        "items": [
+            [
+                {
+                    "type": 1,
+                    "name": "Summoning Spell",
+                    "amount": 1
+                }
+            ]
+        ],
+        "chance": 0.01
+    },
+    {
+        "name": "First-Aid Crate",
+        "description": "Basic stuff without all the fancy gizmos to avoid excessive bleeding and possibly a fracture.",
+        "items": [
+            [
+                {
+                    "item_id": 24,
+                    "name": "Max Potion",
+                    "min": 1,
+                    "max": 5
+                }
+            ]
+        ],
+        "chance": 1
+    }
+]

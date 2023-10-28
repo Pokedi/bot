@@ -1,5 +1,6 @@
 import Color from "color";
 import { SlashCommandBuilder } from "discord.js";
+import crates from "../../Utilities/Data/crates.json" assert {type: "json"};
 
 export default {
     help: "",
@@ -14,18 +15,20 @@ export default {
         // Send Wait message
         const main = await msg.reply({ content: "🕰️ ... 🕰️", fetchReply: true });
 
+        // Assigning Variables
+        let streak, total_votes, last_voted;
+
         // Streak
-        let [{ streak, total_votes, last_voted }] = await msg.client.postgres`SELECT * FROM user_vote WHERE type = 'top' AND id = ${msg.user.id}`;
+        let [row] = await msg.client.postgres`SELECT streak, total_votes, last_voted FROM user_vote WHERE type = 'top' AND id = ${msg.user.id}`;
 
         // Load Default
-        if (!streak)
+        if (!row.total_votes)
             [{ streak, total_votes, last_voted }] = { streak: 0, total_votes: 0, last_voted: new Date() };
-
-        // Fetch Daily Config from DB
-        const [row] = await msg.client.postgres`SELECT * FROM bot_configurations WHERE name = 'daily_config'`;
-
-        // Parsing Daily Config
-        const daily_config = JSON.parse(row.value);
+        else {
+            streak = row.streak || 0;
+            total_votes = row.total_votes;
+            last_voted = row.last_voted;
+        }
 
         // Voting Streak
         let fields = [{
@@ -37,9 +40,9 @@ export default {
         let dailyFields = '';
 
         // Increment Daily Fields
-        for (const daily of daily_config) {
-            if (daily[0] <= streak)
-                dailyFields += `**${daily[1]}**\n${daily[2].map(x => `- ${x.amount} ${x.type ? "redeem(s)" : "credits(s)"}`).join("\n")}\n`;
+        for (const crate of crates) {
+            if ((crate.streak || 0) <= streak)
+                dailyFields += `**${crate.name}**${crate.chance ? " (" + crate.chance + "%)" : ""}\n${crate.items.flat().map(x => `- ${x.name} (${x.min ? `${x.min} - ${x.max}` : x.amount})`).join("\n")}\n`;
         }
 
         // Rewards
