@@ -66,8 +66,26 @@ export default {
                 .setName('berry')
                 .setDescription("Use a Berry!")
                 .addChoices({
+                    name: "Cheri Berry",
+                    value: 126
+                }, {
+                    name: "Chesto Berry",
+                    value: 127
+                }, {
                     name: "Pecha Berry",
-                    value: 1
+                    value: 128
+                }, {
+                    name: "Rawst Berry",
+                    value: 129
+                }, {
+                    name: "Leppa Berry",
+                    value: 131
+                }, {
+                    name: "Oran Berry",
+                    value: 132
+                }, {
+                    name: "Persim Berry",
+                    value: 133
                 })
             )
             .addIntegerOption(y => y
@@ -75,7 +93,25 @@ export default {
                 .setDescription("Use a Potion!")
                 .addChoices({
                     name: "Potion",
-                    value: 1
+                    value: 17
+                }, {
+                    name: "Max Potion",
+                    value: 24
+                }, {
+                    name: "Hyper Potion",
+                    value: 25
+                }, {
+                    name: "Super Potion",
+                    value: 26
+                }, {
+                    name: "Full Restore",
+                    value: 23
+                }, {
+                    name: "Revive",
+                    value: 28
+                }, {
+                    name: "Max Revive",
+                    value: 29
                 })
             )
             .addIntegerOption(y => y
@@ -175,6 +211,7 @@ export default {
             await teamA[member].fetchPokemon(msg.client.postgres);
             if (!teamA[member].pokemon.length) return await msg.followUp("Duel cancelled, <@" + member + "> does not have any Pokemon selected");
             teamA[member].readyBattleMode();
+            teamA[member].fetchInventory(msg.client.postgres);
             if (teamA[member].pokemon) {
                 for (const row of teamA[member].pokemon) {
                     await row.fetchByID();
@@ -190,6 +227,7 @@ export default {
             await teamB[member].fetchPokemon(msg.client.postgres);
             if (!teamB[member].pokemon.length) return await msg.followUp("Duel cancelled, <@" + member + "> does not have any Pokemon selected");
             teamB[member].readyBattleMode();
+            teamB[member].fetchInventory(msg.client.postgres);
             if (teamB[member].pokemon) {
                 for (const row of teamB[member].pokemon) {
                     await row.fetchByID();

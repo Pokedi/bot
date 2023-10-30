@@ -1,4 +1,5 @@
 import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
+import pokemondb from "../Modules/Database/pokedb.js";
 import Pokedex from "./pokedex.js";
 import Pokemon from "./pokemon.js";
 
@@ -116,7 +117,7 @@ class Player {
         if (!pokemon.user_id) return false;
 
         // Ready Pokemon
-        await pokemon.getColumnsByID('id, _id, base_experience', {_id: pokemon.pokemon});
+        await pokemon.getColumnsByID('id, _id, base_experience', { _id: pokemon.pokemon });
 
         // Level Up
         return await pokemon.levelUp(postgres, msg, level);
@@ -207,6 +208,22 @@ class Player {
         if (!row) return [];
 
         return new Pokemon(row);
+    }
+
+    async fetchInventory(postgres, full = false) {
+        this.inventory = await postgres`SELECT * FROM user_inventory WHERE user_id = ${this.id}`;
+
+        if (!this.inventory.length) return [];
+
+        if (full) {
+            const inventoryNames = await pokemondb`SELECT name FROM pokemon_v2_itemname WHERE id in ${pokemondb(this.inventory.map(x => x.id))} AND language_id = 9`;
+            this.inventory = this.inventory.map(x => {
+                x.name = inventoryNames.find(y => y.item_id == x.id)?.name || "Item #" + x.id;
+                return x;
+            });
+        }
+
+        return this.inventory;
     }
 
     // Battle Section
