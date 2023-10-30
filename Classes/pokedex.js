@@ -11,7 +11,17 @@ import { readySinglePokemonFrontBack } from "../Utilities/Pokemon/pokemonBattleI
 import calculateNextLevelEXP from "../Utilities/Pokemon/calculateNextLevelEXP.js";
 import getTime from "../Utilities/Misc/getTime.js";
 import { Moon } from "lunarphase-js";
-// import allPokemon from "../Utilities/Data/pokemon.js";
+import allPokemon from "../Utilities/Data/pokemon.js";
+
+import MiniSearch from "minisearch";
+
+const possiblePokemon = new MiniSearch({
+    fields: ["id", "name", "_id"], storeFields: ["id"], searchOptions: {
+        fuzzy: 0.3
+    }
+});
+
+possiblePokemon.addAll(allPokemon.map(x => ({ id: x.id, _id: x._id, name: x.name })));
 
 const chance = Chance();
 
@@ -78,6 +88,14 @@ JOIN   public.pokemon_v2_item as i ON (ma.item_id = i.id)
 WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "machine").map(x => x.id))} ORDER BY version_group_id DESC;`;
 
         return this.pokedex.move_prices;
+    }
+
+    async searchByLocal(item) {
+        const id = possiblePokemon.search(item)?.[0]?.id || false;
+
+        if (!id) return false;
+
+        return this.fetchByID(id, true);
     }
 
     async fetchByID(id, intID) {
