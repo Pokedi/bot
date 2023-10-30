@@ -60,9 +60,9 @@ export default {
         }
 
         // Pokemon that passed Filter
-        const passedFilteredPokemon = await pokemonFilter(msg.user.id, query, page, orderBy, orderType);
+        const passedFilteredPokemon = await pokemonFilter(msg.user.id, query.replace(/—/gmi, '--'), page, orderBy, orderType);
 
-        const totalPokemon = await pokemonFilter(msg.user.id, query, -1);
+        const totalPokemon = await pokemonFilter(msg.user.id, query.replace(/—/gmi, '--'), -1);
 
         if (!passedFilteredPokemon.length) return await msg.reply("Nothing passed that filter...");
 

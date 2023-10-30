@@ -378,7 +378,7 @@ export default {
                     try {
                         // Attempt Transfer to User
                         await msg.client.postgres.begin(sql => [
-                            sql`UPDATE pokemon SET market = false, user_id = ${You.id}, idx = ((SELECT MAX(idx) as id FROM pokemon WHERE user_id = ${You.id} LIMIT 1) + 1)`,
+                            sql`UPDATE pokemon SET market = false, user_id = ${You.id}, idx = ((SELECT MAX(idx) as id FROM pokemon WHERE user_id = ${You.id} LIMIT 1) + 1) WHERE id = ${marketedPokemon.id}`,
                             sql`DELETE FROM market WHERE id = ${marketedPokemon.id}`,
                             sql`UPDATE users SET bal = bal + ${marketedPokemon.price} WHERE id = ${marketedPokemon.user_id}`,
                             sql`UPDATE users SET bal = bal - ${marketedPokemon.price} WHERE id = ${You.id}`

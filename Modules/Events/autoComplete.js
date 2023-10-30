@@ -1,6 +1,7 @@
 import Player from "../../Classes/player.js";
 import Pokedex from "../../Classes/pokedex.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
+import removeDuplicates from "../../Utilities/Misc/removeDuplicates.js";
 import pokeapisql from "../Database/pokedb.js";
 
 export default async (interaction) => {
@@ -46,6 +47,23 @@ export default async (interaction) => {
                     value: e.evoid
                 }
             }).splice(0, 25));
+    }
+
+    if (interaction.commandName == "inventory") {
+        let text = interaction.options.getFocused();
+
+        if (!text)
+            return;
+
+        const items = await pokeapisql`SELECT DISTINCT ON (pokemon_v2_itemname.name) name, item_id FROM pokemon_v2_itemname WHERE name ilike ${'%' + text + '%'} LIMIT 25`;
+
+        if (!items.length)
+            return;
+
+        return interaction.respond(removeDuplicates(items).map(x => ({
+            name: x.name + " #" + x.item_id,
+            value: x.item_id
+        })))
     }
 
     return;

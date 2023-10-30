@@ -1,12 +1,11 @@
 import { Chance } from "chance";
-import { ENUM_POKEMON_TYPES } from "../Data/enums.js";
 import capitalize from "../Misc/capitalize.js";
 
-function dexPokemonInfoModule(details = null) {
+function dexPokemonInfoModule(details = null, color = 16776960) {
     if (!details) return false;
     const msgObj = {
         title: `#${details.dexid || details.id} - ${capitalize(details.name.replace(/-/gmi, ' '), true)}${details.shiny ? " ⭐" : ""}`,
-        color: 16776960,
+        color,
         description: (() => {
 
             let finalText = '';

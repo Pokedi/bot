@@ -3,14 +3,14 @@ import { ENUM_GENDER_EMOJIS, ENUM_POKEMON_TYPES } from "../Data/enums.js";
 import capitalize from "../Misc/capitalize.js";
 import calculateNextLevelEXP from "./calculateNextLevelEXP.js";
 
-function userPokemonInfoModule(obj = new Pokedex(), msg = null, count = 1) {
+function userPokemonInfoModule(obj = new Pokedex(), msg = null, count = 1, color = 16776960) {
     if (!obj) return false;
 
     const details = obj.pokedex;
 
     const msgObj = {
         title: `#${details.id} - ${capitalize(obj.name || obj.pokemon, true)}${obj.shiny ? " ⭐" : ""} ${ENUM_GENDER_EMOJIS[obj.gender || 4]}`,
-        color: 16776960,
+        color,
         fields: (() => {
 
             const { hp, atk, def, spatk, spdef, spd } = obj.calculatedStats()

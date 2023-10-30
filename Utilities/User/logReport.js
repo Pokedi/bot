@@ -29,7 +29,8 @@ const ENUM_COMMANDS = {
     "24": "daily",
     "25": "shardstats",
     "26": "redeem",
-    "27": "market"
+    "27": "market",
+    "28": "inventory"
 }
 
 export default async (msg, obj = { command: 0 }) => {

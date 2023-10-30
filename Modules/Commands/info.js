@@ -3,6 +3,7 @@ import userPokemonInfoModule from "../../Utilities/Pokemon/userPokemonInfoModule
 import builder from "../Database/QueryBuilder/queryGenerator.js";
 import Player from "../../Classes/player.js";
 import Pokedex from "../../Classes/pokedex.js";
+import getDominantColor from "../../Utilities/Misc/getDominantColor.js";
 
 export default {
     help: "",
@@ -44,10 +45,10 @@ export default {
         if (!processedPokemon.pokedex.id)
             return await msg.reply("This pokemon has not been registered in the database, please contact an admin for more help...");
 
-        // await processedPokemon.getStatsV2(true);
-
         const file = new AttachmentBuilder(`../pokedi/pokemon/${processedPokemon.shiny ? "shiny" : "regular"}/${processedPokemon.pokedex._id}.png`);
 
-        msg.reply({ embeds: [userPokemonInfoModule(processedPokemon, null, countPokemon)], files: [file] });
+        const color = await getDominantColor(file.attachment, true);
+
+        msg.reply({ embeds: [userPokemonInfoModule(processedPokemon, null, countPokemon, color)], files: [file] });
     }
 }

@@ -18,7 +18,7 @@ export default {
 
         const resetPokemon = msg.options.getBoolean('reset');
 
-        const queryPokemon = new Pokemon({user_id: msg.user.id, idx: pokemonID});
+        const queryPokemon = new Pokemon({ user_id: msg.user.id, idx: pokemonID });
 
         await queryPokemon.fetchPokemonByIDX(msg.client.postgres)
 
@@ -29,7 +29,7 @@ export default {
         if (setName) queryPokemon.name = setName;
 
         try {
-            await queryPokemon.save(msg.client.postgres);
+            await msg.client.postgres`UPDATE pokemon SET name = ${resetPokemon ? null : setName} WHERE id = ${queryPokemon.id}`;
 
             await msg.reply(`Your ${capitalize(queryPokemon.pokemon)} (${queryPokemon.idx}) was updated.`);
 

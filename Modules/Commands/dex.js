@@ -1,10 +1,9 @@
 import { ActionRowBuilder, AttachmentBuilder, AttachmentFlags, ButtonBuilder, ButtonStyle, ComponentType, SlashCommandBuilder } from "discord.js";
-import findPokemon from "../../Utilities/Pokemon/findPokemon.js";
 import dexPokemonInfoModule from "../../Utilities/Pokemon/dexPokemonInfoModule.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
-import filterPokemon from "../../Utilities/Pokemon/filterPokemon.js";
 import Pokedex from "../../Classes/pokedex.js";
 import pokemondb from "../Database/pokedb.js";
+import getDominantColor from "../../Utilities/Misc/getDominantColor.js";
 
 export default {
     help: "",
@@ -36,13 +35,15 @@ export default {
             // Check if User wants a Shiny
             selectedPokemon.pokedex.shiny = msg.options.getBoolean("shiny");
 
-            // Pokemon Embed
-            const pokemonEmbed = dexPokemonInfoModule(selectedPokemon.pokedex);
-
             // Components
             const buttonComponent = [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('info-button').setEmoji('ℹ').setStyle(ButtonStyle.Secondary))];
-
+            
             const file = new AttachmentBuilder(`../pokedi/pokemon/${selectedPokemon.pokedex.shiny ? "shiny" : "regular"}/${selectedPokemon.pokedex._id}.png`);
+            
+            const color = await getDominantColor(file.attachment, true);
+            
+            // Pokemon Embed
+            const pokemonEmbed = dexPokemonInfoModule(selectedPokemon.pokedex, color);
 
             // Send Embed
             const message = await msg.reply({
@@ -58,6 +59,7 @@ export default {
                     url: `attachment://${selectedPokemon.pokedex._id}.png`
                 },
                 image: null,
+                color,
                 components: buttonComponent
             };
 
@@ -198,6 +200,32 @@ export default {
 
         }
 
+        const claim = msg.options.getBoolean('claim');
+
+        if (claim) {
+            const unclaimedPokemon = await msg.client.postgres`SELECT unclaimed_normal, unclaimed_shinies FROM dex WHERE user_id = ${msg.user.id} AND (unclaimed_normal > 0 OR unclaimed_shinies > 0)`;
+
+            if (!unclaimedPokemon.length) return msg.reply("No Pokemon available to be claimed");
+
+            let credits = 0;
+
+            for (const i of unclaimedPokemon) {
+                if (i.unclaimed_normal > 0) credits += i.unclaimed_normal * 200;
+                if (i.unclaimed_shinies > 0) credits += i.unclaimed_shinies * 2000;
+            }
+
+            try {
+                await msg.client.postgres.begin(sql => [
+                    sql`UPDATE dex SET unclaimed_normal = 0, unclaimed_shinies = 0 WHERE user_id = ${msg.user.id} AND (unclaimed_normal > 0 OR unclaimed_shinies > 0)`,
+                    sql`UPDATE users SET bal = bal + ${credits} WHERE id = ${msg.user.id}`
+                ]);
+
+                return msg.reply(`Congrats! You got ${credits} pokedits for claiming ${unclaimedPokemon.length} Pokemon!`);
+            } catch (error) {
+                return msg.reply(`An error occurred claiming your pokedits. Contact an admin!`);
+            }
+        }
+
         const progress = msg.options.getBoolean('progress');
 
         if (progress || !progress) {
@@ -237,32 +265,6 @@ export default {
                     color: 44678
                 }]
             });
-        }
-
-        const claim = msg.options.getBoolean('claim');
-
-        if (claim) {
-            const unclaimedPokemon = await msg.client.postgres`SELECT unclaimed_normal, unclaimed_shinies FROM dex WHERE user_id = ${msg.user.id} AND (unclaimed_normal > 0 OR unclaimed_shiny > 0)`;
-
-            if (!unclaimedPokemon.length) return msg.reply("No Pokemon available to be claimed");
-
-            let credits = 0;
-
-            for (const i of unclaimedPokemon) {
-                if (i.unclaimed_normal > 0) credits += i.unclaimed_normal * 200;
-                if (i.unclaimed_shinies > 0) credits += i.unclaimed_shinies * 2000;
-            }
-
-            try {
-                await msg.client.postgres.begin(sql => [
-                    sql`UPDATE dex SET unclaimed_normal = 0, unclaimed_shinies = 0 WHERE user_id = ${msg.user.id} AND (unclaimed_normal > 0 OR unclaimed_shinies > 0)`,
-                    sql`UPDATE users SET bal = bal + ${credits} WHERE id = ${msg.user.id}`
-                ]);
-
-                return msg.reply(`Congrats! You got ${credits} pokedits for claiming ${unclaimedPokemon.length} Pokemon!`);
-            } catch (error) {
-                return msg.reply(`An error occurred claiming your pokedits. Contact an admin!`);
-            }
         }
 
         await msg.reply(`For your progress \`/dex progress: true\` and for the Dex Pokemon \`/dex pokemon: Charizard\``);
