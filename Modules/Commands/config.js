@@ -1,17 +1,26 @@
 import { SlashCommandBuilder } from "discord.js";
 import builder from "../Database/QueryBuilder/queryGenerator.js";
+import capitalize from "../../Utilities/Misc/capitalize.js";
+
+// To-Do: SubCommandGroup -> SubCommand -> Command approach
 
 export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName("config")
         .setDescription("You can configure your Pokedi to meet your needs")
-        .addSubcommand(x => x.setName('check').setDescription("Check all available features"))
-        .addSubcommand(x => x.setName('set').setDescription("Set or redirect pokemon to a certain channel")
-
+        .addSubcommand(x =>
+            x.setName('check')
+                .setNameLocalizations({
+                    "de": "konfig"
+                })
+                .setDescription("Check all available features")
+        )
+        .addSubcommand(x => x.setName('set')
+            .setDescription("Set or redirect pokemon to a certain channel")
             .addIntegerOption(x => x
                 .setName("state")
-                .setDescription("Enable [Default] or Disable")
+                .setDescription("1. Enable [Default] or Disable")
                 .addChoices({
                     name: "Enable",
                     value: 0
@@ -22,64 +31,69 @@ export default {
 
             .addStringOption(x => x
                 .setName("guild_feature")
-                .setDescription("What feature would you like to focus on?")
-                .addChoices({
-                    name: "Language",
-                    value: "language"
-                }, {
-                    name: "Raid",
-                    value: "raid"
-                }, {
-                    name: "Redirect Spawns",
-                    value: "spawn"
-                })
+                .setDescription("2. What feature would you like to focus on?")
+                .addChoices(
+                    //     {
+                    //     name: "Language",
+                    //     value: "language"
+                    // }, {
+                    //     name: "Raid",
+                    //     value: "raid"
+                    // }, 
+                    {
+                        name: "Redirect Spawns",
+                        value: "spawn"
+                    }
+                )
             )
 
-            .addStringOption(x => x
-                .setName("channel_feature")
-                .setDescription("What feature would you like to focus on?")
-                .addChoices({
-                    name: "Raid",
-                    value: "raid"
-                }, {
-                    name: "Allow or Disallow Spawn",
-                    value: "spawn"
-                }, {
-                    name: "Language",
-                    value: "language"
-                })
-            )
+            // .addStringOption(x => x
+            //     .setName("channel_feature")
+            //     .setDescription("2. What feature would you like to focus on?")
+            //     .addChoices(
+            //         {
+            //         name: "Raid",
+            //         value: "raid"
+            //     },
+            //      {
+            //         name: "Allow or Disallow Spawn",
+            //         value: "spawn"
+            //     }, {
+            //         name: "Language",
+            //         value: "language"
+            //     })
+            // )
+
+            // .addStringOption(x => x
+            //     .setName("user_feature")
+            //     .setDescription("3. Select a feature you want to modify")
+            //     .addChoices({
+            //         name: "Language",
+            //         value: "language"
+            //     })
+            // )
 
             .addStringOption(x => x
                 .setName("channels")
-                .setDescription("Channel IDs")
+                .setDescription("4. Channel IDs")
             )
 
-            .addStringOption(x => x
-                .setName("user_feature")
-                .setDescription("Select a feature you want to modify")
-                .addChoices({
-                    name: "Language",
-                    value: "language"
-                })
-            )
-
-            .addStringOption(x => x
-                .setName("language")
-                .setDescription("The language the user wants to select for themselves")
-                .addChoices({
-                    name: "Portuguese",
-                    value: "pt-BR"
-                }, {
-                    name: "Espenol",
-                    value: "es-ES"
-                }, {
-                    name: "Deutsch",
-                    value: "de"
-                }, {
-                    name: "English",
-                    value: "en-US"
-                }))
+            // .addStringOption(x => x
+            //     .setName("language")
+            //     .setDescription("4. The language the user wants to select for themselves")
+            //     .addChoices({
+            //         name: "Portuguese",
+            //         value: "pt-BR"
+            //     }, {
+            //         name: "Espenol",
+            //         value: "es-ES"
+            //     }, {
+            //         name: "Deutsch",
+            //         value: "de"
+            //     }, {
+            //         name: "English",
+            //         value: "en-US"
+            //     }))
         )
         .addSubcommand(x => x
             .setName('unset')
@@ -133,18 +147,8 @@ export default {
                 if ((msg.options.getString("channel_feature") || msg.options.getString("guild_feature")) && !msg.memberPermissions.has('MANAGE_CHANNELS'))
                     return await msg.reply("you don't have permissions.");
 
-                // Check if Channel Config settings
-                if (msg.options.getString("channel_feature")) {
+                // Check if Channel Config settings TO-DO
 
-                    switch (msg.options.getString("channel_feature")) {
-                        case "spawn": {
-
-
-                        }
-                            break;
-                    }
-
-                }
 
                 // Check if Channel Config settings
                 if (msg.options.getString("guild_feature")) {
@@ -256,6 +260,7 @@ export default {
                             break;
                     }
                 }
+
             }
                 break;
 
@@ -297,6 +302,33 @@ export default {
                     } else msg.reply("Nothing happened...");
 
                 }
+
+            }
+                break;
+
+            case "check": {
+
+                const foundConfig = await msg.client.postgres`SELECT * FROM command_configuration WHERE (guild_id = ${msg.guild.id} AND channel_id is null) OR channel_id = ${msg.channel.id}`;
+
+                const fields = [foundConfig.filter(x => !x.channel_id).length ? {
+                    title: "Guild Configurations",
+                    description: "Please make sure to use these commands carefully.",
+                    fields: foundConfig.filter(x => !x.channel_id).map(x => ({
+                        name: capitalize(x.command),
+                        value: "```\n" + x.config + "\n```"
+                    }))
+                } : undefined, foundConfig.filter(x => x.channel_id).length ? {
+                    title: "Channel Configurations",
+                    description: "Please make sure to use these commands carefully.",
+                    fields: foundConfig.filter(x => !x.channel_id).map(x => ({
+                        name: capitalize(x.command),
+                        value: "```\n" + x.config + "\n```"
+                    }))
+                } : undefined].filter(x => x);
+
+                return await msg.reply(fields[0] ? {
+                    embeds: fields
+                } : "No Configurations Found...");
 
             }
                 break;

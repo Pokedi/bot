@@ -61,7 +61,7 @@ export default {
                 .setMaxValue(6)
                 .setMinValue(1)
                 .setChoices({ name: "First Pokemon", value: 1 }, { name: "Second Pokemon", value: 2 }, { name: "Third Pokemon", value: 3 }, { name: "Forth Pokemon", value: 4 }, { name: "Fifth Pokemon", value: 5 }, { name: "Sixth Pokemon", value: 6 })
-            )
+            )/*
             .addIntegerOption(y => y
                 .setName('berry')
                 .setDescription("Use a Berry!")
@@ -125,7 +125,7 @@ export default {
             .addBooleanOption(y => y
                 .setName("run-away")
                 .setDescription("Run away!!!!")
-            )
+            )*/
             .addBooleanOption(y => y
                 .setName("dyna-giga")
                 .setDescription("Giga/Dyna Max your Pokemon")
