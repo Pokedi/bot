@@ -159,10 +159,28 @@ IVs.forEach(y => {
     }
 });
 
+function fixQueryString(string) {
+
+    Object.keys(filterCommands).forEach(x => {
+        if ((new RegExp(x, "gmi")).test(string) && !(new RegExp("--" + x + "|--name " + x, "gmi")).test(string))
+            string = string.replace(new RegExp(x, "gmi"), "--" + x);
+    });
+
+    if (!string.includes("--name")) {
+        const foundPokemon = filterPokemon(x => x).map(x => (x.name).replace(/-/gmi, ' ').toLowerCase()).find(x => new RegExp(x, "gmi").test(string));
+        if (foundPokemon)
+            string = string.replace(foundPokemon, "--name " + foundPokemon);
+    }
+
+    return string;
+}
+
 function dbFilterCommands(queryObject = builder.select('pokemon', 'id, idx, pokemon, s_atk, s_hp, s_def, s_spatk, s_spdef, s_spd, nature, level, shiny, name'), query = "") {
 
     // Add default starting value
     queryObject = queryObject.where({ 1: 1 });
+
+    query = fixQueryString(query);
 
     // Default --name filter if not used but other files used
     if (query && /^\w+/gmi.test(query) && !query.includes("--name"))
@@ -190,5 +208,7 @@ function dbFilterCommands(queryObject = builder.select('pokemon', 'id, idx, poke
 
     return queryObject;
 }
+
+export { fixQueryString };
 
 export default dbFilterCommands;

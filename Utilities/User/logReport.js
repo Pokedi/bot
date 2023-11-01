@@ -30,7 +30,8 @@ const ENUM_COMMANDS = {
     "25": "shardstats",
     "26": "redeem",
     "27": "market",
-    "28": "inventory"
+    "28": "inventory",
+    "29": "voucher"
 }
 
 export default async (msg, obj = { command: 0 }) => {

@@ -3,6 +3,7 @@ import Player from "../Classes/player.js";
 import randomint from "../Utilities/Misc/randomint.js";
 import capitalize from "../Utilities/Misc/capitalize.js";
 import Pokedex from "../Classes/pokedex.js";
+import setMessageCache from "../Utilities/Misc/setMessageCache.js";
 
 const chance = Chance();
 
@@ -11,23 +12,7 @@ async function messageCreate(msg, e) {
     if (!msg.guild || (msg.member && msg.member.user.bot))
         return;
 
-    // Init Channel
-    if (!msg.channel.info) {
-        msg.channel.info = (await msg.client.postgres`SELECT * FROM channels WHERE id = ${msg.channel.id} LIMIT 1`)?.[0] || {};
-
-        const configs = (await msg.client.postgres`SELECT * FROM command_configuration WHERE channel_id = ${msg.channel.id}`).map(x => ({ [x.command]: x }));
-
-        msg.channel.configs = configs.length ? Object.assign(...configs) : {};
-    }
-
-    // Init Guild
-    if (!msg.guild.info) {
-        msg.guild.info = (await msg.client.postgres`SELECT * FROM guilds WHERE id = ${msg.guild.id} LIMIT 1`)?.[0] || {};
-
-        const configs = (await msg.client.postgres`SELECT * FROM command_configuration WHERE guild_id = ${msg.guild.id}`).map(x => ({ [x.command]: x }));
-
-        msg.guild.configs = configs.length ? Object.assign(...configs) : {};
-    }
+    await setMessageCache(msg);
 
     // Spawn System
     if (!msg.channel.spawn) msg.channel.spawn = { count: chance.integer({ min: 30, max: 140 }), pokemon: {}, lastSpawn: Date.now() };
@@ -69,8 +54,6 @@ async function messageCreate(msg, e) {
         };
     }
 
-    if (!msg.author.player) msg.author.player = new Player(msg.author), await msg.author.player.fetch(msg.client.postgres);
-
     if (!msg.author.count) msg.author.count = { levelUp: 0, pokemonLevelUpCount: chance.integer({ min: 40, max: 300 }) };
 
     if (msg.author.player && msg.author.player.started) {
@@ -80,7 +63,7 @@ async function messageCreate(msg, e) {
         }
 
         if (--msg.author.count.pokemonLevelUpCount <= 0) {
-            
+
             msg.author.count.pokemonLevelUpCount = chance.integer({ min: 40, max: 300 });
 
             const checkStats = await msg.author.player.pokemonLevelUp(msg.client.postgres, msg);

@@ -40,7 +40,7 @@ export default {
         const [userAccount] = await msg.client.postgres.unsafe(text, values);
 
         // Set it to Collection Cache
-        msg.user.player = userAccount;
+        // msg.user.player = userAccount;
 
         const newPokemonForUser = new Pokemon({});
 

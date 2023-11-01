@@ -207,7 +207,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return (this.pokedex.custom ? await pokeapisql`SELECT m.name FROM pokedi_v2_pokemonmove as p LEFT JOIN pokemon_v2_move as m ON (p.move_id = m.id) WHERE pokemon_id = ${this.pokedex.id} AND p.move_learn_method_id = 1 AND p.version_group_id = ${version_group_id} AND level <= ${this.level || 1}` : await pokeapisql`SELECT m.name FROM pokemon_v2_pokemonmove as p LEFT JOIN pokemon_v2_move as m ON (p.move_id = m.id) WHERE pokemon_id = ${this.pokedex.id} AND p.move_learn_method_id = 1 AND p.version_group_id = ${version_group_id} AND level <= ${this.level || 1}`).map(x => x.name);
     }
 
-    async getColumnsByID(columns = "id, types, hp, atk, def, spatk, spdef, spd", where) {
+    async getColumnsByID(columns = "_id, id, types, hp, atk, def, spatk, spdef, spd", where) {
         const { text, values } = builder.select("pokemon_dex", columns).where(where).limit(1);
 
         let [row] = await pokeapisql.unsafe(text, values);

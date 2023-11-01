@@ -160,7 +160,7 @@ class Pokemon {
         return Object.assign(...Object.entries(this.toJSON()).filter(x => x[1] != undefined).map(x => ({ [x[0]]: x[1] })));
     }
 
-    async save(postgres, data) {
+    async save(postgres, data, rawQuery) {
 
         if (!postgres) return false;
 
@@ -170,12 +170,16 @@ class Pokemon {
 
             const query = builder.insert("pokemon", toSaveData).returning("*");
 
+            if (rawQuery) return query;
+
             const [row] = await postgres.unsafe(query.text, query.values);
 
             return row;
         }
 
         const query = builder.update("pokemon", data || this.toDefinedJSON()).where({ id: this.id }).returning("*");
+
+        if (rawQuery) return query;
 
         const [row] = await postgres.unsafe(query.text, query.values);
 
@@ -295,7 +299,7 @@ class Pokemon {
 
         // Check if Info available
         const info = this.getDetails();
-        
+
         // Return if Not-Existent
         if (!info) return true;
 
