@@ -240,6 +240,12 @@ class Player {
 
         return this.battle;
     }
+
+    async lastIDX(postgres) {
+        const [row] = postgres`SELECT idx FROM pokemon WHERE user_id = ${this.id} ORDER BY idx desc`;
+
+        return row.idx ? row.idx : 0;
+    }
 }
 
 export default Player;
