@@ -1,0 +1,9 @@
+{
+	"bal": {
+		"title": "%s's balance:"
+	},
+	"bal.title": {
+		"one": "bal.title",
+		"other": "Ditto Duck Penguin"
+	}
+}
