@@ -216,14 +216,14 @@ export default {
                     .setMinValue(1)
                 )
             )
-            .addSubcommand(y => y
-                .setName("misc")
-                .setDescription("Forms, my tears, and so much more!")
-            )
-            .addSubcommand(y => y
-                .setName("menu")
-                .setDescription("Shows you a Menu you might like")
-            )
+            // .addSubcommand(y => y
+            //     .setName("misc")
+            //     .setDescription("Forms, my tears, and so much more!")
+            // )
+            // .addSubcommand(y => y
+            //     .setName("menu")
+            //     .setDescription("Shows you a Menu you might like")
+            // )
         ),
     async execute(msg) {
         const player = new Player(msg.user);
