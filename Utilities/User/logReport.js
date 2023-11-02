@@ -31,7 +31,8 @@ const ENUM_COMMANDS = {
     "26": "redeem",
     "27": "market",
     "28": "inventory",
-    "29": "voucher"
+    "29": "voucher",
+    "30": "help"
 }
 
 export default async (msg, obj = { command: 0 }) => {

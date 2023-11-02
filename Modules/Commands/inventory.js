@@ -41,7 +41,7 @@ export default {
         )
         .setDescription('Check out your items! Get em from the /shop or through the crates.'),
     async execute(msg) {
-        const page = (msg.options.getInteger("page") || 0);
+        const page = (msg.options.getInteger("page") || 1) - 1;
         const itemID = msg.options.getInteger("item-id");
 
         if (itemID) {
