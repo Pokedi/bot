@@ -216,7 +216,7 @@ class Player {
         if (!this.inventory.length) return [];
 
         if (full) {
-            const inventoryNames = await pokemondb`SELECT name FROM pokemon_v2_itemname WHERE id in ${pokemondb(this.inventory.map(x => x.id))} AND language_id = 9`;
+            const inventoryNames = await pokemondb`SELECT name FROM pokemon_v2_itemname WHERE item_id in ${pokemondb(this.inventory.map(x => x.item_id))} AND language_id = 9`;
             this.inventory = this.inventory.map(x => {
                 x.name = inventoryNames.find(y => y.item_id == x.id)?.name || "Item #" + x.id;
                 return x;
