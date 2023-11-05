@@ -61,7 +61,7 @@ export default {
                 .setMaxValue(6)
                 .setMinValue(1)
                 .setChoices({ name: "First Pokemon", value: 1 }, { name: "Second Pokemon", value: 2 }, { name: "Third Pokemon", value: 3 }, { name: "Forth Pokemon", value: 4 }, { name: "Fifth Pokemon", value: 5 }, { name: "Sixth Pokemon", value: 6 })
-            )/*
+            )
             .addIntegerOption(y => y
                 .setName('berry')
                 .setDescription("Use a Berry!")
@@ -114,7 +114,7 @@ export default {
                     value: 29
                 })
             )
-            .addIntegerOption(y => y
+            /*.addIntegerOption(y => y
                 .setName('pokeball')
                 .setDescription("Throw out a Pokeball!")
                 .addChoices({
@@ -211,7 +211,7 @@ export default {
             await teamA[member].fetchPokemon(msg.client.postgres);
             if (!teamA[member].pokemon.length) return await msg.followUp("Duel cancelled, <@" + member + "> does not have any Pokemon selected");
             teamA[member].readyBattleMode();
-            teamA[member].fetchInventory(msg.client.postgres);
+            teamA[member].fetchInventory(msg.client.postgres, true);
             if (teamA[member].pokemon) {
                 for (const row of teamA[member].pokemon) {
                     await row.fetchByID();
@@ -227,7 +227,7 @@ export default {
             await teamB[member].fetchPokemon(msg.client.postgres);
             if (!teamB[member].pokemon.length) return await msg.followUp("Duel cancelled, <@" + member + "> does not have any Pokemon selected");
             teamB[member].readyBattleMode();
-            teamB[member].fetchInventory(msg.client.postgres);
+            teamB[member].fetchInventory(msg.client.postgres, true);
             if (teamB[member].pokemon) {
                 for (const row of teamB[member].pokemon) {
                     await row.fetchByID();
@@ -641,6 +641,9 @@ export default {
                 // Set to True
                 selectedPokemon.battle.giga = 3;
 
+                // Giga one Pokemon per Player
+                player.battle.giga = true;
+
                 // Alter Health
                 selectedPokemon.battle.current_hp += Math.round(selectedPokemon.battle.current_hp * .5);
                 selectedPokemon.battle.max_hp += Math.round(selectedPokemon.battle.max_hp + .5);
@@ -702,6 +705,23 @@ export default {
                             imageChanged = 1,
                             m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "✅" })
                 }
+            }
+
+            // Potions & Berries
+            if (m.options.getInteger("potion") || m.options.getInteger("berry")) {
+
+                // Retrive permissible IDs
+                const itemID = m.options.getInteger("potion") || m.options.getInteger("berry");
+
+                const doesPlayerHaveItem = player.inventory.find(x => x.item_id == itemID);
+
+                if (!doesPlayerHaveItem)
+                    return m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "You do not have that item..." });
+
+                if (!addUserCommand(id, "inv", { item_id: itemID, item: doesPlayerHaveItem }))
+                    m.reply({ content: "You already responded", ephemeral: true })
+                else
+                    m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "✅" });
             }
 
             // Check if Completed

@@ -47,7 +47,7 @@ async function generateProfile(postgres, user, username="No Username Found") {
     // Array Base
     let base = [];
 
-    let backgroundImage = sharp(`../pokedi/card/background/${user.background}.${selectedBackground.jpg ? "jpg" : "png"}`);
+    let backgroundImage = sharp(`../pokedi/card/background/${user.background}.${selectedBackground?.jpg ? "jpg" : "png"}`);
 
     // if (user.profile.badge) {
     //     if (user.profile.badge["1"])
