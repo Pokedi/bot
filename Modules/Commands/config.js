@@ -98,42 +98,48 @@ export default {
         .addSubcommand(x => x
             .setName('unset')
             .setDescription("Unset the redirect or raid of the server")
-            .addStringOption(x => x
-                .setName("channel_feature")
-                .setDescription("What feature would you like to focus unset?")
-                .addChoices({
-                    name: "Raid",
-                    value: "raid"
-                }, {
-                    name: "Spawn",
-                    value: "spawn"
-                }, {
-                    name: "Language",
-                    value: "language"
-                }))
+            // .addStringOption(x => x
+            //     .setName("channel_feature")
+            //     .setDescription("What feature would you like to focus unset?")
+            //     .addChoices(
+            //         {
+            //             name: "Raid",
+            //             value: "raid"
+            //         },
+            //         {
+            //             name: "Spawn",
+            //             value: "spawn"
+            //         }
+            //         , {
+            //             name: "Language",
+            //             value: "language"
+            //         }
+            //     ))
 
-            .addStringOption(x => x
-                .setName("user_feature")
-                .setDescription("Select a feature you want to unset.")
-                .addChoices({
-                    name: "Language",
-                    value: "language"
-                })
-            )
+            // .addStringOption(x => x
+            //     .setName("user_feature")
+            //     .setDescription("Select a feature you want to unset.")
+            //     .addChoices({
+            //         name: "Language",
+            //         value: "language"
+            //     })
+            // )
 
             .addStringOption(x => x
                 .setName("guild_feature")
                 .setDescription("What feature would you like to unset?")
-                .addChoices({
-                    name: "Language",
-                    value: "language"
-                }, {
-                    name: "Raid",
-                    value: "raid"
-                }, {
-                    name: "Unset Spawn Redirection",
-                    value: "spawn"
-                })
+                .addChoices(
+                    //     {
+                    //         name: "Language",
+                    //         value: "language"
+                    //     }, {
+                    //     name: "Raid",
+                    //     value: "raid"
+                    // },
+                    {
+                        name: "Unset Spawn Redirection",
+                        value: "spawn"
+                    })
             )
         ),
     async execute(msg = new CommandInteraction()) {
