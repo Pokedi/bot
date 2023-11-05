@@ -136,6 +136,7 @@ export default {
                     }]
                 });
 
+            case "inv":
             case "inventory":
                 return await msg.reply({
                     embeds: [{
@@ -476,7 +477,9 @@ export default {
                         }]
                     }]
                 });
-            // Pokemon
+
+            default:
+                return msg.reply("Thank you for selecting the Help Command, be sure to type one of the command names down to learn how to use it.");
         }
     }
 }
