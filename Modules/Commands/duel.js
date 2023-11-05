@@ -11,6 +11,34 @@ import damageMultiplier from "../../Utilities/Pokemon/damageMultiplier.js";
 import { Chance } from "chance";
 import { ENUM_POKEMON_BASE_STATS_IDS, ENUM_POKEMON_BASE_STATS_SHORTIDS, ENUM_POKEMON_TYPES, ENUM_STAT_MOD_COMMENTS, reverseENUM } from "../../Utilities/Data/enums.js";
 
+function checkIfCanProcessItem(itemID, pokemonBattle = { current_hp: 0, max_hp: 0, status: {} }) {
+    switch (itemID) {
+        case 17:
+        case 24:
+        case 25:
+        case 26:
+        case 28:
+        case 29:
+        case 23:
+        case 132:
+            return !(pokemonBattle.current_hp == pokemonBattle.max_hp);
+        case 126:
+            return !!pokemonBattle.status.par;
+        case 127:
+            return !!pokemonBattle.status.slp;
+        case 128:
+            return !!pokemonBattle.status.psn;
+        case 129:
+            return !!pokemonBattle.status.brn;
+        case 130:
+            return !!pokemonBattle.status.frz;
+        case 133:
+            return !!pokemonBattle.status.cnf;
+        case 134:
+            return Object.keys(pokemonBattle.status).length;
+    }
+}
+
 export default {
     help: "",
     data: new SlashCommandBuilder()
@@ -78,14 +106,17 @@ export default {
                     name: "Rawst Berry",
                     value: 129
                 }, {
-                    name: "Leppa Berry",
-                    value: 131
+                    name: "Aspear Berry",
+                    value: 130
                 }, {
                     name: "Oran Berry",
                     value: 132
                 }, {
                     name: "Persim Berry",
                     value: 133
+                }, {
+                    name: "Lum Berry",
+                    value: 134
                 })
             )
             .addIntegerOption(y => y
@@ -113,6 +144,12 @@ export default {
                     name: "Max Revive",
                     value: 29
                 })
+            )
+            .addIntegerOption(y => y
+                .setName("item-target")
+                .setDescription("Choose which of your Pokemon to use the item on")
+                .setMinValue(1)
+                .setMaxValue(6)
             )
             /*.addIntegerOption(y => y
                 .setName('pokeball')
@@ -532,6 +569,74 @@ export default {
                             messages.push(`${player.globalName} brought out ${capitalize(player.pokemon[player.battle.selected].pokemon)}!`);
                         }
                             break;
+                        case "inv": {
+                            const user = command.user;
+
+                            const player = teamA[user] || teamB[user];
+
+                            const selectedPokemon = player.pokemon[command.target];
+
+                            const itemID = command.item_id;
+
+                            switch (itemID) {
+                                case 132:
+                                    selectedPokemon.battle.current_hp += 10;
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and healed 10 HP`);
+                                    break;
+                                case 17:
+                                    selectedPokemon.battle.current_hp += 20;
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and healed 20 HP`);
+                                    break;
+                                case 24:
+                                    selectedPokemon.battle.current_hp = selectedPokemon.battle.max_hp;
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and fully restored its HP`);
+                                    break;
+                                case 25:
+                                    selectedPokemon.battle.current_hp += 200;
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and healed 200 HP`);
+                                    break;
+                                case 26:
+                                    selectedPokemon.battle.current_hp += 50;
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and healed 50 HP`);
+                                    break;
+                                case 23:
+                                    selectedPokemon.battle.current_hp = selectedPokemon.battle.max_hp;
+                                    selectedPokemon.battle.status = {};
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and fully restored itself`);
+                                    break;
+                                case 126:
+                                    delete selectedPokemon.status.par;
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and cured its paralysis`);
+                                    break
+                                case 127:
+                                    delete selectedPokemon.status.slp;
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and woke up`);
+                                    break;
+                                case 128:
+                                    delete selectedPokemon.status.psn;
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and cured its poison`);
+                                    break;
+                                case 129:
+                                    delete selectedPokemon.status.brn;
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and healed his burns`);
+                                    break;
+                                case 130:
+                                    delete selectedPokemon.status.frz;
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and thawed`);
+                                    break;
+                                case 133:
+                                    delete selectedPokemon.status.cnf;
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and snapped out of confusion`);
+                                    break;
+                                case 134:
+                                    selectedPokemon.status = {};
+                                    messages.push(`${player.globalName} gave ${capitalize(selectedPokemon.pokemon)} a ${command.item.name} and removed all ailments`);
+                                    break;
+                            }
+
+                            if (selectedPokemon.battle.current_hp > selectedPokemon.battle.max_hp)
+                                selectedPokemon.battle.current_hp = selectedPokemon.battle.max_hp;
+                        }
                     }
                 } catch (error) {
                     console.log(error);
@@ -715,13 +820,20 @@ export default {
 
                 const doesPlayerHaveItem = player.inventory.find(x => x.item_id == itemID);
 
-                if (!doesPlayerHaveItem)
+                if (!doesPlayerHaveItem?.amount)
                     return m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "You do not have that item..." });
 
-                if (!addUserCommand(id, "inv", { item_id: itemID, item: doesPlayerHaveItem }))
+                const isAllowed = checkIfCanProcessItem(itemID, player.pokemon[m.options.getInteger("item-target") || player.battle.selected]?.battle);
+
+                if (!isAllowed)
+                    return m.reply({ content: "That item won't have any effect", ephemeral: true });
+
+                if (!addUserCommand(id, "inv", { item_id: itemID, item: doesPlayerHaveItem, target: m.options.getInteger("item-target") || player.battle.selected }))
                     m.reply({ content: "You already responded", ephemeral: true })
                 else
-                    m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "✅" });
+                    doesPlayerHaveItem.amount--,
+                        await msg.client.postgres`UPDATE user_inventory SET amount = amount - 1 WHERE user_id = ${player.id} AND item_id = ${itemID}`,
+                        await m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "✅" });
             }
 
             // Check if Completed
