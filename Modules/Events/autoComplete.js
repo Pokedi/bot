@@ -10,8 +10,8 @@ export default async (interaction) => {
 
         let text = interaction.options.getFocused();
 
-        let moves = (await pokeapisql`SELECT * FROM pokemon_v2_movename
-        WHERE name ILIKE ${text + "%"} AND language_id = 9 LIMIT 20`);
+        let moves = (await pokeapisql`SELECT name, move_id FROM pokemon_v2_movename
+        WHERE name ILIKE ${text + "%"} LIMIT 20`);
 
         if (!moves[0]) return;
 

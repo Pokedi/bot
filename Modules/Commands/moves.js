@@ -41,10 +41,12 @@ export default {
             .addIntegerOption(x => x
                 .setName("move-id")
                 .setDescription("ID of the Move you wish to set or view")
+                .setAutocomplete(true)
             )
             .addIntegerOption(x => x
                 .setName("tm-id")
                 .setDescription("ID of the TM Move you wish to set or view")
+                .setAutocomplete(true)
             )
             .addIntegerOption(x => x
                 .setName("move-slot")
@@ -150,7 +152,7 @@ export default {
             // Find Move
             const selectedMove = availableMoves.find(x => x.id == moveID);
             // Return Non-Existent Move
-            if (!selectedMove) return await msg.reply("That Move does not exist...");
+            if (!selectedMove) return await msg.reply("Cannot learn that...");
             // Disallow if Level does not allow
             if (selectedMove.level && pokemon.level < selectedMove.level) return await msg.reply("Your pokemon needs to be at least Level " + selectedMove.level + " to learn that move...");
             // Apply Move
@@ -164,7 +166,7 @@ export default {
             // Find Move
             const selectedMove = tmAvailableMoves.find(x => x.id == TMID);
             // Return Non-Existent Move
-            if (!selectedMove) return await msg.reply("That Move does not exist...");
+            if (!selectedMove) return await msg.reply("Cannot learn that...");
             // Find Cost
             const cost = pokemon.pokedex.move_prices.find(h => h.move_id == TMID).cost || 0;
             // Disallow if Level does not allow
