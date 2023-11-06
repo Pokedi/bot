@@ -12,7 +12,7 @@ export default {
         const content = (msg.options.getString("pokemon")).toLowerCase();
 
         if (msg.channel.spawn && msg.channel.spawn.pokemon) {
-            const possibleNames = [msg.channel.spawn.pokemon.pokemon].concat(msg.channel.spawn.pokemon.spawn_names).filter(x => x);
+            const possibleNames = [msg.channel.spawn.pokemon.pokemon].concat(msg.channel.spawn.pokemon.spawn_names).filter(x => x).map(x => x.toLowerCase());
             if (possibleNames.includes(content)) {
 
                 // Get spawn Pokemon to cache
@@ -25,7 +25,7 @@ export default {
                 pokemonGrabbed.user_id = BigInt(msg.user.id);
 
                 // Increment readied IDX
-                const [{idx}] = await msg.client.postgres`SELECT MAX(idx) as idx FROM pokemon WHERE user_id = ${msg.user.id}`;
+                const [{ idx }] = await msg.client.postgres`SELECT MAX(idx) as idx FROM pokemon WHERE user_id = ${msg.user.id}`;
 
                 pokemonGrabbed.idx = (idx || 0) + 1;
 
