@@ -29,6 +29,7 @@ class Pokedex extends Pokemon {
     constructor(obj = {}) {
         super(obj);
         this.pokedex = {
+            name: null,
             moves: [],
             move_prices: []
         }
@@ -36,7 +37,7 @@ class Pokedex extends Pokemon {
 
     async fetchDBPokemon() {
         // Fetch from Dex
-        const [pokemon] = await pokeapisql`SELECT * FROM public.pokemon_v2_pokemon WHERE name = ${this.pokemon}`;
+        const [pokemon] = await pokeapisql`SELECT * FROM public.pokemon_dex WHERE name = ${this.pokemon}`;
 
         // Give to Dex
         this.pokedex = pokemon;
@@ -58,7 +59,7 @@ class Pokedex extends Pokemon {
 
     async fetchAllMoves() {
         // Grab DBPokemon
-        if (!this.pokedex.name) await this.fetchDBPokemon();
+        if (!this.pokedex?.name) await this.fetchByID();
         // Reject if not found
         if (!this.pokedex) return [];
 
@@ -79,7 +80,7 @@ class Pokedex extends Pokemon {
 
     async fetchTMPrices() {
         // Grab DBPokemon
-        if (!this.pokedex.moves) await this.fetchAllMoves();
+        if (!this.pokedex?.moves) await this.fetchAllMoves();
         // Reject if not found
         if (!this.pokedex) return [];
 
