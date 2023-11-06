@@ -1,7 +1,7 @@
 import { REST, Routes } from "discord.js";
 
 // REST For Commands
-const rest = new REST().setToken(process.env.DEVTOKEN);
+const rest = new REST().setToken(process.env.TOKEN);
 
 // Commands Init
 const commands = [];
@@ -29,7 +29,7 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
         console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
         // The put method is used to fully refresh all commands in the guild with the current set
-        const data = !justClient ? await rest.put(Routes.applicationGuildCommands(process.env.DEVID, "716293571166208001"), { body: commands }) : []
+        const data = !justClient ? await rest.put(Routes.applicationGuildCommands(process.env.BOTID, "716293571166208001"), { body: commands }) : []
 
         console.log(`Successfully reloaded ${data.length} application (/) commands.`);
 

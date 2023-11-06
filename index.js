@@ -14,7 +14,7 @@ const manager = new ClusterManager(`${__dirname}/Services/Main/index.js`, {
     shardsPerClusters: 2,
     // totalClusters: 7,
     mode: 'process',  // you can also choose "worker"
-    token: process.env.DEVTOKEN
+    token: process.env.TOKEN
 });
 
 // Ready Pokemon Server

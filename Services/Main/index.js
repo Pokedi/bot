@@ -43,7 +43,7 @@ client.on("shardReady", async id => {
 // Error Handler
 client.on("error", (error) => console.log(error));
 
-client.login(process.env.DEVTOKEN);
+client.login(process.env.TOKEN);
 
 // Graceful Exit
 process.on("SIGINT", () => {
