@@ -1,5 +1,6 @@
 [
     {
+        "id": 20000,
         "name": "Wooden Crate",
         "description": "A trusty o' crate found from the well near the garden. Ain't much but it's honest work.",
         "items": [
@@ -24,6 +25,7 @@
         "chance": 99
     },
     {
+        "id": 20001,
         "name": "Silver Crate",
         "description": "Modern times require modern solutions.",
         "items": [
@@ -71,6 +73,7 @@
         "chance": 1
     },
     {
+        "id": 20002,
         "name": "Ivy Crate",
         "description": "Heed champion, what you seek is indeed worthy of only the chosen.",
         "items": [
@@ -118,6 +121,7 @@
         "chance": 0.01
     },
     {
+        "id": 20003,
         "name": "Ancient Crate",
         "description": "A paper with ancient text... To summon either a demon or angel.",
         "items": [
@@ -132,6 +136,7 @@
         "chance": 0.01
     },
     {
+        "id": 20004,
         "name": "First-Aid Crate",
         "description": "Basic stuff without all the fancy gizmos to avoid excessive bleeding and possibly a fracture.",
         "items": [
