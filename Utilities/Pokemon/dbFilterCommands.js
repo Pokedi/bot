@@ -162,7 +162,7 @@ IVs.forEach(y => {
 function fixQueryString(string) {
 
     Object.keys(filterCommands).forEach(x => {
-        if ((new RegExp(x, "gmi")).test(string) && !(new RegExp("--" + x + "|--name " + x, "gmi")).test(string))
+        if ((new RegExp(x + "(?:\W)|" + x + "$", "gmi")).test(string) && !(new RegExp("--" + x + "|--name " + x, "gmi")).test(string))
             string = string.replace(new RegExp(x, "gmi"), "--" + x);
     });
 
