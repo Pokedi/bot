@@ -149,6 +149,9 @@ export default {
                         }, {
                             name: "Usage (Item Details)",
                             value: `</inventory:${_id}> item-id:<item-name>`
+                        }, {
+                            name: "Usage (Crates)",
+                            value: `</inventory:${_id}> item-id:<Crate Name> use:[<Amount>]\n- Example: \`/inventory item-id: Wooden Crate use: 4\` Use 4 Wooden Crates\n- Example: \`/inventory item-id: Silver Crate use: 1\` Use 1 Silver Crate`
                         }]
                     }]
                 });
