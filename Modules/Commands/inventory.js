@@ -97,7 +97,7 @@ export default {
             }, {});
 
             // Generate Reward and Reduce
-            await msg.client.postgres.begin(x => generateCrateRewardSQL(rewards, msg.user.id, x).concat([x`UPDATE user_inventory SET amount = amount - ${consume} WHERE item_id = ${itemID} AND user_id = ${msg.user.id}`]));
+            await msg.client.postgres.begin(x => generateCrateRewardSQL(result, msg.user.id, x).concat([x`UPDATE user_inventory SET amount = amount - ${consume} WHERE item_id = ${itemID} AND user_id = ${msg.user.id}`]));
 
             return await msg.reply(`Congrats! You just opened up the ${crate.name}! Here are your rewards:\n${result.map(x => `- ${x.name} (${x.amount})`).join("\n")}`)
         }
