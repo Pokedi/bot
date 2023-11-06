@@ -59,8 +59,8 @@ export default {
                         if (!msg.memberPermissions.has('MANAGE_CHANNELS'))
                             return await msg.reply("you do not have the necessary permissions.");
 
-                        if (!msg.channel.permissionsFor(msg.guild.members.me).has("ManageGuild"))
-                            return await msg.reply("I do not have the permission to Manage your Server.");
+                        // if (!msg.channel.permissionsFor(msg.guild.members.me).has("ManageGuild"))
+                        //     return await msg.reply("I do not have the permission to Manage your Server.");
 
                         const firstCommand = msg.options._hoistedOptions[0]?.name;
 
