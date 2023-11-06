@@ -5,7 +5,7 @@ import background from "../../Utilities/Data/background.json" assert {type: "jso
 import trainer from "../../Utilities/Data/trainer.json" assert {type: "json"};
 import Pokedex from "../../Classes/pokedex.js";
 
-async function generateProfile(postgres, user, username="No Username Found") {
+async function generateProfile(postgres, user, username = "No Username Found") {
 
     // Count Users Pokemon
     const countPokemon = await user.countPokemon(postgres);
@@ -43,6 +43,8 @@ async function generateProfile(postgres, user, username="No Username Found") {
 
     // Select Background
     let selectedBackground = background[user.background];
+
+    if (!selectedBackground || !selectedBackground?.add) selectedBackground = background["1"];
 
     // Array Base
     let base = [];
