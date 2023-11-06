@@ -4,6 +4,7 @@ import capitalize from "../../Utilities/Misc/capitalize.js";
 import Pokedex from "../../Classes/pokedex.js";
 import pokemondb from "../Database/pokedb.js";
 import getDominantColor from "../../Utilities/Misc/getDominantColor.js";
+import { existsSync } from "fs";
 
 export default {
     help: "",
@@ -37,11 +38,13 @@ export default {
 
             // Components
             const buttonComponent = [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('info-button').setEmoji('ℹ').setStyle(ButtonStyle.Secondary))];
-            
-            const file = new AttachmentBuilder(`../pokedi/pokemon/${selectedPokemon.pokedex.shiny ? "shiny" : "regular"}/${selectedPokemon.pokedex._id}.png`);
-            
+
+            const isShinyThere = selectedPokemon.pokedex.shiny && existsSync(`../pokedi/pokemon/${selectedPokemon.pokedex.shiny ? "shiny" : "regular"}/${selectedPokemon.pokedex._id}.png`)
+
+            const file = new AttachmentBuilder(`../pokedi/pokemon/${selectedPokemon.pokedex.shiny && isShinyThere ? "shiny" : "regular"}/${selectedPokemon.pokedex._id}.png`);
+
             const color = await getDominantColor(file.attachment, true);
-            
+
             // Pokemon Embed
             const pokemonEmbed = dexPokemonInfoModule(selectedPokemon.pokedex, color);
 
