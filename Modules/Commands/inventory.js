@@ -1,6 +1,12 @@
 import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
 import pokemondb from "../Database/pokedb.js";
+// Crates
+import { generateCrate, randomSelectCrate } from "../../Services/Server/utils/determineCrate.js";
+import generateCrateRewardSQL from "../../Services/Server/utils/generateCrateRewardSQL.js";
+
+// Grab Dominant Color
 import getDominantColor from "../../Utilities/Misc/getDominantColor.js";
+
 import { existsSync } from "fs";
 
 import path from "path";
@@ -39,10 +45,62 @@ export default {
             .setDescription("Check out the item details!")
             .setAutocomplete(true)
         )
+        .addIntegerOption(x => x
+            .setName("use")
+            .setDescription("Use your Crates through this command")
+            .setMinValue(1)
+            .setMaxValue(100)
+        )
         .setDescription('Check out your items! Get em from the /shop or through the crates.'),
     async execute(msg) {
         const page = (msg.options.getInteger("page") || 1) - 1;
         const itemID = msg.options.getInteger("item-id");
+        const consume = msg.options.getInteger("use");
+
+        if (consume && itemID) {
+
+            // Check if User has it
+            const [userItem] = await msg.client.postgres`SELECT amount FROM user_inventory WHERE user_id = ${msg.user.id} AND item_id = ${itemID}`;
+
+            // Reject if Not Found
+            if (!userItem || !userItem.amount)
+                return await msg.reply("You do not have that item");
+
+            // Reject if the User is being greedy
+            if (userItem.amount < consume)
+                return await msg.reply("You do not have enough of that");
+
+            // Select Crate to Validate
+            const crate = randomSelectCrate(itemID);
+
+            // Reject if Crate not Found in DB
+            if (!crate)
+                return msg.reply("Could not find that Crate");
+
+            // Render Crate Items
+            const rewards = [];
+            for (let i = 0; i < consume; i++) {
+                const { items } = generateCrate(undefined, crate);
+
+                rewards.push(items);
+            }
+
+            // Sort out Crate Items
+            let result = [];
+            rewards.flatMap(x => x).filter(x => x).reduce(function (res, value) {
+                if (!res[value.type + "-" + value.item_id]) {
+                    res[value.type + "-" + value.item_id] = { type: value.type, amount: 0, item_id: value.item_id, name: value.name };
+                    result.push(res[value.type + "-" + value.item_id])
+                }
+                res[value.type + "-" + value.item_id].amount += value.amount;
+                return res;
+            }, {});
+
+            // Generate Reward and Reduce
+            await msg.client.postgres.begin(x => generateCrateRewardSQL(rewards, msg.user.id, x).concat([x`UPDATE user_inventory SET amount = amount - ${consume} WHERE item_id = ${itemID} AND user_id = ${msg.user.id}`]));
+
+            return await msg.reply(`Congrats! You just opened up the ${crate.name}! Here are your rewards:\n${result.map(x => `- ${x.name} (${x.amount})`).join("\n")}`)
+        }
 
         if (itemID) {
             const [item] = await pokemondb`SELECT itn.name, i.cost, i.id, icn.name as category_name, iet.effect, i.name as _id FROM pokemon_v2_item as i
@@ -89,7 +147,7 @@ export default {
             })
         }
 
-        const usersInventory = await msg.client.postgres`SELECT * FROM user_inventory WHERE user_id = ${msg.user.id} OFFSET ${page * 9}`;
+        const usersInventory = await msg.client.postgres`SELECT * FROM user_inventory WHERE user_id = ${msg.user.id} AND amount > 0 OFFSET ${page * 9}`;
 
         if (!usersInventory.length)
             return await msg.reply("You have no items...");

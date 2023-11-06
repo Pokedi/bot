@@ -5,9 +5,8 @@ import sql from "../../../../Modules/Database/postgres.js";
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v10';
 
-import { generateCrate } from "../../utils/determineCrate.js";
+import { randomSelectCrate } from "../../utils/determineCrate.js";
 import Player from "../../../../Classes/player.js";
-import generateCrateRewardSQL from "../../utils/generateCrateRewardSQL.js";
 
 // Init Bot
 const bot = new REST({ version: '10' }).setToken(process.env.MAINTOKEN);
@@ -27,7 +26,7 @@ voteRouter.post("/topgg", async (req, res) => {
     if (!user)
         return res.sendStatus(400);
 
-    const crate = generateCrate();
+    const crate = randomSelectCrate();
 
     const player = new Player({ id: user });
 
@@ -37,14 +36,18 @@ voteRouter.post("/topgg", async (req, res) => {
         return res.sendStatus(200);
 
     try {
-        await sql.begin(x => generateCrateRewardSQL(crate.items, user, x).concat([x`INSERT INTO user_vote ${sql({
+        await sql.begin(x => ([x`INSERT INTO user_vote ${sql({
             id: user,
             type: "top",
             total_votes: 1,
             last_voted: new Date()
         })} ON CONFLICT (id, type) DO UPDATE SET 
         streak = (CASE WHEN (extract(epoch from now()) - extract(epoch from user_vote.last_voted)) < (extract(epoch from interval '12 hours')) THEN (user_vote.streak + 1) ELSE 0 END),
-        last_voted = EXCLUDED.last_voted, total_votes = user_vote.total_votes + 1`]));
+        last_voted = EXCLUDED.last_voted, total_votes = user_vote.total_votes + 1`, x`INSERT INTO user_inventory ${sql({
+            user_id: user,
+            item_id: crate.id,
+            amount: 1
+        })} ON CONFLICT (user_id, item_id) DO UPDATE SET amount = user_inventory.amount + 1`]));
 
         const discordUser = await bot.post(Routes.userChannels(), {
             body: {
@@ -55,7 +58,7 @@ voteRouter.post("/topgg", async (req, res) => {
         if (discordUser.id)
             await bot.post(Routes.channelMessages(discordUser.id), {
                 body: {
-                    content: `Congratulations! You opened the ${crate.name}! Rewards:\n${crate.items.map(x => `- ${x.name} (${x.amount})`).join("\n")}`
+                    content: `Congratulations! You recieved the ${crate.name}!`
                 }
             });
     } catch (error) {
