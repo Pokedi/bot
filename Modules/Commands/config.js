@@ -129,12 +129,12 @@ export default {
                             case "clear-redirect":
 
                                 // Select Command Config
-                                const [exists] = await msg.client.postgres`SELECT true FROM command_configuration WHERE guild_id = ${msg.guild.id} AND command = ${msg.options.getString("guild_feature")}`;
+                                const [exists] = await msg.client.postgres`SELECT true FROM command_configuration WHERE guild_id = ${msg.guild.id} AND command = 'spawn'`;
                                 if (exists) {
                                     // Remove Config
-                                    await msg.client.postgres`DELETE FROM command_configuration WHERE guild_id = ${msg.guild.id} AND command = ${msg.options.getString("guild_feature")}`;
+                                    await msg.client.postgres`DELETE FROM command_configuration WHERE guild_id = ${msg.guild.id} AND command = 'spawn'`;
                                     // If unset guild spawn redirection, unassign
-                                    if (msg.options.getString("guild_feature") == "spawn" && msg.guild.info) msg.guild.configs.spawn = undefined;
+                                    msg.guild.configs.spawn = undefined;
                                     // Return Success
                                     return msg.reply("Spawns have been reset.");
                                 } else
