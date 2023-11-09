@@ -10,19 +10,19 @@ import capitalize from "../Misc/capitalize.js";
 const possiblePokemon = new MiniSearch({ fields: ["id"] });
 
 // Add all Pokemon
-possiblePokemon.addAll(readdirSync(`../image-server/assets/duel/back/`).map(x => ({ id: x })));
+possiblePokemon.addAll(readdirSync(`../pokediAssets/duel/sprites/back/`).map(x => ({ id: x })));
 
 // Front + Back
 async function readySinglePokemonFrontBack(pokemon, isShiny, isGiga) {
 
     // Check Existence
-    const doesExistBack = existsSync(`../image-server/assets/duel/back${pokemon.shiny && isShiny ? "-shiny" : ""}/${pokemon._id}.png`);
-    const doesExistFront = existsSync(`../image-server/assets/duel/back${pokemon.shiny && isShiny ? "-shiny" : ""}/${pokemon._id}.png`);
+    const doesExistBack = existsSync(`../pokediAssets/duel/sprites/back${pokemon.shiny && isShiny ? "-shiny" : ""}/${pokemon._id}.png`);
+    const doesExistFront = existsSync(`../pokediAssets/duel/sprites/back${pokemon.shiny && isShiny ? "-shiny" : ""}/${pokemon._id}.png`);
 
     const [foundPokemon] = (possiblePokemon.search(pokemon._id))
 
-    let back = await generateSinglePokemonBox(`../image-server/assets/duel/back${doesExistBack && pokemon.shiny && isShiny ? "-shiny" : ""}/${doesExistBack ? pokemon._id + ".png" : (foundPokemon?.id || 'unown-qm.png')}`, "southwest");
-    let front = await generateSinglePokemonBox(`../image-server/assets/duel/front${doesExistFront && pokemon.shiny && isShiny ? "-shiny" : ""}/${doesExistFront ? pokemon._id + ".png" : (foundPokemon?.id || 'unown-qm.png')}`);
+    let back = await generateSinglePokemonBox(`../pokediAssets/duel/sprites/back${doesExistBack && pokemon.shiny && isShiny ? "-shiny" : ""}/${doesExistBack ? pokemon._id + ".png" : (foundPokemon?.id || 'unown-qm.png')}`, "southwest");
+    let front = await generateSinglePokemonBox(`../pokediAssets/duel/sprites/front${doesExistFront && pokemon.shiny && isShiny ? "-shiny" : ""}/${doesExistFront ? pokemon._id + ".png" : (foundPokemon?.id || 'unown-qm.png')}`);
 
     return { back, front };
 }
@@ -223,7 +223,7 @@ function generateBattleBox(A, B) {
     ))
 }
 
-async function returnBattleBox(readiedPokemonCompositions, background = '../image-server/assets/backgrounds/duel/default.png') {
+async function returnBattleBox(readiedPokemonCompositions, background = '../pokediAssets/duel/backgrounds/duel/default.png') {
     const battleBox = sharp(background).composite(await Promise.all(readiedPokemonCompositions));
     return await battleBox.toBuffer();
 }

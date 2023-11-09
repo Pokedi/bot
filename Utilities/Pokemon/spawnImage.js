@@ -46,7 +46,7 @@ async function spawnImage(pokemon, shiny) {
     if (lands["c" + _s])
         lands[_l].c = lands["c" + _s];
 
-    let b = sharp(`../pokedi/card/resources/${_s}.${lands[_l].f}`);
+    let b = sharp(`../pokediAssets/spawnSystem/backgrounds/${_s}.${lands[_l].f}`);
 
     let meta = await b.metadata();
     b = b.extract({
@@ -62,7 +62,7 @@ async function spawnImage(pokemon, shiny) {
         height: 300
     });
 
-    let a = sharp(`../pokedi/pokemon/${shiny ? "shiny" : "regular"}/${pokemon}.png`).png().trim().extend({
+    let a = sharp(`../pokediAssets/pokemon/${shiny ? "shiny" : "regular"}/${pokemon}.png`).png().trim().extend({
         top: Chance().integer({
             min: 0,
             max: 20

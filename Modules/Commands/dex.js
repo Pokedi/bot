@@ -39,9 +39,9 @@ export default {
             // Components
             const buttonComponent = [new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId('info-button').setEmoji('ℹ').setStyle(ButtonStyle.Secondary))];
 
-            const isShinyThere = selectedPokemon.pokedex.shiny && existsSync(`../pokedi/pokemon/${selectedPokemon.pokedex.shiny ? "shiny" : "regular"}/${selectedPokemon.pokedex._id}.png`)
+            const isShinyThere = selectedPokemon.pokedex.shiny && existsSync(`../pokediAssets/pokemon/${selectedPokemon.pokedex.shiny ? "shiny" : "regular"}/${selectedPokemon.pokedex._id}.png`)
 
-            const file = new AttachmentBuilder(`../pokedi/pokemon/${selectedPokemon.pokedex.shiny && isShinyThere ? "shiny" : "regular"}/${selectedPokemon.pokedex._id}.png`);
+            const file = new AttachmentBuilder(`../pokediAssets/pokemon/${selectedPokemon.pokedex.shiny && isShinyThere ? "shiny" : "regular"}/${selectedPokemon.pokedex._id}.png`);
 
             const color = await getDominantColor(file.attachment, true);
 

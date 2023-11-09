@@ -32,7 +32,7 @@ async function generateProfile(postgres, user, username = "No Username Found") {
     // Grab details;
 
     // Ready Pokemon Image
-    let pokemonImage = sharp(selectedPokemon.shiny ? `../pokedi/pokemon/shiny/${selectedPokemon.pokemon}.png` : `../pokedi/pokemon/regular/${selectedPokemon.pokemon}.png`).png().resize({
+    let pokemonImage = sharp(selectedPokemon.shiny ? `../pokediAssets/pokemon/shiny/${selectedPokemon.pokemon}.png` : `../pokediAssets/pokemon/regular/${selectedPokemon.pokemon}.png`).png().resize({
         width: 400,
         height: 400,
         fit: "contain"
@@ -49,7 +49,7 @@ async function generateProfile(postgres, user, username = "No Username Found") {
     // Array Base
     let base = [];
 
-    let backgroundImage = sharp(`../pokedi/card/background/${user.background}.${selectedBackground?.jpg ? "jpg" : "png"}`);
+    let backgroundImage = sharp(`../pokediAssets/profile/backgrounds/${user.background}.${selectedBackground?.jpg ? "jpg" : "png"}`);
 
     // if (user.profile.badge) {
     //     if (user.profile.badge["1"])
@@ -136,7 +136,7 @@ async function generateProfile(postgres, user, username = "No Username Found") {
 
     // Pokemon Character
     base.push({
-        input: `../pokedi/card/trainer/${user.character}.png`,
+        input: `../pokediAssets/profile/trainer/${user.character}.png`,
         top: trainer[user.character] && trainer[user.character].top ? trainer[user.character].top : 150,
         left: trainer[user.character] && trainer[user.character].left ? trainer[user.character].left : 200
     }, {

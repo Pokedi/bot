@@ -114,7 +114,7 @@ export default {
 
             const [userInventory] = await msg.client.postgres`SELECT amount FROM user_inventory WHERE user_id = ${msg.user.id} AND item_id = ${item.id}`;
 
-            const sprite = (existsSync(path.join(__dirname, `../pokedi/card/itemsprites/${item._id}.png`)) ? `../pokedi/card/itemsprites/${item._id}.png` : `../pokedi/card/itemsprites/master-ball.png`);
+            const sprite = (existsSync(path.join(__dirname, `../pokediAssets/itemSprites/${item._id}.png`)) ? `../pokediAssets/itemSprites/${item._id}.png` : `../pokediAssets/itemSprites/master-ball.png`);
 
             const dominantColor = await getDominantColor(sprite, true);
 

@@ -3,7 +3,7 @@ import http from "https";
 import { readdirSync } from "fs";
 import { createWriteStream } from "fs";
 
-const files = readdirSync("../pokedi/pokemon/regular/").map(x => x.split(".png")[0]);
+const files = readdirSync("../pokediAssets/pokemon/regular/").map(x => x.split(".png")[0]);
 
 const data = await pokeapisql`SELECT name, sprites, pokemon_id as id FROM pokemon_v2_pokemonsprites LEFT JOIN pokemon_v2_pokemon as p ON (pokemon_id = p.id)`;
 
@@ -34,10 +34,10 @@ for (const row of notFound) {
         const parsedSprites = JSON.parse(row.sprites);
         const link = parsedSprites.other['official-artwork'];
         // Regular
-        await downloadFile("../pokedi/pokemon/regular/" + row.name + ".png", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + (link['front_default'] ? link['front_default'].split("official-artwork/")[1] : row.id + ".png"));
+        await downloadFile("../pokediAssets/pokemon/regular/" + row.name + ".png", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" + (link['front_default'] ? link['front_default'].split("official-artwork/")[1] : row.id + ".png"));
 
         // Shiny
-        await downloadFile("../pokedi/pokemon/shiny/" + row.name + ".png", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/" + (link['front_shiny'] ? link['front_shiny'].split("shiny/")[1] : row.id + ".png"));
+        await downloadFile("../pokediAssets/pokemon/shiny/" + row.name + ".png", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/" + (link['front_shiny'] ? link['front_shiny'].split("shiny/")[1] : row.id + ".png"));
     } catch (error) {
         console.log(error);
         errorOccurred.push(row.name);
