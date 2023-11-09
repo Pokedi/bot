@@ -6,6 +6,9 @@ import capitalize from "../../Utilities/Misc/capitalize.js";
 import Pokedex from "../../Classes/pokedex.js";
 import pokemondb from "../Database/pokedb.js";
 
+// Forms
+import forms from "../../Utilities/Data/PokemonDB/pokemon_forms.json" assert {type: "json"};
+
 export default {
     help: "",
     data: new SlashCommandBuilder()
@@ -207,14 +210,20 @@ export default {
                 )
             )
             .addSubcommand(y => y
-                .setName("forms")
-                .setDescription("Forms & Mega Evolutions || Items & Plates, ya know?")
+                .setName("evolve")
+                .setDescription("Evolutions || Items & Plates, ya know?")
                 .addIntegerOption(x => x.setName('item-name').setDescription("Name of the Form, Item, or State.").setAutocomplete(true))
                 .addIntegerOption(y => y
                     .setName("id")
                     .setDescription("ID of the pokemon if provided")
                     .setMinValue(1)
                 )
+            )
+            .addSubcommand(y => y
+                .setName("forms")
+                .setDescription("Forms & Mega Evolutions || Items & Plates, ya know?")
+                .addBooleanOption(x => x.setName("listing").setDescription("Check available form options"))
+                .addStringOption(x => x.setName('item-name').setDescription("Name of the Form, Item, or State."))
             )
             // .addSubcommand(y => y
             //     .setName("misc")
@@ -291,7 +300,7 @@ export default {
             }
 
             case "stones":
-            case "forms":
+            case "evolve":
                 {
                     const product = msg.options.getInteger("stone") || msg.options.getInteger("item-name");
 
@@ -309,7 +318,11 @@ export default {
                     if (!productData)
                         return msg.reply("Product not found.");
 
-                    if (player.bal < productData.cost) return msg.reply(`you need at least ${productData.cost} pokedits for that.`);
+                    const [possibleOverride] = await msg.client.postgres`SELECT id, cost FROM product WHERE id = ${evolution.itemid}`;
+
+                    const cost = possibleOverride?.cost || productData.cost;
+
+                    if (player.bal < cost) return msg.reply(`you need at least ${cost} pokedits for that.`);
 
                     await selectedPokemon.fetchPokemonByIDX(msg.client.postgres, "id, pokemon, gender");
 
@@ -324,7 +337,7 @@ export default {
                     await selectedPokemon.save(msg.client.postgres, { pokemon: evolution._id });
 
                     await player.save(msg.client.postgres, {
-                        bal: player.bal - (productData.cost || 0)
+                        bal: player.bal - (cost || 0)
                     });
 
                     return msg.reply(`Your ${capitalize(selectedPokemon.pokemon, true)} was given a ${capitalize(productData.name, true)}. ${Chance().pickone(
@@ -338,11 +351,77 @@ export default {
                     )}`);
 
                 }
+
+            default:
             case "menu": {
 
                 return msg.reply("Still under construction");
             }
-                break;
+
+
+            case "forms": {
+
+                if (msg.options.getBoolean("listing")) {
+                    return await msg.reply({
+                        embeds: [{
+                            title: "Available Pokemon",
+                            description: "The following are possible Form Transformations available.",
+                            color: 0x23204,
+                            fields: [{
+                                name: "Deoxys (1000c)",
+                                value: `- Deoxys Normal: \`Average Meteorite\`\n- Deoxys Speed: \`Slippery Meteorite\`\n- Deoxys Defense: \`Hard Meteorite\`\n- Deoxys Attack: \`Dangerous Meteorite\``,
+                                inline: true
+                            }, {
+                                name: "Shaymin (2000c)",
+                                value: "- Shaymin Grounded Forme: `Literal Dirt`\n- Shaymin Sky Forme: `Gracidea`",
+                                inline: true
+                            }, {
+                                name: "The Duo Dogs (4000c)",
+                                value: "- Zacian Crowned: `Rusty Sword`\n- Zamazenta Crowned: `Rusty Shield`",
+                                inline: true
+                            }, {
+                                name: "Arceus (500c)",
+                                value: "- Arceus Change Type: `<Valid Name> Plate`"
+                            }]
+                        }]
+                    })
+                }
+
+                if (!player.selected.length)
+                    return msg.reply("You do not have a Pokemon selected");
+
+                const selectedPokemon = new Pokemon({ id: player.selected[0] });
+
+                await selectedPokemon.fetchPokemon(msg.client.postgres);
+
+                if (!selectedPokemon.pokemon)
+                    return msg.reply("Pokemon not Found, please select through the right bot");
+
+                const pokemon = selectedPokemon.pokemon;
+
+                if (forms[pokemon]) {
+
+                    const item = msg.options.getString("item-name");
+
+                    if (!item)
+                        return await msg.reply("No item selected");
+
+                    const { cost, name } = forms[pokemon][item.replace(/ /gmi, '-').toLowerCase()] || {};
+
+                    if (!name)
+                        return msg.reply("Item not found");
+
+                    if (cost > player.bal)
+                        return msg.reply("Not enough money. You need at least " + cost);
+
+                    // Transaction
+                    if (await msg.client.postgres.begin(sql => [sql`UPDATE users SET bal = bal - ${cost} WHERE id = ${player.id}`, sql`UPDATE pokemon SET pokemon = ${name} WHERE id = ${selectedPokemon.id}`])) {
+                        return await msg.reply(`Your ${capitalize(pokemon, true)} changed into a ${capitalize(name, true)}`);
+                    } else
+                        return msg.reply("An error occurred");
+                } else
+                    return msg.reply("Invalid Pokemon selected");
+            }
         }
     }
 }

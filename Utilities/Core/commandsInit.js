@@ -28,10 +28,15 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
     try {
         console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
-        // The put method is used to fully refresh all commands in the guild with the current set
-        const data = !justClient ? await rest.put(Routes.applicationGuildCommands(process.env.BOTID, "716293571166208001"), { body: commands }) : []
+        let data = [];
 
-        console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+        if (process.argv.includes("--dev")) {
+            // The put method is used to fully refresh all commands in the guild with the current set
+            data = !justClient ? await rest.put(Routes.applicationGuildCommands(process.env.BOTID, "716293571166208001"), { body: commands }) : [];
+        } else {
+            data = await rest.put(Routes.applicationCommands(process.env.BOTID), { body: commands });
+            console.log(data);
+        }
 
         // Configure Rest Command IDs
         for (const command of data) {
@@ -40,6 +45,9 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
 
         // Output
         console.log("Successfully loaded application (/) commands to cache.");
+
+        console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+
     } catch (error) {
         // And of course, make sure you catch and log any errors!
         console.error(error);

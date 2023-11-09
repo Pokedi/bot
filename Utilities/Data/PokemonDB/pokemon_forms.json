@@ -1,0 +1,1414 @@
+{
+    "deoxys-normal": {
+        "slippery-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-speed"
+        },
+        "hard-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-defense"
+        },
+        "dangerous-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-attack"
+        }
+    },
+    "deoxys-attack": {
+        "average-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-normal"
+        },
+        "slippery-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-speed"
+        },
+        "hard-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-defense"
+        }
+    },
+    "deoxys-defense": {
+        "average-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-normal"
+        },
+        "slippery-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-speed"
+        },
+        "dangerous-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-attack"
+        }
+    },
+    "deoxys-speed": {
+        "average-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-normal"
+        },
+        "hard-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-defense"
+        },
+        "dangerous-meteorite": {
+            "cost": 1000,
+            "name": "deoxys-attack"
+        }
+    },
+    "shaymin-land": {
+        "gracidea": {
+            "cost": 2000,
+            "name": "shaymin-sky"
+        }
+    },
+    "shaymin-sky": {
+        "literal-dirt": {
+            "cost": 2000,
+            "name": "shaymin-land"
+        }
+    },
+    "zamazenta": {
+        "rusty-shield": {
+            "cost": 4000,
+            "name": "zamazenta-crowned"
+        }
+    },
+    "zacian": {
+        "rusty-sword": {
+            "cost": 4000,
+            "name": "zacian-crowned"
+        }
+    },
+    "arceus": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-dark": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-dragon": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-bug": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-electric": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-grass": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-water": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-steel": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-rock": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-fighting": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-fire": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-fairy": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-poison": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-flying": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-psychic": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-ice": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-ground": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    },
+    "arceus-ghost": {
+        "blank-plate": {
+            "name": "arceus",
+            "cost": 500
+        },
+        "draco-plate": {
+            "name": "arceus-dragon",
+            "cost": 500
+        },
+        "dread-plate": {
+            "name": "arceus-dark",
+            "cost": 500
+        },
+        "earth-plate": {
+            "name": "arceus-ground",
+            "cost": 500
+        },
+        "fist-plate": {
+            "name": "arceus-fighting",
+            "cost": 500
+        },
+        "flame-plate": {
+            "name": "arceus-fire",
+            "cost": 500
+        },
+        "icicle-plate": {
+            "name": "arceus-ice",
+            "cost": 500
+        },
+        "insect-plate": {
+            "name": "arceus-bug",
+            "cost": 500
+        },
+        "iron-plate": {
+            "name": "arceus-steel",
+            "cost": 500
+        },
+        "meadow-plate": {
+            "name": "arceus-grass",
+            "cost": 500
+        },
+        "mind-plate": {
+            "name": "arceus-psychic",
+            "cost": 500
+        },
+        "pixie-plate": {
+            "name": "arceus-fairy",
+            "cost": 500
+        },
+        "sky-plate": {
+            "name": "arceus-flying",
+            "cost": 500
+        },
+        "splash-plate": {
+            "name": "arceus-water",
+            "cost": 500
+        },
+        "spooky-plate": {
+            "name": "arceus-ghost",
+            "cost": 500
+        },
+        "stone-plate": {
+            "name": "arceus-rock",
+            "cost": 500
+        },
+        "toxic-plate": {
+            "name": "arceus-poison",
+            "cost": 500
+        },
+        "zap-plate": {
+            "name": "arceus-electric",
+            "cost": 500
+        }
+    }
+}

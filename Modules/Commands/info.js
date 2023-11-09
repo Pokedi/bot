@@ -12,7 +12,7 @@ export default {
         .setName('info')
         .setDescription('View your Pokemon!'),
     async execute(msg) {
-        const content = (msg.options.getString("query") || "latest").toLowerCase();
+        const content = (msg.options.getString("query") || "").toLowerCase();
 
         // isID?
         const isID = !isNaN(parseInt(content)) && parseInt(content);

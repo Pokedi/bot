@@ -120,19 +120,23 @@ export default {
 
             const file = new AttachmentBuilder(sprite);
 
+            const [possibleOverride] = await msg.client.postgres`SELECT id, description, cost FROM product WHERE id = ${item.id}`;
+
+            const cost = possibleOverride?.cost || item.cost;
+
             return msg.reply({
                 files: [file],
                 embeds: [{
                     color: dominantColor,
                     title: `${item.name} #${item.id} ${processCatName(item.category_name)}`,
-                    description: item.effect || "No description provided",
+                    description: possibleOverride?.description || item.effect || "No description provided",
                     fields: [{
                         name: "Amount",
                         value: userInventory?.amount || "None",
                         inline: true
                     }, {
                         name: "Cost",
-                        value: item.cost ? item.cost + " credits" : "No value provided",
+                        value: cost ? cost + " credits" : "No value provided",
                         inline: true
                     }, {
                         name: "Category",
@@ -152,7 +156,7 @@ export default {
         if (!usersInventory.length)
             return await msg.reply("You have no items...");
 
-        const items = await pokemondb`SELECT itn.name, i.cost, i.id, icn.name as category_name, iet.short_effect, i.name as _id FROM pokemon_v2_item as i
+        const items = await pokemondb`SELECT itn.name, i.id, icn.name as category_name, iet.short_effect, i.name as _id FROM pokemon_v2_item as i
 LEFT JOIN pokemon_v2_itemname as itn ON itn.item_id = i.id AND itn.language_id = 9
 LEFT JOIN pokemon_v2_itemcategoryname as icn ON i.item_category_id = icn.item_category_id AND icn.language_id = 9
 LEFT JOIN pokemon_v2_itemeffecttext as iet ON iet.item_id = i.id AND iet.language_id = 9
@@ -165,8 +169,8 @@ WHERE i.id in ${pokemondb(usersInventory.map(x => x.item_id))}`;
                     name: x.name + " #" + x.id + " " + processCatName(x.category_name),
                     value: `- **Amount**: ${usersInventory.find(y => y.item_id == x.id)?.amount || "None"}
 - **Category**: ${x.category_name}
-- **Cost**: ${x.cost ? x.cost + " credits" : "None"}
 ---
+
 ${x.short_effect || "No Description available"}`,
                     inline: true
                 })),

@@ -9,7 +9,7 @@ function userPokemonInfoModule(obj = new Pokedex(), msg = null, count = 1, color
     const details = obj.pokedex;
 
     const msgObj = {
-        title: `#${details.id} - ${capitalize(obj.name || obj.pokemon, true)}${obj.shiny ? " ⭐" : ""} ${ENUM_GENDER_EMOJIS[obj.gender || 4]}`,
+        title: `#${details.dexid || details.id} - ${capitalize(obj.name || obj.pokemon, true)}${obj.shiny ? " ⭐" : ""} ${ENUM_GENDER_EMOJIS[obj.gender || 4]}`,
         color,
         fields: (() => {
 

@@ -40,10 +40,15 @@ export default async (interaction) => {
 
         const itemEvolution = await selectedPokemon.getItemEvolutionsV2();
 
+        const possibleOverrides = itemEvolution.length && itemEvolution.filter(x => x.evolution_item_id).length ? await interaction.client.postgres`SELECT id, cost FROM product WHERE id in ${interaction.client.postgres(itemEvolution.map(x => x.evolution_item_id))}` : [];
+
         if (itemEvolution.length)
             interaction.respond(itemEvolution.map(e => {
+
+                const cost = possibleOverrides.find(x => x.id == e.evolution_item_id)?.cost || e.cost;
+                
                 return {
-                    name: `${player.bal < e.cost ? "❎" : "✅"} || ${capitalize(e.name, true)} || ${capitalize(e._id)} || Cost: ${e.cost}`,
+                    name: `${player.bal < e.cost ? "❎" : "✅"} || ${capitalize(e.name, true)} || ${capitalize(e._id)} || Cost: ${cost}`,
                     value: e.evoid
                 }
             }).splice(0, 25));
