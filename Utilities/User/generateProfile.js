@@ -136,7 +136,7 @@ async function generateProfile(postgres, user, username = "No Username Found") {
 
     // Pokemon Character
     base.push({
-        input: `../pokediAssets/profile/trainer/${user.character}.png`,
+        input: `../pokediAssets/profile/trainers/${user.character}.png`,
         top: trainer[user.character] && trainer[user.character].top ? trainer[user.character].top : 150,
         left: trainer[user.character] && trainer[user.character].left ? trainer[user.character].left : 200
     }, {
