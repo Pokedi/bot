@@ -142,7 +142,7 @@ export default {
                     });
                 };
 
-                const timeEvolution = selectedPokemon.pokedex.evolution_chain.filter(x => x.time_of_day);
+                const timeEvolution = selectedPokemon.pokedex.evolution_chain.filter(x => x.time_of_day && !x.min_happiness);
                 if (timeEvolution.length)
                     secondEmbed.fields.push({
                         name: "🕰️ Time",
@@ -157,7 +157,7 @@ export default {
                 if (affectionEvolution.length)
                     secondEmbed.fields.push({
                         name: "💖 Affection",
-                        value: affectionEvolution.map(x => `${capitalize(selectedPokemon.pokedex.name)} + Love + Level Up${x.min_level ? " to " + x.min_level : ""} => ${capitalize(x.name)}`).join("\n"),
+                        value: affectionEvolution.map(x => `${capitalize(selectedPokemon.pokedex.name)} + Love${x.time_of_day ? " + " + capitalize(x.time_of_day) : ""} + Level Up${x.min_level ? " to " + x.min_level : ""} => ${capitalize(x.name)}`).join("\n"),
                         inline: false
                     });
 

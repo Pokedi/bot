@@ -17,11 +17,11 @@ import MiniSearch from "minisearch";
 
 const possiblePokemon = new MiniSearch({
     fields: ["id", "name", "_id"], storeFields: ["id"], searchOptions: {
-        fuzzy: 0.3
+        fuzzy: 0.4
     }
 });
 
-possiblePokemon.addAll(allPokemon.map(x => ({ id: x.id, _id: x._id, name: x.name })));
+possiblePokemon.addAll(allPokemon.map(x => ({ id: x.id, _id: x._id.replace(/-/gmi, ' '), name: x.name })));
 
 const chance = Chance();
 
@@ -92,7 +92,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
     }
 
     async searchByLocal(item) {
-        const id = possiblePokemon.search(item)?.[0]?.id || false;
+        const id = possiblePokemon.search(item, { boost: { _id: 2 } })?.[0]?.id || false;
 
         if (!id) return false;
 
@@ -341,7 +341,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
     }
 
     async getItemEvolutionsV2(id = this.pokedex.id) {
-        return await pokeapisql`SELECT pe.id as evoid, pd.id, _id, min_level, time_of_day, min_happiness, min_affection, pe.gender_id, i.name, i.cost FROM pokemon_dex as pd 
+        return await pokeapisql`SELECT pe.id as evoid, pd.id, _id, min_level, time_of_day, min_happiness, min_affection, evolution_item_id, pe.gender_id, i.name, i.cost FROM pokemon_dex as pd 
         LEFT JOIN pokemon_v2_pokemonevolution as pe ON (evolved_species_id = pd.id AND evolution_trigger_id = 3) 
         INNER JOIN pokemon_v2_item as i ON (evolution_item_id = i.id) 
         WHERE evolves_from_species_id = ${id} ORDER BY min_level ASC, gender_rate DESC`;
