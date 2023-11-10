@@ -1,6 +1,6 @@
 import sharp from "sharp";
-import background from "../../Utilities/Data/background.json" assert {type: "json"};
-import trainers from "../../Utilities/Data/trainer.json" assert {type: "json"};
+import backgrounds from "../../Utilities/Data/backgrounds.json" assert {type: "json"};
+import trainers from "../../Utilities/Data/trainers.json" assert {type: "json"};
 import Pokedex from "../../Classes/pokedex.js";
 import { existsSync } from "fs";
 
@@ -41,7 +41,7 @@ async function generateProfile(postgres, user = { level: 1, bal: 0, selected: []
     const caught = countPokemon;
 
     // Ready Background - Default For Now
-    const selectedBackground = {
+    const selectedBackground = backgrounds[user.background] || {
         bold: "bolder",
         fill: "white",
         title_font_size: 70,
@@ -104,7 +104,7 @@ async function generateProfile(postgres, user = { level: 1, bal: 0, selected: []
         input: Buffer.from(`<svg height="148" font-family="Poppins SemiBold" width="316"><text font-size-adjust="0.58" font-size="40" fill="${selectedBackground.balance_fill || "white"}" x="10" y="60">${bal.toLocaleString()}</text></svg>`),
         left: 819,
         top: 650
-    }]).toBuffer();
+    }]).png({ quality: 40, compressionLevel: 8 }).toBuffer();
 }
 
 export default generateProfile;

@@ -103,16 +103,20 @@ export default {
 
                 if (!player.started) return await msg.reply("Please make sure to /pick a pokemon!");
 
+                const profileMessage = await msg.reply({ content: "Please wait...", fetchReply: true });
+
                 const profileImage = await generateProfile(msg.client.postgres, player, msg.user.globalName || msg.user.username);
 
                 if (!profileImage) return await msg.reply("Profile could not be created. Maybe a Pokemon was not selected?");
 
-                return await msg.reply({
+                return await profileMessage.edit({
+                    content: null,
                     files: [{
                         attachment: profileImage,
                         name: "profile.png"
                     }],
                     embeds: [{
+                        color: Math.round(Math.random() * 0xffffff),
                         image: {
                             url: "attachment://profile.png"
                         },

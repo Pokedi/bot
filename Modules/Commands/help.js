@@ -356,14 +356,20 @@ export default {
                         description: "Buy Backgrounds, Evolution-Exclusive items, Rare-Candies, and much much more!",
                         color: 0x594aff,
                         fields: [{
+                            name: "Evolving your Pokemon",
+                            value: `</shop evolve:${_id}> item-name:<Item Name>\n- Example: \`/shop evolve\` item-name:Water Stone (while having Eevee selected)\n- Example: \`/shop evolve pokemon-id: 20 item-name:Vaccuum\` (Rotom)`
+                        }, {
                             name: "Buying Forms & Stones",
-                            value: `</shop forms:${_id}> item-name:<Item Name>\n- Example: \`/shop stones\` item-name:Water Stone (while having Eevee selected)\n- Example: \`/shop forms pokemon-id: 20 item-name:Vaccuum\` (Rotom)`
+                            value: `</shop forms:${_id}> item-name:<Item Name>\n- Example: \`/shop forms\` item-name:Draco Plate (while having Arceus selected)\n- Example: \`/shop forms item-name: Dangerous Meteor\` (While having Deoxys selected)`
                         }, {
                             name: "Changing Pokemon Nature",
                             value: `</shop nature:${_id}> nature:<Nature> id:[<Pokemon ID>]\n- Example: \`/shop nature nature:Timid\`\n- Example: \`/shop nature nature:Evil id:101\``
                         }, {
                             name: "Rare Candy",
                             value: `</shop xp:${_id}> buy:Rare Candy\n- Example: \`/shop xp buy:Rare Candy\` (One Rare Candy)\n- Example: \`/shop xp buy:Rare Candy amount: 50\` (50 Rare Candies)\n\n- Only the Selected Pokemon is given the treat for now.`
+                        }, {
+                            name: "Backgrounds and Profiles",
+                            value: `</shop profile:${_id}> [background-listing] [profile-listing] [profile-id:<ID>] [background-id:<ID>]\n- Example: \`/shop profile background-listing:true\` (View Available Backgrounds)\n- Example: \`/shop profile background-id: 2\` (Buy 2nd Background in store)`
                         }]
                     }]
                 });

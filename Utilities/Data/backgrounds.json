@@ -1,0 +1,93 @@
+{
+    "1": {
+        "name": "Default",
+        "bold": "bolder",
+        "fill": "white",
+        "title_font_size": 70,
+        "title_add": "",
+        "level_font_size": "30",
+        "caught_fill": "white",
+        "balance_fill": "white",
+        "level_fill": "white",
+        "dex_fill": "white",
+        "cost": 0
+    },
+    "2": {
+        "name": "Space",
+        "bold": "bolder",
+        "fill": "#bb61ff",
+        "title_font_size": 70,
+        "title_add": "",
+        "level_font_size": "30",
+        "caught_fill": "#bb61ff",
+        "level_fill": "#bb61ff",
+        "balance_fill": "#bb61ff",
+        "dex_fill": "#bb61ff",
+        "cost": 5000
+    },
+    "3": {
+        "name": "Nature",
+        "bold": "bolder",
+        "fill": "white",
+        "title_font_size": 70,
+        "title_add": "",
+        "level_font_size": "30",
+        "caught_fill": "white",
+        "balance_fill": "white",
+        "level_fill": "white",
+        "dex_fill": "white",
+        "cost": 4000
+    },
+    "4": {
+        "name": "Windows",
+        "bold": "bolder",
+        "fill": "white",
+        "title_font_size": 70,
+        "title_add": "",
+        "level_font_size": "30",
+        "caught_fill": "green",
+        "balance_fill": "white",
+        "level_fill": "white",
+        "dex_fill": "white",
+        "cost": 4000
+    },
+    "5": {
+        "name": "Water",
+        "bold": "bolder",
+        "fill": "white",
+        "title_font_size": 70,
+        "title_add": "",
+        "level_font_size": "30",
+        "caught_fill": "white",
+        "balance_fill": "white",
+        "level_fill": "white",
+        "dex_fill": "white",
+        "cost": 4000
+    },
+    "6": {
+        "name": "The Depths",
+        "bold": "bolder",
+        "fill": "#81dee7",
+        "title_font_size": 70,
+        "title_add": "",
+        "level_font_size": "30",
+        "caught_fill": "#81dee7",
+        "balance_fill": "#81dee7",
+        "level_fill": "#81dee7",
+        "dex_fill": "#81dee7",
+        "cost": 4000
+    },
+    "7": {
+        "name": "Fire",
+        "bold": "bolder",
+        "fill": "#f5d13b",
+        "title_font_size": 70,
+        "title_add": "",
+        "level_font_size": "30",
+        "caught_fill": "#f5d13b",
+        "balance_fill": "#f5d13b",
+        "level_fill": "#f5d13b",
+        "dex_fill": "#f5d13b",
+        "cost": 4000
+    }
+}
