@@ -96,14 +96,14 @@ export default {
             }
 
             default: {
-                
+
                 const player = new Player({ id: msg.user.id });
 
                 await player.fetch(msg.client.postgres);
-                
+
                 if (!player.started) return await msg.reply("Please make sure to /pick a pokemon!");
 
-                const profileImage = await generateProfile(msg.client.postgres, player, msg.user.username);
+                const profileImage = await generateProfile(msg.client.postgres, player, msg.user.globalName || msg.user.username);
 
                 if (!profileImage) return await msg.reply("Profile could not be created. Maybe a Pokemon was not selected?");
 

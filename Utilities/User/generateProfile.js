@@ -1,11 +1,10 @@
 import sharp from "sharp";
-import Pokemon from "../../Classes/pokemon.js";
-
 import background from "../../Utilities/Data/background.json" assert {type: "json"};
-import trainer from "../../Utilities/Data/trainer.json" assert {type: "json"};
+import trainers from "../../Utilities/Data/trainer.json" assert {type: "json"};
 import Pokedex from "../../Classes/pokedex.js";
+import { existsSync } from "fs";
 
-async function generateProfile(postgres, user, username = "No Username Found") {
+async function generateProfile(postgres, user = { level: 1, bal: 0, selected: [] }, username = "No Username Found") {
 
     // Count Users Pokemon
     const countPokemon = await user.countPokemon(postgres);
@@ -14,159 +13,98 @@ async function generateProfile(postgres, user, username = "No Username Found") {
     const countDexes = await user.countDex(postgres);
 
     // Select User's Pokemon
-    const selectedPokemon = new Pokedex({ user_id: user.id });
+    const userPokemon = new Pokedex({ user_id: user.id });
 
     // Selected or First IDX
-    if (user.selected?.[0]) {
-        selectedPokemon.id = user.selected[0];
-        await selectedPokemon.fetchPokemon(postgres);
+    if (user.selected[0]) {
+        userPokemon.id = user.selected[0];
+        await userPokemon.fetchPokemon(postgres, "pokemon");
     } else {
-        selectedPokemon.idx = 1;
-        await selectedPokemon.fetchPokemonByIDX(postgres);
+        userPokemon.idx = 1;
+        await userPokemon.fetchPokemonByIDX(postgres, "pokemon");
     }
 
     // Return if nothing found
-    if (!selectedPokemon.pokemon)
-        return false;
+    if (!userPokemon.pokemon)
+        userPokemon.pokemon = "unown-qm";
 
-    // Grab details;
+    // Ready Level and Balance
+    const { level, bal } = user;
 
-    // Ready Pokemon Image
-    let pokemonImage = sharp(selectedPokemon.shiny ? `../pokediAssets/pokemon/shiny/${selectedPokemon.pokemon}.png` : `../pokediAssets/pokemon/regular/${selectedPokemon.pokemon}.png`).png().resize({
-        width: 400,
-        height: 400,
-        fit: "contain"
-    });
+    // Ready Dex Status
+    const dex = {
+        total: 1015,
+        caught: countDexes || 0
+    }
 
-    // Make Resize Background Transparent (Secret trick to help people out later)
-    pokemonImage.options.resizeBackground = [0, 0, 0, 0];
+    // Ready Caught Pokemon
+    const caught = countPokemon;
 
-    // Select Background
-    let selectedBackground = background[user.background];
+    // Ready Background - Default For Now
+    const selectedBackground = {
+        bold: "bolder",
+        fill: "white",
+        title_font_size: 70,
+        title_add: '',
+        level_font_size: "30",
+        caught_fill: "white",
+        balance_fill: "white",
+        dex_fill: "white"
+    }
 
-    if (!selectedBackground || !selectedBackground?.add) selectedBackground = background["1"];
+    // Trainer Data
+    const trainer = trainers[user.character || "1"] || {
+        top: 150,
+        left: 200
+    };
 
-    // Array Base
-    let base = [];
+    // Check if Background Exists
+    const baseCheck = existsSync('../pokediAssets/profile/backgrounds/' + user.background + '.png');
 
-    let backgroundImage = sharp(`../pokediAssets/profile/backgrounds/${user.background}.${selectedBackground?.jpg ? "jpg" : "png"}`);
+    // Allow what is permitted
+    const base = sharp('../pokediAssets/profile/backgrounds/' + (baseCheck ? user.background : "1") + '.png');
 
-    // if (user.profile.badge) {
-    //     if (user.profile.badge["1"])
-    //         nani.push({
-    //             input: await sharp("./card/badges/1.png").resize({
-    //                 width: 100,
-    //                 height: 100
-    //             }).toBuffer(),
-    //             top: 960,
-    //             left: 720
-    //         });
-    //     if (user.profile.badge["2"])
-    //         nani.push({
-    //             input: await sharp("./card/badges/2.png").resize({
-    //                 width: 100,
-    //                 height: 100
-    //             }).toBuffer(),
-    //             top: 960,
-    //             left: 830
-    //         });
-    //     if (user.profile.badge["3"])
-    //         nani.push({
-    //             input: await sharp("./card/badges/3.png").resize({
-    //                 width: 100,
-    //                 height: 100
-    //             }).toBuffer(),
-    //             top: 960,
-    //             left: 940
-    //         });
-    //     if (user.profile.badge["4"])
-    //         nani.push({
-    //             input: await sharp("./card/badges/4.png").resize({
-    //                 width: 100,
-    //                 height: 100
-    //             }).toBuffer(),
-    //             top: 960,
-    //             left: 1050
-    //         });
-    //     if (user.profile.badge["5"])
-    //         nani.push({
-    //             input: await sharp("./card/badges/5.png").resize({
-    //                 width: 100,
-    //                 height: 100
-    //             }).toBuffer(),
-    //             top: 960,
-    //             left: 1160
-    //         });
-    //     if (user.profile.badge["6"])
-    //         nani.push({
-    //             input: await sharp("./card/badges/6.png").resize({
-    //                 width: 100,
-    //                 height: 100
-    //             }).toBuffer(),
-    //             top: 960,
-    //             left: 1270
-    //         });
-    //     if (user.profile.badge["7"])
-    //         nani.push({
-    //             input: await sharp("./card/badges/7.png").resize({
-    //                 width: 100,
-    //                 height: 100
-    //             }).toBuffer(),
-    //             top: 960,
-    //             left: 1380
-    //         });
-    //     if (user.profile.badge["8"])
-    //         nani.push({
-    //             input: await sharp("./card/badges/8.png").resize({
-    //                 width: 100,
-    //                 height: 100
-    //             }).toBuffer(),
-    //             top: 960,
-    //             left: 1490
-    //         });
-    // } else {
+    // Check if Trainer Exists
+    const trainerCheck = existsSync('../pokediAssets/profile/trainers/' + user.character + '.png');
 
-    // No Badges Yet
-    base.push({
-        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="40" ${selectedBackground && selectedBackground.add && selectedBackground.add["6"] ? selectedBackground.add["6"] : ""} font-size-adjust="0.58" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">No Gyms Badges Yet</text>\n</svg>`),
-        top: 985,
-        left: 900
-    });
-    // }
+    // Allow what is permitted
+    const trainerImage = sharp('../pokediAssets/profile/trainers/' + (trainerCheck ? user.character : "1") + '.png');
 
-    // Pokemon Character
-    base.push({
-        input: `../pokediAssets/profile/trainers/${user.character}.png`,
-        top: trainer[user.character] && trainer[user.character].top ? trainer[user.character].top : 150,
-        left: trainer[user.character] && trainer[user.character].left ? trainer[user.character].left : 200
+    // Check if Pokemon Exists
+    const pokemonCheck = existsSync(`../pokediAssets/pokemon/regular/${userPokemon.pokemon}.png`);
+
+    // Select Pokemon
+    const selectedPokemon = sharp(`../pokediAssets/pokemon/regular/${pokemonCheck ? userPokemon.pokemon : "unown-qm"}.png`).resize({ width: 472, height: 526, fit: "contain", background: [0, 0, 0, 0] });
+
+    return await base.composite([{
+        input: await trainerImage.toBuffer(),
+        top: trainer.top || 150,
+        left: trainer.left || 200
     }, {
-        input: Buffer.from(`<svg height="100%" width="130%">\n  <text x="0" y="40"  ${selectedBackground && selectedBackground.add && selectedBackground.add["1"] ? selectedBackground.add["1"] : ""} font-size="50" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">${username.replace(/[^\x00-\x7F]/g, "").substring(0, 20).replace(/[^\d\w\s]/, "").replace(/<|>/gmi, "-")} [Level ${user.level || "0"}]</text>\n</svg>`),
-        top: 290,
-        left: 750
+        input: await selectedPokemon.toBuffer(),
+        top: 451,
+        left: 1080
     }, {
-        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="35" ${selectedBackground && selectedBackground.add && selectedBackground.add["2"] ? selectedBackground.add["2"] : ""} font-size-adjust="0.58" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">${user.bal ? user.bal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 100} credits</text>\n</svg>`),
-        top: 445,
-        left: 750
+        input: Buffer.from(`<svg height="150" font-family="Poppins" width="664"><text x="10" y="60" ${selectedBackground.title_add || ""} font-size="${selectedBackground.title_font_size || "50"}" ${selectedBackground & selectedBackground.bold ? 'font-weight="' + (selectedBackground.bold || "bold") + '"' : ""} fill="${selectedBackground.fill || "white"}">${username.replace(/[^\x00-\x7F]/g, "").substring(0, 20).replace(/[^\d\w\s]/, "").replace(/<|>/gmi, "-")}</text>\n</svg>`),
+        left: 727,
+        top: 280
     }, {
-        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="40" ${selectedBackground && selectedBackground.add && selectedBackground.add["3"] ? selectedBackground.add["3"] : ""} font-size-adjust="0.58" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">${countPokemon ? countPokemon.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0} Caught</text>\n</svg>`),
-        top: 570,
-        left: 750
+        input: Buffer.from(`<svg height="150" font-family="Poppins SemiBold" width="146"><text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle" ${selectedBackground.level_add || ""} font-size="${selectedBackground.level_font_size || "50"}" ${selectedBackground & selectedBackground.level_bold ? 'font-weight="' + (selectedBackground.level_bold || "bold") + '"' : ""} fill="${selectedBackground.level_fill || "white"}">[ ${level || 1} ]</text>\n</svg>`),
+        top: 256,
+        left: 1400
     }, {
-        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="35" ${selectedBackground && selectedBackground.add && selectedBackground.add["4"] ? selectedBackground.add["4"] : ""} font-size-adjust="0.58" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">${countDexes ? countDexes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 0} Pokemon Dex'd</text>\n</svg>`),
-        top: 705,
-        left: 750
+        input: Buffer.from(`<svg height="148" font-family="Poppins SemiBold" width="316"><text font-size-adjust="0.58" font-size="40" fill="${selectedBackground.caught_fill || "white"}" x="10" y="60">${caught.toLocaleString()}</text></svg>`),
+        left: 819,
+        top: 416
     }, {
-        input: Buffer.from(`<svg height="92" width="492">\n  <text x="0" y="30" font-size="40" ${selectedBackground && selectedBackground.add && selectedBackground.add["5"] ? selectedBackground.add["5"] : ""} font-size-adjust="0.58" ${selectedBackground & selectedBackground.bold ? 'font-weight="bold"' : ""} fill="${selectedBackground && selectedBackground.c ? selectedBackground.c : "black"}">Solo Player</text>\n</svg>`),
-        top: 845,
-        left: 750
+        input: Buffer.from(`<svg height="148" font-family="Poppins SemiBold" width="316"><text font-size-adjust="0.58" font-size="40" fill="${selectedBackground.dex_fill || "white"}" x="10" y="60">${dex.caught.toLocaleString()}/${dex.total.toLocaleString()}</text></svg>`),
+        left: 819,
+        top: 535
     }, {
-        input: await pokemonImage.toBuffer(),
-        top: 420,
-        left: 1145
-    });
-
-    backgroundImage.composite(base);
-    return await backgroundImage.toBuffer();
+        input: Buffer.from(`<svg height="148" font-family="Poppins SemiBold" width="316"><text font-size-adjust="0.58" font-size="40" fill="${selectedBackground.balance_fill || "white"}" x="10" y="60">${bal.toLocaleString()}</text></svg>`),
+        left: 819,
+        top: 650
+    }]).toBuffer();
 }
 
 export default generateProfile;
