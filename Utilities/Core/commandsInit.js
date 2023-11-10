@@ -35,7 +35,6 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
             data = !justClient ? await rest.put(Routes.applicationGuildCommands(process.env.BOTID, "716293571166208001"), { body: commands }) : [];
         } else {
             data = await rest.put(Routes.applicationCommands(process.env.BOTID), { body: commands });
-            console.log(data);
         }
 
         // Configure Rest Command IDs
