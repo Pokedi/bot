@@ -34,7 +34,10 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
             // The put method is used to fully refresh all commands in the guild with the current set
             data = !justClient ? await rest.put(Routes.applicationGuildCommands(process.env.BOTID, "716293571166208001"), { body: commands }) : [];
         } else {
-            data = await rest.put(Routes.applicationCommands(process.env.BOTID), { body: commands });
+            data = await rest.put(
+                Routes.applicationCommands(process.env.BOTID),
+                { body: commands }
+            );
         }
 
         // Configure Rest Command IDs

@@ -22,6 +22,40 @@ const ENUM_POKEMON_TYPES = {
     "x": "ultimate"
 }
 
+const ENUM_COMMANDS = {
+    "0": "unknown",
+    "1": "pick",
+    "2": "bal",
+    "3": "eval",
+    "4": "info",
+    "5": "catch",
+    "6": "reload",
+    "7": "start",
+    "8": "reindex",
+    "9": "pokemon",
+    "10": "nickname",
+    "11": "dex",
+    "12": "release",
+    "13": "select",
+    "14": "team",
+    "15": "forcespawn",
+    "16": "order",
+    "17": "shop",
+    "18": "trade",
+    "19": "sql",
+    "20": "config",
+    "21": "profile",
+    "22": "duel",
+    "23": "moves",
+    "24": "daily",
+    "25": "shardstats",
+    "26": "redeem",
+    "27": "market",
+    "28": "inventory",
+    "29": "voucher",
+    "30": "help"
+}
+
 const ENUM_POKEMON_FULL_TYPES_ID = {
     "1": "normal", "2": "fighting", "3": "flying", "4": "poison", "5": "ground", "6": "rock", "7": "bug", "8": "ghost", "9": "steel", "10": "fire", "11": "water", "12": "grass", "13": "electric", "14": "psychic", "15": "ice", "16": "dragon", "17": "dark", "18": "fairy", "10001": "unknown", "10002": "shadow"
 }
@@ -112,8 +146,8 @@ const ENUM_STAT_MOD_COMMENTS = {
     [-4]: "won't go any lower",
 }
 
-function reverseENUM(ENUM = {}, item) {
-    return Object.entries(ENUM).find(x => x[1] == item)[0];
+function reverseENUM(ENUM = {}, item, defaultValue) {
+    return Object.entries(ENUM).find(x => x[1] == item)?.[0] || defaultValue;
 }
 
 const ENUM_TYPE_COLORS = {
@@ -150,4 +184,4 @@ const ENUM_GENDER_EMOJIS = {
     4: "☠️"
 }
 
-export { ENUM_STAT_MOD_COMMENTS, ENUM_POKEMON_BASE_STATS_SHORTIDS, ENUM_MOVE_CATEGORY, ENUM_MOVE_TARGET_IDS, ENUM_GENDER_EMOJIS, ENUM_GENDER, ENUM_POKEMON_TYPES_ID, ENUM_POKEMON_FULL_TYPES_ID, ENUM_POKEMON_BASE_STATS_IDS, POKEMON_NATURES, ENUM_POKEMON_TYPES, reverseENUM, ENUM_TYPE_COLORS, ENUM_POKEMON_BASE_STATS };
+export { ENUM_COMMANDS, ENUM_STAT_MOD_COMMENTS, ENUM_POKEMON_BASE_STATS_SHORTIDS, ENUM_MOVE_CATEGORY, ENUM_MOVE_TARGET_IDS, ENUM_GENDER_EMOJIS, ENUM_GENDER, ENUM_POKEMON_TYPES_ID, ENUM_POKEMON_FULL_TYPES_ID, ENUM_POKEMON_BASE_STATS_IDS, POKEMON_NATURES, ENUM_POKEMON_TYPES, reverseENUM, ENUM_TYPE_COLORS, ENUM_POKEMON_BASE_STATS };

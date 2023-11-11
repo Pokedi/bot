@@ -1,39 +1,6 @@
 import builder from "../../Modules/Database/QueryBuilder/queryGenerator.js";
 import sql from "../../Modules/Database/postgres.js";
-import { reverseENUM } from "../Data/enums.js";
-
-const ENUM_COMMANDS = {
-    "1": "pick",
-    "2": "bal",
-    "3": "eval",
-    "4": "info",
-    "5": "catch",
-    "6": "reload",
-    "7": "start",
-    "8": "reindex",
-    "9": "pokemon",
-    "10": "nickname",
-    "11": "dex",
-    "12": "release",
-    "13": "select",
-    "14": "team",
-    "15": "forcespawn",
-    "16": "order",
-    "17": "shop",
-    "18": "trade",
-    "19": "sql",
-    "20": "config",
-    "21": "profile",
-    "22": "duel",
-    "23": "moves",
-    "24": "daily",
-    "25": "shardstats",
-    "26": "redeem",
-    "27": "market",
-    "28": "inventory",
-    "29": "voucher",
-    "30": "help"
-}
+import { reverseENUM, ENUM_COMMANDS } from "../Data/enums.js";
 
 export default async (msg, obj = { command: 0 }) => {
 
