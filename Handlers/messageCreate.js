@@ -23,7 +23,7 @@ async function messageCreate(msg, e) {
     // Spawn 
     spawnIF: if (msg.channel.spawn.count < 0 && Date.now() - msg.channel.spawn.lastSpawn > (1000 * 60 * 2)) {
         // Reassignment
-        msg.channel.spawn.count = chance.integer({ min: 30, max: 200 });
+        msg.channel.spawn.count = chance.integer({ min: 30, max: 50 });
         msg.channel.spawn.lastSpawn = Date.now();
 
         // IF Guild disabled, break
