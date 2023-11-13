@@ -8,7 +8,9 @@ import { Collection, Client, Events, GatewayIntentBits, REST, Routes } from "dis
 const client = new Client({
     shards: getInfo().SHARD_LIST, // An array of shards that will get spawned
     shardCount: getInfo().TOTAL_SHARDS, // Total number of shards
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMessages]
+    intents: process.env.DEV ?
+        [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMessages]
+        : [GatewayIntentBits.Guilds]
 });
 
 client.cluster = new ClusterClient(client); // initialize the Client, so we access the .broadcastEval()
