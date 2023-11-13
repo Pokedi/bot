@@ -387,7 +387,7 @@ export default {
 
                         await msg.client.postgres`UPDATE users SET background = ${id}, bal = bal - ${cost} WHERE id = ${msg.user.id}`;
 
-                        return await msg.reply(`You have successfulyl bought the ${name} Background! Show it off to your friends.`);
+                        return await msg.reply(`You have successfully bought the ${name} Background! Show it off to your friends.`);
                     }
 
                 }
