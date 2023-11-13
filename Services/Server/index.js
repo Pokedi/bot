@@ -17,8 +17,9 @@ Server.use('/user/', userRouter);
 import voteRouter from "./Routers/Votes/index.js";
 Server.use("/vote/", voteRouter);
 
-Server.listen(port, ()=>{
-    console.log("Pokemon Server running on port:", port)
-});
+if (process.env.DEV)
+    Server.listen(port, () => {
+        console.log("Pokemon Server running on port:", port)
+    });
 
 export default Server;
