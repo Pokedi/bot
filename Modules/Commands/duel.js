@@ -188,8 +188,8 @@ export default {
         if (msg.options.getBoolean("run-away"))
             return await msg[msg.replied ? "followUp" : "reply"]({ ephemeral: true, content: "Please wait 5-10 minutes till you can use this." });
 
-        const teamAIDs = removeDuplicates([msg.user.id, msg.options.getUser('2-user-vs'), msg.options.getUser('3-user-vs')]).filter(x => x);
-        const teamBIDs = removeDuplicates([msg.options.getUser('vs-user-1'), msg.options.getUser('vs-user-2'), msg.options.getUser('vs-user-3')]).filter(x => x);
+        const teamAIDs = removeDuplicates([msg.user.id, msg.options.getUser('2-user-vs'), msg.options.getUser('3-user-vs')]).filter(x => x && !x.bot);
+        const teamBIDs = removeDuplicates([msg.options.getUser('vs-user-1'), msg.options.getUser('vs-user-2'), msg.options.getUser('vs-user-3')]).filter(x => x && !x.bot);
 
         if (!teamAIDs.length || !teamBIDs.length)
             return await msg.reply("You need to mention a specified number of players");
@@ -199,7 +199,7 @@ export default {
 
         const verification = await buttonVerification({ interaction: msg, users: [msg.user].concat(teamAIDs, teamBIDs).filter(x => x && x.id).map(x => x.id) });
 
-        if (!verification) return await msg.followUp("First Phase Failed");
+        if (!verification) return await msg.followUp("Users did not verify in time.");
 
         const teamAConstructs = removeDuplicates(teamAIDs).map(x => new Player({ id: BigInt(x) }));
         const teamBConstructs = removeDuplicates(teamBIDs).map(x => new Player({ id: BigInt(x) }));
