@@ -44,10 +44,10 @@ import { Chance } from "chance";
 client.on("shardReady", async id => {
     client.shardID = id;
     // Start Activity
-    client.user.setActivity("the birds wake up.", {type: ActivityType.Watching});
+    client.user.setActivity("the birds wake up. " + `[C${client.cluster.id}S${id}]`, { type: ActivityType.Watching });
     // Set Activity
     setInterval(() => client.user.setActivity(
-        Chance().pickone(["Anthony", "Audrey", "Alpha", "Alicia", "Anthony's Playlist", "Audrey's Jam", "Alpha's College Lecture", "Alicia's Swablu Fanfiction", "/help", "/pokemon", "/help because you need it"]) + ` [C${client.cluster.id}S${client.shardID}]`
+        Chance().pickone(["Anthony", "Audrey", "Alpha", "Alicia", "Anthony's Playlist", "Audrey's Jam", "Alpha's College Lecture", "Alicia's Swablu Fanfiction", "/help", "/pokemon", "/help because you need it"]) + ` [C${client.cluster.id}S${id}]`
         , { type: ActivityType.Listening }
     ), 60000 * 10);
 });
