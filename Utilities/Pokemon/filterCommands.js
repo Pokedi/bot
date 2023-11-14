@@ -41,6 +41,11 @@ const filterCommands = {
         const allGalars = filterPokemon(x => x._id.startsWith("galar")).map(x => x._id);
         return list.filter(x => allGalars.includes(x.pokemon));
     },
+    // Hisui Filter
+    "hisui": (list = []) => {
+        const allHisuis = filterPokemon(x => x._id.startsWith("hisui")).map(x => x._id);
+        return list.filter(x => allHisuis.includes(x.pokemon));
+    },
     // Shiny Filter
     "shiny": (list = []) => {
         return list.filter(x => x.shiny);
