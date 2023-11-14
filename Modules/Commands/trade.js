@@ -180,7 +180,7 @@ export default {
                 filter: x => {
                     return x.commandName == "trade" && [You.id, Them.id].includes(BigInt(x.user.id));
                 },
-                time: 3 * 60000
+                time: 5 * 60000
             });
 
             const autoComplete = new InteractionCollector(msg.client, {
