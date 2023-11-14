@@ -1,8 +1,8 @@
 import { SlashCommandBuilder } from "discord.js";
-import Pokemon from "../../Classes/pokemon.js";
 import findPokemon from "../../Utilities/Pokemon/findPokemon.js";
 import builder from "../Database/QueryBuilder/queryGenerator.js";
 import Player from "../../Classes/player.js";
+import Pokedex from "../../Classes/pokedex.js";
 
 export default {
     data: "",
@@ -42,9 +42,9 @@ export default {
         // Set it to Collection Cache
         // msg.user.player = userAccount;
 
-        const newPokemonForUser = new Pokemon({});
+        const newPokemonForUser = new Pokedex({});
 
-        newPokemonForUser.generate(pk._id, { user_id: BigInt(msg.user.id), idx: 1 });
+        newPokemonForUser.generateV2(pk._id, { user_id: BigInt(msg.user.id), idx: 1 });
 
         await newPokemonForUser.save(msg.client.postgres);
 
