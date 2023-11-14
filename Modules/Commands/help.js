@@ -476,7 +476,7 @@ export default {
                             value: `</pokemon:${_id}> query:--ub\n</pokemon:${_id}> query:--legendary\n</pokemon:${_id}> query:--mythic`
                         }, {
                             name: "Region Query",
-                            value: `</pokemon:${_id}> query:galar\n</pokemon:${_id}> query:alola`
+                            value: `</pokemon:${_id}> query:alola\n</pokemon:${_id}> query:galar\n</pokemon:${_id}> query:hisui`
                         }, {
                             name: "Triple and Quadriple IVs",
                             value: `</pokemon:${_id}> query:tri\n</pokemon:${_id}> query:qua`
