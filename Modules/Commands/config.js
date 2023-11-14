@@ -70,6 +70,9 @@ export default {
                                 // Retrieved Channels Text
                                 const channels = msg.options.getString("redirect-channel");
 
+                                if (!channels)
+                                    return msg.reply("You must mention channels you wish to redirect to");
+
                                 // Ready Array for Valid Channels
                                 const retrievedChannels = [];
                                 // Force cache all given channels
@@ -170,25 +173,25 @@ export default {
 
                             case "disable-command":
                                 return await msg.reply(`Since Discord no longer allows me to modify command permissions, please go to your [Server's Application Directory](<discord://-/guilds/${msg.guild.id}/settings/integrations>), look for Pokedi and do whatever you deem necessary!`);
-                                // await msg.guild.commands.permissions.add({
-                                //     command: _id,
-                                //     token: process.env.TOKEN,
-                                //     permissions: [{
-                                //         id: msg.channel.id,
-                                //         type: ApplicationCommandPermissionType.Channel,
-                                //         permission: false
-                                //     }]
-                                // });
-                                // return await msg.reply(`Successfully disabled /${commandObject.name} for this channel`);
+                            // await msg.guild.commands.permissions.add({
+                            //     command: _id,
+                            //     token: process.env.TOKEN,
+                            //     permissions: [{
+                            //         id: msg.channel.id,
+                            //         type: ApplicationCommandPermissionType.Channel,
+                            //         permission: false
+                            //     }]
+                            // });
+                            // return await msg.reply(`Successfully disabled /${commandObject.name} for this channel`);
 
                             case "clear-command":
                                 return await msg.reply(`Since Discord no longer allows me to modify command permissions, please go to your [Server's Application Directory](<discord://-/guilds/${msg.guild.id}/settings/integrations>), look for Pokedi and do whatever you deem necessary!`);
-                                // await msg.guild.commands.permissions.remove({
-                                //     command: _id,
-                                //     token: process.env.TOKEN,
-                                //     channels: [msg.channel.id],
-                                // });
-                                // return await msg.reply(`Successfully reset /${commandObject.name} for this channel.`);
+                            // await msg.guild.commands.permissions.remove({
+                            //     command: _id,
+                            //     token: process.env.TOKEN,
+                            //     channels: [msg.channel.id],
+                            // });
+                            // return await msg.reply(`Successfully reset /${commandObject.name} for this channel.`);
 
                             default:
                                 return await msg.reply("Invalid Command Usage");
