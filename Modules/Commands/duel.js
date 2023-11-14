@@ -286,7 +286,7 @@ export default {
             filter: x => {
                 return x.commandName == "duel" && (teamA[x.user.id] || teamB[x.user.id]) && (x.options.getSubcommand() == "actions" || x.options.getSubcommand() == "moves" || x.options.getSubcommand() == "team");
             },
-            time: 5 * 60000
+            time: 10 * 60000
         });
 
         let isPokemonBattle = false;
