@@ -5,7 +5,7 @@ import axios from "axios";
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .addStringOption(option => option.setName('pokemon').setDescription('Name of the Pokemon you are trying to catch'))
+        .addStringOption(option => option.setName('pokemon').setRequired(true).setDescription('Name of the Pokemon you are trying to catch'))
         .setName('catch')
         .setDescription('Catch the Pokemon!'),
     async execute(msg) {
