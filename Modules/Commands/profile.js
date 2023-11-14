@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import generateProfile from "../../Utilities/User/generateProfile.js";
 import Player from "../../Classes/player.js";
+import getDominantColor from "../../Utilities/Misc/getDominantColor.js";
 
 export default {
     help: "",
@@ -119,7 +120,7 @@ export default {
                         name: "profile.png"
                     }],
                     embeds: [{
-                        color: Math.round(Math.random() * 0xffffff),
+                        color: await getDominantColor(`../pokediAssets/profile/backgrounds/${player.background}.png`),
                         image: {
                             url: "attachment://profile.png"
                         },
