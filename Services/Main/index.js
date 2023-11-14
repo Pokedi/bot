@@ -10,7 +10,7 @@ const client = new Client({
     shardCount: getInfo().TOTAL_SHARDS, // Total number of shards
     intents: process.env.DEV ?
         [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMessages]
-        : [GatewayIntentBits.Guilds]
+        : [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
 });
 
 client.cluster = new ClusterClient(client); // initialize the Client, so we access the .broadcastEval()
