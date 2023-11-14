@@ -43,6 +43,8 @@ import { Chance } from "chance";
 // Assign ShardID to Client when Ready
 client.on("shardReady", async id => {
     client.shardID = id;
+    // Start Activity
+    client.user.setActivity("the birds wake up.", {type: ActivityType.Watching});
     // Set Activity
     setInterval(() => client.user.setActivity(
         Chance().pickone(["Anthony", "Audrey", "Alpha", "Alicia", "Anthony's Playlist", "Audrey's Jam", "Alpha's College Lecture", "Alicia's Swablu Fanfiction", "/help", "/pokemon", "/help because you need it"])
