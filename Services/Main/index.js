@@ -47,7 +47,7 @@ client.on("shardReady", async id => {
     client.user.setActivity("the birds wake up.", {type: ActivityType.Watching});
     // Set Activity
     setInterval(() => client.user.setActivity(
-        Chance().pickone(["Anthony", "Audrey", "Alpha", "Alicia", "Anthony's Playlist", "Audrey's Jam", "Alpha's College Lecture", "Alicia's Swablu Fanfiction", "/help", "/pokemon", "/help because you need it"])
+        Chance().pickone(["Anthony", "Audrey", "Alpha", "Alicia", "Anthony's Playlist", "Audrey's Jam", "Alpha's College Lecture", "Alicia's Swablu Fanfiction", "/help", "/pokemon", "/help because you need it"]) + ` [C${client.cluster.id}S${client.shardID}]`
         , { type: ActivityType.Listening }
     ), 60000 * 10);
 });
