@@ -103,6 +103,9 @@ export default {
 
                 if (!player.started) return await msg.reply("Please make sure to /pick a pokemon!");
 
+                if (!player.selected)
+                    return await msg.reply("Please select a Pokemon to load with you!");
+
                 const profileMessage = await msg.reply({ content: "Please wait...", fetchReply: true });
 
                 const profileImage = await generateProfile(msg.client.postgres, player, msg.user.globalName || msg.user.username);
