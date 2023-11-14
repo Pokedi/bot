@@ -19,7 +19,7 @@ export default {
 
         const player = new Player({ id: BigInt(msg.user.id) });
 
-        await player.fetch(msg.client.postgres);
+        await player.fetchColumns(msg.client.postgres, "id, selected");
 
         // Count Total Pokemon
         const [{ count: countPokemon }] = await msg.client.postgres`SELECT MAX(idx) as count FROM pokemon WHERE user_id = ${player.id} LIMIT 1`;
@@ -28,7 +28,7 @@ export default {
         const { values, text } = builder.select('pokemon', "*").where(content.includes("l") ? {
             idx: countPokemon,
             user_id: player.id
-        } : (!isID && player.selected[0] ? { id: player.selected[0] } : {
+        } : (!isID && player.selected.length ? { id: player.selected[0] } : {
             user_id: player.id,
             idx: parseInt(content || "1")
         })).limit(1);
