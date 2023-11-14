@@ -138,7 +138,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         };
         // Ready Base
         this.pokemon = (id || this.pokemon || this.pokedex._id).toLowerCase();
-        this.level = randomint(60);
+        this.level = randomint(60) + 1;
         this.stats = {
             hp: randomint() || 1,
 
