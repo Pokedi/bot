@@ -314,6 +314,11 @@ export default {
 
                     const id = msg.options.getInteger("id");
 
+                    const selectedID = id ? { idx: id, user_id: msg.user.id } : { id: player.selected?.[0] };
+
+                    if (!selectedID.id && !selectedID.idx)
+                        return msg.reply("No Pokemon selected");
+
                     let selectedPokemon = new Pokedex(id ? { idx: id, user_id: msg.user.id } : { id: player.selected[0] });
 
                     const evolution = await selectedPokemon.fetchEvolutionByID(product);
