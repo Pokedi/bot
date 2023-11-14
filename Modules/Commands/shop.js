@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
 import Pokemon from "../../Classes/pokemon.js";
 import { Chance } from "chance";
@@ -11,6 +11,7 @@ import backgrounds from "../../Utilities/Data/backgrounds.json" assert {type: "j
 
 // Forms
 import forms from "../../Utilities/Data/PokemonDB/pokemon_forms.json" assert {type: "json"};
+import getDominantColor from "../../Utilities/Misc/getDominantColor.js";
 
 export default {
     help: "",
@@ -230,6 +231,7 @@ export default {
             .setDescription("Check available Trainer Profiles or Backgrounds to show off to your friends!")
             .addBooleanOption(z => z.setName("background-listing").setDescription("Check out available backgrounds"))
             .addIntegerOption(z => z.setName("background-id").setDescription("Select the Background you wish to buy"))
+            .addBooleanOption(z => z.setName("preview").setDescription("Preview the Background!"))
             // .addBooleanOption(z => z.setName("profile-listing").setDescription("Check out available profiles"))
         ),
     // .addSubcommand(y => y
@@ -377,8 +379,22 @@ export default {
 
                         const id = msg.options.getInteger("background-id");
 
-                        if (!id || !backgrounds[id] || backgrounds[id].forbidden)
+                        const preview = msg.options.getBoolean("preview");
+
+                        if (!id || !backgrounds[id] || !preview && backgrounds[id].forbidden)
                             return msg.reply("Invalid Background selected");
+
+                        if (preview) {
+                            const file = new AttachmentBuilder(`../pokediAssets/profile/backgrounds/${id}.png`);
+                            return await msg.reply({
+                                embeds: [{
+                                    color: await getDominantColor(`../pokediAssets/profile/backgrounds/${id}.png`, true),
+                                    image: {
+                                        url: `attachment://${id}.png`
+                                    }
+                                }], files: [file]
+                            });
+                        }
 
                         const { cost, name } = backgrounds[id];
 
