@@ -223,7 +223,7 @@ function generateBattleBox(A, B) {
     ))
 }
 
-async function returnBattleBox(readiedPokemonCompositions, background = '../pokediAssets/duel/backgrounds/duel/default.png') {
+async function returnBattleBox(readiedPokemonCompositions, background = '../pokediAssets/duel/backgrounds/default.png') {
     const battleBox = sharp(background).composite(await Promise.all(readiedPokemonCompositions));
     return await battleBox.toBuffer();
 }
