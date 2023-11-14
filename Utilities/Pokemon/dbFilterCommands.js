@@ -52,6 +52,10 @@ const filterCommands = {
     "galar": (queryObject) => {
         return queryObject = queryObject.and({ pokemon: "%galar%" }, 'ilike');
     },
+    // Hisui Filter
+    "hisui": (queryObject) => {
+        return queryObject = queryObject.and({ pokemon: "%hisui%" }, 'ilike');
+    },
     // Shiny Filter
     "shiny": (queryObject) => {
         return queryObject = queryObject.and({ shiny: true });
