@@ -30,7 +30,7 @@ export default {
             user_id: player.id
         } : (!isID && player.selected[0] ? { id: player.selected[0] } : {
             user_id: player.id,
-            idx: parseInt(content || player)
+            idx: parseInt(content || "1")
         })).limit(1);
 
         const [selectedPokemon] = await msg.client.postgres.unsafe(text + (isID && parseInt(content) < 0 ? "OFFSET " + (-1 * parseInt(content)) : ""), values)
