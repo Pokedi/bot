@@ -28,7 +28,7 @@ export default {
         const { values, text } = builder.select('pokemon', "*").where(content.includes("l") ? {
             idx: countPokemon,
             user_id: player.id
-        } : (!isID && player.selected.length ? { id: player.selected[0] } : {
+        } : (!isID && player.selected && player.selected.length ? { id: player.selected[0] } : {
             user_id: player.id,
             idx: parseInt(content || "1")
         })).limit(1);
