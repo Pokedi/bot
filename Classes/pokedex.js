@@ -160,7 +160,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
     determineGender(ratio = this.pokedex.gender_rate) {
         if (ratio == -1) return 3;
 
-        return (ratio <= Chance().d8()) ? 1 : 2;
+        return (ratio <= Chance().d8()) ? 2 : 1;
     }
 
     async selectRandomV2() {
