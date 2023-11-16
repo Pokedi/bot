@@ -103,7 +103,7 @@ class Pokemon {
     async spawnToChannel(spawnChannel, commandID = 0) {
         try {
             // Return spawnImage-generated Image
-            return logCustomReport({ command: 101, shortval: this.pokemon, guild: spawnChannel.guild.id, channel: spawnChannel.id }), spawnChannel.send({
+            return logCustomReport({ command: 101, shortval: this.pokemon || "???", guild: spawnChannel.guild.id, channel: spawnChannel.id }), spawnChannel.send({
                 files: [{
                     attachment: await spawnImage(this.pokemon.toLowerCase(), this.shiny),
                     name: "spawn.png"
