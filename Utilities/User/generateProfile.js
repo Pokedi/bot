@@ -18,10 +18,10 @@ async function generateProfile(postgres, user = { level: 1, bal: 0, selected: []
     // Selected or First IDX
     if (user.selected[0]) {
         userPokemon.id = user.selected[0];
-        await userPokemon.fetchPokemon(postgres, "pokemon");
+        await userPokemon.fetchPokemon(postgres, "pokemon, shiny");
     } else {
         userPokemon.idx = 1;
-        await userPokemon.fetchPokemonByIDX(postgres, "pokemon");
+        await userPokemon.fetchPokemonByIDX(postgres, "pokemon, shiny");
     }
 
     // Return if nothing found
@@ -71,10 +71,10 @@ async function generateProfile(postgres, user = { level: 1, bal: 0, selected: []
     const trainerImage = sharp('../pokediAssets/profile/trainers/' + (trainerCheck ? user.character : "1") + '.png');
 
     // Check if Pokemon Exists
-    const pokemonCheck = existsSync(`../pokediAssets/pokemon/regular/${userPokemon.pokemon}.png`);
+    const pokemonCheck = existsSync(`../pokediAssets/pokemon/${userPokemon.shiny ? "shiny" : "regular"}/${userPokemon.pokemon}.png`);
 
     // Select Pokemon
-    const selectedPokemon = sharp(`../pokediAssets/pokemon/regular/${pokemonCheck ? userPokemon.pokemon : "unown-qm"}.png`).resize({ width: 472, height: 526, fit: "contain", background: [0, 0, 0, 0] });
+    const selectedPokemon = sharp(`../pokediAssets/pokemon/${userPokemon.shiny && pokemonCheck ? "shiny" : "regular"}/${userPokemon.pokemon}.png`).resize({ width: 472, height: 526, fit: "contain", background: [0, 0, 0, 0] });
 
     return await base.composite([{
         input: await trainerImage.toBuffer(),

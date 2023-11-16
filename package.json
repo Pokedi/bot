@@ -33,7 +33,8 @@
   "description": "A newer, better, kinder, and cleaner version of Pokedi.",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "node index.js",
+    "build": "yarn tsc Modules/Commands/*.ts --outDir Modules/Commands --module nodenext"
   },
   "keywords": [
     "Pokedi",
