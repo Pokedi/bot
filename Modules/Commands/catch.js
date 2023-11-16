@@ -33,6 +33,8 @@ export default {
 
                 pokemonGrabbed.idx = (idx || 0) + 1;
 
+                pokemonGrabbed.moves = ["Tackle", "Pound", "Growl"];
+
                 // Save to DB
                 await pokemonGrabbed.save(msg.client.postgres);
 
