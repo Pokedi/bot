@@ -49,7 +49,7 @@ export default {
     async execute(msg) {
         
         // Redirect to Help if called
-        if (msg.options.getSubcommand("help"))
+        if (msg.options.getSubcommand() == "help")
             return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "redeem" }),
                 msg.client.commands.get("help")(msg);
 

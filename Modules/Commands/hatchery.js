@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
-import generateHatchery from "../../Utilities/Pokemon/generateHatchery";
-import Player from "../../Classes/player";
+import generateHatchery from "../../Utilities/Pokemon/generateHatchery.js";
+import Player from "../../Classes/player.js";
 export default {
     help: "",
     data: new SlashCommandBuilder()

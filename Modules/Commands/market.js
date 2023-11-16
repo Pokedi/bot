@@ -180,7 +180,7 @@ export default {
         try {
 
             // Redirect to Help if Called
-            if (msg.options.getSubcommand("help"))
+            if (msg.options.getSubcommand() == "help")
                 return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "market" }),
                     msg.client.commands.get("help")(msg);
 
