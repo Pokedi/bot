@@ -79,17 +79,17 @@ export default {
         .setDescription('Claim your ticket to the chocolate factory!')
         .addStringOption(option => option
             .setName("code")
-            .setDescription("Token of the Voucher you wish to claim").setRequired(true)
+            .setDescription("Token of the Voucher you wish to claim")
         )
         .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command")),
     async execute(msg) {
+        
+        const code = msg.options.getString("code"); // Retrieve the value of the "code" option from the `msg` object and assign it to the `code` variable.
 
         // Redirect to Help
-        if (msg.options.getBoolean("help"))
+        if (msg.options.getBoolean("help") || !code)
             return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "voucher" }),
                 msg.client.commands.get("help")(msg);
-
-        const code = msg.options.getString("code"); // Retrieve the value of the "code" option from the `msg` object and assign it to the `code` variable.
 
         if (code.split(" ").length > 1 && process.env.DEVIDS && JSON.parse(process.env.DEVIDS).includes(msg.user.id)) {
             // Check if the `code` variable has more than one space-separated string and if the `DEVIDS` environment variable exists and if the `msg.user.id` is included in the parsed JSON value of `DEVIDS`.
