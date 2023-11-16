@@ -44,7 +44,7 @@ export default {
 
         const newPokemonForUser = new Pokedex({});
 
-        newPokemonForUser.generateV2(pk._id, { user_id: BigInt(msg.user.id), idx: 1 });
+        await newPokemonForUser.generateV2(pk._id, { user_id: BigInt(msg.user.id), idx: 1 });
 
         await newPokemonForUser.save(msg.client.postgres);
 
