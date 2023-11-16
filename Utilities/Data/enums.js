@@ -53,7 +53,9 @@ const ENUM_COMMANDS = {
     "27": "market",
     "28": "inventory",
     "29": "voucher",
-    "30": "help"
+    "30": "help",
+    "31": "invite",
+    "32": "vote"
 }
 
 const ENUM_POKEMON_FULL_TYPES_ID = {
