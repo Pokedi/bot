@@ -120,7 +120,7 @@ export default {
                         name: "profile.png"
                     }],
                     embeds: [{
-                        color: await getDominantColor(`../pokediAssets/profile/backgrounds/${player.background}.png`),
+                        color: await getDominantColor(`../pokediAssets/profile/backgrounds/${player.background || "1"}.png`, true),
                         image: {
                             url: "attachment://profile.png"
                         },
