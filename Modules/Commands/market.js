@@ -199,7 +199,7 @@ export default {
 
                     await marketedPokemon.getStatsV2(true);
 
-                    const file = new AttachmentBuilder(`../pokediAssets/pokemon/${marketedPokemon.shiny ? "shiny" : "regular"}/${marketedPokemon.pokedex._id}.png`);
+                    const file = new AttachmentBuilder(`../pokediAssets/pokemon/${marketedPokemon.shiny ? "shiny" : "regular"}/${foundPokemon.pokemon}.png`);
 
                     return await msg.reply({ embeds: [userPokemonInfoModule(marketedPokemon, null, 0, true)], files: [file] });
                 }

@@ -45,7 +45,7 @@ export default {
         if (!processedPokemon.pokedex.id)
             return await msg.reply("This pokemon has not been registered in the database, please contact an admin for more help...");
 
-        const file = new AttachmentBuilder(`../pokediAssets/pokemon/${processedPokemon.shiny ? "shiny" : "regular"}/${processedPokemon.pokedex._id}.png`);
+        const file = new AttachmentBuilder(`../pokediAssets/pokemon/${processedPokemon.shiny ? "shiny" : "regular"}/${processedPokemon.pokemon}.png`);
 
         const color = await getDominantColor(file.attachment, true);
 
