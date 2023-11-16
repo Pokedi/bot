@@ -24,10 +24,9 @@ export default {
         if (player.started)
             return msg.reply("you already have started");
 
-        let content = msg.options.getString("pokemon").toLowerCase();
-        const pk = findPokemon(content.toLowerCase());
+        let selectedStarter = ["bulbasaur", "charmander", "squirtle", "pikachu", "eevee", "chikorita", "cyndaquil", "totodile", "treecko", "torchic", "mudkip", "turtwig", "chimchar", "piplup", "snivy", "tepig", "oshawott", "chespin", "fennekin", "froakie", "rowlet", "litten", "popplio", "grookey", "scorbunny", "sobble", "pumpkinsaur"].find(x => x == msg.options.getString("pokemon").toLowerCase());
 
-        if (!pk || !["bulbasaur", "charmander", "squirtle", "pikachu", "eevee", "chikorita", "cyndaquil", "totodile", "treecko", "torchic", "mudkip", "turtwig", "chimchar", "piplup", "snivy", "tepig", "oshawott", "chespin", "fennekin", "froakie", "rowlet", "litten", "popplio", "grookey", "scorbunny", "sobble", "pumpkinsaur"].includes(pk._id))
+        if (!selectedStarter)
             return msg.reply("sorry, but that's not a valid starter! Please try again by selecting whatever is available in `/start`!")
 
         const { text, values } = builder.insert("users", {
@@ -40,11 +39,11 @@ export default {
         const [userAccount] = await msg.client.postgres.unsafe(text, values);
 
         // Set it to Collection Cache
-        // msg.user.player = userAccount;
+        msg.user.player = userAccount;
 
         const newPokemonForUser = new Pokedex({});
 
-        await newPokemonForUser.generateV2(pk._id, { user_id: BigInt(msg.user.id), idx: 1 });
+        await newPokemonForUser.generateV2(selectedStarter, { user_id: BigInt(msg.user.id), idx: 1 });
 
         await newPokemonForUser.save(msg.client.postgres);
 
