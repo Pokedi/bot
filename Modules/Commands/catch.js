@@ -15,6 +15,10 @@ export default {
             const possibleNames = [msg.channel.spawn.pokemon.pokemon].concat(msg.channel.spawn.pokemon.spawn_names).filter(x => x).map(x => x.toLowerCase());
             if (possibleNames.includes(content)) {
 
+                // Stop NonPlayers
+                if (!msg.user.player?.started)
+                    return msg.reply("You haven't started your adventure! `/pick` someone to travel with!");
+
                 // Get spawn Pokemon to cache
                 const pokemonGrabbed = msg.channel.spawn.pokemon;
 
