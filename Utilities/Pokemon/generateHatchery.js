@@ -2,9 +2,9 @@ import sharp from "sharp";
 import Chance from "chance";
 export default async (hatchery = []) => {
 
-    const background = sharp('./EggHatchery.png');
+    const background = sharp('../pokediAssets/hatchery/background.png');
 
-    const egg = sharp('./egg.png');
+    const egg = sharp('../pokediAssets/hatchery/egg.png');
 
     let nests = [];
 
