@@ -13,7 +13,7 @@
         "cost": 0
     },
     "2": {
-        "name": "Space",
+        "name": "Purple Space",
         "bold": "bolder",
         "fill": "#bb61ff",
         "title_font_size": 70,
@@ -26,7 +26,7 @@
         "cost": 5000
     },
     "3": {
-        "name": "Nature",
+        "name": "Wild Nature",
         "bold": "bolder",
         "fill": "white",
         "title_font_size": 70,
@@ -39,7 +39,7 @@
         "cost": 4000
     },
     "4": {
-        "name": "Windows",
+        "name": "Windows XP",
         "bold": "bolder",
         "fill": "white",
         "title_font_size": 70,
@@ -52,7 +52,7 @@
         "cost": 4000
     },
     "5": {
-        "name": "Water",
+        "name": "Water Haven",
         "bold": "bolder",
         "fill": "white",
         "title_font_size": 70,
@@ -65,7 +65,7 @@
         "cost": 4000
     },
     "6": {
-        "name": "The Depths",
+        "name": "The Depths of Thalasophobia",
         "bold": "bolder",
         "fill": "#81dee7",
         "title_font_size": 70,
@@ -78,7 +78,7 @@
         "cost": 4000
     },
     "7": {
-        "name": "Fire",
+        "name": "Fiery Abyss",
         "bold": "bolder",
         "fill": "#f5d13b",
         "title_font_size": 70,
