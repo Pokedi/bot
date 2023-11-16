@@ -7,7 +7,7 @@ const rest = new REST().setToken(process.env.TOKEN);
 const commands = [];
 
 // Ready Commands
-export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release", "select", "team", "forcespawn", "order", "shop", "trade", "sql", "config", "profile", "duel", "moves", "daily", "shardstats", "redeem", "market", "inventory", "voucher", "help", "vote", "invite"], client, allowRest = false) => {
+export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release", "select", "team", "forcespawn", "order", "shop", "trade", "sql", "config", "profile", "duel", "moves", "daily", "shardstats", "redeem", "market", "inventory", "voucher", "help", "vote", "invite", "hatchery"], client, allowRest = false) => {
 
     // Clear just in-case of reuse
     commands.splice(0, commands.length);

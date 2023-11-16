@@ -25,7 +25,9 @@
     "sql-query-generator": "^1.4.2",
     "text-table": "^0.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
   "name": "pokedi",
   "version": "4.0.0",
   "description": "A newer, better, kinder, and cleaner version of Pokedi.",

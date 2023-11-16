@@ -21,3 +21,4 @@ secretREADME.md
 Services/PokeAPI/*
 test.json
 assets/*
+Modules/Commands/*.ts
