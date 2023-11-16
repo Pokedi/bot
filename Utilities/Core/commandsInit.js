@@ -30,17 +30,17 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
 
         let data = [];
 
-        if (process.env.DEV) {
+        /*if (process.env.DEV) {
             // The put method is used to fully refresh all commands in the guild with the current set
             data = allowRest ? await rest.put(Routes.applicationGuildCommands(process.env.BOTID, "716293571166208001"), { body: commands }) : [];
             console.log("Loaded DEV Mode");
-        } else {
+        } else {*/
             if (allowRest)
                 data = await rest.put(
                     Routes.applicationCommands(process.env.BOTID),
                     { body: commands }
                 );
-        }
+        //}
 
         if (!allowRest) {
             const commandsData = await client.application.commands.fetch();
@@ -58,6 +58,7 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
         console.log("Successfully loaded application (/) commands to cache.");
 
         console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+        if (process.env.DEV) console.log("Launched Pokedi Development")
 
     } catch (error) {
         // And of course, make sure you catch and log any errors!
