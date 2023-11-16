@@ -45,6 +45,8 @@ export default {
 
         await newPokemonForUser.generateV2(selectedStarter, { user_id: BigInt(msg.user.id), idx: 1 });
 
+        if (!newPokemonForUser.moves.length) newPokemonForUser.moves = ["tackle"];
+
         await newPokemonForUser.save(msg.client.postgres);
 
         if (!userAccount) return msg.reply("A problem occurred creating your account.");
