@@ -44,3 +44,20 @@ export default async (msg, obj = { command: 0 }) => {
 
     return true;
 }
+
+export async function logCustomReport(obj = { subcommand: null, groupcommand: null, command: 0, channel: 0, guild: 0, user_id: 0, value: "", shortval: "" }) {
+
+    const { text, values } = builder.insert("logs", {
+        command: isNaN(parseInt(obj.command)) ? reverseENUM(ENUM_COMMANDS, obj.command) : obj.command,
+        user_id: obj.user_id,
+        shortval: obj.shortval,
+        value: obj.value,
+        subcommand: obj.subcommand,
+        groupcommand: obj.groupcommand,
+        guild: obj.guild,
+        channel: obj.channel
+    }).returning("*");
+
+    return await sql.unsafe(text, values);
+
+}

@@ -14,6 +14,7 @@ import moves from "../Utilities/Data/moves.json" assert {type: "json"};
 import capitalize from "../Utilities/Misc/capitalize.js";
 import pokemondb from "../Modules/Database/pokedb.js";
 import Move from "./move.js";
+import { logCustomReport } from "../Utilities/User/logReport.js";
 
 const chance = Chance();
 
@@ -102,7 +103,7 @@ class Pokemon {
     async spawnToChannel(spawnChannel, commandID = 0) {
         try {
             // Return spawnImage-generated Image
-            return spawnChannel.send({
+            return logCustomReport({ command: 101, shortval: this.pokemon, guild: spawnChannel.guild.id, channel: spawnChannel.id }), spawnChannel.send({
                 files: [{
                     attachment: await spawnImage(this.pokemon.toLowerCase(), this.shiny),
                     name: "spawn.png"

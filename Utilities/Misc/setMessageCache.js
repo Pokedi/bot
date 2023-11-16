@@ -1,4 +1,4 @@
-import Player from "../../Classes/player.js";
+import retryUser from "./retryUser.js";
 
 export default async (msg) => {
     // Init Channel
@@ -19,9 +19,9 @@ export default async (msg) => {
         msg.guild.configs = configs.length ? Object.assign(...configs) : {};
     }
 
-    if (msg.author && !msg.author.player) msg.author.player = new Player(msg.author), await msg.author.player.fetchColumns(msg.client.postgres, "started, id, locale");
+    if (msg.author && !msg.author.player) msg.author.player = await retryUser(msg.author, msg.client.postgres);
 
-    if (msg.user && !msg.user.player) msg.user.player = new Player(msg.user), await msg.user.player.fetchColumns(msg.client.postgres, "started, id, locale");
+    if (msg.user && !msg.user.player) msg.user.player = await retryUser(msg.user, msg.client.postgres);
 
     return true;
 }

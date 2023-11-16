@@ -4,6 +4,7 @@ import randomint from "../Utilities/Misc/randomint.js";
 import capitalize from "../Utilities/Misc/capitalize.js";
 import Pokedex from "../Classes/pokedex.js";
 import setMessageCache from "../Utilities/Misc/setMessageCache.js";
+import { logCustomReport } from "../Utilities/User/logReport.js";
 
 const chance = Chance();
 
@@ -57,9 +58,10 @@ async function messageCreate(msg, e) {
     if (!msg.author.count) msg.author.count = { levelUp: 0, pokemonLevelUpCount: chance.integer({ min: 40, max: 300 }) };
 
     if (msg.author.player && msg.author.player.started) {
+
         if (randomint(10000) < 20) {
             if (await msg.author.player.levelUp(msg.client.postgres))
-                msg.channel.send("Congrats on being Level " + msg.author.player.level + ", Champ.");
+                msg.channel.send("Congrats on being Level " + msg.author.player.level + ", Champ."), logCustomReport({ command: 103, user_id: msg.author.id, channel: msg.channel.id, guild: msg.guild.id, shortval: msg.author.player.level.toString() });
         }
 
         if (--msg.author.count.pokemonLevelUpCount <= 0) {
@@ -69,6 +71,7 @@ async function messageCreate(msg, e) {
             const checkStats = await msg.author.player.pokemonLevelUp(msg.client.postgres, msg);
 
             if (checkStats) {
+                logCustomReport({ command: 102, user_id: msg.author.id, channel: msg.channel.id, guild: msg.guild.id, value: JSON.stringify(checkStats) });
                 if (checkStats.hasEvolved) return msg.reply(`Congratulations! Your ${capitalize(checkStats.pokemon)} has evolved to ${capitalize(checkStats.evolvedPokemon)}!`);
                 if (checkStats.levelIncreased) return msg.reply(`Congratulations! Your ${capitalize(checkStats.pokemon)} is now level ${checkStats.level}!`);
             }

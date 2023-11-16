@@ -1,7 +1,7 @@
 import { createLocale } from "../Classes/lang.js";
 import autoComplete from "../Modules/Events/autoComplete.js";
 import setMessageCache from "../Utilities/Misc/setMessageCache.js";
-import logReport from "../Utilities/User/logReport.js";
+import logInteractionReport from "../Utilities/User/logReport.js";
 
 async function interactionCreateHandler(msg) {
 
@@ -14,7 +14,7 @@ async function interactionCreateHandler(msg) {
 
     try {
         if (msg.client.commands.get(msg.commandName))
-            return logReport(msg), msg.client.commands.get(msg.commandName)(msg);
+            return logInteractionReport(msg), msg.client.commands.get(msg.commandName)(msg);
     } catch (error) {
         console.log(error);
     }
