@@ -45,7 +45,7 @@ export default async (msg, obj = { command: 0 }) => {
     return true;
 }
 
-export async function logCustomReport(obj = { subcommand: null, groupcommand: null, command: 0, channel: 0, guild: 0, user_id: 0, value: "", shortval: "" }) {
+export async function logCustomReport(obj = { subcommand: null, groupcommand: null, command: 0, channel: 0, guild: 0, user_id: 0, value: "{}", shortval: "" }) {
 
     return await sql`INSERT INTO logs ${sql({
         command: isNaN(parseInt(obj.command)) ? reverseENUM(ENUM_COMMANDS, obj.command) : obj.command,
