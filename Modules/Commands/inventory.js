@@ -152,7 +152,7 @@ export default {
                         inline: true
                     }],
                     author: {
-                        icon_url: 'attachment://' + item._id + ".png",
+                        icon_url: 'attachment://' + sprite.split("/itemSprites/")[1] + ".png",
                         name: item.name + " details"
                     },
                 }]
