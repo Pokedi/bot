@@ -9,6 +9,7 @@ import { existsSync } from "fs";
 export default {
     help: "",
     data: new SlashCommandBuilder()
+        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .addStringOption(option => option.setName('pokemon').setDescription('Name of the Pokemon you are searching'))
         .addBooleanOption(option => option.setName("progress").setDescription("Check your progress with the Pokedex"))
         .addBooleanOption(option => option.setName("claim").setDescription("Claim your prizes!"))
@@ -17,6 +18,11 @@ export default {
         .setName('dex')
         .setDescription('View your Pokemon!'),
     async execute(msg) {
+
+        if (msg.options.getBoolean("help"))
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "dex" }),
+                msg.client.commands.get("help")(msg);
+
         const pokemonName = msg.options.getString('pokemon');
 
         if (pokemonName) {

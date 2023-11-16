@@ -109,8 +109,16 @@ export default {
             subcommand
                 .setName("cancel")
                 .setDescription('Cancel the trade between you and the mysterious merchant')
+        ).addSubcommand(subcommand => subcommand
+            .setName("help").setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
         ),
     async execute(msg) {
+
+        // Redirect to Help if Called
+        if (msg.options.getSubcommand("help"))
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "trade" }),
+                msg.client.commands.get("help")(msg);
+
 
         // Get Member instead of ID
         const Tradee = msg.options.getMember('user');

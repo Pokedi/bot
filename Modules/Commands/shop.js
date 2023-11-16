@@ -233,6 +233,9 @@ export default {
             .addIntegerOption(z => z.setName("background-id").setDescription("Select the Background you wish to buy"))
             .addBooleanOption(z => z.setName("preview").setDescription("Preview the Background!"))
             // .addBooleanOption(z => z.setName("profile-listing").setDescription("Check out available profiles"))
+        )
+        .addSubcommand(y => y
+            .setName("help").setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
         ),
     // .addSubcommand(y => y
     //     .setName("misc")
@@ -243,6 +246,12 @@ export default {
     //     .setDescription("Shows you a Menu you might like")
     // )
     async execute(msg) {
+
+        // Redirect to Help if Called
+        if (msg.options.getSubcommand("help"))
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "market" }),
+                msg.client.commands.get("help")(msg);
+
         const player = new Player(msg.user);
         await player.fetch(msg.client.postgres);
 

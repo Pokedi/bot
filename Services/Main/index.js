@@ -38,7 +38,6 @@ client.redis = redisClient;
 
 // Ready all Commands
 import commandsInit from "../../Utilities/Core/commandsInit.js";
-commandsInit(undefined, client);
 
 // Shard Controller
 client.shardID = 0;
@@ -48,6 +47,9 @@ import { Chance } from "chance";
 
 // Assign ShardID to Client when Ready
 client.on("shardReady", async id => {
+    // Ready Commands on Shard
+    commandsInit(undefined, client);
+    // Ready ShardID
     client.shardID = id;
     // Start Activity
     client.user.setActivity("the birds wake up. " + `[C${client.cluster.id}S${id}]`, { type: ActivityType.Watching, shardId: id });

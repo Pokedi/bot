@@ -16,9 +16,15 @@ export default {
             name: "CSV Export",
             value: "csv-export"
         }))
+        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .setName('pokemon')
         .setDescription('List your Pokemon'),
     async execute(msg) {
+
+        // Redirect to Help
+        if (msg.options.getBoolean("help"))
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "pokemon" }),
+                msg.client.commands.get("help")(msg);
 
         // Page Number
         const page = (msg.options.getNumber("page") || 1) - 1;

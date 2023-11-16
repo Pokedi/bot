@@ -51,8 +51,16 @@ export default {
             .setMinValue(1)
             .setMaxValue(100)
         )
+        .addBooleanOption(x => x
+            .setName("help").setDescription("View details on how to use this command")
+        )
         .setDescription('Check out your items! Get em from the /shop or through the crates.'),
     async execute(msg) {
+
+        if (msg.options.getBoolean("help"))
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "inventory" }),
+                msg.client.commands.get("help")(msg);
+
         const page = (msg.options.getInteger("page") || 1) - 1;
         const itemID = msg.options.getInteger("item-id");
         const consume = msg.options.getInteger("use");
@@ -175,7 +183,7 @@ ${x.short_effect || "No Description available"}`,
                     inline: true
                 })),
                 footer: {
-                    text: `[Page ${page + 1} of ${Math.round(usersInventory.length / 9) || 1}]`
+                    text: `[Page ${page + 1} of ${Math.round(usersInventory.length / 9) || 1}]\n[Check out how to use your items with "/inventory help"]`
                 }
             }]
         })

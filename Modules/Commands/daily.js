@@ -66,7 +66,10 @@ export default {
                 color: Color('#8bc34a').rgbNumber(),
                 title: "Voting Rewards! (Vote every 12 hours for more chances to get redeems)",
                 description: "Vote multiple times for better rewards!",
-                fields
+                fields,
+                footer: {
+                    text: "Make sure to use the /inventory command for opening your crates!"
+                }
             }]
         });
     }

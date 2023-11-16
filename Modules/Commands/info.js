@@ -9,9 +9,16 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .addStringOption(option => option.setName('query').setDescription('Type in the ID of the pokemon. (You may type in "latest" for the last one)'))
+        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .setName('info')
         .setDescription('View your Pokemon!'),
     async execute(msg) {
+
+        // Redirect to Help
+        if (msg.options.getBoolean("help"))
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "info" }),
+                msg.client.commands.get("help")(msg);
+
         const content = (msg.options.getString("query") || "").toLowerCase();
 
         // isID?

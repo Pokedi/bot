@@ -5,9 +5,15 @@ import capitalize from "../../Utilities/Misc/capitalize.js";
 export default {
     help: "",
     data: new SlashCommandBuilder()
+        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .setName('team')
         .setDescription('Check your Pokemon team out!'),
     async execute(msg) {
+
+        // Redirect to Help
+        if (msg.options.getBoolean("help"))
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "select" }),
+                msg.client.commands.get("help")(msg);
 
         const userDB = new Player({ id: BigInt(msg.user.id) });
 
@@ -18,7 +24,7 @@ export default {
         if (!userDB.selected || userDB.selected[0]) return msg.reply({ ephemeral: true, content: "No one's home..." });
 
         const selectedPokemon = await msg.client.postgres`SELECT id, idx, level, name, pokemon FROM pokemon WHERE id in ${msg.client.postgres(userDB.selected)}`;
-        
+
         await msg.reply({
             embeds: [{
                 title: "Your Team",

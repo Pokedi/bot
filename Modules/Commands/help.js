@@ -86,7 +86,7 @@ export default {
                         description: "Look up details on the Pokemon, check your progress, and even reap what you've sown!\n- Pokemon Details include how to level them up, their alternative spellings, along with other forms _possibly_ obtainable.",
                         fields: [{
                             name: "Look-Up Pokemon Information",
-                            value: `</dex:${_id}> pokemon:<name>\n- Example: \`/dex pokemon:pikachu\`\n- Example: \`/dex pokemon:ディアルガ\`\n- Example: \`/dex pokemon:dialga shiny:true\``
+                            value: `</dex:${_id}> pokemon:<name>\n- Example: \`/dex pokemon:pikachu\`\n- Example: \`/dex pokemon:ディアルガ\`\n- Example: \`/dex pokemon:dialga shiny:true\` (Show Shiny version of Pokemon)`
                         }, {
                             name: "Record Progress",
                             value: `</dex:${_id}> progress:true\n- Example: \`/dex progress:true\`\n- Example: \`/dex progress:true page:1\``

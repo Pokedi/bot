@@ -176,11 +176,16 @@ export default {
             .setName("team")
             .setDescription("Check your Pokemons!")
         )
+        .addSubcommand(x => x.setName("help").setDescription("Check out how to use the Duel Command and battle your rival!"))
         .setName('duel')
         .setDescription('Admin command'),
     async execute(msg) {
 
         // if (msg.user.id != "688446585524584502") return await msg.reply("Yeah, this is currently being remade");
+
+        if (msg.options.getSubcommand("help"))
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "duel" }),
+                msg.client.commands.get("help")(msg);
 
         if (msg.options.getSubcommand() != "start")
             return true;

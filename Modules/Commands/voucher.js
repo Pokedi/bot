@@ -80,8 +80,14 @@ export default {
         .addStringOption(option => option
             .setName("code")
             .setDescription("Token of the Voucher you wish to claim").setRequired(true)
-        ),
+        )
+        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command")),
     async execute(msg) {
+
+        // Redirect to Help
+        if (msg.options.getBoolean("help"))
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "voucher" }),
+                msg.client.commands.get("help")(msg);
 
         const code = msg.options.getString("code"); // Retrieve the value of the "code" option from the `msg` object and assign it to the `code` variable.
 

@@ -9,9 +9,15 @@ export default {
         .addIntegerOption(option => option.setName("id").setDescription("ID of the Pokemon you intend to release").setMinValue(1))
         .addIntegerOption(option => option.setName("slot").setDescription("ID of the Pokemon you intend to release").setMinValue(1).setMaxValue(6))
         .addBooleanOption(option => option.setName('clear').setDescription("Clear entire team"))
+        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .setName('select')
         .setDescription('Select your Pokemon!'),
     async execute(msg) {
+
+        // Redirect to Help
+        if (msg.options.getBoolean("help"))
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "select" }),
+                msg.client.commands.get("help")(msg);
 
         const id = msg.options.getInteger('id');
         const slot = (msg.options.getInteger('slot') || 1) - 1;

@@ -21,7 +21,7 @@ export default {
             if (resetCommands) {
 
                 try {
-                    await commandsInit(undefined, msg.client, !msg.options.getBoolean('reset-commands-rest'));
+                    await commandsInit(undefined, msg.client, msg.options.getBoolean('reset-commands-rest'));
                     await msg.reply("Commands reloaded");
                 } catch (error) {
                     console.log(error);

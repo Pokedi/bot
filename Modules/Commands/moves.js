@@ -60,8 +60,16 @@ export default {
                 .setMaxValue(6)
                 .setMinValue(1)
             )
+        )
+        .addSubcommand(subcommand => subcommand
+            .setName("help").setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
         ),
     async execute(msg) {
+
+        // Redirect to Help if called
+        if (msg.options.getSubcommand("help"))
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "moves" }),
+                msg.client.commands.get("help")(msg);
 
         // Check Move Info ID
         const moveInfoID = msg.options.getInteger("move-info");

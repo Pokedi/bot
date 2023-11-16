@@ -7,7 +7,7 @@ const rest = new REST().setToken(process.env.TOKEN);
 const commands = [];
 
 // Ready Commands
-export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release", "select", "team", "forcespawn", "order", "shop", "trade", "sql", "config", "profile", "duel", "moves", "daily", "shardstats", "redeem", "market", "inventory", "voucher", "help", "vote", "invite"], client, justClient = false) => {
+export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release", "select", "team", "forcespawn", "order", "shop", "trade", "sql", "config", "profile", "duel", "moves", "daily", "shardstats", "redeem", "market", "inventory", "voucher", "help", "vote", "invite"], client, allowRest = false) => {
 
     // Clear just in-case of reuse
     commands.splice(0, commands.length);
@@ -32,17 +32,17 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
 
         if (process.env.DEV) {
             // The put method is used to fully refresh all commands in the guild with the current set
-            data = !justClient ? await rest.put(Routes.applicationGuildCommands(process.env.BOTID, "716293571166208001"), { body: commands }) : [];
+            data = allowRest ? await rest.put(Routes.applicationGuildCommands(process.env.BOTID, "716293571166208001"), { body: commands }) : [];
             console.log("Loaded DEV Mode");
         } else {
-            if (!justClient)
+            if (allowRest)
                 data = await rest.put(
                     Routes.applicationCommands(process.env.BOTID),
                     { body: commands }
                 );
         }
 
-        if (justClient) {
+        if (!allowRest) {
             const commandsData = await client.application.commands.fetch();
 
             if (commandsData && commandsData.size)
