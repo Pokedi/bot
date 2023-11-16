@@ -26,6 +26,12 @@ client.on('interactionCreate', interactionCreateHandler);
 import messageCreate from "../../Handlers/messageCreate.js";
 client.on("messageCreate", messageCreate);
 
+import guildCreate from "../../Handlers/guildCreate.js"
+client.on("guildCreate", guildCreate);
+
+import guildDelete from "../../Handlers/guildDelete.js"
+client.on("guildDelete", guildDelete);
+
 // Init + Ready Redis to BotClient
 import redisClient from "../../Modules/Database/redis.js";
 client.redis = redisClient;
