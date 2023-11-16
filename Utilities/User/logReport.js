@@ -47,19 +47,15 @@ export default async (msg, obj = { command: 0 }) => {
 
 export async function logCustomReport(obj = { subcommand: "", groupcommand: "", command: 0, channel: 0, guild: 0, user_id: 0, value: "{}", shortval: "" }) {
 
-    const rowObj = {
+    return await sql`INSERT INTO logs ${sql({
         command: isNaN(parseInt(obj.command)) ? reverseENUM(ENUM_COMMANDS, obj.command, 0) : obj.command,
-        user_id: obj.user_id,
-        shortval: obj.shortval,
-        value: obj.value,
-        subcommand: obj.subcommand,
-        groupcommand: obj.groupcommand,
-        guild: obj.guild,
-        channel: obj.channel
-    };
-
-    console.log(rowObj);
-
-    return await sql`INSERT INTO logs ${sql(rowObj)}`;
+        user_id: obj.user_id || null,
+        shortval: obj.shortval || null,
+        value: obj.value || null,
+        subcommand: obj.subcommand || null,
+        groupcommand: obj.groupcommand || null,
+        guild: obj.guild || null,
+        channel: obj.channel || null
+    })}`;
 
 }
