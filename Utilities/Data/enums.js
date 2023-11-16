@@ -55,7 +55,14 @@ const ENUM_COMMANDS = {
     "29": "voucher",
     "30": "help",
     "31": "invite",
-    "32": "vote"
+    "32": "vote",
+
+
+
+    // Events
+    "101": "spawn",
+    "102": "pk-level-up",
+    "103": "user-level-up",
 }
 
 const ENUM_POKEMON_FULL_TYPES_ID = {

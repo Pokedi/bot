@@ -1,6 +1,4 @@
 import { SlashCommandBuilder } from "discord.js";
-import findPokemon from "../../Utilities/Pokemon/findPokemon.js";
-import builder from "../Database/QueryBuilder/queryGenerator.js";
 import Player from "../../Classes/player.js";
 import Pokedex from "../../Classes/pokedex.js";
 
@@ -29,14 +27,12 @@ export default {
         if (!selectedStarter)
             return msg.reply("sorry, but that's not a valid starter! Please try again by selecting whatever is available in `/start`!")
 
-        const { text, values } = builder.insert("users", {
+        const [userAccount] = await msg.client.postgres`INSERT INTO users ${msg.client.postgres({
             id: BigInt(msg.user.id),
             bal: 200,
             started: new Date(),
             selected: [1]
-        }).returning("*");
-
-        const [userAccount] = await msg.client.postgres.unsafe(text, values);
+        })} RETURNING *`;
 
         // Set it to Collection Cache
         msg.user.player = userAccount;
