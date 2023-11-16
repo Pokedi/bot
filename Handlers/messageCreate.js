@@ -48,7 +48,7 @@ async function messageCreate(msg, e) {
             // Spawn Pokemon Execution
             await channelSelected.spawn.pokemon.SpawnFriendlyV2();
             // Send Spawn
-            await channelSelected.spawn.pokemon.spawnToChannel(channelSelected);
+            await channelSelected.spawn.pokemon.spawnToChannel(channelSelected, msg.client.commands.get("catch")?.rest?.id);
         } catch (err) {
             break spawnIF;
         };

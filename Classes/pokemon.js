@@ -99,7 +99,7 @@ class Pokemon {
     }
 
     // Spawn Pokemon to Channel
-    async spawnToChannel(spawnChannel) {
+    async spawnToChannel(spawnChannel, commandID = 0) {
         try {
             // Return spawnImage-generated Image
             return spawnChannel.send({
@@ -113,7 +113,7 @@ class Pokemon {
                     image: {
                         url: "attachment://spawn.png"
                     },
-                    description: "Use the `/catch` command to tame it! Or just ignore it?",
+                    description: "Use the </catch:" + commandID + "> command to tame it! Or just ignore it?",
                     footer: {
                         text: " 🌹 https://pokedi.xyz 🌹"
                     }
