@@ -189,7 +189,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         // Reject if cannot be generated
         if (!generatedPokemon) return false;
 
-        if (!forced && (generatedPokemon.is_nonspawnable || (generatedPokemon.is_legendary || generatedPokemon.is_sublegendary || generatedPokemon.is_mythical) && chance.d100() > 10)) {
+        if (!forced && (generatedPokemon.is_nonspawnable || (generatedPokemon.is_legendary || generatedPokemon.is_sublegendary || generatedPokemon.is_mythical) && chance.d100() >= 2)) {
             // Retry
             delete this.pokemon,
                 this.pokedex._id;
