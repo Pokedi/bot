@@ -17,7 +17,7 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
 
     for (const commandName of commandList) {
         try {
-            const { default: importedCommand } = await import("../../Modules/Commands/" + commandName + ".js");
+            const { default: importedCommand } = await import("../../Modules/Commands/" + commandName + ".js?q=" + Date.now());
             commands.push(importedCommand.data.toJSON());
             client.commands.set(commandName, importedCommand.execute);
         } catch (error) {
