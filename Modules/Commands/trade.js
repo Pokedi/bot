@@ -186,7 +186,7 @@ export default {
                 channel: msg.channel,
                 interactionType: InteractionType.ApplicationCommand, // ApplicationCommand
                 filter: x => {
-                    return x.commandName == "trade" && [You.id, Them.id].includes(BigInt(x.user.id));
+                    return x.commandName == "trade" && !!_trade[(x.user.id)];
                 },
                 time: 5 * 60000
             });
@@ -195,7 +195,7 @@ export default {
                 channel: msg.channel,
                 interactionType: InteractionType.ApplicationCommandAutocomplete,
                 filter: x => {
-                    return x.commandName == "trade" && [You.id, Them.id].includes(BigInt(x.user.id));
+                    return x.commandName == "trade" && !!_trade[(x.user.id)];
                 },
                 time: 3 * 60000
             });
