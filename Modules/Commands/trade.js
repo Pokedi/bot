@@ -176,8 +176,8 @@ export default {
             await Them.setTrading(msg.client.redis, You.id.toString());
 
             const _trade = {
-                [You.id]: { c: 0, r: 0, p: [], confirm: false, username: msg.user.username || msg.user.globalName },
-                [Them.id]: { c: 0, r: 0, p: [], confirm: false, username: Tradee.user.username || Tradee.user.globalName }
+                [You.id]: { c: 0, r: 0, p: [], confirm: false, username: msg.user.globalName || msg.user.username },
+                [Them.id]: { c: 0, r: 0, p: [], confirm: false, username: Tradee.user.globalName || Tradee.user.username }
             };
 
             const tradeMSG = await msg.followUp({ embeds: [{ title: `Trade Between ${_trade[You.id].username} and ${_trade[Them.id].username}`, fields: createField(_trade) }], fetchReply: true });
@@ -302,7 +302,7 @@ export default {
                 }
 
                 // Edit Message
-                await tradeMSG.edit({ embeds: [{ fields: createField(_trade), description: "~ trade slash commands enabled ~", title: `Trade Between ${msg.user.username} and ${Tradee.username}` }] });
+                await tradeMSG.edit({ embeds: [{ fields: createField(_trade), description: "~ trade slash commands enabled ~", title: `Trade Between ${_trade[You.id].username} and ${_trade[Them.id].username}` }] });
 
                 return m.reply({ ephemeral: true, content: "✅" });
             });
