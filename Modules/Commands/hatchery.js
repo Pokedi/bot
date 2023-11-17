@@ -133,7 +133,7 @@ export default {
 
             let slotImage = "empty-nest";
 
-            if (foundSlot)
+            if (foundSlot && foundSlot.egg_id)
                 if (foundSlot.count <= 200)
                     slotImage = "hatch-nest";
                 else
