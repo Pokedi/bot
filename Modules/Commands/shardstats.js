@@ -9,7 +9,7 @@ export default {
         .setDescription("Get all shard specific stats"),
     async execute(msg) {
         (msg.client.cluster.broadcastEval(client => ({
-            ids: client.cluster.ids,
+            ids: client.cluster.ids.size,
             info: client.cluster.info,
             usage: (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
             pid: process.pid,
@@ -32,7 +32,7 @@ export default {
                             text: `Current Cluster: ${msg.client.cluster.id}\nCurrent Pokedi Shard: ${msg.client.shardID}`
                         }, timestamp: new Date(),
                         "description": (() => {
-                            return `**Total Memory:** \`${arraySum(x.map(x => x.usage))}MB\`\n**Total Clusters**: ${msg.client.cluster.count}\n**Total Shards in this Cluster**: ${msg.client.cluster.ids.size}\n**Total CPU**: \`${arraySum(x.map(x => stats[x.pid].cpu.toFixed(2)))}%\`\n**Total Servers**: \`${arraySum(x.map(y => y.guilds))}\`\n**Average Ping**:\`${(arraySum(x.map(y => y.ping)) / arraySum(x.map(y => y.ids.size)))}ms\``
+                            return `**Total Memory:** \`${arraySum(x.map(x => x.usage))}MB\`\n**Total Clusters**: ${msg.client.cluster.count}\n**Total Shards in this Cluster**: ${msg.client.cluster.ids.size}\n**Total CPU**: \`${arraySum(x.map(x => stats[x.pid].cpu.toFixed(2)))}%\`\n**Total Servers**: \`${arraySum(x.map(y => y.guilds))}\`\n**Average Ping**:\`${(arraySum(x.map(y => y.ping)) / arraySum(x.map(y => y.ids))).toFixed(2)}ms\``
                         }
                         )()
                     }]
