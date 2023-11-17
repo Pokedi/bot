@@ -498,24 +498,19 @@ export default {
                         description: "You've managed to get yourself an Egg?! That's amazing! It's about time you start taking care of it.",
                         fields: [{
                             name: "Viewing Entire Hatchery",
-                            value: `</hatchery view:${_id}>`,
-                            inline: true
+                            value: `</hatchery view:${_id}>`
                         }, {
                             name: "Viewing Nest",
-                            value: `</hatchery view:${_id}> slot:<Slot ID>\n - Cracks on the egg show it's nearly there!`,
-                            inline: true
+                            value: `</hatchery view:${_id}> slot:<Slot ID>\n - Cracks on the egg show it's nearly there!`
                         }, {
                             name: "Buying First Slot (5000c)",
-                            value: `</hatchery shop:${_id}> first-slot: True`,
-                            inline: true
+                            value: `</hatchery shop:${_id}> first-slot: True`
                         }, {
                             name: "Place an Egg on a Nest",
-                            value: `</hatcher set:${_id}> egg-id: <ID of Egg> slot: <Slot ID>\n- Use \`/pokemon query:egg\` to find available Eggs`,
-                            inline: true
+                            value: `</hatcher set:${_id}> egg-id: <ID of Egg> slot: <Slot ID>\n- Use \`/pokemon query:egg\` to find available Eggs`
                         }, {
                             name: "R̸̤̆ẻ̴͜m̴̀͜o̵̽̐v̸̍̋ë̴͙́ ̴̀the Egg",
-                            value: `</hatcher unset:${_id}> slot: <Slot ID>\n- Removing the Egg resets all your progress`,
-                            inline: true
+                            value: `</hatcher unset:${_id}> slot: <Slot ID>\n- Removing the Egg resets all your progress`
                         }],
                         image: {
                             url: "attachment://empty-nest.jpg"
