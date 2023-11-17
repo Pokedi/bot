@@ -38,6 +38,8 @@ client.redis = redisClient;
 
 // Ready all Commands
 import commandsInit from "../../Utilities/Core/commandsInit.js";
+// Prepare for Future-Use
+client.commandsInit = commandsInit;
 
 // Shard Controller
 client.shardID = 0;
@@ -48,7 +50,7 @@ import { Chance } from "chance";
 // Assign ShardID to Client when Ready
 client.on("shardReady", async id => {
     // Ready Commands on Shard
-    commandsInit(undefined, client);
+    client.commandsInit(undefined, client);
     // Ready ShardID
     client.shardID = id;
     // Start Activity
