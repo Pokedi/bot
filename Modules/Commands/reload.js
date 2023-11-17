@@ -21,7 +21,7 @@ export default {
             if (resetCommands) {
 
                 try {
-                    await msg.client.cluster.broadcastEval('client.commandsInit(undefined, client, ' + (!!msg.options.getBoolean('reset-commands-rest')).toString() + ')')
+                    await msg.client.cluster.broadcastEval('this.commandsInit(undefined, this, ' + (!!msg.options.getBoolean('reset-commands-rest')).toString() + ')')
                     await msg.reply("Commands reloaded");
                 } catch (error) {
                     console.log(error);
