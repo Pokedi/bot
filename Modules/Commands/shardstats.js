@@ -11,6 +11,7 @@ export default {
         (msg.client.cluster.broadcastEval(client => ({
             ids: client.cluster.ids.size,
             info: client.cluster.info,
+            clusterid: client.cluster.id,
             usage: (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
             pid: process.pid,
             guilds: client.guilds.cache.size,
@@ -22,7 +23,7 @@ export default {
                         "title": "Pokedi Stats",
                         "fields": x.sort((y, z) => y.info.id - z.info.id).map((y, i) => {
                             return {
-                                name: `Cluster #${y.info.id}`,
+                                name: `Cluster #${y.clusterid}`,
                                 value: `ShardIDs: \`${y.info.SHARD_LIST.join(", ")}\`\nCPU: \`${stats[y.pid]['cpu'].toFixed(2)}%\`\nRAM: \`${y.usage}MB\`\nGuilds: \`${y.guilds}\`\nPing: \`${y.ping}ms\``,
                                 inline: true
                             };
