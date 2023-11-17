@@ -49,6 +49,8 @@ import { Chance } from "chance";
 
 // Assign ShardID to Client when Ready
 client.on("shardReady", async id => {
+    // Output
+    console.log("#", id, " Shard Ready");
     // Ready Commands on Shard
     client.commandsInit(undefined, client);
     // Ready ShardID

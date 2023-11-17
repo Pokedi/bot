@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import pidusage from "pidusage";
+import arraySum from "../../Utilities/Misc/arraySum.js";
 
 export default {
     help: "",
@@ -7,28 +8,30 @@ export default {
         .setName("shardstats")
         .setDescription("Get all shard specific stats"),
     async execute(msg) {
-        (msg.client.cluster.broadcastEval("[this.shardID, (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2), process.pid, this.guilds.cache.size, this.ws.ping]")).then(x => {
-            pidusage(x.map(y => y[2]), { usePs: true }, function (err, stats) {
+        (msg.client.cluster.broadcastEval(client => ({
+            info: client.cluster.info,
+            usage: (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
+            pid: process.pid,
+            guilds: client.guilds.cache.size,
+            ping: client.ws.ping
+        }))).then(x => {
+            pidusage(x.map(y => y.pid), { usePs: true }, function (err, stats) {
                 return msg.reply({
                     embeds: [{
                         "title": "Pokedi Stats",
-                        "fields": x.sort((y, z) => y[0] - z[0]).map((y, i) => {
+                        "fields": x.sort((y, z) => y.info.id - z.info.id).map((y, i) => {
                             return {
-                                name: `Shard ${y[0]}`,
-                                value: `CPU: \`${stats[y[2]]['cpu'].toFixed(2)}%\`\nRAM: \`${y[1]}MB\`\nGuilds: \`${y[3]}\`\nPing: \`${y[4]}ms\``,
+                                name: `Cluster #${y.id}`,
+                                value: `ShardIDs: \`${y.info.SHARD_LIST.join(", ")}\`\nCPU: \`${stats[y.pid]['cpu'].toFixed(2)}%\`\nRAM: \`${y.usage}MB\`\nGuilds: \`${y.guilds}\`\nPing: \`${y.ping}ms\``,
                                 inline: true
                             };
                         }
                         ),
                         "footer": {
-                            text: `Current Cluster: ${msg.client.cluster.id}\nRunning Pokedi Shard: ${msg.client.shardID}`
+                            text: `Current Cluster: ${msg.client.cluster.id}\nCurrent Pokedi Shard: ${msg.client.shardID}`
                         }, timestamp: new Date(),
                         "description": (() => {
-                            let total = x.map(y => [y[0], y[1], y[3], parseFloat(stats[y[2]].cpu.toFixed(2)), y[4]]).reduce((y, z) => {
-                                return [y[0] + 1, parseInt(y[1]) + parseInt(z[1]), y[2] + z[2], y[3] + z[3], y[4] + z[4]];
-                            }
-                            );
-                            return `**Total Memory:** \`${total[1]}MB\`\n**Total Clusters**: ${msg.client.cluster.count}\n**Total Shards in Cluster**: ${msg.client.cluster.ids.size}\n**Total CPU**: \`${total[3].toFixed(2)}%\`\n**Total Servers**: \`${total[2]}\`\n**Average Ping**:\`${(total[4] / (total[0] + 1)).toFixed(2)}ms\``
+                            return `**Total Memory:** \`${arraySum(x.map(x => x.usage))}MB\`\n**Total Clusters**: ${msg.client.cluster.count}\n**Total Shards in this Cluster**: ${msg.client.cluster.ids.size}\n**Total CPU**: \`${arraySum(x.map(x => stats[x.pid].cpu.toFixed(2))).toFixed(2)}%\`\n**Total Servers**: \`${arraySum(x.map(y => y.guilds))}\`\n**Average Ping**:\`${(arraySum(x.map(y => y.ping)) / arraySum(x.map(y => y.info.ids.size))).toFixed(2)}ms\``
                         }
                         )()
                     }]
