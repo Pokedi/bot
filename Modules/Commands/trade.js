@@ -177,7 +177,7 @@ export default {
 
             const _trade = {
                 [You.id]: { c: 0, r: 0, p: [], confirm: false, username: msg.user.username || msg.user.globalName },
-                [Them.id]: { c: 0, r: 0, p: [], confirm: false, username: Tradee.username || Tradee.globalName }
+                [Them.id]: { c: 0, r: 0, p: [], confirm: false, username: Tradee.user.username || Tradee.user.globalName }
             };
 
             const tradeMSG = await msg.followUp({ embeds: [{ title: `Trade Between ${_trade[You.id].username} and ${_trade[Them.id].username}`, fields: createField(_trade) }], fetchReply: true });
