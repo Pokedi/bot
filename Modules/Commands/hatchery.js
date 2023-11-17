@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import generateHatchery from "../../Utilities/Pokemon/generateHatchery.js";
 import Player from "../../Classes/player.js";
-import getDominantColor from "../../Utilities/Misc/getDominantColor.js";
+import randomint from "../../Utilities/Misc/randomint.js";
 
 export default {
     help: "",
@@ -19,8 +19,13 @@ export default {
         .addSubcommand(x => x
             .setName("set")
             .setDescription("Set the Egg to keep close in your journey")
-            .addIntegerOption(z => z.setName("slot").setDescription("Set the slot of your Egg"))
             .addIntegerOption(z => z.setName("egg-id").setDescription("The ID of the Egg you wish to add to the Slot").setRequired(true))
+            .addIntegerOption(z => z.setName("slot").setDescription("Set the slot of your Egg"))
+        )
+        .addSubcommand(x => x
+            .setName("unset")
+            .setDescription("Remove an Egg from its Nest [Progress is Reset]")
+            .addIntegerOption(z => z.setName("slot").setDescription("Nest you wish to remove the egg from.").setRequired(true))
         )
         .addSubcommand(x => x
             .setName("shop")
@@ -31,7 +36,7 @@ export default {
     async execute(msg) {
 
         // Prepare Slot
-        let slot = msg.options.getString("slot") || 0;
+        let slot = msg.options.getInteger("slot") || 0;
 
         // Check Player
         const player = new Player({ id: msg.user.id });
@@ -60,7 +65,10 @@ export default {
             if (!foundEgg)
                 return msg.reply("Sorry but that either isn't an egg or doesn't exist at all");
 
-            await msg.client.postgres`UPDATE hatchery SET egg_id = ${foundEgg.id} WHERE slot = ${slot || 1} AND user_id = ${player.id}`;
+            await msg.client.postgres`UPDATE hatchery SET egg_id = ${foundEgg.id} AND count = ${1000 + randomint(3000)} WHERE slot = ${slot || 1} AND user_id = ${player.id}`;
+
+            if (msg.user.player)
+                msg.user.player.hatchery = await player.fetchHatchery(msg.client.postgres);
 
             return msg.reply(`Egg #\`${eggID}\` was successfully set to Nest #${slot || 1}`)
         }
@@ -105,5 +113,24 @@ export default {
                     }
                 }]
             });
+
+        if (slot) {
+            const foundSlot = (hatchery.find(x => x.slot == (slot || 1)));
+
+            return msg.reply({
+                files: [{
+                    attachment: "../pokediAssets/hatchery/" + (foundSlot && foundSlot.egg_id ? "egg-nest" : "empty-nest") + ".jpg",
+                    name: "nest.png"
+                }],
+                embeds: [{
+                    color: 5002313,
+                    title: "Nest #" + (slot || 1),
+                    description: foundSlot ? (foundSlot.egg_id ? "Someone seems eagerly to coming out!" : "A warm bed, waiting for someone to rest!") : "An empty home... waiting for someone to return to...",
+                    image: {
+                        url: "attachment://nest.png"
+                    }
+                }]
+            })
+        }
     }
 };

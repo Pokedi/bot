@@ -20,6 +20,9 @@ export default async (userObj, postgres) => {
     if (!user.started)
         return userObj.fetchRetry = Date.now(), false;
 
+    // Fetch Hatchery
+    user.hatchery = await user.fetchHatchery(postgres);
+
     // Return if Registered
     return user;
 }

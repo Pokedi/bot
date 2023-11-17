@@ -128,6 +128,8 @@ export default {
 
             const file = new AttachmentBuilder(sprite);
 
+            file.setName("item.png");
+
             const [possibleOverride] = await msg.client.postgres`SELECT id, description, cost FROM product WHERE id = ${item.id}`;
 
             const cost = possibleOverride?.cost || item.cost;
@@ -152,7 +154,7 @@ export default {
                         inline: true
                     }],
                     author: {
-                        icon_url: 'attachment://' + sprite.split("/itemSprites/")[1] + ".png",
+                        icon_url: 'attachment://item.png',
                         name: item.name + " details"
                     },
                 }]

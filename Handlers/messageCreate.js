@@ -5,6 +5,7 @@ import capitalize from "../Utilities/Misc/capitalize.js";
 import Pokedex from "../Classes/pokedex.js";
 import setMessageCache from "../Utilities/Misc/setMessageCache.js";
 import { logCustomReport } from "../Utilities/User/logReport.js";
+import { delayFor } from "discord-hybrid-sharding";
 
 const chance = Chance();
 
@@ -59,7 +60,8 @@ async function messageCreate(msg, e) {
 
     if (msg.author.player && msg.author.player.started) {
 
-        if (randomint(10000) < 20) {
+        // Slow down User Level-Up
+        if (randomint(1000) < 20) {
             if (await msg.author.player.levelUp(msg.client.postgres))
                 msg.channel.send("Congrats on being Level " + msg.author.player.level + ", Champ."), logCustomReport({ command: 103, user_id: msg.author.id, channel: msg.channel.id, guild: msg.guild.id, shortval: msg.author.player.level.toString() });
         }
@@ -74,6 +76,19 @@ async function messageCreate(msg, e) {
                 logCustomReport({ command: 102, user_id: msg.author.id, channel: msg.channel.id, guild: msg.guild.id, value: JSON.stringify(checkStats) });
                 if (checkStats.hasEvolved) return msg.reply(`Congratulations! Your ${capitalize(checkStats.pokemon)} has evolved to ${capitalize(checkStats.evolvedPokemon)}!`);
                 if (checkStats.levelIncreased) return msg.reply(`Congratulations! Your ${capitalize(checkStats.pokemon)} is now level ${checkStats.level}!`);
+            }
+        }
+
+        if (msg.author.player.hatchery?.length) {
+            for (const nest of msg.author.player.hatchery) {
+                const egg = nest.shake();
+                if (egg) {
+                    const m = msg.reply({ content: "Something's happening to your egg!", fetchReply: true });
+                    await delayFor(1500);
+                    await m.edit("Could it be!");
+                    await delayFor(1500);
+                    await m.edit(`Your egg hatched into a ${capitalize(egg, true)}!`);
+                };
             }
         }
     }

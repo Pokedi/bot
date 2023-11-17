@@ -1,5 +1,6 @@
 import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 import pokemondb from "../Modules/Database/pokedb.js";
+import Egg from "./egg.js";
 import Pokedex from "./pokedex.js";
 import Pokemon from "./pokemon.js";
 
@@ -23,6 +24,9 @@ class Player {
         this.character = info.character;
         this.background = info.background || 1;
         this.gender = info.gender;
+
+        // Hatchery
+        this.hatchery = [];
     }
 
     async fetch(postgres) {
@@ -114,7 +118,7 @@ class Player {
         await pokemon.fetchPokemon(postgres, "level, pokemon, exp, user_id, gender, item, id");
 
         // Check Pokemon
-        if (!pokemon.user_id) return false;
+        if (!pokemon.user_id || pokemon.pokemon == "egg") return false;
 
         // Ready Pokemon
         await pokemon.getColumnsByID('id, _id, base_experience', { _id: pokemon.pokemon });
@@ -227,7 +231,11 @@ class Player {
     }
 
     async fetchHatchery(postgres, slot) {
-        return slot ? postgres`SELECT slot, egg_id FROM hatchery WHERE user_id = ${this.id} AND slot = ${slot}` : postgres`SELECT slot, egg_id FROM hatchery WHERE user_id = ${this.id}`
+        const nests = slot ? postgres`SELECT slot, egg_id, count FROM hatchery WHERE user_id = ${this.id} AND slot = ${slot}` : postgres`SELECT slot, egg_id, count FROM hatchery WHERE user_id = ${this.id}`
+
+        this.hatchery = (await nests).map(x => new Egg(x));
+
+        return this.hatchery;
     }
 
     // Battle Section

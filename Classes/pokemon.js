@@ -19,7 +19,7 @@ import { logCustomReport } from "../Utilities/User/logReport.js";
 const chance = Chance();
 
 class Pokemon {
-    constructor(pokemonObject = { id, user_id, guild_id, pokemon, s_hp, s_atk, s_def, s_spatk, s_spdef, s_spd, s_hp, level, exp, nature, shiny, gender, name, item, m_1, m_2, m_3, m_4 }) {
+    constructor(pokemonObject = { id, user_id, guild_id, pokemon, s_hp, s_atk, s_def, s_spatk, s_spdef, s_spd, s_hp, level, exp, nature, shiny, gender, name, item, m_1, m_2, m_3, m_4, pks }) {
         if (pokemonObject?.pokemon || pokemonObject?.id) {
             this.id = pokemonObject.id;
             this.idx = pokemonObject.idx;
@@ -49,6 +49,7 @@ class Pokemon {
             this.type = this.convertTypes(this.types);
             this.pokedex = {};
             this.price = pokemonObject.price;
+            this.pks = pokemonObject.pks;
         } else
             if (pokemonObject) Object.assign(this, pokemonObject);
     }
