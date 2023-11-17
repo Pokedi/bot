@@ -166,7 +166,7 @@ IVs.forEach(y => {
 function fixQueryString(string) {
 
     Object.keys(filterCommands).forEach(x => {
-        if ((new RegExp(x + "(?:\W)|" + x + "$", "gmi")).test(string) && !(new RegExp("--" + x + "|--name " + x, "gmi")).test(string))
+        if ((new RegExp(x + "(?:\W)|iv |" + x + "$", "gmi")).test(string) && !(new RegExp("--" + x + "|--name " + x, "gmi")).test(string))
             string = string.replace(new RegExp(x, "gmi"), "--" + x);
     });
 
@@ -193,7 +193,7 @@ function dbFilterCommands(queryObject = builder.select('pokemon', 'id, idx, poke
     const simplifiedQuery = query.split(/(--\w+|—\w+)/gim).map(x => x.trim()).filter(x => x);
 
     // Remove eggs if no command exists
-    if (!simplifiedQuery.includes("--egg"))
+    if (!simplifiedQuery.includes("egg"))
         queryObject = queryObject["and"]({ pokemon: 'egg' }, '!=');
 
     for (let index = 0; index < simplifiedQuery.length; index++) {
