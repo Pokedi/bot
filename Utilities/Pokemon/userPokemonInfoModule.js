@@ -54,7 +54,7 @@ function userPokemonInfoModule(obj = new Pokedex(), msg = null, count = 1, color
             return field_array;
         })(),
         image: {
-            url: `attachment://${details._id}.png`
+            url: `attachment://${obj.pokemon}.png`
         },
         footer: {
             text: `${obj.price ? "" : `Pokédi: ${obj.idx || 1}/${count}`}${details.art ? ` Art drawn by ${details.art}` : ""}`

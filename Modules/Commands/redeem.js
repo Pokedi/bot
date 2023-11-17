@@ -47,7 +47,7 @@ export default {
             .setName("help").setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
         ),
     async execute(msg) {
-        
+
         // Redirect to Help if called
         if (msg.options.getSubcommand() == "help")
             return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "redeem" }),
@@ -83,7 +83,7 @@ export default {
 
                 // IF user wants Credits
                 if (credits)
-                    await player.save(msg.client.postgres, { redeem: --redeem, bal: bal + 1e4 }),
+                    return await player.save(msg.client.postgres, { redeem: --redeem, bal: bal + 1e4 }),
                         await msg.reply("10K pokedits were deposited to your account");
 
                 // IF user decides to Spawn or getPokemon
@@ -116,6 +116,8 @@ export default {
                         await msg.channel.spawn.pokemon.SpawnFriendlyV2(true);
                         // Send Message
                         await msg.channel.spawn.pokemon.spawnToChannel(msg.channel);
+                        // Reduce Redeem
+                        await player.save(msg.client.postgres, { redeem: --player.redeem });
                         // Reply
                         return await msg.reply({ ephemeral: true, content: "Pokemon Spawned!" });
                     } else {
@@ -130,6 +132,10 @@ export default {
 
                         // Save to DB
                         await pokedex.save(msg.client.postgres);
+
+                        // Reduce Redeem
+                        await player.save(msg.client.postgres, { redeem: --player.redeem });
+
                         // Send Message
                         return await msg.reply(`<@${msg.user.id}> successfully recieved the ${capitalize(pokedex.pokemon)} (${pokedex.level}).`);
                     }

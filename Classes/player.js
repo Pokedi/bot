@@ -226,6 +226,10 @@ class Player {
         return this.inventory;
     }
 
+    async fetchHatchery(postgres, slot) {
+        return slot ? postgres`SELECT slot, egg_id FROM hatchery WHERE user_id = ${this.id} AND slot = ${slot}` : postgres`SELECT slot, egg_id FROM hatchery WHERE user_id = ${this.id}`
+    }
+
     // Battle Section
     readyBattleMode() {
         // Battle Mode
