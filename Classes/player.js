@@ -231,7 +231,9 @@ class Player {
     }
 
     async fetchHatchery(postgres, slot) {
-        const nests = slot ? postgres`SELECT slot, egg_id, count FROM hatchery WHERE user_id = ${this.id} AND slot = ${slot}` : postgres`SELECT slot, egg_id, count FROM hatchery WHERE user_id = ${this.id}`
+        const nests = postgres`SELECT h.slot, h.egg_id, h.count, h.id, p.idx FROM hatchery as h
+        LEFT JOIN pokemon as p ON (p.id = h.egg_id)
+        WHERE h.user_id = ${this.id} ${slot ? postgres`AND slot = ${slot}` : postgres``}`;
 
         this.hatchery = (await nests).map(x => new Egg(x));
 

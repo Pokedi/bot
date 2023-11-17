@@ -7,33 +7,37 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName('hatchery')
-        // .addIntegerOption(z => z.setName("slot").setDescription("Monitor or Set the slot you wish your Egg to be in"))
-        // .addIntegerOption(z => z.setName("egg-id").setDescription("The ID of the Egg you wish to add to the Slot"))
-        // .addBooleanOption(z => z.setName("buy-first-slot").setDescription("Buy your first Slot if you haven't already!"))
         .setDescription('Incubate your eggs, and see what mysteries hide behind them')
         .addSubcommand(x => x
             .setName("view")
             .setDescription("View your hatchery")
-            .addIntegerOption(z => z.setName("slot").setDescription("Monitor the slot of your Egg"))
+            .addIntegerOption(z => z.setName("slot").setDescription("Monitor the slot of your Egg").setMaxValue(4).setMinValue(1))
         )
         .addSubcommand(x => x
             .setName("set")
             .setDescription("Set the Egg to keep close in your journey")
             .addIntegerOption(z => z.setName("egg-id").setDescription("The ID of the Egg you wish to add to the Slot").setRequired(true))
-            .addIntegerOption(z => z.setName("slot").setDescription("Set the slot of your Egg"))
+            .addIntegerOption(z => z.setName("slot").setDescription("Set the slot of your Egg").setMaxValue(4).setMinValue(1))
         )
         .addSubcommand(x => x
             .setName("unset")
             .setDescription("Remove an Egg from its Nest [Progress is Reset]")
-            .addIntegerOption(z => z.setName("slot").setDescription("Nest you wish to remove the egg from.").setRequired(true))
+            .addIntegerOption(z => z.setName("slot").setDescription("Nest you wish to remove the egg from.").setMaxValue(4).setMinValue(1).setRequired(true))
         )
         .addSubcommand(x => x
             .setName("shop")
             .setDescription("Buy available Slots")
             .addBooleanOption(z => z.setName("first-slot").setDescription("Buy your first Slot if you haven't already!"))
         )
-    ,
+        .addSubcommand(x => x
+            .setName("help")
+            .setDescription("View the helpful information of this command")
+        ),
     async execute(msg) {
+
+        if (msg.options.getSubcommand() == "help")
+            return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "hatchery" }),
+                msg.client.commands.get("help")(msg);
 
         // Prepare Slot
         let slot = msg.options.getInteger("slot") || 0;
@@ -65,12 +69,22 @@ export default {
             if (!foundEgg)
                 return msg.reply("Sorry but that either isn't an egg or doesn't exist at all");
 
-            await msg.client.postgres`UPDATE hatchery SET egg_id = ${foundEgg.id} AND count = ${1000 + randomint(3000)} WHERE slot = ${slot || 1} AND user_id = ${player.id}`;
+            await msg.client.postgres`UPDATE hatchery SET egg_id = ${foundEgg.id}, count = ${1000 + randomint(3000)} WHERE slot = ${slot || 1} AND user_id = ${player.id}`;
 
             if (msg.user.player)
                 msg.user.player.hatchery = await player.fetchHatchery(msg.client.postgres);
 
             return msg.reply(`Egg #\`${eggID}\` was successfully set to Nest #${slot || 1}`)
+
+        } else if (msg.options.getSubcommand() == "unset") {
+
+            const [row] = await msg.client.postgres`UPDATE hatchery SET egg_id = null, count = 0 WHERE slot = ${slot || 1} AND user_id = ${player.id} returning id`;
+
+            if (!row)
+                return msg.reply("You did not have an egg there to begin with...");
+
+            return msg.reply("Successfully removed the egg from the nest... The sky is turning dark all of a sudden.");
+
         }
 
         // Check if User wants to buy a Nest
@@ -117,9 +131,17 @@ export default {
         if (slot) {
             const foundSlot = (hatchery.find(x => x.slot == (slot || 1)));
 
+            let slotImage = "empty-nest";
+
+            if (foundSlot)
+                if (foundSlot.count <= 200)
+                    slotImage = "hatch-nest";
+                else
+                    slotImage = "egg-nest";
+
             return msg.reply({
                 files: [{
-                    attachment: "../pokediAssets/hatchery/" + (foundSlot && foundSlot.egg_id ? "egg-nest" : "empty-nest") + ".jpg",
+                    attachment: "../pokediAssets/hatchery/" + slotImage + ".jpg",
                     name: "nest.png"
                 }],
                 embeds: [{
@@ -128,6 +150,9 @@ export default {
                     description: foundSlot ? (foundSlot.egg_id ? "Someone seems eagerly to coming out!" : "A warm bed, waiting for someone to rest!") : "An empty home... waiting for someone to return to...",
                     image: {
                         url: "attachment://nest.png"
+                    },
+                    footer: {
+                        text: foundSlot && foundSlot.idx ? `EggID: ${foundSlot.idx}` : "One makes a soul, two make a pair, three make a family."
                     }
                 }]
             })

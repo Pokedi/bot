@@ -81,13 +81,13 @@ async function messageCreate(msg, e) {
 
         if (msg.author.player.hatchery?.length) {
             for (const nest of msg.author.player.hatchery) {
-                const egg = nest.shake();
+                const egg = await nest.shake();
                 if (egg) {
-                    const m = msg.reply({ content: "Something's happening to your egg!", fetchReply: true });
+                    const m = await msg.reply({ content: "Something's happening to your egg!", fetchReply: true });
                     await delayFor(1500);
                     await m.edit("Could it be!");
                     await delayFor(1500);
-                    await m.edit(`Your egg hatched into a ${capitalize(egg, true)}!`);
+                    await m.edit(`Your egg hatched into a ${capitalize(egg.pokemon, true)}!`);
                 };
             }
         }
