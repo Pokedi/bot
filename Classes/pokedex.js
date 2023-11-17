@@ -131,7 +131,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return false;
     }
 
-    async generateV2(id, mergingObject = { level: 0 }) {
+    async generateV2(id, mergingObject = { level: 1 }) {
         // Select Randomly if nothing is specified
         if (!id && !this.pokemon && !this.pokedex?.id) {
             await this.selectRandomV2();
