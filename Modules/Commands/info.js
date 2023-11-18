@@ -34,10 +34,12 @@ export default {
         // Queries
         const { values, text } = builder.select('pokemon', "*").where(content.includes("l") ? {
             idx: countPokemon,
-            user_id: player.id
-        } : (!isID && player.selected && player.selected.length ? { id: player.selected[0] } : {
             user_id: player.id,
-            idx: parseInt(content || "1")
+            guild_id: msg.guild.info.mode ? msg.guild.id : null
+        } : (!isID && player.selected && player.selected.length ? { id: player.selected[0], guild_id: msg.guild.info.mode ? msg.guild.id : null } : {
+            user_id: player.id,
+            idx: parseInt(content || "1"),
+            guild_id: msg.guild.info.mode ? msg.guild.id : null
         })).limit(1);
 
         const [selectedPokemon] = await msg.client.postgres.unsafe(text + (isID && parseInt(content) < 0 ? "OFFSET " + (-1 * parseInt(content)) : ""), values)

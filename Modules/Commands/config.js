@@ -21,6 +21,10 @@ export default {
                     .setName("clear-redirect")
                     .setDescription("Clear your Redirects")
                 )
+                .addBooleanOption(z => z
+                    .setName("server-mode")
+                    .setDescription("Isolate the entire Pokedi experience just for your own Server!")
+                )
             )
             .addSubcommand(y => y
                 .setName("channel")
@@ -66,6 +70,16 @@ export default {
 
                         switch (firstCommand) {
 
+                            case "server-mode": {
+
+                                const { approximateMemberCount } = await msg.guild.fetch();
+
+                                // await msg.client.postgres`UPDATE guilds SET mode = 1 WHERE id = ${msg.guild.id}`;
+
+                                return msg.reply("This command is not available for you yet.")
+
+                            }
+                            
                             case "redirect-channel":
                                 // Retrieved Channels Text
                                 const channels = msg.options.getString("redirect-channel");

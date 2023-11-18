@@ -138,7 +138,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         };
         // Ready Base
         this.pokemon = (id || this.pokemon || this.pokedex._id).toLowerCase();
-        this.level = mergingObject.level ? mergingObject.level : randomint(60) + 1;
+        this.level = mergingObject.level != 0 ? mergingObject.level : randomint(60) + 1;
         this.stats = {
             hp: randomint() || 1,
 
@@ -168,10 +168,13 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         const [{ totalpokemon }] = await pokeapisql`SELECT MAX(id) as totalPokemon FROM pokemon_dex WHERE id < 10000`;
 
         // Find Row of Pokemon
-        const [foundRow] = await pokeapisql`SELECT name, id, gender_rate FROM pokemon_dex WHERE id = ${randomint(totalpokemon)} LIMIT 1`;
+        const [foundRow] = await pokeapisql`SELECT _id, name, id, gender_rate FROM pokemon_dex WHERE id = ${randomint(totalpokemon)} LIMIT 1`;
 
         // Assign Pokemon _ID
-        this.pokemon = foundRow.name;
+        this.pokemon = foundRow._id;
+
+        // Assign Pokemon Name
+        this.pokedex.name = foundRow.name;
 
         // Fix Pokedex
         this.pokedex.id = foundRow.id;

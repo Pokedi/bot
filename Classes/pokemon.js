@@ -24,7 +24,7 @@ class Pokemon {
             this.id = pokemonObject.id;
             this.idx = pokemonObject.idx;
             this.user_id = pokemonObject.user_id;
-            this.guild_id = pokemonObject.guild_id;
+            this.guild_id = pokemonObject.guild_id || null;
             this.pokemon = pokemonObject.pokemon;
             this.stats = {
                 hp: pokemonObject.s_hp,
@@ -262,7 +262,7 @@ class Pokemon {
 
     async addToUserDex(postgres) {
 
-        const query = builder.select("dex").where({ user_id: BigInt(this.user_id) }).and({ pokemon: this.pokemon });
+        const query = builder.select("dex").where({ user_id: BigInt(this.user_id), guild_id: this.guild_id }).and({ pokemon: this.pokemon });
 
         const [row] = await postgres.unsafe(query.text, query.values);
 
@@ -272,7 +272,7 @@ class Pokemon {
                 shinies: (row.shinies || 0) + (this.shiny ? 1 : 0),
                 unclaimed_normal: (row.unclaimed_normal || 0) + (this.shiny ? 0 : 1),
                 unclaimed_shinies: (row.unclaimed_shinies || 0) + (this.shiny ? 1 : 0)
-            }).where({ user_id: BigInt(this.user_id), pokemon: this.pokemon }).returning("*");
+            }).where({ user_id: BigInt(this.user_id), guild_id: this.guild_id, pokemon: this.pokemon }).returning("*");
 
             const [R] = await postgres.unsafe(query.text, query.values);
 
@@ -286,7 +286,8 @@ class Pokemon {
                 shinies: this.shiny ? 1 : 0,
                 giga: 0,
                 unclaimed_normal: this.shiny ? 0 : 1,
-                unclaimed_shinies: this.shiny ? 1 : 0
+                unclaimed_shinies: this.shiny ? 1 : 0,
+                guild_id: this.guild_id
             }).returning("*");
 
             const [R] = await postgres.unsafe(query.text, query.values);

@@ -27,11 +27,14 @@ class Player {
 
         // Hatchery
         this.hatchery = [];
+
+        // Guild
+        this.guild_id = info.guild_id || null;
     }
 
     async fetch(postgres) {
 
-        const query = builder.select("users", "*").where({ id: BigInt(this.id) });
+        const query = builder.select("users", "*").where({ id: BigInt(this.id), guild_id: this.guild_id });
 
         const [row] = await postgres.unsafe(query.text, query.values);
 
@@ -40,7 +43,7 @@ class Player {
 
     async fetchColumns(postgres, columns = "*") {
 
-        const query = builder.select("users", columns).where({ id: BigInt(this.id) });
+        const query = builder.select("users", columns).where({ id: BigInt(this.id), guild_id: this.guild_id });
 
         const [row] = await postgres.unsafe(query.text, query.values);
 
@@ -54,7 +57,7 @@ class Player {
     }
 
     async fetchIncome(postgres) {
-        const query = builder.select("users", ["bal", "redeem"]).where({ id: BigInt(this.id) });
+        const query = builder.select("users", ["bal", "redeem"]).where({ id: BigInt(this.id), guild_id: this.guild_id });
 
         const [row] = await postgres.unsafe(query.text, query.values);
 
@@ -77,14 +80,15 @@ class Player {
             hide_levelup: this.hide_levelup,
             locale: this.locale,
             exp: this.exp,
-            level: this.level
+            level: this.level,
+            guild_id: this.guild_id
         }
     }
 
     async save(postgres, data) {
         if (!this.id) return false;
 
-        const query = builder.update("users", data || this.toJSON()).where({ id: BigInt(this.id) });
+        const query = builder.update("users", data || this.toJSON()).where({ id: BigInt(this.id), guild_id: this.guild_id });
 
         const [row] = await postgres.unsafe(query.text, query.values);
 
@@ -98,7 +102,7 @@ class Player {
         const query = builder.update("users", {
             level: ((this.level || 1) * 30 <= this.exp) ? ++this.level : this.level,
             exp: ((this.level || 1) * 30 <= this.exp) ? 0 : this.exp
-        }).where({ id: BigInt(this.id) });
+        }).where({ id: BigInt(this.id), guild_id: this.guild_id });
 
         await postgres.unsafe(query.text, query.values);
 

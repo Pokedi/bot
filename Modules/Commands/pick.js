@@ -15,7 +15,7 @@ export default {
         ),
     async execute(msg) {
 
-        const player = new Player({ id: msg.user.id });
+        const player = new Player({ id: msg.user.id, guild_id: msg.guild.info.mode ? msg.guild.id : null });
 
         await player.fetch(msg.client.postgres);
 
@@ -31,7 +31,8 @@ export default {
             id: BigInt(msg.user.id),
             bal: 200,
             started: new Date(),
-            selected: [1]
+            selected: [1],
+            guild_id: msg.guild.info.mode ? msg.guild.id : null
         })} RETURNING *`;
 
         // Set it to Collection Cache
@@ -39,7 +40,7 @@ export default {
 
         const newPokemonForUser = new Pokedex({});
 
-        await newPokemonForUser.generateV2(selectedStarter, { user_id: BigInt(msg.user.id), idx: 1 });
+        await newPokemonForUser.generateV2(selectedStarter, { user_id: BigInt(msg.user.id), idx: 1, guild_id: msg.guild.info.mode ? msg.guild.id : null });
 
         if (!newPokemonForUser.moves.length) newPokemonForUser.moves = ["tackle"];
 

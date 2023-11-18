@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 import axios from "axios";
+import randomint from "../../Utilities/Misc/randomint.js";
 
 export default {
     help: "",
@@ -33,13 +34,19 @@ export default {
 
                 pokemonGrabbed.idx = (idx || 0) + 1;
 
+                pokemonGrabbed.guild_id = msg.guild.info.mode ? msg.guild.id : null;
+
+                if (!pokemonGrabbed.level)
+                    pokemonGrabbed.level = randomint(40) + 1;
+
                 // Save to DB
                 await pokemonGrabbed.save(msg.client.postgres);
 
                 // Add to User's Dex
                 await pokemonGrabbed.addToUserDex(msg.client.postgres);
 
-                return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon, true)}!`)
+                return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon, true)}!`);
+
             } else
                 msg.reply({ ephemeral: true, content: "Wrong guess!" });
         } else msg.reply({ ephemeral: true, content: "No Pokemon right now!" });

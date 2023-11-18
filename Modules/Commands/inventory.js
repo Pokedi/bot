@@ -105,7 +105,7 @@ export default {
             }, {});
 
             // Generate Reward and Reduce
-            await msg.client.postgres.begin(x => generateCrateRewardSQL(result, msg.user.id, x).concat([x`UPDATE user_inventory SET amount = amount - ${consume} WHERE item_id = ${itemID} AND user_id = ${msg.user.id}`]));
+            await msg.client.postgres.begin(x => generateCrateRewardSQL(result, msg.user.id, x).concat([x`UPDATE user_inventory SET amount = amount - ${consume} WHERE item_id = ${itemID} AND user_id = ${msg.user.id} AND guild_id = ${msg.guild.info.mode ? msg.guild.id : null}`]));
 
             return await msg.reply(`Congrats! You just opened up the ${crate.name}! Here are your rewards:\n${result.map(x => `- ${x.name} (${x.amount})`).join("\n")}`)
         }
@@ -120,7 +120,7 @@ export default {
             if (!item)
                 return await msg.reply("Item not found.");
 
-            const [userInventory] = await msg.client.postgres`SELECT amount FROM user_inventory WHERE user_id = ${msg.user.id} AND item_id = ${item.id}`;
+            const [userInventory] = await msg.client.postgres`SELECT amount FROM user_inventory WHERE user_id = ${msg.user.id} AND item_id = ${item.id} AND guild_id = ${msg.guild.info.mode ? msg.guild.id : null}`;
 
             const sprite = (existsSync(path.join(__dirname, `../pokediAssets/itemSprites/${item._id}.png`)) ? `../pokediAssets/itemSprites/${item._id}.png` : `../pokediAssets/itemSprites/master-ball.png`);
 
