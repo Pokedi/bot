@@ -31,7 +31,7 @@ export default {
 
         if (clearTeam) return userDB.selected = [], await userDB.save(msg.client.postgres), await msg.reply("Your team was cleared...");
 
-        const [queryPokemon] = await msg.client.postgres`SELECT * FROM pokemon WHERE idx = ${id} AND user_id = ${BigInt(msg.user.id)} AND guild_id = ${msg.guild.info.mode ? msg.guild.id : null}`;
+        const [queryPokemon] = await msg.client.postgres`SELECT * FROM pokemon WHERE idx = ${id} AND user_id = ${BigInt(msg.user.id)}`; //  AND guild_id = ${msg.guild.info.mode ? msg.guild.id : null}
 
         if (!queryPokemon) return msg.reply({ ephemeral: true, content: "Pokemon does not exist" });
 
