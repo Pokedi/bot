@@ -272,7 +272,7 @@ class Pokemon {
                 shinies: (row.shinies || 0) + (this.shiny ? 1 : 0),
                 unclaimed_normal: (row.unclaimed_normal || 0) + (this.shiny ? 0 : 1),
                 unclaimed_shinies: (row.unclaimed_shinies || 0) + (this.shiny ? 1 : 0)
-            }).where({ user_id: BigInt(this.user_id),/*  guild_id: this.guild_id */, pokemon: this.pokemon }).returning("*");
+            }).where({ user_id: BigInt(this.user_id),/*  guild_id: this.guild_id */ pokemon: this.pokemon }).returning("*");
 
             const [R] = await postgres.unsafe(query.text, query.values);
 
