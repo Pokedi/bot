@@ -141,7 +141,7 @@ class Pokemon {
             idx: this.idx,
             name: this.name,
             user_id: this.user_id,
-           /*  guild_id: this.guild_id */,
+        //    /*  guild_id: this.guild_id */
             s_hp: this.stats.hp,
             s_atk: this.stats.atk,
             s_def: this.stats.def,
