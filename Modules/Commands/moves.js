@@ -114,7 +114,7 @@ export default {
             });
         }
 
-        const player = new Player({ id: msg.user.id, guild_id: msg.guild.info.mode ? msg.guild.id : null });
+        const player = new Player({ id: msg.user.id, /* guild_id: msg.guild.info.mode ? msg.guild.id : null */ });
 
         const pokemonSlot = (msg.options.getInteger("pokemon-slot") || 1) - 1;
 

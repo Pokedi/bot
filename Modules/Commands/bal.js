@@ -15,7 +15,7 @@ export default {
     aliases: ['balance', 'credits', 'credit'],
     async execute(msg) {
 
-        const player = new Player({ id: msg.user.id, guild_id: msg.guild.info.mode ? msg.guild.id : null });
+        const player = new Player({ id: msg.user.id, /* guild_id: msg.guild.info.mode ? msg.guild.id : null */ });
 
         const { bal, redeem } = await player.fetchIncome(msg.client.postgres);
 

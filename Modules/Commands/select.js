@@ -23,7 +23,7 @@ export default {
         const slot = (msg.options.getInteger('slot') || 1) - 1;
         const clearTeam = msg.options.getBoolean('clear');
 
-        const userDB = new Player({ id: BigInt(msg.user.id), guild_id: msg.guild.info.mode ? msg.guild.id : null });
+        const userDB = new Player({ id: BigInt(msg.user.id), /* guild_id: msg.guild.info.mode ? msg.guild.id : null */ });
 
         await userDB.fetch(msg.client.postgres);
 

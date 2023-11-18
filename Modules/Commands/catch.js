@@ -34,7 +34,7 @@ export default {
 
                 pokemonGrabbed.idx = (idx || 0) + 1;
 
-                pokemonGrabbed.guild_id = msg.guild.info.mode ? msg.guild.id : null;
+                // pokemonGrabbed.guild_id = msg.guild.info.mode ? msg.guild.id : null;
 
                 if (!pokemonGrabbed.level)
                     pokemonGrabbed.level = randomint(40) + 1;
