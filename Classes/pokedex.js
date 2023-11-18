@@ -131,14 +131,14 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return false;
     }
 
-    async generateV2(id, mergingObject = { level: 0 }) {
+    async generateV2(id, mergingObject = {}) {
         // Select Randomly if nothing is specified
         if (!id && !this.pokemon && !this.pokedex?.id) {
             await this.selectRandomV2();
         };
         // Ready Base
         this.pokemon = (id || this.pokemon || this.pokedex._id).toLowerCase();
-        this.level = mergingObject.level != 0 ? mergingObject.level : randomint(60) + 1;
+        this.level = 1 + randomint(60);
         this.stats = {
             hp: randomint() || 1,
 
