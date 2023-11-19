@@ -26,7 +26,7 @@ async function generateProfile(postgres, user = { level: 1, bal: 0, selected: []
 
     // Return if nothing found
     if (!userPokemon.pokemon)
-        userPokemon.pokemon = "unown-qm";
+        userPokemon.pokemon = "unown";
 
     // Ready Level and Balance
     const { level, bal } = user;
