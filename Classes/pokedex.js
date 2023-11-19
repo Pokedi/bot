@@ -174,7 +174,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         this.pokemon = foundRow._id;
 
         // Assign Pokedex
-        this.pokedex.name = foundRow;
+        this.pokedex = foundRow;
 
         return this.pokemon;
     }
