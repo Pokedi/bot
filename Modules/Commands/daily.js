@@ -22,9 +22,11 @@ export default {
         let [row] = await msg.client.postgres`SELECT streak, total_votes, last_voted FROM user_vote WHERE type = 'top' AND id = ${msg.user.id}`;
 
         // Load Default
-        if (!row || !row.total_votes)
-            [{ streak, total_votes, last_voted }] = { streak: 0, total_votes: 0, last_voted: new Date() };
-        else {
+        if (!row || !row.total_votes) {
+            streak = 0;
+            total_votes = 0;
+            last_voted = undefined;
+        } else {
             streak = row.streak || 0;
             total_votes = row.total_votes;
             last_voted = row.last_voted;
