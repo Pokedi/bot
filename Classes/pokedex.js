@@ -168,19 +168,13 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         const [{ totalpokemon }] = await pokeapisql`SELECT MAX(id) as totalPokemon FROM pokemon_dex WHERE id < 10000`;
 
         // Find Row of Pokemon
-        const [foundRow] = await pokeapisql`SELECT _id, name, id, gender_rate FROM pokemon_dex WHERE id = ${randomint(totalpokemon)} LIMIT 1`;
+        const [foundRow] = await pokeapisql`SELECT _id, name, id, gender_rate, is_mythical, is_legendary, is_sublegendary FROM pokemon_dex WHERE id = ${randomint(totalpokemon)} LIMIT 1`;
 
         // Assign Pokemon _ID
         this.pokemon = foundRow._id;
 
-        // Assign Pokemon Name
-        this.pokedex.name = foundRow.name;
-
-        // Fix Pokedex
-        this.pokedex.id = foundRow.id;
-
-        // Gender Rate
-        this.pokedex.gender_rate = foundRow.gender_rate;
+        // Assign Pokedex
+        this.pokedex.name = foundRow;
 
         return this.pokemon;
     }
@@ -192,7 +186,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         // Reject if cannot be generated
         if (!generatedPokemon) return false;
 
-        if (!forced && (generatedPokemon.is_nonspawnable || (generatedPokemon.is_legendary || generatedPokemon.is_sublegendary || generatedPokemon.is_mythical) && randomint(2000) >= 1)) {
+        if (!forced && (generatedPokemon.pokedex.is_nonspawnable || (generatedPokemon.pokedex.is_legendary || generatedPokemon.pokedex.is_sublegendary || generatedPokemon.pokedex.is_mythical) && randomint(2000) > 2)) {
             // Retry
             delete this.pokemon,
                 this.pokedex._id;
