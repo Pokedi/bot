@@ -242,7 +242,7 @@ export default {
             await member.setOnGoingDuels(msg.client.redis, msg.id);
         }
 
-        if (teamAConstructs.find(x => !x.selected.length) || teamBConstructs.find(x => !x.selected.length))
+        if (teamAConstructs.find(x => !x.selected?.length) || teamBConstructs.find(x => !x.selected?.length))
             return await msg.followUp("One of the players does not have a Pokemon selected.");
 
         // Ready Teams
