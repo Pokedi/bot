@@ -60,7 +60,7 @@ export default {
                     case "server": {
 
                         // IF Channel or Guild Config, Verify Perms
-                        if (!msg.memberPermissions.has('MANAGE_CHANNELS'))
+                        if (!msg.channel.permissionsFor(msg.member).has("ManageChannels"))
                             return await msg.reply("you do not have the necessary permissions.");
 
                         // if (!msg.channel.permissionsFor(msg.guild.members.me).has("ManageGuild"))
@@ -165,7 +165,7 @@ export default {
                     case "channel": {
 
                         // IF Channel or Guild Config, Verify Perms
-                        if (!msg.memberPermissions.has('MANAGE_CHANNELS'))
+                        if (!msg.channel.permissionsFor(msg.member).has("ManageChannels"))
                             return await msg.reply("you do not have the necessary permissions.");
 
                         if (!msg.channel.permissionsFor(msg.guild.members.me).has("ManageChannels"))
