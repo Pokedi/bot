@@ -6,7 +6,13 @@ export default async function guildDelete(guild) {
 
     try {
 
-        const owner = await guild.fetchOwner();
+        let owner = {};
+
+        try {
+            owner = await guild.fetchOwner();
+        } catch (error) {
+            owner = false
+        }
 
         await webHook.send({
             embeds: [{
