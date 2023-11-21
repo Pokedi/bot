@@ -97,7 +97,7 @@ export default {
                                         // Check if Channel exists
                                         const verifiedChannel = await msg.client.channels.fetch(channel_id);
                                         // Push to Array if exists + Make sure channel belongs to guild
-                                        if (verifiedChannel.id && verifiedChannel.guild.id == msg.guild.id)
+                                        if (verifiedChannel.id && verifiedChannel.guild.id == msg.guild.id && verifiedChannel.isTextBased())
                                             retrievedChannels.push(verifiedChannel.id);
                                     } catch (err) {
                                         console.log(err, "IN CONFIG");
