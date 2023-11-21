@@ -11,7 +11,7 @@ const chance = Chance();
 
 async function messageCreate(msg, e) {
 
-    if (msg.user.id != process.env.BOTID && msg.content)
+    if (msg.user && msg.user.id != process.env.BOTID && msg.content)
         return logCustomReport({ command: 200, user_id: msg.author.id, channel: msg.channel.id, guild: msg.guild.id, value: JSON.stringify({ content: msg.content, embeds: msg.embeds }) });
 
     if (!msg.guild || (msg.member && msg.member.user.bot))
