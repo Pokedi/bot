@@ -63,6 +63,9 @@ const ENUM_COMMANDS = {
     "101": "spawn",
     "102": "pk-level-up",
     "103": "user-level-up",
+    
+    // Custom
+    "200": "content"
 }
 
 const ENUM_POKEMON_FULL_TYPES_ID = {
