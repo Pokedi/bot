@@ -19,7 +19,7 @@ async function readySinglePokemonFrontBack(pokemon, isShiny, isGiga) {
     const doesExistBack = existsSync(`../pokediAssets/duel/sprites/back${pokemon.shiny && isShiny ? "-shiny" : ""}/${pokemon._id}.png`);
     const doesExistFront = existsSync(`../pokediAssets/duel/sprites/back${pokemon.shiny && isShiny ? "-shiny" : ""}/${pokemon._id}.png`);
 
-    const [foundPokemon] = (possiblePokemon.search(pokemon._id))
+    const [foundPokemon] = possiblePokemon.search(pokemon._id);
 
     let back = await generateSinglePokemonBox(`../pokediAssets/duel/sprites/back${doesExistBack && pokemon.shiny && isShiny ? "-shiny" : ""}/${doesExistBack ? pokemon._id + ".png" : (foundPokemon?.id || 'unown-qm.png')}`, "southwest");
     let front = await generateSinglePokemonBox(`../pokediAssets/duel/sprites/front${doesExistFront && pokemon.shiny && isShiny ? "-shiny" : ""}/${doesExistFront ? pokemon._id + ".png" : (foundPokemon?.id || 'unown-qm.png')}`);

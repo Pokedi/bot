@@ -164,14 +164,8 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
     }
 
     async selectRandomV2() {
-        // Randomly Select Pokemon
-        const [{ totalpokemon }] = await pokeapisql`SELECT MAX(id) as totalPokemon FROM pokemon_dex WHERE id < 10000`;
-
-        // Random ID
-        const randomID = randomint(totalpokemon) + 1;
-
         // Find Row of Pokemon
-        const [foundRow] = await pokeapisql`SELECT _id, name, id, gender_rate, is_mythical, is_legendary, is_sublegendary FROM pokemon_dex WHERE id = ${randomID} LIMIT 1`;
+        const [foundRow] = await pokeapisql`SELECT _id, name, id, gender_rate, is_mythical, is_legendary, is_sublegendary FROM pokemon_dex WHERE (is_custom is null OR is_custom = false) AND (is_nonspawnable is null OR is_nonspawnable = false) ORDER BY random() LIMIT 1`;
 
         if (!foundRow)
             return console.log("ERROR", randomID), await this.selectRandomV2();
@@ -200,7 +194,7 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
 
         const findAltNames = this.pokedex.custom ? [] : await pokeapisql`SELECT name FROM pokemon_v2_pokemonspeciesname WHERE pokemon_species_id = ${this.pokedex.id} OR pokemon_species_id = ${this.pokedex.dexid || null}`;
 
-        this.spawn_names = [this.pokedex.name].concat(findAltNames.map(x => x.name)).filter(x => x);
+        this.spawn_names = [this.pokedex.name, this.pokedex._id].concat(findAltNames.map(x => x.name)).filter(x => x);
 
         return generatedPokemon;
     }
