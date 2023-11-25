@@ -1421,9 +1421,15 @@
             "cost": 5000
         }
     },
-    "palkia": { 
+    "palkia": {
         "lustrous-globe": {
             "name": "palkia-origin",
+            "cost": 5000
+        }
+    },
+    "giratina-altered": {
+        "griseous-core": {
+            "name": "giratina-origin",
             "cost": 5000
         }
     },

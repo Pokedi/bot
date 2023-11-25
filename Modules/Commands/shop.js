@@ -452,8 +452,24 @@ export default {
                                 inline: true
                             }, {
                                 name: "Arceus (500c)",
-                                value: "- Arceus Change Type: `<Valid Name> Plate`"
-                            }]
+                                value: "- Arceus Change Type: `<Valid Name> Plate`",
+                                inline: true
+                            }, {
+                                name: "Mega Arceus (10000c)",
+                                value: "- Item Name: `Mega Stone`",
+                                inline: true
+                            }, {
+                                name: "Palkia / Dialga / Giratina (Orgin) (5000c)",
+                                value: "- Dialga: `Adamant Orb`\n- Palkia: `Lustrous Globe`\n- Giratina: `Griseous Core`",
+                                inline: true
+                            }, {
+                                name: "Bisharp (3000c) (limited time)",
+                                value: "- Bisharp: `Leader Crest`",
+                                inline: true
+                            }],
+                            footer: {
+                                text: "Please note that Mega Forms will be duel-only in the future to better improve the experience of users overall."
+                            }
                         }]
                     })
                 }
