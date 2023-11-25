@@ -80,6 +80,10 @@
         }
     },
     "arceus": {
+        "mega-stone": {
+            "name": "arceus-mega",
+            "cost": 10000
+        },
         "blank-plate": {
             "name": "arceus",
             "cost": 500
@@ -1409,6 +1413,24 @@
         "zap-plate": {
             "name": "arceus-electric",
             "cost": 500
+        }
+    },
+    "dialga": {
+        "adamant-orb": {
+            "name": "dialga-origin",
+            "cost": 5000
+        }
+    },
+    "palkia": { 
+        "lustrous-globe": {
+            "name": "palkia-origin",
+            "cost": 5000
+        }
+    },
+    "bisharp": {
+        "leader-crest": {
+            "name": "kingambit",
+            "cost": 5000
         }
     }
 }
