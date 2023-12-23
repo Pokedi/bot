@@ -238,10 +238,6 @@ export default {
                         if (!pokedex.pokedex.id)
                             return await msg.reply("That Pokemon does not exist");
 
-                        // IF nonSpawn, reject
-                        if (pokedex.pokedex.is_custom || pokedex.pokedex.is_nonspawnable)
-                            return await msg.reply("That Pokemon cannot be given or spawned.");
-
                         // Ready Spawn Type Data
                         await pokedex.SpawnFriendlyV2(true);
 
