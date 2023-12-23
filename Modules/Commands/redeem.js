@@ -216,6 +216,7 @@ export default {
                     }
 
                     if (msg.options.getBoolean("use")) {
+
                         if (special_deem < 1)
                             return await msg.reply("You haven't acquired a Snowflake yet!");
 
@@ -224,11 +225,42 @@ export default {
 
                         // Event Name
                         const eventName = 'snow-event-2023'
-                        
+
                         // Selected Pokemon
                         const selectedPokemon = Chance().weighted(event[eventName].pokemon, event[eventName].pokemon.map(x => x.chance));
 
-                        await msg.reply(selectedPokemon.name + " was selected")
+                        // Ready Pokedex
+                        const pokedex = new Pokedex({});
+
+                        await pokedex.fetchByID(selectedPokemon.name, selectedPokemon.id);
+
+                        // Reject if Pokemon not found
+                        if (!pokedex.pokedex.id)
+                            return await msg.reply("That Pokemon does not exist");
+
+                        // IF nonSpawn, reject
+                        if (pokedex.pokedex.is_custom || pokedex.pokedex.is_nonspawnable)
+                            return await msg.reply("That Pokemon cannot be given or spawned.");
+
+                        // Ready Spawn Type Data
+                        await pokedex.SpawnFriendlyV2(true);
+
+                        // Attach User
+                        pokedex.user_id = BigInt(msg.user.id);
+
+                        // Increment readied IDX
+                        const [idx] = await msg.client.postgres`SELECT idx FROM pokemon WHERE user_id = ${msg.user.id} ORDER BY idx desc`;
+
+                        pokedex.idx = idx.idx || 1;
+
+                        // Save to DB
+                        await pokedex.save(msg.client.postgres);
+
+                        // Reduce Redeem
+                        await msg.client.postgres`UPDATE users SET special_deem = special_deem - 2 WHERE id = ${msg.user.id}`;
+
+                        // Send Message
+                        return await msg.reply(`As a Snowflake melts, <@${msg.user.id}> successfully recieves a ${capitalize(pokedex.pokemon, true)} (${pokedex.level}).`);
                     }
                 }
             }
