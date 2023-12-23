@@ -57,11 +57,11 @@ class Player {
     }
 
     async fetchIncome(postgres) {
-        const query = builder.select("users", ["bal", "redeem"]).where({ id: BigInt(this.id)/* , guild_id: this.guild_id */ });
+        const query = builder.select("users", ["bal", "redeem", "special_deem"]).where({ id: BigInt(this.id)/* , guild_id: this.guild_id */ });
 
         const [row] = await postgres.unsafe(query.text, query.values);
 
-        if (!row) return { bal: 0, redeem: 0 };
+        if (!row) return { bal: 0, redeem: 0, special_deem: 0 };
 
         return row;
     }
