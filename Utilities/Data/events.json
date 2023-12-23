@@ -3,7 +3,7 @@
         "pokemon": [
             {
                 "id": 20004,
-                "_id": "holiday-sylveon",
+                "name": "holiday-sylveon",
                 "chance": 50
             },
             {
