@@ -2,6 +2,7 @@ import { SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
 import Pokedex from "../../Classes/pokedex.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
+import { Chance } from "chance";
 
 export default {
     help: "",
@@ -218,7 +219,16 @@ export default {
                         if (special_deem < 1)
                             return await msg.reply("You haven't acquired a Snowflake yet!");
 
+                        // Access JSON
+                        const { default: event } = await import("../../Utilities/Data/events.json", { assert: { type: "json" } });
 
+                        // Event Name
+                        const eventName = 'snow-event-2023'
+                        
+                        // Selected Pokemon
+                        const selectedPokemon = Chance().weighted(event[eventName].pokemon, event[eventName].pokemon.map(x => x.chance));
+
+                        await msg.reply(selectedPokemon.name + " was selected")
                     }
                 }
             }
