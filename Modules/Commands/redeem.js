@@ -253,7 +253,7 @@ export default {
                         await pokedex.save(msg.client.postgres);
 
                         // Reduce Redeem
-                        await msg.client.postgres`UPDATE users SET special_deem = special_deem - 2 WHERE id = ${msg.user.id}`;
+                        await msg.client.postgres`UPDATE users SET special_deem = special_deem - 1 WHERE id = ${msg.user.id}`;
 
                         // Send Message
                         return await msg.reply(`As a Snowflake melts, <@${msg.user.id}> successfully recieves a ${capitalize(pokedex.pokemon, true)} (${pokedex.level}).`);
