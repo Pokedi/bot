@@ -51,6 +51,12 @@ export default {
                 .setName("buy")
                 .setDescription("Buy Special Deems for 2 redeems")
             )
+            .addIntegerOption(x => x
+                .setName("amount")
+                .setDescription("The amount of Special Deems you plan to get.")
+                .setMinValue(1)
+                .setMaxValue(10)
+            )
             .addBooleanOption(x => x
                 .setName("view")
                 .setDescription("View how many Special Deems you have left")
@@ -207,10 +213,16 @@ export default {
                         });
 
                     if (msg.options.getBoolean('buy')) {
+                        // Amount of Special Deems
+                        const amount = msg.options.getInteger("amount") || 1;
+
                         if (redeem < 2)
                             return msg.reply("You require 2 deems to buy a Snowflake!");
 
-                        await msg.client.postgres`UPDATE users SET special_deem = special_deem + 1, redeem = redeem - 2 WHERE id = ${msg.user.id}`;
+                        if (amount * 2 > redeem)
+                            return msg.reply("You do not have enough redeems to buy that many snowflakes");
+
+                        await msg.client.postgres`UPDATE users SET special_deem = special_deem + ${amount}, redeem = redeem - ${amount * 2} WHERE id = ${msg.user.id}`;
 
                         return await msg.reply("❄️ A beautiful snowflake fell into your bag ❄️");
                     }
