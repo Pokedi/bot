@@ -17,7 +17,7 @@ export default {
                 await msg.reply("Git Pulling");
                 return (async () => {
                     const { default: child_process } = await import("child_process");
-                    child_process.exec("git pull && pm2 restart dev", () => { });
+                    child_process.exec("git pull && pm2 restart pokedi" + (process.env.DEV ? "Dev" : ""), () => { });
                 })();
             }
 
