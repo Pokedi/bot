@@ -8,9 +8,19 @@ export default {
         .setDescription('Reload Cache')
         .addBooleanOption(x => x.setName("reset-states").setDescription("[Admin Only]"))
         .addBooleanOption(x => x.setName("reset-commands-rest").setDescription("[Admin Only]"))
-        .addBooleanOption(x => x.setName("reset-commands").setDescription("[Admin Only]")),
+        .addBooleanOption(x => x.setName("reset-commands").setDescription("[Admin Only]"))
+        .addBooleanOption(x => x.setName("git-pull").setDescription("[Admin Only]")),
     async execute(msg) {
         if (process.env.DEVIDS && JSON.parse(process.env.DEVIDS).includes(msg.user.id)) {
+
+            if (msg.options.getBoolean('git-pull')) {
+                await msg.reply("Git Pulling");
+                return (async () => {
+                    const { default: child_process } = await import("child_process");
+                    child_process.exec("git pull && pm2 restart dev", () => { });
+                })();
+            }
+
             const resetCommands = msg.options.getBoolean('reset-commands');
 
             if (msg.options.getBoolean('reset-states')) {
