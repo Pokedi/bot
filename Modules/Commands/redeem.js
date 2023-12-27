@@ -210,7 +210,7 @@ export default {
                         if (redeem < 2)
                             return msg.reply("You require 2 deems to buy a Snowflake!");
 
-                        await msg.client.postgres`UPDATE users SET special_deem = special_deem + 2, redeem = redeem - 2 WHERE id = ${msg.user.id}`;
+                        await msg.client.postgres`UPDATE users SET special_deem = special_deem, redeem = redeem - 2 WHERE id = ${msg.user.id}`;
 
                         return await msg.reply("❄️ A beautiful snowflake fell into your bag ❄️");
                     }
