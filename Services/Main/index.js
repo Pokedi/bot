@@ -38,6 +38,7 @@ client.redis = redisClient;
 
 // Ready all Commands
 import commandsInit from "../../Utilities/Core/commandsInit.js";
+
 // Prepare for Future-Use
 client.commandsInit = commandsInit;
 
