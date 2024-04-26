@@ -59,5 +59,9 @@ export default {
 
         await msg.reply(`Successfully placed ${capitalize(fetchPokemon.pokemon, true)} (Nº ${id}) on slot Nº ${slot + 1}`);
 
+        // Replace if User Profile Readied
+        if (msg.user?.player)
+            msg.user.player.selected = z;
+
     }
 }

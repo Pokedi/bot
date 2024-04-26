@@ -14,7 +14,7 @@ export default async (userObj, postgres) => {
     const user = new Player(userObj);
 
     // Fetch Columns
-    await user.fetchColumns(postgres, "started, id, locale");
+    await user.fetchColumns(postgres, "selected, started, id, locale");
 
     // Return if Not Registered
     if (!user.started)
