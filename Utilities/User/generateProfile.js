@@ -1,6 +1,6 @@
 import sharp from "sharp";
-import backgrounds from "../../Utilities/Data/backgrounds.json" assert {type: "json"};
-import trainers from "../../Utilities/Data/trainers.json" assert {type: "json"};
+import backgrounds from "../../Utilities/Data/backgrounds.json" with {type: "json"};
+import trainers from "../../Utilities/Data/trainers.json" with {type: "json"};
 import Pokedex from "../../Classes/pokedex.js";
 import { existsSync } from "fs";
 

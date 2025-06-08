@@ -1,4 +1,4 @@
-import crates from "../../../Utilities/Data/crates.json" assert {type: "json"};
+import crates from "../../../Utilities/Data/crates.json" with {type: "json"};
 
 import { Chance } from "chance";
 

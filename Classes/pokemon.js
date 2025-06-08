@@ -10,7 +10,7 @@ import calculateNextLevelEXP from "../Utilities/Pokemon/calculateNextLevelEXP.js
 import getTime from "../Utilities/Misc/getTime.js";
 import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 import { readySinglePokemonFrontBack } from "../Utilities/Pokemon/pokemonBattleImage.js";
-import moves from "../Utilities/Data/moves.json" assert {type: "json"};
+import moves from "../Utilities/Data/moves.json" with {type: "json"};
 import capitalize from "../Utilities/Misc/capitalize.js";
 import pokemondb from "../Modules/Database/pokedb.js";
 import Move from "./move.js";

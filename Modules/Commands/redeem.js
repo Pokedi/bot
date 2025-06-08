@@ -233,7 +233,7 @@ export default {
                             return await msg.reply("You haven't acquired a Snowflake yet!");
 
                         // Access JSON
-                        const { default: event } = await import("../../Utilities/Data/events.json", { assert: { type: "json" } });
+                        const { default: event } = await import("../../Utilities/Data/events.json", { type: "json" } );
 
                         // Event Name
                         const eventName = 'snow-event-2023'

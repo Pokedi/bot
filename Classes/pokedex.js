@@ -3,7 +3,7 @@ import { ENUM_POKEMON_BASE_STATS, POKEMON_NATURES, reverseENUM, ENUM_POKEMON_TYP
 import Pokemon from "./pokemon.js";
 import randomint from "../Utilities/Misc/randomint.js";
 import { Chance } from "chance";
-import fusionPokemon from "../Utilities/Data/PokemonDB/fusions.json" assert {type: "json"};
+import fusionPokemon from "../Utilities/Data/PokemonDB/fusions.json" with {type: "json"};
 import capitalize from "../Utilities/Misc/capitalize.js";
 import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 import IVCalculator from "../Utilities/Pokemon/IVCalculator.js";

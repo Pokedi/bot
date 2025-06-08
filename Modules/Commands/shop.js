@@ -7,10 +7,10 @@ import Pokedex from "../../Classes/pokedex.js";
 import pokemondb from "../Database/pokedb.js";
 
 // Backgrounds
-import backgrounds from "../../Utilities/Data/backgrounds.json" assert {type: "json"};
+import backgrounds from "../../Utilities/Data/backgrounds.json" with {type: "json"};
 
 // Forms
-import forms from "../../Utilities/Data/PokemonDB/pokemon_forms.json" assert {type: "json"};
+import forms from "../../Utilities/Data/PokemonDB/pokemon_forms.json" with {type: "json"};
 import getDominantColor from "../../Utilities/Misc/getDominantColor.js";
 
 export default {

@@ -1,6 +1,6 @@
 import Color from "color";
 import { SlashCommandBuilder } from "discord.js";
-import crates from "../../Utilities/Data/crates.json" assert {type: "json"};
+import crates from "../../Utilities/Data/crates.json" with {type: "json"};
 
 export default {
     help: "",
