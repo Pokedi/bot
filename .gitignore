@@ -22,3 +22,5 @@ Services/PokeAPI/*
 test.json
 assets/*
 Modules/Commands/*.ts
+pnpm-lock.yaml
+pnpm-workspace.yaml
