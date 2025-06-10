@@ -13,7 +13,11 @@ export default {
     mention_support: true,
     async execute(msg) {
 
-        const content = msg.content ? msg.content.split(/^catch\s|^c\s/gmi)?.[1] : (msg.options.getString("pokemon")).toLowerCase();
+        const content = msg.content
+            ? msg.content.split(/^catch\s|^c\s/gmi)?.[1]
+            : (msg.options && msg.options.getString("pokemon"))
+                ? msg.options.getString("pokemon").toLowerCase()
+                : null;
 
         // No Content? Ignore
         if (!content)
