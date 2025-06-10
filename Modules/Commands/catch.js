@@ -14,7 +14,7 @@ export default {
     async execute(msg) {
 
         const content = msg.content
-            ? msg.content.split(/> catch\s|> c\s/gmi)?.[1]
+            ? msg.content.split(/^catch\s|^c\s/gmi)?.[1]
             : (msg.options && msg.options.getString("pokemon"))
                 ? msg.options.getString("pokemon").toLowerCase()
                 : null;

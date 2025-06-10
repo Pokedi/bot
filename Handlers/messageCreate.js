@@ -46,6 +46,8 @@ async function messageCreate(msg, e) {
                                 return target.reply(options);
                             };
                         }
+                        if (prop === "isMessage") return true; // Indicate that this is a message object
+                        if (prop === "content") return text; // Override content with the text after the command
                         return target[prop];
                     },
                     set(target, prop, value) {

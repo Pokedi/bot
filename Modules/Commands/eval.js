@@ -16,8 +16,8 @@ export default {
         if (process.env.DEVIDS && JSON.parse(process.env.DEVIDS).includes(msg.user.id)) {
 
             // Check if command was ran via ping or interaction
-            if (msg.content) {
-                const content = msg.content.split(/> eval\s/gmi)?.[1];
+            if (msg.isMessage) {
+                const content = msg.content.split(/^eval\s/gmi)?.[1];
                 if (content) {
                     try {
                         eval(content);
