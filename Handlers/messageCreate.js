@@ -29,16 +29,25 @@ async function messageCreate(msg, e) {
             // Bot was pinged at the beginning of the message
 
             // Check if the Command exists
-            const cleaned = msg.content.split(/^(<[@!]+\d{15,}>)\s/gmi)[1];
+            const cleaned = msg.content.split(/^(<[@!]+\d{15,}>)\s/gmi);
 
-            // Command Name (allegedly)
-            const commandName = cleaned.split(" ")[0];
+            // Console Log
+            console.log(cleaned);
 
-            // If Command Found, Run it
-            if (msg.client.commands.get(commandName))
-                msg.reply("Command Found `" + cleaned + "`"),
-                    msg.client.commands.get(commandName)(msg);
+            // If following the proper usage
+            if (cleaned.length > 1) {
 
+                // Command Name (allegedly)
+                const commandName = cleaned.split(" ")[0].trim();
+
+                console.log("> Command", msg.client.commands.get(commandName));
+
+                // If Command Found, Run it
+                if (msg.client.commands.get(commandName))
+                    msg.reply("Command Found `" + cleaned + "`"),
+                        msg.client.commands.get(commandName)(msg);
+
+            }
         }
 
     }
