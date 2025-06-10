@@ -17,7 +17,7 @@ export default {
 
             // Check if command was ran via ping or interaction
             if (msg.isMessage) {
-                const content = msg.content.split(/^eval\s/gmi)?.[1];
+                const content = msg.content;
                 if (content) {
                     try {
                         eval(content);

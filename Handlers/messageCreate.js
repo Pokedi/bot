@@ -22,14 +22,14 @@ async function messageCreate(msg, e) {
     // Message Content Handler for Commands that are Bot Pinged
     if (msg.mentions.has(msg.client.user)) {
 
-        console.log("> Mentioned: ", msg.content);
-
         // Check if the bot was pinged at the beginning of the message
         if (msg.content.startsWith(`<@${msg.client.user.id}> `) || msg.content.startsWith(`<@!${msg.client.user.id}> `)) {
             // Bot was pinged at the beginning of the message
 
             // Command Name (allegedly)
-            const [commandName, text] = msg.content.split(/^(<[@!]+\d{15,}>)\s/gmi)[2].trim().split(" ");
+            const [, , rest] = msg.content.split(/^(<[@!]+\d{15,}>)\s/gmi);
+            const [commandName, ...textParts] = rest.trim().split(" ");
+            const text = textParts.join(" ");
 
             // If Command Found, Run it
             if (msg.client.commands.get(commandName)?.mention_support) {
