@@ -32,19 +32,19 @@ async function messageCreate(msg, e) {
             const regex = (/^(<[@!]+\d{15,}>)\s/gmi);
 
             // Check if the Command exists
-            const cleaned = regex.test(msg.content);
+            const regexTest = regex.test(msg.content);
 
             // If following the proper usage
-            if (cleaned) {
+            if (regexTest) {
 
                 // Command Name (allegedly)
-                const [commandName, text] = cleaned.split(regex)[1].split(" ");
+                const [commandName, text] = msg.content.split(regex)[1].split(" ");
 
                 console.log("> Command", msg.client.commands.get(commandName));
 
                 // If Command Found, Run it
                 if (msg.client.commands.get(commandName))
-                    msg.reply("Command Found `" + cleaned + "`"),
+                    msg.reply("Command Found `" + commandName + "`"),
                         msg.client.commands.get(commandName)(msg);
 
             }
