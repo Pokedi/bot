@@ -1,7 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 import randomint from "../../Utilities/Misc/randomint.js";
-import replyWrapper from "../../Utilities/Misc/replyWrapper.js";
 
 export default {
     help: "",
@@ -14,7 +13,7 @@ export default {
     async execute(msg) {
 
         const content = msg.content
-            ? msg.content.split(/^catch\s|^c\s/gmi)?.[1]
+            ? msg.content
             : (msg.options && msg.options.getString("pokemon"))
                 ? msg.options.getString("pokemon").toLowerCase()
                 : null;
@@ -30,7 +29,7 @@ export default {
 
                 // Stop NonPlayers
                 if (!msg.user.player?.started)
-                    return replyWrapper(msg, "You haven't started your adventure! `/pick` someone to travel with!");
+                    return msg.reply("You haven't started your adventure! `/pick` someone to travel with!");
 
                 // Get spawn Pokemon to cache
                 const pokemonGrabbed = msg.channel.spawn.pokemon;
@@ -57,11 +56,11 @@ export default {
                 // Add to User's Dex
                 await pokemonGrabbed.addToUserDex(msg.client.postgres);
 
-                return replyWrapper(msg, `Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon, true)}!`);
+                return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon, true)}!`);
 
             } else
-                replyWrapper(msg, { ephemeral: true, content: "Wrong guess!" });
-        } else replyWrapper(msg, { ephemeral: true, content: "No Pokemon right now!" });
+                msg.reply({ ephemeral: true, content: "Wrong guess!" });
+        } else msg.reply({ ephemeral: true, content: "No Pokemon right now!" });
 
     }
 }
