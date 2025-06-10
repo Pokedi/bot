@@ -20,6 +20,15 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
             const { default: importedCommand } = await import("../../Modules/Commands/" + commandName + ".js?update=" + Date.now());
             commands.push(importedCommand.data.toJSON());
             client.commands.set(commandName, importedCommand.execute);
+
+            // Check if it has Aliases => Push to CommandsList + Set in Client Commands => Loop
+            if (importedCommand?.alias?.length) {
+                for (const alias of importedCommand.alias) {
+                    commands.push(alias);
+                    client.commands.set(alias, importedCommand.execute);
+                }
+            }
+
         } catch (error) {
             console.log(error);
         }

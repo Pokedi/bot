@@ -9,6 +9,7 @@ export default {
         .addStringOption(option => option.setName('pokemon').setRequired(true).setDescription('Name of the Pokemon you are trying to catch'))
         .setName('catch')
         .setDescription('Catch the Pokemon!'),
+    alias: ["c"],
     async execute(msg) {
         const content = (msg.options.getString("pokemon")).toLowerCase();
 

@@ -21,7 +21,26 @@ async function messageCreate(msg, e) {
 
     // Message Content Handler for Commands that are Bot Pinged
     if (msg.mentions.has(msg.client.user)) {
+
         console.log("> Mentioned: ", msg.content);
+
+        // Check if the bot was pinged at the beginning of the message
+        if (msg.content.startsWith(`<@${msg.client.user.id}>`) || msg.content.startsWith(`<@!${msg.client.user.id}>`)) {
+            // Bot was pinged at the beginning of the message
+
+            // Check if the Command exists
+            const cleaned = msg.content.split(/^(<[@!]+\d{15,}>)\s/gmi)[1];
+
+            // Command Name (allegedly)
+            const commandName = cleaned.split(" ")[0];
+
+            // If Command Found, Run it
+            if (msg.client.commands.get(commandName))
+                msg.reply("Command Found `" + cleaned + "`"),
+                    msg.client.commands.get(commandName)(msg);
+
+        }
+
     }
 
     // Spawn System
