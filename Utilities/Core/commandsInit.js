@@ -22,10 +22,12 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
             client.commands.set(commandName, importedCommand.execute);
 
             // Check if it has Aliases => Push to CommandsList + Set in Client Commands => Loop
-            if (importedCommand?.alias?.length) {
+            if (importedCommand.alias) {
                 for (const alias of importedCommand.alias) {
                     commands.push(alias);
                     client.commands.set(alias, importedCommand.execute);
+                    if (importedCommand.mention_support)
+                        client.commands.get(alias).mention_support = importedCommand.mention_support;
                 }
             }
 

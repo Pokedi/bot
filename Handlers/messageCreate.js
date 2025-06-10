@@ -31,10 +31,8 @@ async function messageCreate(msg, e) {
             // Command Name (allegedly)
             const [commandName, text] = msg.content.split(/^(<[@!]+\d{15,}>)\s/gmi)[2].trim().split(" ");
 
-            console.log("> Command", msg.client.commands.get(commandName), commandName);
-
             // If Command Found, Run it
-            if (msg.client.commands.get(commandName))
+            if (msg.client.commands.get(commandName)?.mention_support)
                     msg.client.commands.get(commandName)(msg);
 
         }

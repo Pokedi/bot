@@ -10,8 +10,14 @@ export default {
         .setName('catch')
         .setDescription('Catch the Pokemon!'),
     alias: ["c"],
+    mention_support: true,
     async execute(msg) {
-        const content = (msg.options.getString("pokemon")).toLowerCase();
+
+        const content = (msg.options.getString("pokemon")).toLowerCase() || msg.content.split(/^catch\s|^c\s/gmi)?.[1];
+
+        // No Content? Ignore
+        if (!content)
+            return;
 
         if (msg.channel.spawn && msg.channel.spawn.pokemon) {
             const possibleNames = [msg.channel.spawn.pokemon.pokemon].concat(msg.channel.spawn.pokemon.spawn_names).filter(x => x).map(x => x.toLowerCase());
