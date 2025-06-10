@@ -1,24 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 import randomint from "../../Utilities/Misc/randomint.js";
-
-function replyWrapper(msg, options) {
-    if (msg.reply) {
-        if (typeof options === "string") {
-            return msg.reply(options);
-        }
-
-        // Remove interaction-only properties if replying to a Message
-        if (msg.constructor.name === "Message") {
-            const safe = { content: options.content };
-            return msg.reply(safe);
-        }
-
-        // Safe for interactions
-        return msg.reply(options);
-    }
-}
-
+import replyWrapper from "../../Utilities/Misc/replyWrapper.js";
 
 export default {
     help: "",
@@ -76,8 +59,8 @@ export default {
                 return replyWrapper(msg, `Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon, true)}!`);
 
             } else
-                msg.reply({ ephemeral: true, content: "Wrong guess!" });
-        } else msg.reply({ ephemeral: true, content: "No Pokemon right now!" });
+                replyWrapper(msg, { ephemeral: true, content: "Wrong guess!" });
+        } else replyWrapper(msg, { ephemeral: true, content: "No Pokemon right now!" });
 
     }
 }
