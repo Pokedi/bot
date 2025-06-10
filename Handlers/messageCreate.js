@@ -25,29 +25,18 @@ async function messageCreate(msg, e) {
         console.log("> Mentioned: ", msg.content);
 
         // Check if the bot was pinged at the beginning of the message
-        if (msg.content.startsWith(`<@${msg.client.user.id}>`) || msg.content.startsWith(`<@!${msg.client.user.id}>`)) {
+        if (msg.content.startsWith(`<@${msg.client.user.id}> `) || msg.content.startsWith(`<@!${msg.client.user.id}> `)) {
             // Bot was pinged at the beginning of the message
 
-            // Regex for Checking if Ping first
-            const regex = (/^(<[@!]+\d{15,}>)\s/gmi);
+            // Command Name (allegedly)
+            const [commandName, text] = msg.content.split(/^(<[@!]+\d{15,}>)\s/gmi)[2].trim().split(" ");
 
-            // Check if the Command exists
-            const regexTest = regex.test(msg.content);
+            console.log("> Command", msg.client.commands.get(commandName), commandName);
 
-            // If following the proper usage
-            if (regexTest) {
+            // If Command Found, Run it
+            if (msg.client.commands.get(commandName))
+                    msg.client.commands.get(commandName)(msg);
 
-                // Command Name (allegedly)
-                const [commandName, text] = msg.content.split(regex)[1].split(" ");
-
-                console.log("> Command", msg.client.commands.get(commandName), commandName);
-
-                // If Command Found, Run it
-                if (msg.client.commands.get(commandName))
-                    msg.reply("Command Found `" + commandName + "`"),
-                        msg.client.commands.get(commandName)(msg);
-
-            }
         }
 
     }
