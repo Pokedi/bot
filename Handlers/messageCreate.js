@@ -40,7 +40,7 @@ async function messageCreate(msg, e) {
                 // Command Name (allegedly)
                 const [commandName, text] = msg.content.split(regex)[1].split(" ");
 
-                console.log("> Command", msg.client.commands.get(commandName));
+                console.log("> Command", msg.client.commands.get(commandName), commandName);
 
                 // If Command Found, Run it
                 if (msg.client.commands.get(commandName))
