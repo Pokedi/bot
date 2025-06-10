@@ -19,6 +19,11 @@ async function messageCreate(msg, e) {
 
     await setMessageCache(msg);
 
+    // Message Content Handler for Commands that are Bot Pinged
+    if (msg.mentions.has(msg.client.user)) {
+        console.log("> Mentioned: ", msg.content);
+    }
+
     // Spawn System
     if (!msg.channel.spawn) msg.channel.spawn = { count: chance.integer({ min: 10, max: 30 }), pokemon: {}, lastSpawn: Date.now() };
 
