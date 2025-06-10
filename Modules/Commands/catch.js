@@ -14,7 +14,7 @@ export default {
     async execute(msg) {
 
         const content = msg.content
-            ? msg.content.split(/^catch\s|^c\s/gmi)?.[1]
+            ? msg.content.split(/> catch\s|> c\s/gmi)?.[1]
             : (msg.options && msg.options.getString("pokemon"))
                 ? msg.options.getString("pokemon").toLowerCase()
                 : null;
@@ -25,6 +25,7 @@ export default {
 
         if (msg.channel.spawn && msg.channel.spawn.pokemon) {
             const possibleNames = [msg.channel.spawn.pokemon.pokemon].concat(msg.channel.spawn.pokemon.spawn_names).filter(x => x).map(x => x.toLowerCase());
+
             if (possibleNames.includes(content)) {
 
                 // Stop NonPlayers

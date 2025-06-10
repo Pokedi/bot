@@ -32,8 +32,30 @@ async function messageCreate(msg, e) {
             const [commandName, text] = msg.content.split(/^(<[@!]+\d{15,}>)\s/gmi)[2].trim().split(" ");
 
             // If Command Found, Run it
-            if (msg.client.commands.get(commandName)?.mention_support)
-                    msg.client.commands.get(commandName)(msg);
+            if (msg.client.commands.get(commandName)?.mention_support) {
+                const tempMsg = new Proxy(msg, {
+                    get(target, prop) {
+                        if (prop === "user") return target.author;
+                        if (prop === "reply") {
+                            return function (options) {
+                                // If options is an object and has 'ephemeral', remove it
+                                if (options && typeof options === "object" && "ephemeral" in options) {
+                                    const { ephemeral, ...rest } = options;
+                                    return target.reply(rest);
+                                }
+                                return target.reply(options);
+                            };
+                        }
+                        return target[prop];
+                    },
+                    set(target, prop, value) {
+                        if (prop === "user") return true; // Prevent modification
+                        target[prop] = value;
+                        return true;
+                    }
+                });
+                msg.client.commands.get(commandName)(tempMsg);
+            }
 
         }
 

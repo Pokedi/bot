@@ -21,6 +21,9 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
             commands.push(importedCommand.data.toJSON());
             client.commands.set(commandName, importedCommand.execute);
 
+            if (importedCommand.mention_support)
+                client.commands.get(commandName).mention_support = importedCommand.mention_support;
+
             // Check if it has Aliases => Push to CommandsList + Set in Client Commands => Loop
             if (importedCommand.alias) {
                 for (const alias of importedCommand.alias) {
