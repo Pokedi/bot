@@ -28,17 +28,17 @@ async function messageCreate(msg, e) {
         if (msg.content.startsWith(`<@${msg.client.user.id}>`) || msg.content.startsWith(`<@!${msg.client.user.id}>`)) {
             // Bot was pinged at the beginning of the message
 
-            // Check if the Command exists
-            const cleaned = msg.content.split(/^(<[@!]+\d{15,}>)\s/gmi);
+            // Regex for Checking if Ping first
+            const regex = (/^(<[@!]+\d{15,}>)\s/gmi);
 
-            // Console Log
-            console.log(cleaned);
+            // Check if the Command exists
+            const cleaned = regex.test(msg.content);
 
             // If following the proper usage
-            if (cleaned.length > 1) {
+            if (cleaned) {
 
                 // Command Name (allegedly)
-                const commandName = cleaned.split(" ")[0].trim();
+                const [commandName, text] = cleaned.split(regex)[1].split(" ");
 
                 console.log("> Command", msg.client.commands.get(commandName));
 
