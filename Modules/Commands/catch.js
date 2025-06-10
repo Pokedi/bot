@@ -1,7 +1,24 @@
 import { SlashCommandBuilder } from "discord.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
-import axios from "axios";
 import randomint from "../../Utilities/Misc/randomint.js";
+
+function replyWrapper(msg, options) {
+    if (msg.reply) {
+        if (typeof options === "string") {
+            return msg.reply(options);
+        }
+
+        // Remove interaction-only properties if replying to a Message
+        if (msg.constructor.name === "Message") {
+            const safe = { content: options.content };
+            return msg.reply(safe);
+        }
+
+        // Safe for interactions
+        return msg.reply(options);
+    }
+}
+
 
 export default {
     help: "",
@@ -29,7 +46,7 @@ export default {
 
                 // Stop NonPlayers
                 if (!msg.user.player?.started)
-                    return msg.reply("You haven't started your adventure! `/pick` someone to travel with!");
+                    return replyWrapper(msg, "You haven't started your adventure! `/pick` someone to travel with!");
 
                 // Get spawn Pokemon to cache
                 const pokemonGrabbed = msg.channel.spawn.pokemon;
@@ -56,7 +73,7 @@ export default {
                 // Add to User's Dex
                 await pokemonGrabbed.addToUserDex(msg.client.postgres);
 
-                return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon, true)}!`);
+                return replyWrapper(msg, `Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon, true)}!`);
 
             } else
                 msg.reply({ ephemeral: true, content: "Wrong guess!" });
