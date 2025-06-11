@@ -26,8 +26,6 @@ export default {
         if (msg.isMessage && msg.content) {
             // Example: "@Bot select 123 2 --clear"
             const args = msg.content.trim().split(/\s+/);
-            // Remove the command name
-            args.shift();
             // Parse arguments
             id = parseInt(args[0]);
             slot = args[1] ? parseInt(args[1]) - 1 : 0;
