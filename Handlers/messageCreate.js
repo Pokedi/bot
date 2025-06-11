@@ -33,30 +33,31 @@ async function messageCreate(msg, e) {
 
             // If Command Found, Run it
             if (msg.client.commands.get(commandName)?.mention_support) {
-                const tempMsg = new Proxy(msg, {
-                    get(target, prop) {
-                        if (prop === "user") return target.author;
-                        if (prop === "reply") {
-                            return function (options) {
-                                // If options is an object and has 'ephemeral', remove it
-                                if (options && typeof options === "object" && "ephemeral" in options) {
-                                    const { ephemeral, ...rest } = options;
-                                    return target.reply(rest);
-                                }
-                                return target.reply(options);
-                            };
-                        }
-                        if (prop === "isMessage") return true; // Indicate that this is a message object
-                        if (prop === "content") return text; // Override content with the text after the command
-                        return target[prop];
-                    },
-                    set(target, prop, value) {
-                        if (prop === "user") return true; // Prevent modification
-                        target[prop] = value;
-                        return true;
-                    }
+
+                // Directly modify msg to add/override properties
+                Object.defineProperty(msg, "user", {
+                    get() { return msg.author; },
+                    set(val) { msg.author = val; },
+                    configurable: true,
+                    enumerable: true
                 });
-                msg.client.commands.get(commandName)(tempMsg);
+
+                msg.reply = function(options) {
+                    // If options is an object and has 'ephemeral', remove it
+                    if (options && typeof options === "object" && "ephemeral" in options) {
+                        const { ephemeral, ...rest } = options;
+                        // For those reading this and don't know what "getPrototypeOf" does, it basically allows me to use the original Reply function from the Message class
+                        return Object.getPrototypeOf(msg).reply.call(this, rest);
+                    }
+                    return Object.getPrototypeOf(msg).reply.call(this, options);
+                };
+
+                msg.isMessage = true;
+
+                msg.content = text;
+                
+                msg.client.commands.get(commandName)(msg);
+
             }
 
         }

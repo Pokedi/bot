@@ -12,8 +12,8 @@ export default {
     mention_support: true,
     async execute(msg) {
 
-        const content = msg.isMessage
-            ? msg.content
+        const content = msg.isMessage && msg.content
+            ? msg.content.toLowerCase()
             : (msg.options && msg.options.getString("pokemon"))
                 ? msg.options.getString("pokemon").toLowerCase()
                 : null;
