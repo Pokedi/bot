@@ -73,8 +73,10 @@ client.login(process.env.TOKEN);
 // Graceful Exit
 process.on("SIGINT", () => {
     console.log(`[${new Date().toLocaleString()}][WATCHDOG] Process was exited!`)
-    client.destroy().then(() => { console.log(`[${new Date().toLocaleString()}][WATCHDOG] Client logged out!`) });
-    process.exit();
+    client.destroy().finally(() => {
+        console.log(`[${new Date().toLocaleString()}][WATCHDOG] Client logged out!`);
+        process.exit(0);
+    });
 });
 
 // unCaught Exception handler
