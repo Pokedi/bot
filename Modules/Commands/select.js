@@ -12,26 +12,45 @@ export default {
         .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .setName('select')
         .setDescription('Select your Pokemon!'),
+    alias: ["s"],
+    mention_support: true,
     async execute(msg) {
 
         // Redirect to Help
-        if (msg.options.getBoolean("help"))
+        if (msg.options?.getBoolean?.("help"))
             return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "select" }),
                 msg.client.commands.get("help")(msg);
 
-        const id = msg.options.getInteger('id');
-        const slot = (msg.options.getInteger('slot') || 1) - 1;
-        const clearTeam = msg.options.getBoolean('clear');
+        // Support for mention-based commands
+        let id, slot, clearTeam;
+        if (msg.isMessage && msg.content) {
+            // Example: "@Bot select 123 2 --clear"
+            const args = msg.content.trim().split(/\s+/);
+            // Parse arguments
+            id = parseInt(args[0]);
+            slot = args[1] ? parseInt(args[1]) - 1 : 0;
+            clearTeam = args.includes("--clear") || args.includes("-c");
+        } else {
+            id = msg.options.getInteger?.('id');
+            slot = (msg.options.getInteger?.('slot') || 1) - 1;
+            clearTeam = msg.options.getBoolean?.('clear');
+        }
 
-        const userDB = new Player({ id: BigInt(msg.user.id), /* guild_id: msg.guild.info.mode ? msg.guild.id : null */ });
+        const userDB = new Player({ id: BigInt(msg.user.id) });
 
         await userDB.fetch(msg.client.postgres);
 
         if (!userDB.started) return msg.reply({ ephemeral: true, content: "User not found" });
 
-        if (clearTeam) return userDB.selected = [], await userDB.save(msg.client.postgres), await msg.reply("Your team was cleared...");
+        if (clearTeam) {
+            userDB.selected = [];
+            await userDB.save(msg.client.postgres);
+            return await msg.reply("Your team was cleared...");
+        }
 
-        const [queryPokemon] = await msg.client.postgres`SELECT * FROM pokemon WHERE idx = ${id} AND user_id = ${BigInt(msg.user.id)}`; //  AND guild_id = ${msg.guild.info.mode ? msg.guild.id : null}
+        if (!id || isNaN(id)) return msg.reply({ ephemeral: true, content: "Please provide a valid Pokémon ID." });
+
+        const [queryPokemon] = await msg.client.postgres`SELECT * FROM pokemon WHERE idx = ${id} AND user_id = ${BigInt(msg.user.id)}`;
 
         if (!queryPokemon) return msg.reply({ ephemeral: true, content: "Pokemon does not exist" });
 

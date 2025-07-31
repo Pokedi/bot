@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
-import axios from "axios";
 import randomint from "../../Utilities/Misc/randomint.js";
 
 export default {
@@ -9,11 +8,23 @@ export default {
         .addStringOption(option => option.setName('pokemon').setRequired(true).setDescription('Name of the Pokemon you are trying to catch'))
         .setName('catch')
         .setDescription('Catch the Pokemon!'),
+    alias: ["c"],
+    mention_support: true,
     async execute(msg) {
-        const content = (msg.options.getString("pokemon")).toLowerCase();
+
+        const content = msg.isMessage && msg.content
+            ? msg.content.toLowerCase()
+            : (msg.options && msg.options.getString("pokemon"))
+                ? msg.options.getString("pokemon").toLowerCase()
+                : null;
+
+        // No Content? Ignore
+        if (!content)
+            return;
 
         if (msg.channel.spawn && msg.channel.spawn.pokemon) {
             const possibleNames = [msg.channel.spawn.pokemon.pokemon].concat(msg.channel.spawn.pokemon.spawn_names).filter(x => x).map(x => x.toLowerCase());
+
             if (possibleNames.includes(content)) {
 
                 // Stop NonPlayers

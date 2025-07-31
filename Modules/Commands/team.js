@@ -8,10 +8,12 @@ export default {
         .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .setName('team')
         .setDescription('Check your Pokemon team out!'),
+    alias: ["t"],
+    mention_support: true,
     async execute(msg) {
 
         // Redirect to Help
-        if (msg.options.getBoolean("help"))
+        if (!msg.isMessage && msg.options.getBoolean("help"))
             return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "select" }),
                 msg.client.commands.get("help")(msg);
 
@@ -21,7 +23,7 @@ export default {
 
         if (!userDB.started) return msg.reply({ ephemeral: true, content: "User not found" });
 
-        if (!userDB.selected || userDB.selected[0]) return msg.reply({ ephemeral: true, content: "No one's home..." });
+        if (!userDB.selected || !userDB.selected[0]) return msg.reply({ ephemeral: true, content: "No one's home..." });
 
         const selectedPokemon = await msg.client.postgres`SELECT id, idx, level, name, pokemon FROM pokemon WHERE id in ${msg.client.postgres(userDB.selected)}`;
 

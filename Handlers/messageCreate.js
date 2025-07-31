@@ -19,6 +19,51 @@ async function messageCreate(msg, e) {
 
     await setMessageCache(msg);
 
+    // Message Content Handler for Commands that are Bot Pinged
+    if (msg.mentions.has(msg.client.user)) {
+
+        // Check if the bot was pinged at the beginning of the message
+        if (msg.content.startsWith(`<@${msg.client.user.id}> `) || msg.content.startsWith(`<@!${msg.client.user.id}> `)) {
+            // Bot was pinged at the beginning of the message
+
+            // Command Name (allegedly)
+            const [, , rest] = msg.content.split(/^(<[@!]+\d{15,}>)\s/gmi);
+            const [commandName, ...textParts] = rest.trim().split(" ");
+            const text = textParts.join(" ");
+
+            // If Command Found, Run it
+            if (msg.client.commands.get(commandName)?.mention_support) {
+
+                // Directly modify msg to add/override properties
+                Object.defineProperty(msg, "user", {
+                    get() { return msg.author; },
+                    set(val) { msg.author = val; },
+                    configurable: true,
+                    enumerable: true
+                });
+
+                msg.reply = function(options) {
+                    // If options is an object and has 'ephemeral', remove it
+                    if (options && typeof options === "object" && "ephemeral" in options) {
+                        const { ephemeral, ...rest } = options;
+                        // For those reading this and don't know what "getPrototypeOf" does, it basically allows me to use the original Reply function from the Message class
+                        return Object.getPrototypeOf(msg).reply.call(this, rest);
+                    }
+                    return Object.getPrototypeOf(msg).reply.call(this, options);
+                };
+
+                msg.isMessage = true;
+
+                msg.content = text;
+                
+                msg.client.commands.get(commandName)(msg);
+
+            }
+
+        }
+
+    }
+
     // Spawn System
     if (!msg.channel.spawn) msg.channel.spawn = { count: chance.integer({ min: 10, max: 30 }), pokemon: {}, lastSpawn: Date.now() };
 

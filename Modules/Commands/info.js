@@ -12,52 +12,72 @@ export default {
         .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .setName('info')
         .setDescription('View your Pokemon!'),
+    alias: ["i"],
+    mention_support: true,
     async execute(msg) {
-
-        // Redirect to Help
-        if (msg.options.getBoolean("help"))
+        // Help redirect
+        if (msg.options?.getBoolean?.("help"))
             return msg.options._hoistedOptions.push({ name: "command_name", type: 3, value: "info" }),
                 msg.client.commands.get("help")(msg);
 
-        const content = (msg.options.getString("query") || "").toLowerCase();
+        // --- Mention support ---
+        let query = "";
+        if (msg.isMessage) {
+            // Split everything by spaces
+            const args = msg.content.trim().split(/\s+/);
+            // Example: "@Bot info latest" or "@Bot i l" or "@Bot info 5"
+            query = args[0]?.toLowerCase() || "";
+        } else {
+            query = (msg.options.getString?.("query") || "").toLowerCase();
+        }
 
-        // isID?
-        const isID = !isNaN(parseInt(content)) && parseInt(content);
+        // Determine what the user wants
+        const isID = !isNaN(parseInt(query)) && parseInt(query);
+
+        // Todo: Add language support for "latest" and "l"
+        const isLatest = query === "latest" || query === "l";
 
         const player = new Player({ id: BigInt(msg.user.id) });
-
         await player.fetchColumns(msg.client.postgres, "id, selected");
 
         // Count Total Pokemon
         const [{ count: countPokemon }] = await msg.client.postgres`SELECT MAX(idx) as count FROM pokemon WHERE user_id = ${player.id} LIMIT 1`;
 
-        // Queries
-        const { values, text } = builder.select('pokemon', "*").where(content.includes("l") ? {
-            idx: countPokemon,
-            user_id: player.id,
-            /* guild_id: msg.guild.info.mode ? msg.guild.id : null */
-        } : (!isID && player.selected && player.selected.length ? { id: player.selected[0], /* guild_id: msg.guild.info.mode ? msg.guild.id : null */ } : {
-            user_id: player.id,
-            idx: parseInt(content || "1"),
-            /* guild_id: msg.guild.info.mode ? msg.guild.id : null */
-        })).limit(1);
+        // Build query for the pokemon
+        let where = {};
+        if (isLatest) {
+            where = { idx: countPokemon, user_id: player.id };
+        } else if (isID) {
+            where = { user_id: player.id, idx: parseInt(query) };
+        } else if (player.selected && player.selected.length) {
+            where = { id: player.selected[0] };
+        } else {
+            return msg.reply({ ephemeral: true, content: "You don't have any Pokémon selected or available." });
+        }
 
-        const [selectedPokemon] = await msg.client.postgres.unsafe(text + (isID && parseInt(content) < 0 ? "OFFSET " + (-1 * parseInt(content)) : ""), values)
+        const { values, text } = builder.select('pokemon', "*").where(where).limit(1);
+
+        const [selectedPokemon] = await msg.client.postgres.unsafe(text, values);
+
+        if (!selectedPokemon)
+            return msg.reply({ ephemeral: true, content: "Pokémon does not exist." });
 
         let processedPokemon = new Pokedex(selectedPokemon);
 
         if (!processedPokemon.id)
-            return msg.reply("pokemon does not exist.");
+            return msg.reply({ ephemeral: true, content: "Pokémon does not exist." });
 
         await processedPokemon.fetchByID();
 
         if (!processedPokemon.pokedex.id)
-            return await msg.reply("This pokemon has not been registered in the database, please contact an admin for more help...");
+            return msg.reply({ ephemeral: true, content: "This Pokémon has not been registered in the database. Please contact an admin for more help." });
 
         const file = new AttachmentBuilder(`../pokediAssets/pokemon/${processedPokemon.shiny ? "shiny" : "regular"}/${processedPokemon.pokemon}.png`);
-
         const color = await getDominantColor(file.attachment, true);
 
-        msg.reply({ embeds: [userPokemonInfoModule(processedPokemon, null, countPokemon, color)], files: [file] });
+        return msg.reply({
+            embeds: [userPokemonInfoModule(processedPokemon, null, countPokemon, color)],
+            files: [file]
+        });
     }
 }
