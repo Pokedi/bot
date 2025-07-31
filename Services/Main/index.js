@@ -73,7 +73,7 @@ client.login(process.env.TOKEN);
 // Graceful Exit
 process.on("SIGINT", () => {
     console.log(`[${new Date().toLocaleString()}][WATCHDOG] Process was exited!`)
-    client.destroy();
+    client.destroy().then(() => { console.log(`[${new Date().toLocaleString()}][WATCHDOG] Client logged out!`});
     process.exit();
 });
 
