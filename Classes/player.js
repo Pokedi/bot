@@ -113,7 +113,7 @@ class Player {
     async pokemonLevelUp(postgres, msg, level) {
 
         // Ignore if no Pokemon selected
-        if (!this.selected[0]) return false;
+        if (!this.selected || !this.selected[0]) return false;
 
         // Ready Pokemon Class
         const pokemon = new Pokedex({ id: this.selected[0] });
