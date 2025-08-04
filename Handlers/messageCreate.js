@@ -104,7 +104,7 @@ async function messageCreate(msg, e) {
         };
     }
 
-    if (!msg.author.count) msg.author.count = { playerLevelUpCount: randomint(1000) < 20, pokemonLevelUpCount: chance.integer({ min: 40, max: 300 }) };
+    if (!msg.author.count) msg.author.count = { pokemonLevelUpCount: chance.integer({ min: 40, max: 300 }) };
 
     if (msg.author.player && msg.author.player.started) {
 
