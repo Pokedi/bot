@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 
@@ -21,9 +21,9 @@ export default {
 
         await userDB.fetch(msg.client.postgres);
 
-        if (!userDB.started) return msg.reply({ ephemeral: true, content: "User not found" });
+        if (!userDB.started) return msg.reply({ flags: MessageFlags.Ephemeral, content: "User not found" });
 
-        if (!userDB.selected || !userDB.selected[0]) return msg.reply({ ephemeral: true, content: "No one's home..." });
+        if (!userDB.selected || !userDB.selected[0]) return msg.reply({ flags: MessageFlags.Ephemeral, content: "No one's home..." });
 
         const selectedPokemon = await msg.client.postgres`SELECT id, idx, level, name, pokemon FROM pokemon WHERE id in ${msg.client.postgres(userDB.selected)}`;
 

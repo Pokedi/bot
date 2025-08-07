@@ -1,4 +1,4 @@
-import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
+import { AttachmentBuilder, MessageFlags, SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
 import Pokemon from "../../Classes/pokemon.js";
 import { Chance } from "chance";
@@ -279,7 +279,7 @@ export default {
 
                     const details = await player.pokemonLevelUp(msg.client.postgres, msg, amount);
 
-                    return msg.reply({ ephemeral: true, content: "Pokemon Leveled up! ✅" + (details.evolvedPokemon ? " Seems like an evolution has taken place as well. Check it out!" : "") });
+                    return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokemon Leveled up! ✅" + (details.evolvedPokemon ? " Seems like an evolution has taken place as well. Check it out!" : "") });
                 }
             }
                 break;

@@ -1,4 +1,4 @@
-import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
+import { AttachmentBuilder, MessageFlags, SlashCommandBuilder } from "discord.js";
 import userPokemonInfoModule from "../../Utilities/Pokemon/userPokemonInfoModule.js";
 import builder from "../Database/QueryBuilder/queryGenerator.js";
 import Player from "../../Classes/player.js";
@@ -52,7 +52,7 @@ export default {
         } else if (player.selected && player.selected.length) {
             where = { id: player.selected[0] };
         } else {
-            return msg.reply({ ephemeral: true, content: "You don't have any Pokémon selected or available." });
+            return msg.reply({ flags: MessageFlags.Ephemeral, content: "You don't have any Pokémon selected or available." });
         }
 
         const { values, text } = builder.select('pokemon', "*").where(where).limit(1);
@@ -60,17 +60,17 @@ export default {
         const [selectedPokemon] = await msg.client.postgres.unsafe(text, values);
 
         if (!selectedPokemon)
-            return msg.reply({ ephemeral: true, content: "Pokémon does not exist." });
+            return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokémon does not exist." });
 
         let processedPokemon = new Pokedex(selectedPokemon);
 
         if (!processedPokemon.id)
-            return msg.reply({ ephemeral: true, content: "Pokémon does not exist." });
+            return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokémon does not exist." });
 
         await processedPokemon.fetchByID();
 
         if (!processedPokemon.pokedex.id)
-            return msg.reply({ ephemeral: true, content: "This Pokémon has not been registered in the database. Please contact an admin for more help." });
+            return msg.reply({ flags: MessageFlags.Ephemeral, content: "This Pokémon has not been registered in the database. Please contact an admin for more help." });
 
         const file = new AttachmentBuilder(`../pokediAssets/pokemon/${processedPokemon.shiny ? "shiny" : "regular"}/${processedPokemon.pokemon}.png`);
         const color = await getDominantColor(file.attachment, true);

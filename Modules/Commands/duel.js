@@ -1,4 +1,4 @@
-import { ComponentType, InteractionCollector, InteractionType, SlashCommandBuilder } from "discord.js";
+import { ComponentType, InteractionCollector, InteractionType, MessageFlags, SlashCommandBuilder } from "discord.js";
 import buttonVerification from "../../Utilities/Core/buttonVerification.js";
 import removeDuplicates from "../../Utilities/Misc/removeDuplicates.js";
 import Player from "../../Classes/player.js";
@@ -191,7 +191,7 @@ export default {
             return true;
 
         if (msg.options.getBoolean("run-away"))
-            return await msg[msg.replied ? "followUp" : "reply"]({ ephemeral: true, content: "Please wait 5-10 minutes till you can use this." });
+            return await msg[msg.replied ? "followUp" : "reply"]({ flags: MessageFlags.Ephemeral, content: "Please wait 5-10 minutes till you can use this." });
 
         const teamAIDs = removeDuplicates([msg.user.id, msg.options.getUser('2-user-vs'), msg.options.getUser('3-user-vs')]).filter(x => x && !x.bot);
         const teamBIDs = removeDuplicates([msg.options.getUser('vs-user-1'), msg.options.getUser('vs-user-2'), msg.options.getUser('vs-user-3')]).filter(x => x && !x.bot);
@@ -707,7 +707,7 @@ export default {
                 case "moves":
                     // Return Pokemon Moves with Details
                     return await m.reply({
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                         embeds: [{
                             title: `Moveset of ${capitalize()}`,
                             fields: selectedPokemon.processedMoves.map((x, i) => {
@@ -724,7 +724,7 @@ export default {
                 // Return Team Stats
                 case "team":
                     return await m.reply({
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                         embeds: [{
                             title: player.globalName + "'s team",
                             fields: player.pokemon.map((x, i) => {
@@ -767,19 +767,19 @@ export default {
 
             // Running Away
             if (isPokemonBattle && m.options.getBoolean("run-away"))
-                return battleState = 0, battleCollector.stop(), m.reply({ content: "✅", ephemeral: true });
+                return battleState = 0, battleCollector.stop(), m.reply({ content: "✅", flags: MessageFlags.Ephemeral });
 
             // Attack Sequence
             if (m.options.getInteger("attack"))
                 if (sequenceState && selectedPokemon.battle.current_hp > 0) {
                     // Add Command with details
                     if (!addUserCommand(id, "attack", { toAttack: (m.options.getInteger("attack-user") || 1) - 1, move: selectedPokemon.processedMoves[m.options.getInteger("attack") - 1] }))
-                        m.reply({ content: "You already responded", ephemeral: true })
+                        m.reply({ content: "You already responded", flags: MessageFlags.Ephemeral })
                     else
                         keepOrRemoveGiga(selectedPokemon, m),
-                            m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "✅" })
+                            m[m.replied ? "followUp" : "reply"]({ flags: MessageFlags.Ephemeral, content: "✅" })
                 } else if (!sequenceState)
-                    m.reply({ content: "Please wait till all fainted Pokemon have been called", ephemeral: true });
+                    m.reply({ content: "Please wait till all fainted Pokemon have been called", flags: MessageFlags.Ephemeral });
 
             if (m.options.getInteger("switch")) {
 
@@ -795,7 +795,7 @@ export default {
 
                 if (!sequenceState) {
                     if (player.pokemon[player.battle.selected].battle.current_hp > 0)
-                        return await m.reply({ ephemeral: true, content: "You cannot switch Pokemon while another person's preparing a funeral" });
+                        return await m.reply({ flags: MessageFlags.Ephemeral, content: "You cannot switch Pokemon while another person's preparing a funeral" });
                     player.battle.selected = switchPokemon;
                     m.reply(`${player.globalName}: ${capitalize(player.pokemon[player.battle.selected].pokemon)}! ${Chance().pickone(["I choose you!", "Hang in there!", "Just a little bit more!", "Please don't die on me too!", "I'll buy you KFC if we win this!"])}`);
                     if (!checkIfPokemonFainted(teamA, teamB)) {
@@ -809,11 +809,11 @@ export default {
                     if (selectedPokemon.battle.giga) selectedPokemon.battle.giga = false;
 
                     if (!addUserCommand(id, "ball", { selected: switchPokemon }))
-                        m.reply({ content: "You already responded", ephemeral: true })
+                        m.reply({ content: "You already responded", flags: MessageFlags.Ephemeral })
                     else
                         keepOrRemoveGiga(selectedPokemon, m),
                             imageChanged = 1,
-                            m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "✅" })
+                            m[m.replied ? "followUp" : "reply"]({ flags: MessageFlags.Ephemeral, content: "✅" })
                 }
             }
 
@@ -826,19 +826,19 @@ export default {
                 const doesPlayerHaveItem = player.inventory.find(x => x.item_id == itemID);
 
                 if (!doesPlayerHaveItem?.amount)
-                    return m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "You do not have that item..." });
+                    return m[m.replied ? "followUp" : "reply"]({ flags: MessageFlags.Ephemeral, content: "You do not have that item..." });
 
                 const isAllowed = checkIfCanProcessItem(itemID, player.pokemon[m.options.getInteger("item-target") || player.battle.selected]?.battle);
 
                 if (!isAllowed)
-                    return m.reply({ content: "That item won't have any effect", ephemeral: true });
+                    return m.reply({ content: "That item won't have any effect", flags: MessageFlags.Ephemeral });
 
                 if (!addUserCommand(id, "inv", { item_id: itemID, item: doesPlayerHaveItem, target: m.options.getInteger("item-target") || player.battle.selected }))
-                    m.reply({ content: "You already responded", ephemeral: true })
+                    m.reply({ content: "You already responded", flags: MessageFlags.Ephemeral })
                 else
                     doesPlayerHaveItem.amount--,
                         await msg.client.postgres`UPDATE user_inventory SET amount = amount - 1 WHERE user_id = ${player.id} AND item_id = ${itemID}`,
-                        await m[m.replied ? "followUp" : "reply"]({ ephemeral: true, content: "✅" });
+                        await m[m.replied ? "followUp" : "reply"]({ flags: MessageFlags.Ephemeral, content: "✅" });
             }
 
             // Check if Completed

@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import Pokemon from "../../Classes/pokemon.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 import buttonVerification from "../../Utilities/Core/buttonVerification.js";
@@ -27,7 +27,7 @@ export default {
 
         const fetchPokemon = new Pokemon(fetchPokemonRow);
 
-        if (!fetchPokemon.pokemon) return msg.reply({ ephemeral: true, content: "Pokemon does not exist" });
+        if (!fetchPokemon.pokemon) return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokemon does not exist" });
 
         // Confirmation from User
         const userVerification = await buttonVerification({ interaction: msg, textContent: `You are currently releasing your ${capitalize(fetchPokemon.pokemon, true)}. You serious about this abandonment? You know you'll lose all custody, right?` });

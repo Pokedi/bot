@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, MessageFlags } from "discord.js";
 
 const buttonMaker = ({ users = [], disable = [], title = "main" }) => {
     let content = '';
@@ -42,7 +42,7 @@ async function buttonVerification({ interaction, filter, time = 15000, button_id
             });
 
             collector.on('collect', async i => {
-                await i[i.replied ? "followUp" : "reply"]({ ephemeral: true, content: "<3" });
+                await i[i.replied ? "followUp" : "reply"]({ flags: MessageFlags.Ephemeral, content: "<3" });
                 if (!final_filter(i)) return;
                 try {
                     const u = i.user.id;

@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
 import Pokedex from "../../Classes/pokedex.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
@@ -115,7 +115,7 @@ export default {
                 const [added] = await msg.client.postgres`INSERT INTO voucher (id, type, amount, permanent, pokemon, expiredat) VALUES (gen_random_uuid(), ${obj.type}, ${obj.amount}, ${obj.permanent}, ${obj.pokemon || null}, ${obj.time} ) returning id`;
                 // Insert a new row into the "voucher" table with the values from the `obj` object and retrieve the `id` of the inserted row.
 
-                return msg.reply({ ephemeral: true, content: `Successfully made your voucher ID: \`${added.id}\`` });
+                return msg.reply({ flags: MessageFlags.Ephemeral, content: `Successfully made your voucher ID: \`${added.id}\`` });
                 // Return a reply to the `msg` object indicating the successful creation of the voucher with the corresponding `id`.
 
             } catch (error) {

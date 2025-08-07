@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import Pokemon from "../../Classes/pokemon.js";
 import Player from "../../Classes/player.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
@@ -40,7 +40,7 @@ export default {
 
         await userDB.fetch(msg.client.postgres);
 
-        if (!userDB.started) return msg.reply({ ephemeral: true, content: "User not found" });
+        if (!userDB.started) return msg.reply({ flags: MessageFlags.Ephemeral, content: "User not found" });
 
         if (clearTeam) {
             userDB.selected = [];
@@ -48,15 +48,15 @@ export default {
             return await msg.reply("Your team was cleared...");
         }
 
-        if (!id || isNaN(id)) return msg.reply({ ephemeral: true, content: "Please provide a valid Pokémon ID." });
+        if (!id || isNaN(id)) return msg.reply({ flags: MessageFlags.Ephemeral, content: "Please provide a valid Pokémon ID." });
 
         const [queryPokemon] = await msg.client.postgres`SELECT * FROM pokemon WHERE idx = ${id} AND user_id = ${BigInt(msg.user.id)}`;
 
-        if (!queryPokemon) return msg.reply({ ephemeral: true, content: "Pokemon does not exist" });
+        if (!queryPokemon) return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokemon does not exist" });
 
         const fetchPokemon = new Pokemon(queryPokemon);
 
-        if (!fetchPokemon.pokemon) return msg.reply({ ephemeral: true, content: "Pokemon does not exist" });
+        if (!fetchPokemon.pokemon) return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokemon does not exist" });
 
         let z = userDB.selected || [];
 

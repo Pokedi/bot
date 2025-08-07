@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import Pokedex from "../../Classes/pokedex.js";
 
 export default {
@@ -23,7 +23,7 @@ export default {
                 // Send Message Test
                 await msg.channel.spawn.pokemon.spawnToChannel(msg.channel);
                 // Reply
-                await msg.reply({ ephemeral: true, content: "Pokemon Spawned!" });
+                await msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokemon Spawned!" });
             } catch (error) {
                 console.log(error);
                 msg.reply("Error");

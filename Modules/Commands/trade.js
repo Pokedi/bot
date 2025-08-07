@@ -1,4 +1,4 @@
-import { InteractionCollector, InteractionType, SlashCommandBuilder } from "discord.js";
+import { InteractionCollector, InteractionType, MessageFlags, SlashCommandBuilder } from "discord.js";
 import Pokemon from "../../Classes/pokemon.js";
 import Player from "../../Classes/player.js";
 import buttonVerification from "../../Utilities/Core/buttonVerification.js";
@@ -295,7 +295,7 @@ export default {
 
                         if (_trade[You.id].confirm && _trade[Them.id].confirm) {
                             confirmed = true;
-                            await m.reply({ ephemeral: true, content: "✅" })
+                            await m.reply({ flags: MessageFlags.Ephemeral, content: "✅" })
                             return autoComplete.stop(), collector.stop(), true;
                         }
                         break;
@@ -304,7 +304,7 @@ export default {
                 // Edit Message
                 await tradeMSG.resource.message.edit({ embeds: [{ fields: createField(_trade), description: "~ trade slash commands enabled ~", title: `Trade Between ${_trade[You.id].username} and ${_trade[Them.id].username}` }] });
 
-                return m.reply({ ephemeral: true, content: "✅" });
+                return m.reply({ flags: MessageFlags.Ephemeral, content: "✅" });
             });
 
             collector.on("end", async (m) => {
@@ -347,7 +347,7 @@ export default {
             // Return if User not Trading
             if (!(await You.isTrading(msg.client.redis))) return msg.reply("Cannot cancel when you are not trading");
             // Return if User is Trading
-            return await You.stopTrading(msg.client.redis), msg.reply({ ephemeral: true, content: "✅" });
+            return await You.stopTrading(msg.client.redis), msg.reply({ flags: MessageFlags.Ephemeral, content: "✅" });
         }
     }
 }

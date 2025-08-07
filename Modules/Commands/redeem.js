@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
 import Pokedex from "../../Classes/pokedex.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
@@ -142,7 +142,7 @@ export default {
                             // Reduce Redeem
                             await player.save(msg.client.postgres, { redeem: --player.redeem });
                             // Reply
-                            return await msg.reply({ ephemeral: true, content: "Pokemon Spawned!" });
+                            return await msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokemon Spawned!" });
                         } else {
                             // Ready Spawn Type Data
                             await pokedex.SpawnFriendlyV2(true);

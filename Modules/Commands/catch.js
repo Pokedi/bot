@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 import randomint from "../../Utilities/Misc/randomint.js";
 
@@ -59,8 +59,8 @@ export default {
                 return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon, true)}!`);
 
             } else
-                msg.reply({ ephemeral: true, content: "Wrong guess!" });
-        } else msg.reply({ ephemeral: true, content: "No Pokemon right now!" });
+                msg.reply({ flags: MessageFlags.Ephemeral, content: "Wrong guess!" });
+        } else msg.reply({ flags: MessageFlags.Ephemeral, content: "No Pokemon right now!" });
 
     }
 }

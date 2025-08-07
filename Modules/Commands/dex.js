@@ -1,4 +1,4 @@
-import { ActionRowBuilder, AttachmentBuilder, AttachmentFlags, ButtonBuilder, ButtonStyle, ComponentType, SlashCommandBuilder } from "discord.js";
+import { ActionRowBuilder, AttachmentBuilder, AttachmentFlags, ButtonBuilder, ButtonStyle, ComponentType, MessageFlags, SlashCommandBuilder } from "discord.js";
 import dexPokemonInfoModule from "../../Utilities/Pokemon/dexPokemonInfoModule.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 import Pokedex from "../../Classes/pokedex.js";
@@ -199,7 +199,7 @@ export default {
                     toggle = !toggle;
                 }
 
-                i.reply({ ephemeral: true, content: "👍" });
+                i.reply({ flags: MessageFlags.Ephemeral, content: "👍" });
             });
 
             collector.on('end', collected => {
