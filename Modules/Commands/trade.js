@@ -180,7 +180,7 @@ export default {
                 [Them.id]: { c: 0, r: 0, p: [], confirm: false, username: Tradee.user.globalName || Tradee.user.username }
             };
 
-            const tradeMSG = await msg.followUp({ embeds: [{ title: `Trade Between ${_trade[You.id].username} and ${_trade[Them.id].username}`, fields: createField(_trade) }], fetchReply: true });
+            const tradeMSG = await msg.followUp({ embeds: [{ title: `Trade Between ${_trade[You.id].username} and ${_trade[Them.id].username}`, fields: createField(_trade) }], withResponse: true });
 
             const collector = new InteractionCollector(msg.client, {
                 channel: msg.channel,
@@ -302,7 +302,7 @@ export default {
                 }
 
                 // Edit Message
-                await tradeMSG.edit({ embeds: [{ fields: createField(_trade), description: "~ trade slash commands enabled ~", title: `Trade Between ${_trade[You.id].username} and ${_trade[Them.id].username}` }] });
+                await tradeMSG.resource.message.edit({ embeds: [{ fields: createField(_trade), description: "~ trade slash commands enabled ~", title: `Trade Between ${_trade[You.id].username} and ${_trade[Them.id].username}` }] });
 
                 return m.reply({ ephemeral: true, content: "✅" });
             });

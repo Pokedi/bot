@@ -253,7 +253,7 @@ function battleBoxFields(teamA = {}, teamB = {}) {
 
 async function returnEmbedBox(teamA = {}, teamB = {}) {
     return {
-        fetchReply: true,
+        withResponse: true,
         files: [{
             attachment: await returnBattleBox(generateBattleBox(teamA, teamB)),
             name: "battle.png"

@@ -844,7 +844,7 @@ export default {
             // Check if Completed
             if (checkComplete(teamA, teamB)) {
                 const extraNotes = processCommands(userCommands, teamA, teamB);
-                battleMessage = await m.channel.send(returnNewFieldEmbed(imageChanged ? await returnEmbedBox(teamA, teamB) : { embeds: [battleMessage.embeds[0].data] }, extraNotes, teamA, teamB));
+                battleMessage = await m.channel.send(returnNewFieldEmbed(imageChanged ? await returnEmbedBox(teamA, teamB) : { embeds: [battleMessage.resource.message.embeds[0].data] }, extraNotes, teamA, teamB));
                 if (imageChanged) imageChanged = 0;
 
                 if (checkIfPokemonFainted(teamA, teamB))

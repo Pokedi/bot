@@ -13,7 +13,7 @@ export default {
         .setDescription('Check your daily balance.'),
     async execute(msg) {
         // Send Wait message
-        // const main = await msg.reply({ content: "🕰️ ... 🕰️", fetchReply: true });
+        // const main = await msg.reply({ content: "🕰️ ... 🕰️", withResponse: true });
 
         // Assigning Variables
         let streak, total_votes, last_voted;

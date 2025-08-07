@@ -56,7 +56,7 @@ export default {
 
             // Send Embed
             const message = await msg.reply({
-                embeds: [pokemonEmbed], fetchReply: true, components: buttonComponent,
+                embeds: [pokemonEmbed], withResponse: true, components: buttonComponent,
                 files: [file]
             });
 
@@ -186,7 +186,7 @@ export default {
 
             let toggle = 0;
 
-            const collector = message.createMessageComponentCollector({
+            const collector = message.resource.message.createMessageComponentCollector({
                 componentType: ComponentType.Button,
                 // maxEmojis: 10,
                 // filter: (reaction, user) => { return user.id === msg.user.id }, 
@@ -195,7 +195,7 @@ export default {
 
             collector.on('collect', (i) => {
                 if (i.user.id == msg.user.id) {
-                    message.edit({ embeds: [!toggle ? secondEmbed : pokemonEmbed] });
+                    message.resource.message.edit({ embeds: [!toggle ? secondEmbed : pokemonEmbed] });
                     toggle = !toggle;
                 }
 

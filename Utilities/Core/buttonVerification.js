@@ -30,11 +30,11 @@ async function buttonVerification({ interaction, filter, time = 15000, button_id
 
         const [buttons, content] = buttonMaker({ users, title: button_id || "trade" });
 
-        const replied = await interaction.reply({ components: [buttons], embeds: [{ description: content }], fetchReply: true, content: textContent });
+        const replied = await interaction.reply({ components: [buttons], embeds: [{ description: content }], content: textContent, withResponse: true })
 
         let disable = [];
 
-        let final_filter = filter || (i => i.message.id == replied.id && users.includes(i.user.id) && (i.customId == "cancel" || i.customId == "approve"));
+        let final_filter = filter || (i => i.message.id == replied.resource.message.id && users.includes(i.user.id) && (i.customId == "cancel" || i.customId == "approve"));
 
         try {
             const collector = interaction.channel.createMessageComponentCollector({
@@ -47,13 +47,13 @@ async function buttonVerification({ interaction, filter, time = 15000, button_id
                 try {
                     const u = i.user.id;
                     if (i.customId == "cancel") {
-                        return replied.edit({ content: "This interaction was cancelled", components: [] }),
+                        return replied.resource.message.edit({ content: "This interaction was cancelled", components: [] }),
                             resolve(false);
                     } else {
                         if (!disable.includes(u)) {
                             disable.push(u);
                             const [buttons, content] = buttonMaker({ users, disable });
-                            await replied.edit({ embeds: [{ description: content }], components: (disable.length != users.length) ? [buttons] : [] });
+                            await replied.resource.message.edit({ embeds: [{ description: content }], components: (disable.length != users.length) ? [buttons] : [] });
                             (disable.length == users.length && resolve(true));
                             return;
                         }
