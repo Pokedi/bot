@@ -192,4 +192,130 @@ class Pokemon {
 
     }
 
+    async release(postgres) {
+
+        if (!postgres || !this.id) return false;
+
+        // Another Easter Egg idea: Possibility for the released Pokemon to Spawn somewhere around the world
+
+        const query = builder.update("pokemon", { user_id: null }).where({ id: BigInt(this.id) }).returning("*");
+
+        try {
+            const [row] = await postgres.unsafe(query.text, query.values);
+            return row;
+        } catch (err) {
+            return false;
+        }
+
+    }
+
+    async addToUserDex(postgres) {
+
+        if (!postgres || !this.user_id || !this.pokemon) return false;
+
+        const queryFind = builder.select("dex").where({ user_id: BigInt(this.user_id) }).and({ pokemon: this.pokemon });
+
+        try {
+
+            const [row] = await postgres.unsafe(queryFind.text, queryFind.values);
+
+            if (row) {
+
+                const queryUpdate = builder.update("dex", {
+                    count: (row.count || 0) + (this.shiny ? 0 : 1),
+                    shiny: (row.shinies || 0) + (this.shiny ? 1 : 0),
+                    unclaimed_normal: (row.unclaimed_normal || 0) + (this.shiny ? 0 : 1),
+                    unclaimed_shinies: (row.unclaimed_shinies || 0) + (this.shiny ? 1 : 0)
+                }).where({ user_id: BigInt(this.user_id), pokemon: this.pokemon }).returning("*");
+
+                const [updatedRow] = await postgres.unsafe(queryUpdate.text, queryUpdate.values);
+
+                return updatedRow;
+
+            } else {
+
+                // First Catch
+                // [08/10/2025 23:26] I think I should update the table itself to add the default values? Yeah, be right back, gonna update via pgAdmin
+
+                const queryInsert = builder.insert("dex", {
+                    user_id: this.user_id,
+                    pokemon: this.pokemon,
+                    count: this.shiny ? 0 : 1,
+                    shinies: this.shiny ? 1 : 0,
+                    giga: 0,
+                    unclaimed_normal: this.shiny ? 0 : 1,
+                    unclaimed_shinies: this.shiny ? 1 : 0
+                }).returning("*");
+
+                const [insertedRow] = await postgres.unsafe(queryInsert.text, queryInsert.values);
+
+                return insertedRow;
+
+            }
+
+
+        } catch {
+            return false;
+        }
+
+    }
+
+    // Fetch Moves
+    async fetchMoves() {
+
+        this.processedMoves = await Promise.all(this.moves.map(x => new Move().fetch(x, false)));
+
+        return this.processedMoves;
+
+    }
+
+    // Definitely would be nice to return details beyond this
+    // Pokemon Showdown Move Details might need to get checked out but that's a backend thing of its own
+    async returnMoves() {
+        return this.moves.map(x => {
+            const moveDetails = { ...moves[x], id: x };
+            moveDetails.name = capitalize(moveDetails.id.replace(/-/gmi, ' '));
+            moveDetails.type = ENUM_POKEMON_TYPES[moveDetails.t];
+            return moveDetails;
+        })
+    }
+
+    // Battle Methods
+    readyBattleMode() {
+        if (!this.pokedex?.id) {
+            console.error("Pokedex data not loaded for readyBattleMode. Cannot set up battle.");
+            return false;
+        }
+
+        // Battle Mode setup
+        this.battle = {
+            original_pokemon: this.pokemon,
+            pokemon: this.pokemon,
+            stat: this.stats,
+            types: this.pokedex.types_full_names || this.pokedex.types, // Use full names of types
+            current_hp: Math.floor(((this.pokedex.hp + this.stats.hp) * 2 * this.level) / 100 + 5 + this.level),
+            max_hp: Math.floor(((this.pokedex.hp + this.stats.hp) * 2 * this.level) / 100 + 5 + this.level),
+            status: {},
+            mods: {},
+            giga: false
+        };
+
+        return this.battle;
+    }
+
+    // Ready Battle Images
+    async readyBattleImage() {
+        if (!this.battle) return [];
+        if (!this.pokedex?.id) {
+            console.error("Pokedex data not loaded for readyBattleImage.");
+            return { back: "", front: "" };
+        }
+
+        const { back, front } = await readySinglePokemonFrontBack(this.pokedex, this.shiny, this.battle.giga);
+
+        this.battle.img = { back, front };
+
+        return this.battle.img;
+    }
+
 }
