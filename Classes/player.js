@@ -210,14 +210,6 @@ class Player {
         return pokemon;
     }
 
-    async fetchPokemonByIDX(idx = 1, postgres) {
-        const [row] = await postgres`SELECT * FROM pokemon WHERE idx = ${idx}`;
-
-        if (!row) return [];
-
-        return new Pokemon(row);
-    }
-
     async fetchInventory(postgres, full = false) {
         this.inventory = await postgres`SELECT * FROM user_inventory WHERE user_id = ${this.id}`;
 
