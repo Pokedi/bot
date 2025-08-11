@@ -13,7 +13,7 @@ export default {
             'es-ES': 'liberar',
             'de': 'freilassen',
             'fr': 'relâcher',
-            'ar': 'إطلاق'
+            // 'ar': 'إطلاق'
         })
         .setDescription('Release your Pokemon!')
         .setDescriptionLocalizations({
@@ -21,7 +21,7 @@ export default {
             'es-ES': '¡Libera a tu Pokémon!',
             'de': 'Lass dein Pokémon frei!',
             'fr': 'Relâchez votre Pokémon!',
-            'ar': 'أطلق بوكيمونك!'
+            // 'ar': 'أطلق بوكيمونك!'
         })
         .addIntegerOption(option => option.setName("id").setDescription("ID of the Pokemon you intend to release").setMinValue(1)
             .setNameLocalizations({
@@ -29,14 +29,14 @@ export default {
                 'es-ES': 'id',
                 'de': 'id',
                 'fr': 'id',
-                'ar': 'المعرف'
+                // 'ar': 'المعرف'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'ID do Pokémon que você pretende soltar',
                 'es-ES': 'ID del Pokémon que pretendes liberar',
                 'de': 'ID des Pokémon, das du freilassen möchtest',
                 'fr': 'ID du Pokémon que vous avez l\'intention de relâcher',
-                'ar': 'معرف البوكيمون الذي تنوي إطلاقه'
+                // 'ar': 'معرف البوكيمون الذي تنوي إطلاقه'
             }))
         .addBooleanOption(option => option.setName("latest").setDescription("Selects the last pokemon to release")
             .setNameLocalizations({
@@ -44,14 +44,14 @@ export default {
                 'es-ES': 'ultimo',
                 'de': 'letzte',
                 'fr': 'dernier',
-                'ar': 'الأخير'
+                // 'ar': 'الأخير'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Seleciona o último pokemon a ser solto',
                 'es-ES': 'Selecciona el último pokemon a liberar',
                 'de': 'Wählt das letzte Pokémon zum Freilassen aus',
                 'fr': 'Sélectionne le dernier pokémon à relâcher',
-                'ar': 'يختار آخر بوكيمون لإطلاقه'
+                // 'ar': 'يختار آخر بوكيمون لإطلاقه'
             })),
     async execute(msg) {
 

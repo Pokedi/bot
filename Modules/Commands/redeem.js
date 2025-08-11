@@ -12,14 +12,14 @@ export default {
             "pt-BR": "resgate",
             "de": "gutscheineinlösen",
             "fr": "échanger",
-            "ar": "استرداد"
+            // "ar": "استرداد"
         }).setDescription("Redeems are a special currency obtainable through donating")
         .setDescriptionLocalizations({
             "pt-BR": "Resgates são uma moeda especial que pode ser obtida através de doações",
             "es-ES": "Los canjes son una moneda especial que se puede obtener mediante donaciones",
             "de": "Einlösungen sind eine spezielle Währung, die durch Spenden erhältlich ist",
             "fr": "Les échanges sont une monnaie spéciale que l'on peut obtenir en faisant un don",
-            "ar": "الاسترداد هو عملة خاصة يمكن الحصول عليها من خلال التبرع"
+            // "ar": "الاسترداد هو عملة خاصة يمكن الحصول عليها من خلال التبرع"
         })
         .addSubcommand(option => option
             .setName("info")
@@ -28,7 +28,7 @@ export default {
                 "es-ES": "info",
                 "de": "info",
                 "fr": "info",
-                "ar": "معلومات"
+                // "ar": "معلومات"
             })
             .setDescription("Check out what you can do with your redeems!")
             .setDescriptionLocalizations({
@@ -36,7 +36,7 @@ export default {
                 "es-ES": "¡Mira lo que puedes hacer con tus canjes!",
                 "de": "Schau dir an, was du mit deinen Einlösungen machen kannst!",
                 "fr": "Découvrez ce que vous pouvez faire avec vos échanges!",
-                "ar": "تحقق مما يمكنك فعله باسترداداتك!"
+                // "ar": "تحقق مما يمكنك فعله باسترداداتك!"
             })
         )
         .addSubcommand(option => option
@@ -46,7 +46,7 @@ export default {
                 "es-ES": "regalo",
                 "de": "geschenk",
                 "fr": "cadeau",
-                "ar": "هدية"
+                // "ar": "هدية"
             })
             .setDescription("Gift someone a Redeem or Credits! (1 redeem per usage)")
             .setDescriptionLocalizations({
@@ -54,7 +54,7 @@ export default {
                 "es-ES": "¡Regala a alguien un Canje o Créditos! (1 canje por uso)",
                 "de": "Schenke jemandem eine Einlösung oder Credits! (1 Einlösung pro Nutzung)",
                 "fr": "Offrez à quelqu'un un Échange ou des Crédits! (1 échange par utilisation)",
-                "ar": "أهدِ شخصًا ما استردادًا أو أرصدة! (استرداد واحد لكل استخدام)"
+                // "ar": "أهدِ شخصًا ما استردادًا أو أرصدة! (استرداد واحد لكل استخدام)"
             })
             .addUserOption(x => x
                 .setName("credits")
@@ -63,7 +63,7 @@ export default {
                     "es-ES": "creditos",
                     "de": "credits",
                     "fr": "crédits",
-                    "ar": "أرصدة"
+                    // "ar": "أرصدة"
                 })
                 .setDescription("Gift 10K Credits to someone.")
                 .setDescriptionLocalizations({
@@ -71,7 +71,7 @@ export default {
                     "es-ES": "Regala 10K Créditos a alguien.",
                     "de": "Schenke jemandem 10.000 Credits.",
                     "fr": "Offrez 10K Crédits à quelqu'un.",
-                    "ar": "أهدِ 10 آلاف رصيد لشخص ما."
+                    // "ar": "أهدِ 10 آلاف رصيد لشخص ما."
                 })
             )
             .addUserOption(x => x
@@ -81,7 +81,7 @@ export default {
                     "es-ES": "canje",
                     "de": "einlösen",
                     "fr": "échanger",
-                    "ar": "استرداد"
+                    // "ar": "استرداد"
                 })
                 .setDescription("Gift someone a Redeem (Please remember that this command is limited to one redeem per usage)")
                 .setDescriptionLocalizations({
@@ -89,7 +89,7 @@ export default {
                     "es-ES": "Regala a alguien un Canje (Recuerda que este comando está limitado a un canje por uso)",
                     "de": "Schenke jemandem eine Einlösung (Bitte denke daran, dass dieser Befehl auf eine Einlösung pro Nutzung beschränkt ist)",
                     "fr": "Offrez à quelqu'un un Échange (N'oubliez pas que cette commande est limitée à un échange par utilisation)",
-                    "ar": "أهدِ شخصًا ما استردادًا (يرجى تذكر أن هذا الأمر يقتصر على استرداد واحد لكل استخدام)"
+                    // "ar": "أهدِ شخصًا ما استردادًا (يرجى تذكر أن هذا الأمر يقتصر على استرداد واحد لكل استخدام)"
                 })
             )
         )
@@ -100,7 +100,7 @@ export default {
                 "es-ES": "para-ti",
                 "de": "selbst",
                 "fr": "pour-soi",
-                "ar": "لنفسك"
+                // "ar": "لنفسك"
             })
             .setDescription("Get credits or a Pokemon! (1 redeem per usage)")
             .setDescriptionLocalizations({
@@ -108,7 +108,7 @@ export default {
                 "es-ES": "¡Obtén créditos o un Pokémon! (1 canje por uso)",
                 "de": "Hol dir Credits oder ein Pokémon! (1 Einlösung pro Nutzung)",
                 "fr": "Obtenez des crédits ou un Pokémon! (1 échange par utilisation)",
-                "ar": "احصل على أرصدة أو بوكيمون! (استرداد واحد لكل استخدام)"
+                // "ar": "احصل على أرصدة أو بوكيمون! (استرداد واحد لكل استخدام)"
             })
             .addBooleanOption(x => x
                 .setName("credits")
@@ -117,7 +117,7 @@ export default {
                     "es-ES": "creditos",
                     "de": "credits",
                     "fr": "crédits",
-                    "ar": "أرصدة"
+                    // "ar": "أرصدة"
                 })
                 .setDescription("Get 10K Credits.")
                 .setDescriptionLocalizations({
@@ -125,7 +125,7 @@ export default {
                     "es-ES": "Obtén 10K Créditos.",
                     "de": "Hol dir 10.000 Credits.",
                     "fr": "Obtenez 10K Crédits.",
-                    "ar": "احصل على 10 آلاف رصيد."
+                    // "ar": "احصل على 10 آلاف رصيد."
                 })
             )
             .addStringOption(x => x
@@ -135,7 +135,7 @@ export default {
                     "es-ES": "aparecer",
                     "de": "spawnen",
                     "fr": "apparition",
-                    "ar": "ظهور"
+                    // "ar": "ظهور"
                 })
                 .setDescription("Write down the name of the Pokemon you wish to spawn.")
                 .setDescriptionLocalizations({
@@ -143,7 +143,7 @@ export default {
                     "es-ES": "Escribe el nombre del Pokémon que deseas que aparezca.",
                     "de": "Schreibe den Namen des Pokémon auf, das du spawnen lassen möchtest.",
                     "fr": "Notez le nom du Pokémon que vous souhaitez faire apparaître.",
-                    "ar": "اكتب اسم البوكيمون الذي ترغب في ظهوره."
+                    // "ar": "اكتب اسم البوكيمون الذي ترغب في ظهوره."
                 })
             )
             .addStringOption(x => x
@@ -153,7 +153,7 @@ export default {
                     "es-ES": "obtener-pokemon",
                     "de": "pokemon-erhalten",
                     "fr": "obtenir-pokemon",
-                    "ar": "الحصول-على-بوكيمون"
+                    // "ar": "الحصول-على-بوكيمون"
                 })
                 .setDescription("Write down the name of the Pokemon you wish.")
                 .setDescriptionLocalizations({
@@ -161,7 +161,7 @@ export default {
                     "es-ES": "Escribe el nombre del Pokémon que deseas.",
                     "de": "Schreibe den Namen des gewünschten Pokémon auf.",
                     "fr": "Notez le nom du Pokémon que vous souhaitez.",
-                    "ar": "اكتب اسم البوكيمون الذي تريده."
+                    // "ar": "اكتب اسم البوكيمون الذي تريده."
                 })
             )
         )
@@ -172,7 +172,7 @@ export default {
                 "es-ES": "evento",
                 "de": "event",
                 "fr": "événement",
-                "ar": "حدث"
+                // "ar": "حدث"
             })
             .setDescription("Buy and Sell Event Deems to get Event Pokemon!")
             .setDescriptionLocalizations({
@@ -180,7 +180,7 @@ export default {
                 "es-ES": "¡Compra y vende Deems de Evento para conseguir Pokémon de Evento!",
                 "de": "Kaufe und verkaufe Event-Deems, um Event-Pokémon zu erhalten!",
                 "fr": "Achetez et vendez des Deems d'événement pour obtenir des Pokémon d'événement!",
-                "ar": "شراء وبيع Deems الحدث للحصول على بوكيمون الحدث!"
+                // "ar": "شراء وبيع Deems الحدث للحصول على بوكيمون الحدث!"
             })
             .addBooleanOption(x => x
                 .setName("buy")
@@ -189,7 +189,7 @@ export default {
                     "es-ES": "comprar",
                     "de": "kaufen",
                     "fr": "acheter",
-                    "ar": "شراء"
+                    // "ar": "شراء"
                 })
                 .setDescription("Buy Special Deems for 2 redeems")
                 .setDescriptionLocalizations({
@@ -197,7 +197,7 @@ export default {
                     "es-ES": "Compra Deems Especiales por 2 canjes",
                     "de": "Kaufe spezielle Deems für 2 Einlösungen",
                     "fr": "Achetez des Deems spéciaux pour 2 échanges",
-                    "ar": "شراء Deems خاصة مقابل 2 استرداد"
+                    // "ar": "شراء Deems خاصة مقابل 2 استرداد"
                 })
             )
             .addIntegerOption(x => x
@@ -207,7 +207,7 @@ export default {
                     "es-ES": "cantidad",
                     "de": "menge",
                     "fr": "montant",
-                    "ar": "كمية"
+                    // "ar": "كمية"
                 })
                 .setDescription("The amount of Special Deems you plan to get.")
                 .setDescriptionLocalizations({
@@ -215,7 +215,7 @@ export default {
                     "es-ES": "La cantidad de Deems Especiales que planeas obtener.",
                     "de": "Die Menge an speziellen Deems, die du erhalten möchtest.",
                     "fr": "Le montant de Deems spéciaux que vous prévoyez d'obtenir.",
-                    "ar": "كمية Deems الخاصة التي تخطط للحصول عليها."
+                    // "ar": "كمية Deems الخاصة التي تخطط للحصول عليها."
                 })
                 .setMinValue(1)
                 .setMaxValue(10)
@@ -227,7 +227,7 @@ export default {
                     "es-ES": "ver",
                     "de": "ansehen",
                     "fr": "voir",
-                    "ar": "عرض"
+                    // "ar": "عرض"
                 })
                 .setDescription("View how many Special Deems you have left")
                 .setDescriptionLocalizations({
@@ -235,7 +235,7 @@ export default {
                     "es-ES": "Ver cuántos Deems Especiales te quedan",
                     "de": "Sieh dir an, wie viele spezielle Deems du noch hast",
                     "fr": "Voir combien de Deems spéciaux il vous reste",
-                    "ar": "عرض عدد Deems الخاصة المتبقية لديك"
+                    // "ar": "عرض عدد Deems الخاصة المتبقية لديك"
                 })
             )
             .addBooleanOption(x => x
@@ -245,7 +245,7 @@ export default {
                     "es-ES": "usar",
                     "de": "benutzen",
                     "fr": "utiliser",
-                    "ar": "استخدام"
+                    // "ar": "استخدام"
                 })
                 .setDescription("Use the deems you have to randomly get a special Pokemon")
                 .setDescriptionLocalizations({
@@ -253,7 +253,7 @@ export default {
                     "es-ES": "Usa los deems que tienes para obtener al azar un Pokémon especial",
                     "de": "Benutze die Deems, die du hast, um zufällig ein besonderes Pokémon zu erhalten",
                     "fr": "Utilisez les deems que vous avez pour obtenir au hasard un Pokémon spécial",
-                    "ar": "استخدم الـ deems التي لديك للحصول على بوكيمون خاص بشكل عشوائي"
+                    // "ar": "استخدم الـ deems التي لديك للحصول على بوكيمون خاص بشكل عشوائي"
                 })
             )
         )
@@ -264,7 +264,7 @@ export default {
                 "es-ES": "ayuda",
                 "de": "hilfe",
                 "fr": "aide",
-                "ar": "مساعدة"
+                // "ar": "مساعدة"
             })
             .setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
             .setDescriptionLocalizations({
@@ -272,7 +272,7 @@ export default {
                 "es-ES": "¡Echa un vistazo a cómo usar el Comando del Mercado y aparentemente abandonar aquello en lo que ganaste confianza!",
                 "de": "Schau dir an, wie du den Markt-Befehl benutzt und anscheinend das aufgibst, wessen Vertrauen du gewonnen hast!",
                 "fr": "Découvrez comment utiliser la commande Marché et abandonnez apparemment ce dont vous avez gagné la confiance!",
-                "ar": "تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!"
+                // "ar": "تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!"
             })
         ),
     async execute(msg) {

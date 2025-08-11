@@ -11,7 +11,7 @@ export default {
             'es-ES': 'capturar',
             'de': 'fangen',
             'fr': 'attraper',
-            'ar': 'امسك'
+            // 'ar': 'امسك'
         })
         .setDescription('Catch the Pokemon!')
         .setDescriptionLocalizations({
@@ -19,20 +19,20 @@ export default {
             'es-ES': '¡Captura el Pokémon!',
             'de': 'Fange das Pokémon!',
             'fr': 'Attrapez le Pokémon!',
-            'ar': 'امسك البوكيمون!'
+            // 'ar': 'امسك البوكيمون!'
         })
         .addStringOption(option => option.setName('pokemon').setNameLocalizations({
             'pt-BR': 'pokemon',
             'es-ES': 'pokemon',
             'de': 'pokemon',
             'fr': 'pokemon',
-            'ar': 'بوكيمون'
+            // 'ar': 'بوكيمون'
         }).setRequired(true).setDescription('Name of the Pokemon you are trying to catch').setDescriptionLocalizations({
             'pt-BR': 'Nome do Pokémon que você está tentando capturar',
             'es-ES': 'Nombre del Pokémon que estás tratando de atrapar',
             'de': 'Name des Pokémons, das du fangen möchtest',
             'fr': 'Nom du Pokémon que vous essayez d\'attraper',
-            'ar': 'اسم البوكيمون الذي تحاول الإمساك به'
+            // 'ar': 'اسم البوكيمون الذي تحاول الإمساك به'
         })),
     alias: ["c"],
     mention_support: true,

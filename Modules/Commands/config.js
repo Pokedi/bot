@@ -11,7 +11,7 @@ export default {
             'es-ES': 'configurar',
             'de': 'konfigurieren',
             'fr': 'configurer',
-            'ar': 'ضبط'
+            // 'ar': 'ضبط'
         })
         .setDescription("You can configure your Pokedi to meet your needs")
         .setDescriptionLocalizations({
@@ -19,7 +19,7 @@ export default {
             'es-ES': 'Puedes configurar tu Pokedi para satisfacer tus necesidades',
             'de': 'Sie können Ihren Pokedi an Ihre Bedürfnisse anpassen',
             'fr': 'Vous pouvez configurer votre Pokedi pour répondre à vos besoins',
-            'ar': 'يمكنك تكوين Pokedi الخاص بك لتلبية احتياجاتك'
+            // 'ar': 'يمكنك تكوين Pokedi الخاص بك لتلبية احتياجاتك'
         })
         .addSubcommandGroup(x => x
             .setName("options")
@@ -28,7 +28,7 @@ export default {
                 'es-ES': 'opciones',
                 'de': 'optionen',
                 'fr': 'options',
-                'ar': 'خيارات'
+                // 'ar': 'خيارات'
             })
             .setDescription("Configure the following Groups")
             .setDescriptionLocalizations({
@@ -36,7 +36,7 @@ export default {
                 'es-ES': 'Configurar los siguientes grupos',
                 'de': 'Konfigurieren Sie die folgenden Gruppen',
                 'fr': 'Configurer les groupes suivants',
-                'ar': 'تكوين المجموعات التالية'
+                // 'ar': 'تكوين المجموعات التالية'
             })
             .addSubcommand(y => y
                 .setName("server")
@@ -45,7 +45,7 @@ export default {
                     'es-ES': 'servidor',
                     'de': 'server',
                     'fr': 'serveur',
-                    'ar': 'الخادم'
+                    // 'ar': 'الخادم'
                 })
                 .setDescription("Configure Server Settings")
                 .setDescriptionLocalizations({
@@ -53,7 +53,7 @@ export default {
                     'es-ES': 'Configurar los ajustes del servidor',
                     'de': 'Servereinstellungen konfigurieren',
                     'fr': 'Configurer les paramètres du serveur',
-                    'ar': 'تكوين إعدادات الخادم'
+                    // 'ar': 'تكوين إعدادات الخادم'
                 })
                 .addStringOption(z => z
                     .setName("redirect-channel")
@@ -62,7 +62,7 @@ export default {
                         'es-ES': 'redirigir-canal',
                         'de': 'kanal-umleiten',
                         'fr': 'rediriger-canal',
-                        'ar': 'إعادة-توجيه-القناة'
+                        // 'ar': 'إعادة-توجيه-القناة'
                     })
                     .setDescription("Redirect all spawns to specified Channels")
                     .setDescriptionLocalizations({
@@ -70,7 +70,7 @@ export default {
                         'es-ES': 'Redirigir todos los spawns a canales especificados',
                         'de': 'Leiten Sie alle Spawns an bestimmte Kanäle weiter',
                         'fr': 'Rediriger toutes les apparitions vers des canaux spécifiés',
-                        'ar': 'إعادة توجيه جميع عمليات الظهور إلى قنوات محددة'
+                        // 'ar': 'إعادة توجيه جميع عمليات الظهور إلى قنوات محددة'
                     })
                 )
                 .addBooleanOption(z => z
@@ -80,7 +80,7 @@ export default {
                         'es-ES': 'limpiar-redireccionamiento',
                         'de': 'umleitung-löschen',
                         'fr': 'effacer-redirection',
-                        'ar': 'مسح-إعادة-التوجيه'
+                        // 'ar': 'مسح-إعادة-التوجيه'
                     })
                     .setDescription("Clear your Redirects")
                     .setDescriptionLocalizations({
@@ -88,7 +88,7 @@ export default {
                         'es-ES': 'Borra tus redireccionamientos',
                         'de': 'Löschen Sie Ihre Weiterleitungen',
                         'fr': 'Effacez vos redirections',
-                        'ar': 'مسح عمليات إعادة التوجيه الخاصة بك'
+                        // 'ar': 'مسح عمليات إعادة التوجيه الخاصة بك'
                     })
                 )
                 .addBooleanOption(z => z
@@ -98,7 +98,7 @@ export default {
                         'es-ES': 'modo-servidor',
                         'de': 'server-modus',
                         'fr': 'mode-serveur',
-                        'ar': 'وضع-الخادم'
+                        // 'ar': 'وضع-الخادم'
                     })
                     .setDescription("Isolate the entire Pokedi experience just for your own Server!")
                     .setDescriptionLocalizations({
@@ -106,7 +106,7 @@ export default {
                         'es-ES': '¡Aísla toda la experiencia Pokedi solo para tu propio servidor!',
                         'de': 'Isolieren Sie das gesamte Pokedi-Erlebnis nur für Ihren eigenen Server!',
                         'fr': 'Isolez toute l\'expérience Pokedi uniquement pour votre propre serveur!',
-                        'ar': 'اعزل تجربة Pokedi بأكملها لخادمك الخاص فقط!'
+                        // 'ar': 'اعزل تجربة Pokedi بأكملها لخادمك الخاص فقط!'
                     })
                 )
             )
@@ -117,7 +117,7 @@ export default {
                     'es-ES': 'canal',
                     'de': 'kanal',
                     'fr': 'canal',
-                    'ar': 'قناة'
+                    // 'ar': 'قناة'
                 })
                 .setDescription("Configure Channel Settings")
                 .setDescriptionLocalizations({
@@ -125,7 +125,7 @@ export default {
                     'es-ES': 'Configurar los ajustes del canal',
                     'de': 'Kanaleinstellungen konfigurieren',
                     'fr': 'Configurer les paramètres du canal',
-                    'ar': 'تكوين إعدادات القناة'
+                    // 'ar': 'تكوين إعدادات القناة'
                 })
                 .addStringOption(z => z
                     .setDescription("Disable the given Command on this Channel")
@@ -134,7 +134,7 @@ export default {
                         'es-ES': 'Deshabilita el comando dado en este canal',
                         'de': 'Deaktivieren Sie den angegebenen Befehl auf diesem Kanal',
                         'fr': 'Désactiver la commande donnée sur ce canal',
-                        'ar': 'عطّل الأمر المحدد في هذه القناة'
+                        // 'ar': 'عطّل الأمر المحدد في هذه القناة'
                     })
                     .setName("disable-command")
                     .setNameLocalizations({
@@ -142,7 +142,7 @@ export default {
                         'es-ES': 'desactivar-comando',
                         'de': 'befehl-deaktivieren',
                         'fr': 'désactiver-commande',
-                        'ar': 'تعطيل-الأمر'
+                        // 'ar': 'تعطيل-الأمر'
                     })
                     .setMaxLength(20)
                 )
@@ -153,7 +153,7 @@ export default {
                         'es-ES': 'Borrar permissionOverrides en este canal para el comando dado',
                         'de': 'Löschen Sie permissionOverrides auf diesem Kanal für den angegebenen Befehl',
                         'fr': 'Effacer les permissionOverrides sur ce canal pour la commande donnée',
-                        'ar': 'مسح تجاوزات الأذونات على هذه القناة للأمر المحدد'
+                        // 'ar': 'مسح تجاوزات الأذونات على هذه القناة للأمر المحدد'
                     })
                     .setName("clear-command")
                     .setNameLocalizations({
@@ -161,7 +161,7 @@ export default {
                         'es-ES': 'limpiar-comando',
                         'de': 'befehl-löschen',
                         'fr': 'effacer-commande',
-                        'ar': 'مسح-الأمر'
+                        // 'ar': 'مسح-الأمر'
                     })
                     .setMaxLength(20)
                 )
@@ -174,7 +174,7 @@ export default {
                 'pt-BR': 'verificar',
                 'es-ES': 'verificar',
                 'fr': 'vérifier',
-                'ar': 'تحقق'
+                // 'ar': 'تحقق'
             })
             .setDescription("Check all available features")
             .setDescriptionLocalizations({
@@ -182,7 +182,7 @@ export default {
                 'es-ES': 'Verificar todas las funciones disponibles',
                 'de': 'Überprüfen Sie alle verfügbaren Funktionen',
                 'fr': 'Vérifier toutes les fonctionnalités disponibles',
-                'ar': 'تحقق من جميع الميزات المتاحة'
+                // 'ar': 'تحقق من جميع الميزات المتاحة'
             })
             .addSubcommand(y => y.setName("all")
                 .setNameLocalizations({
@@ -190,7 +190,7 @@ export default {
                     'es-ES': 'todos',
                     'de': 'alle',
                     'fr': 'tout',
-                    'ar': 'الكل'
+                    // 'ar': 'الكل'
                 })
                 .setDescription("Check All Configurations available")
                 .setDescriptionLocalizations({
@@ -198,7 +198,7 @@ export default {
                     'es-ES': 'Verificar todas las configuraciones disponibles',
                     'de': 'Überprüfen Sie alle verfügbaren Konfigurationen',
                     'fr': 'Vérifier toutes les configurations disponibles',
-                    'ar': 'تحقق من جميع التكوينات المتاحة'
+                    // 'ar': 'تحقق من جميع التكوينات المتاحة'
                 })
             )
         ),

@@ -12,7 +12,7 @@ export default {
             'es-ES': 'seleccionar',
             'de': 'auswählen',
             'fr': 'sélectionner',
-            'ar': 'تحديد'
+            // 'ar': 'تحديد'
         })
         .setDescription('Select your Pokemon!')
         .setDescriptionLocalizations({
@@ -20,7 +20,7 @@ export default {
             'es-ES': '¡Selecciona tu Pokémon!',
             'de': 'Wähle dein Pokémon aus!',
             'fr': 'Sélectionnez votre Pokémon!',
-            'ar': 'اختر بوكيمونك!'
+            // 'ar': 'اختر بوكيمونك!'
         })
         .addIntegerOption(option => option.setName("id").setDescription("ID of the Pokemon you intend to release").setMinValue(1)
             .setNameLocalizations({
@@ -28,14 +28,14 @@ export default {
                 'es-ES': 'id',
                 'de': 'id',
                 'fr': 'id',
-                'ar': 'المعرف'
+                // 'ar': 'المعرف'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'ID do Pokémon que você pretende soltar',
                 'es-ES': 'ID del Pokémon que pretendes liberar',
                 'de': 'ID des Pokémon, das du freilassen möchtest',
                 'fr': 'ID du Pokémon que vous avez l\'intention de relâcher',
-                'ar': 'معرف البوكيمون الذي تنوي إطلاقه'
+                // 'ar': 'معرف البوكيمون الذي تنوي إطلاقه'
             }))
         .addIntegerOption(option => option.setName("slot").setDescription("ID of the Pokemon you intend to release").setMinValue(1).setMaxValue(6)
             .setNameLocalizations({
@@ -43,14 +43,14 @@ export default {
                 'es-ES': 'ranura',
                 'de': 'steckplatz',
                 'fr': 'emplacement',
-                'ar': 'فتحة'
+                // 'ar': 'فتحة'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'ID do Pokémon que você pretende soltar',
                 'es-ES': 'ID del Pokémon que pretendes liberar',
                 'de': 'ID des Pokémon, das du freilassen möchtest',
                 'fr': 'ID du Pokémon que vous avez l\'intention de relâcher',
-                'ar': 'معرف البوكيمون الذي تنوي إطلاقه'
+                // 'ar': 'معرف البوكيمون الذي تنوي إطلاقه'
             }))
         .addBooleanOption(option => option.setName('clear').setDescription("Clear entire team")
             .setNameLocalizations({
@@ -58,14 +58,14 @@ export default {
                 'es-ES': 'limpiar',
                 'de': 'löschen',
                 'fr': 'effacer',
-                'ar': 'مسح'
+                // 'ar': 'مسح'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Limpar equipe inteira',
                 'es-ES': 'Limpiar equipo completo',
                 'de': 'Ganzes Team löschen',
                 'fr': 'Effacer toute l\'équipe',
-                'ar': 'مسح الفريق بأكمله'
+                // 'ar': 'مسح الفريق بأكمله'
             }))
         .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command")
             .setNameLocalizations({
@@ -73,14 +73,14 @@ export default {
                 'es-ES': 'ayuda',
                 'de': 'hilfe',
                 'fr': 'aide',
-                'ar': 'مساعدة'
+                // 'ar': 'مساعدة'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Veja detalhes sobre como usar este comando',
                 'es-ES': 'Ver detalles sobre cómo usar este comando',
                 'de': 'Details zur Verwendung dieses Befehls anzeigen',
                 'fr': 'Voir les détails sur la façon d\'utiliser cette commande',
-                'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
+                // 'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
             })),
     alias: ["s"],
     mention_support: true,

@@ -10,7 +10,7 @@ export default {
             "es-ES": "escoger",
             "pt-BR": "escolher",
             "fr": "choisir",
-            "ar": "اختر"
+            // "ar": "اختر"
         })
         .setDescription('Pick your starter pokemon and embark on your journey to the new world!')
         .setDescriptionLocalizations({
@@ -18,7 +18,7 @@ export default {
             'es-ES': '¡Elige tu pokemon inicial y emprende tu viaje hacia el nuevo mundo!',
             'de': 'Wähle dein Starter-Pokémon und begib dich auf deine Reise in die neue Welt!',
             'fr': 'Choisissez votre pokémon de départ et embarquez pour votre voyage vers le nouveau monde!',
-            'ar': 'اختر بوكيمون البداية الخاص بك وانطلق في رحلتك إلى العالم الجديد!'
+            // 'ar': 'اختر بوكيمون البداية الخاص بك وانطلق في رحلتك إلى العالم الجديد!'
         })
         .addStringOption(option => option.setName('pokemon').setDescription('Type in the name of a starter Pokemon').setRequired(true)
             .setNameLocalizations({
@@ -26,14 +26,14 @@ export default {
                 'es-ES': 'pokemon',
                 'de': 'pokemon',
                 'fr': 'pokemon',
-                'ar': 'بوكيمون'
+                // 'ar': 'بوكيمون'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Digite o nome de um Pokémon inicial',
                 'es-ES': 'Escribe el nombre de un Pokémon inicial',
                 'de': 'Gib den Namen eines Starter-Pokémons ein',
                 'fr': 'Tapez le nom d\'un Pokémon de départ',
-                'ar': 'اكتب اسم بوكيمون بداية'
+                // 'ar': 'اكتب اسم بوكيمون بداية'
             })
         ),
     async execute(msg) {

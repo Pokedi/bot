@@ -9,7 +9,7 @@ export default {
             'es-ES': 'reindexar',
             'de': 'neuindizieren',
             'fr': 'réindexer',
-            'ar': 'إعادة-الفهرسة'
+            // 'ar': 'إعادة-الفهرسة'
         })
         .setDescription('Index your Pokemon')
         .setDescriptionLocalizations({
@@ -17,7 +17,7 @@ export default {
             'es-ES': 'Indexa tu Pokémon',
             'de': 'Indiziere dein Pokémon',
             'fr': 'Indexez votre Pokémon',
-            'ar': 'فهرسة بوكيمونك'
+            // 'ar': 'فهرسة بوكيمونك'
         }),
     async execute(msg) {
 

@@ -11,7 +11,7 @@ export default {
             'es-ES': 'equipo',
             'de': 'team',
             'fr': 'équipe',
-            'ar': 'فريق'
+            // 'ar': 'فريق'
         })
         .setDescription('Check your Pokemon team out!')
         .setDescriptionLocalizations({
@@ -19,7 +19,7 @@ export default {
             'es-ES': '¡Echa un vistazo a tu equipo de Pokémon!',
             'de': 'Schau dir dein Pokémon-Team an!',
             'fr': 'Consultez votre équipe de Pokémon!',
-            'ar': 'تحقق من فريق بوكيمونك!'
+            // 'ar': 'تحقق من فريق بوكيمونك!'
         })
         .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command")
             .setNameLocalizations({
@@ -27,14 +27,14 @@ export default {
                 'es-ES': 'ayuda',
                 'de': 'hilfe',
                 'fr': 'aide',
-                'ar': 'مساعدة'
+                // 'ar': 'مساعدة'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Veja detalhes sobre como usar este comando',
                 'es-ES': 'Ver detalles sobre cómo usar este comando',
                 'de': 'Details zur Verwendung dieses Befehls anzeigen',
                 'fr': 'Voir les détails sur la façon d\'utiliser cette commande',
-                'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
+                // 'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
             })),
     alias: ["t"],
     mention_support: true,

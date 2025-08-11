@@ -78,7 +78,7 @@ export default {
         "pt-BR": "troca",
         "fr": "échange",
         "de": "tausch",
-        "ar": "تبادل"
+        // "ar": "تبادل"
     })
     .setDescription('Release your pokemon')
     .setDescriptionLocalizations({
@@ -86,7 +86,7 @@ export default {
         "pt-BR": "Libere seu Pokémon",
         "fr": "Libérez votre Pokémon",
         "de": "Lass dein Pokémon frei",
-        "ar": "أطلق بوكيمونك"
+        // "ar": "أطلق بوكيمونك"
     })
 
     // ADD subcommand
@@ -98,7 +98,7 @@ export default {
                 "pt-BR": "adicionar",
                 "fr": "ajouter",
                 "de": "hinzufügen",
-                "ar": "إضافة"
+                // "ar": "إضافة"
             })
             .setDescription('Add [pokemon, credit, redeem]')
             .setDescriptionLocalizations({
@@ -106,7 +106,7 @@ export default {
                 "pt-BR": "Adicionar [pokémon, crédito, resgate]",
                 "fr": "Ajouter [pokémon, crédit, échange]",
                 "de": "Hinzufügen [Pokémon, Guthaben, Einlösen]",
-                "ar": "أضف [بوكيمون، رصيد، استبدال]"
+                // "ar": "أضف [بوكيمون، رصيد، استبدال]"
             })
             .addIntegerOption(option => option
                 .setName("pokemon")
@@ -115,7 +115,7 @@ export default {
                     "pt-BR": "pokémon",
                     "fr": "pokémon",
                     "de": "pokémon",
-                    "ar": "بوكيمون"
+                    // "ar": "بوكيمون"
                 })
                 .setAutocomplete(true)
                 .setDescription("Select a pokemon to add to the trade")
@@ -124,7 +124,7 @@ export default {
                     "pt-BR": "Selecione um Pokémon para adicionar à troca",
                     "fr": "Sélectionnez un Pokémon à ajouter à l'échange",
                     "de": "Wähle ein Pokémon, das zum Tausch hinzugefügt werden soll",
-                    "ar": "اختر بوكيمون لإضافته إلى التبادل"
+                    // "ar": "اختر بوكيمون لإضافته إلى التبادل"
                 })
             )
             .addIntegerOption(option => option
@@ -134,7 +134,7 @@ export default {
                     "pt-BR": "crédito",
                     "fr": "crédit",
                     "de": "guthaben",
-                    "ar": "رصيد"
+                    // "ar": "رصيد"
                 })
                 .setDescription("Add credits to the trade")
                 .setDescriptionLocalizations({
@@ -142,7 +142,7 @@ export default {
                     "pt-BR": "Adicionar créditos à troca",
                     "fr": "Ajouter des crédits à l'échange",
                     "de": "Guthaben zum Tausch hinzufügen",
-                    "ar": "إضافة أرصدة إلى التبادل"
+                    // "ar": "إضافة أرصدة إلى التبادل"
                 })
             )
             .addIntegerOption(option => option
@@ -152,7 +152,7 @@ export default {
                     "pt-BR": "resgate",
                     "fr": "échange-spécial",
                     "de": "einlösen",
-                    "ar": "استبدال"
+                    // "ar": "استبدال"
                 })
                 .setDescription("Add redeems to the trade")
                 .setDescriptionLocalizations({
@@ -160,7 +160,7 @@ export default {
                     "pt-BR": "Adicionar resgates à troca",
                     "fr": "Ajouter des échanges spéciaux à l'échange",
                     "de": "Einlösungen zum Tausch hinzufügen",
-                    "ar": "إضافة عمليات استبدال إلى التبادل"
+                    // "ar": "إضافة عمليات استبدال إلى التبادل"
                 })
             )
             .addStringOption(option => option
@@ -170,7 +170,7 @@ export default {
                     "pt-BR": "em-massa",
                     "fr": "en-masse",
                     "de": "massen",
-                    "ar": "جماعي"
+                    // "ar": "جماعي"
                 })
                 .setDescription("Mass add pokemon to the trade by their IDs")
                 .setDescriptionLocalizations({
@@ -178,7 +178,7 @@ export default {
                     "pt-BR": "Adicionar vários Pokémon à troca por seus IDs",
                     "fr": "Ajouter plusieurs Pokémon à l'échange via leurs IDs",
                     "de": "Mehrere Pokémon per ID zum Tausch hinzufügen",
-                    "ar": "إضافة عدة بوكيمونات إلى التبادل باستخدام معرفاتها"
+                    // "ar": "إضافة عدة بوكيمونات إلى التبادل باستخدام معرفاتها"
                 })
             )
     )
@@ -192,7 +192,7 @@ export default {
                 "pt-BR": "remover",
                 "fr": "retirer",
                 "de": "entfernen",
-                "ar": "إزالة"
+                // "ar": "إزالة"
             })
             .setDescription('Remove [pokemon, credit, redeem]')
             .setDescriptionLocalizations({
@@ -200,7 +200,7 @@ export default {
                 "pt-BR": "Remover [pokémon, crédito, resgate]",
                 "fr": "Retirer [pokémon, crédit, échange]",
                 "de": "Entfernen [Pokémon, Guthaben, Einlösen]",
-                "ar": "إزالة [بوكيمون، رصيد، استبدال]"
+                // "ar": "إزالة [بوكيمون، رصيد، استبدال]"
             })
             // similar integer/string options as "add", but with remove phrasing...
     )
@@ -214,7 +214,7 @@ export default {
                 "pt-BR": "solicitar",
                 "fr": "demander",
                 "de": "anfragen",
-                "ar": "طلب"
+                // "ar": "طلب"
             })
             .setDescription('Mention a user you wish to trade with')
             .setDescriptionLocalizations({
@@ -222,7 +222,7 @@ export default {
                 "pt-BR": "Mencione um usuário com quem deseja trocar",
                 "fr": "Mentionnez un utilisateur avec qui vous souhaitez échanger",
                 "de": "Erwähne einen Benutzer, mit dem du tauschen möchtest",
-                "ar": "اذكر مستخدمًا ترغب في التبادل معه"
+                // "ar": "اذكر مستخدمًا ترغب في التبادل معه"
             })
     )
 
@@ -235,7 +235,7 @@ export default {
                 "pt-BR": "confirmar",
                 "fr": "confirmer",
                 "de": "bestätigen",
-                "ar": "تأكيد"
+                // "ar": "تأكيد"
             })
             .setDescription('Confirm the trade between you and the mysterious merchant')
             .setDescriptionLocalizations({
@@ -243,7 +243,7 @@ export default {
                 "pt-BR": "Confirme a troca entre você e o misterioso comerciante",
                 "fr": "Confirmez l'échange entre vous et le mystérieux marchand",
                 "de": "Bestätige den Tausch zwischen dir und dem geheimnisvollen Händler",
-                "ar": "أكد التبادل بينك وبين التاجر الغامض"
+                // "ar": "أكد التبادل بينك وبين التاجر الغامض"
             })
     )
 
@@ -256,7 +256,7 @@ export default {
                 "pt-BR": "cancelar",
                 "fr": "annuler",
                 "de": "abbrechen",
-                "ar": "إلغاء"
+                // "ar": "إلغاء"
             })
             .setDescription('Cancel the trade between you and the mysterious merchant')
             .setDescriptionLocalizations({
@@ -264,7 +264,7 @@ export default {
                 "pt-BR": "Cancele a troca entre você e o misterioso comerciante",
                 "fr": "Annulez l'échange entre vous et le mystérieux marchand",
                 "de": "Brich den Tausch zwischen dir und dem geheimnisvollen Händler ab",
-                "ar": "ألغِ التبادل بينك وبين التاجر الغامض"
+                // "ar": "ألغِ التبادل بينك وبين التاجر الغامض"
             })
     )
 
@@ -277,7 +277,7 @@ export default {
                 "pt-BR": "ajuda",
                 "fr": "aide",
                 "de": "hilfe",
-                "ar": "مساعدة"
+                // "ar": "مساعدة"
             })
             .setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
             .setDescriptionLocalizations({
@@ -285,7 +285,7 @@ export default {
                 "pt-BR": "Veja como usar o comando de mercado e aparentemente abandonar aquilo em que ganhou confiança.",
                 "fr": "Découvrez comment utiliser la commande du marché et apparemment abandonner ce en quoi vous aviez confiance.",
                 "de": "Erfahre, wie du den Marktbefehl benutzt und anscheinend das aufgibst, dem du vertraut hast.",
-                "ar": "اكتشف كيفية استخدام أمر السوق وبشكل غريب التخلي عما كسبت ثقته."
+                // "ar": "اكتشف كيفية استخدام أمر السوق وبشكل غريب التخلي عما كسبت ثقته."
             })
     ),
     async execute(msg) {

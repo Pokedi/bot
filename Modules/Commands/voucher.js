@@ -81,7 +81,7 @@ export default {
             "pt-BR": "vale",
             "fr": "bon",
             "de": "gutschein",
-            "ar": "قسيمة"
+            // "ar": "قسيمة"
         })
         .setDescription('Claim your ticket to the chocolate factory!')
         .setDescriptionLocalizations({
@@ -89,7 +89,7 @@ export default {
             "pt-BR": "Reivindique seu ingresso para a fábrica de chocolate!",
             "fr": "Réclamez votre billet pour la chocolaterie !",
             "de": "Fordere dein Ticket für die Schokoladenfabrik ein!",
-            "ar": "احصل على تذكرتك إلى مصنع الشوكولاتة!"
+            // "ar": "احصل على تذكرتك إلى مصنع الشوكولاتة!"
         })
 
         // Code option
@@ -100,7 +100,7 @@ export default {
                 "pt-BR": "código",
                 "fr": "code",
                 "de": "code",
-                "ar": "رمز"
+                // "ar": "رمز"
             })
             .setDescription("Token of the Voucher you wish to claim")
             .setDescriptionLocalizations({
@@ -108,7 +108,7 @@ export default {
                 "pt-BR": "Código do vale que deseja reivindicar",
                 "fr": "Code du bon que vous souhaitez réclamer",
                 "de": "Code des Gutscheins, den du einlösen möchtest",
-                "ar": "رمز القسيمة التي ترغب في المطالبة بها"
+                // "ar": "رمز القسيمة التي ترغب في المطالبة بها"
             })
         )
 
@@ -120,7 +120,7 @@ export default {
                 "pt-BR": "ajuda",
                 "fr": "aide",
                 "de": "hilfe",
-                "ar": "مساعدة"
+                // "ar": "مساعدة"
             })
             .setDescription("View details on how to use this command")
             .setDescriptionLocalizations({
@@ -128,7 +128,7 @@ export default {
                 "pt-BR": "Ver detalhes sobre como usar este comando",
                 "fr": "Voir les détails sur comment utiliser cette commande",
                 "de": "Details anzeigen, wie dieser Befehl verwendet wird",
-                "ar": "عرض التفاصيل حول كيفية استخدام هذا الأمر"
+                // "ar": "عرض التفاصيل حول كيفية استخدام هذا الأمر"
             })
         ),
     async execute(msg) {

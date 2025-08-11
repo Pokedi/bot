@@ -48,7 +48,7 @@ export default {
             'es-ES': 'duelo',
             'de': 'duell',
             'fr': 'duel',
-            'ar': 'مبارزة'
+            // 'ar': 'مبارزة'
         })
         .setDescription('Admin command')
         .setDescriptionLocalizations({
@@ -56,7 +56,7 @@ export default {
             'es-ES': 'Comando de administrador',
             'de': 'Admin-Befehl',
             'fr': 'Commande administrateur',
-            'ar': 'أمر المسؤول'
+            // 'ar': 'أمر المسؤول'
         })
         .addSubcommand(x => x
             .setName("start")
@@ -65,7 +65,7 @@ export default {
                 'es-ES': 'iniciar',
                 'de': 'start',
                 'fr': 'démarrer',
-                'ar': 'ابدأ'
+                // 'ar': 'ابدأ'
             })
             .setDescription("Setup for Duels")
             .setDescriptionLocalizations({
@@ -73,7 +73,7 @@ export default {
                 'es-ES': 'Configuración para Duelos',
                 'de': 'Einrichtung für Duelle',
                 'fr': 'Configuration pour les duels',
-                'ar': 'إعداد للمبارزات'
+                // 'ar': 'إعداد للمبارزات'
             })
             .addMentionableOption(x => x
                 .setName("vs-user-1")
@@ -82,7 +82,7 @@ export default {
                     'es-ES': 'vs-usuario-1',
                     'de': 'vs-benutzer-1',
                     'fr': 'vs-utilisateur-1',
-                    'ar': 'ضد-المستخدم-1'
+                    // 'ar': 'ضد-المستخدم-1'
                 })
                 .setDescription("User 1 you will battle against [Required]")
                 .setDescriptionLocalizations({
@@ -90,7 +90,7 @@ export default {
                     'es-ES': 'Usuario 1 contra el que lucharás [Requerido]',
                     'de': 'Benutzer 1, gegen den du kämpfen wirst [Erforderlich]',
                     'fr': 'Utilisateur 1 que vous affronterez [Requis]',
-                    'ar': 'المستخدم 1 الذي ستقاتله [مطلوب]'
+                    // 'ar': 'المستخدم 1 الذي ستقاتله [مطلوب]'
                 })
             )
             .addMentionableOption(x => x
@@ -100,7 +100,7 @@ export default {
                     'es-ES': 'vs-usuario-2',
                     'de': 'vs-benutzer-2',
                     'fr': 'vs-utilisateur-2',
-                    'ar': 'ضد-المستخدم-2'
+                    // 'ar': 'ضد-المستخدم-2'
                 })
                 .setDescription("User 2 you will battle against")
                 .setDescriptionLocalizations({
@@ -108,7 +108,7 @@ export default {
                     'es-ES': 'Usuario 2 contra el que lucharás',
                     'de': 'Benutzer 2, gegen den du kämpfen wirst',
                     'fr': 'Utilisateur 2 que vous affronterez',
-                    'ar': 'المستخدم 2 الذي ستقاتله'
+                    // 'ar': 'المستخدم 2 الذي ستقاتله'
                 })
             )
             .addMentionableOption(x => x
@@ -118,7 +118,7 @@ export default {
                     'es-ES': 'vs-usuario-3',
                     'de': 'vs-benutzer-3',
                     'fr': 'vs-utilisateur-3',
-                    'ar': 'ضد-المستخدم-3'
+                    // 'ar': 'ضد-المستخدم-3'
                 })
                 .setDescription("User 3 you will battle against")
                 .setDescriptionLocalizations({
@@ -126,7 +126,7 @@ export default {
                     'es-ES': 'Usuario 3 contra el que lucharás',
                     'de': 'Benutzer 3, gegen den du kämpfen wirst',
                     'fr': 'Utilisateur 3 que vous affronterez',
-                    'ar': 'المستخدم 3 الذي ستقاتله'
+                    // 'ar': 'المستخدم 3 الذي ستقاتله'
                 })
             )
 
@@ -137,7 +137,7 @@ export default {
                     'es-ES': '2-usuario-vs',
                     'de': '2-benutzer-vs',
                     'fr': '2-utilisateur-vs',
-                    'ar': '2-مستخدم-ضد'
+                    // 'ar': '2-مستخدم-ضد'
                 })
                 .setDescription("User 2 you will battle with")
                 .setDescriptionLocalizations({
@@ -145,7 +145,7 @@ export default {
                     'es-ES': 'Usuario 2 con el que lucharás',
                     'de': 'Benutzer 2, mit dem du kämpfen wirst',
                     'fr': 'Utilisateur 2 avec qui vous vous battrez',
-                    'ar': 'المستخدم 2 الذي ستقاتل معه'
+                    // 'ar': 'المستخدم 2 الذي ستقاتل معه'
                 })
             )
             .addMentionableOption(x => x
@@ -155,7 +155,7 @@ export default {
                     'es-ES': '3-usuario-vs',
                     'de': '3-benutzer-vs',
                     'fr': '3-utilisateur-vs',
-                    'ar': '3-مستخدم-ضد'
+                    // 'ar': '3-مستخدم-ضد'
                 })
                 .setDescription("User 3 you will battle with")
                 .setDescriptionLocalizations({
@@ -163,7 +163,7 @@ export default {
                     'es-ES': 'Usuario 3 con el que lucharás',
                     'de': 'Benutzer 3, mit dem du kämpfen wirst',
                     'fr': 'Utilisateur 3 avec qui vous vous battrez',
-                    'ar': 'المستخدم 3 الذي ستقاتل معه'
+                    // 'ar': 'المستخدم 3 الذي ستقاتل معه'
                 })
             )
         )
@@ -174,7 +174,7 @@ export default {
                 'es-ES': 'acciones',
                 'de': 'aktionen',
                 'fr': 'actions',
-                'ar': 'إجراءات'
+                // 'ar': 'إجراءات'
             })
             .setDescription("Choose to attack, defend, or switch! Heck, run away.")
             .setDescriptionLocalizations({
@@ -182,7 +182,7 @@ export default {
                 'es-ES': '¡Elige atacar, defender o cambiar! Diablos, huye.',
                 'de': 'Wähle, ob du angreifen, verteidigen oder wechseln möchtest! Verdammt, lauf weg.',
                 'fr': 'Choisissez d\'attaquer, de défendre ou de changer! Bon sang, fuyez.',
-                'ar': 'اختر الهجوم أو الدفاع أو التبديل! بل اهرب.'
+                // 'ar': 'اختر الهجوم أو الدفاع أو التبديل! بل اهرب.'
             })
             .addIntegerOption(y => y
                 .setName("attack")
@@ -191,7 +191,7 @@ export default {
                     'es-ES': 'ataque',
                     'de': 'angriff',
                     'fr': 'attaque',
-                    'ar': 'هجوم'
+                    // 'ar': 'هجوم'
                 })
                 .setDescription("Choose what you plan to attack with! Check out /duel moves to see what's Available")
                 .setDescriptionLocalizations({
@@ -199,7 +199,7 @@ export default {
                     'es-ES': '¡Elige con qué planeas atacar! Echa un vistazo a /duel moves para ver qué hay disponible',
                     'de': 'Wähle aus, womit du angreifen möchtest! Schau dir /duel moves an, um zu sehen, was verfügbar ist',
                     'fr': 'Choisissez avec quoi vous prévoyez d\'attaquer! Consultez /duel moves pour voir ce qui est disponible',
-                    'ar': 'اختر ما تخطط للهجوم به! تحقق من /duel moves لمعرفة ما هو متاح'
+                    // 'ar': 'اختر ما تخطط للهجوم به! تحقق من /duel moves لمعرفة ما هو متاح'
                 })
                 .setMaxValue(4)
                 .setMinValue(1)
@@ -212,7 +212,7 @@ export default {
                     'es-ES': 'atacar-usuario',
                     'de': 'angriff-benutzer',
                     'fr': 'attaquer-utilisateur',
-                    'ar': 'مهاجمة-المستخدم'
+                    // 'ar': 'مهاجمة-المستخدم'
                 })
                 .setDescription("What user are you attacking? [Default 1]")
                 .setDescriptionLocalizations({
@@ -220,7 +220,7 @@ export default {
                     'es-ES': '¿A qué usuario estás atacando? [Predeterminado 1]',
                     'de': 'Welchen Benutzer greifst du an? [Standard 1]',
                     'fr': 'Quel utilisateur attaquez-vous? [Par défaut 1]',
-                    'ar': 'أي مستخدم تهاجمه؟ [الافتراضي 1]'
+                    // 'ar': 'أي مستخدم تهاجمه؟ [الافتراضي 1]'
                 })
                 .setMaxValue(3)
                 .setMinValue(1)
@@ -232,7 +232,7 @@ export default {
                     'es-ES': 'cambiar',
                     'de': 'wechseln',
                     'fr': 'changer',
-                    'ar': 'تبديل'
+                    // 'ar': 'تبديل'
                 })
                 .setDescription("Choose what Pokemon you want to switch out")
                 .setDescriptionLocalizations({
@@ -240,7 +240,7 @@ export default {
                     'es-ES': 'Elige qué Pokémon quieres cambiar',
                     'de': 'Wähle aus, welches Pokémon du auswechseln möchtest',
                     'fr': 'Choisissez le Pokémon que vous voulez échanger',
-                    'ar': 'اختر البوكيمون الذي تريد تبديله'
+                    // 'ar': 'اختر البوكيمون الذي تريد تبديله'
                 })
                 .setMaxValue(6)
                 .setMinValue(1)
@@ -253,7 +253,7 @@ export default {
                     'es-ES': 'baya',
                     'de': 'beere',
                     'fr': 'baie',
-                    'ar': 'توت'
+                    // 'ar': 'توت'
                 })
                 .setDescription("Use a Berry!")
                 .setDescriptionLocalizations({
@@ -261,7 +261,7 @@ export default {
                     'es-ES': '¡Usa una Baya!',
                     'de': 'Benutze eine Beere!',
                     'fr': 'Utilisez une Baie!',
-                    'ar': 'استخدم حبة توت!'
+                    // 'ar': 'استخدم حبة توت!'
                 })
                 .addChoices({
                     name: "Cheri Berry",
@@ -296,7 +296,7 @@ export default {
                     'es-ES': 'pocion',
                     'de': 'trank',
                     'fr': 'potion',
-                    'ar': 'جرعة'
+                    // 'ar': 'جرعة'
                 })
                 .setDescription("Use a Potion!")
                 .setDescriptionLocalizations({
@@ -304,7 +304,7 @@ export default {
                     'es-ES': '¡Usa una Poción!',
                     'de': 'Benutze einen Trank!',
                     'fr': 'Utilisez une Potion!',
-                    'ar': 'استخدم جرعة!'
+                    // 'ar': 'استخدم جرعة!'
                 })
                 .addChoices({
                     name: "Potion",
@@ -336,7 +336,7 @@ export default {
                     'es-ES': 'objetivo-item',
                     'de': 'ziel-item',
                     'fr': 'cible-objet',
-                    'ar': 'هدف-العنصر'
+                    // 'ar': 'هدف-العنصر'
                 })
                 .setDescription("Choose which of your Pokemon to use the item on")
                 .setDescriptionLocalizations({
@@ -344,7 +344,7 @@ export default {
                     'es-ES': 'Elige en cuál de tus Pokémon usar el objeto',
                     'de': 'Wähle aus, auf welches deiner Pokémon du das Item anwenden möchtest',
                     'fr': 'Choisissez sur lequel de vos Pokémon utiliser l\'objet',
-                    'ar': 'اختر أيًا من بوكيموناتك لاستخدام العنصر عليه'
+                    // 'ar': 'اختر أيًا من بوكيموناتك لاستخدام العنصر عليه'
                 })
                 .setMinValue(1)
                 .setMaxValue(6)
@@ -368,7 +368,7 @@ export default {
                     'es-ES': 'dyna-giga',
                     'de': 'dyna-giga',
                     'fr': 'dyna-giga',
-                    'ar': 'دينا-جيجا'
+                    // 'ar': 'دينا-جيجا'
                 })
                 .setDescription("Giga/Dyna Max your Pokemon")
                 .setDescriptionLocalizations({
@@ -376,7 +376,7 @@ export default {
                     'es-ES': 'Giga/Dyna Max tu Pokémon',
                     'de': 'Giga/Dyna Max dein Pokémon',
                     'fr': 'Giga/Dyna Max votre Pokémon',
-                    'ar': 'جيجا/دينا ماكس بوكيمونك'
+                    // 'ar': 'جيجا/دينا ماكس بوكيمونك'
                 })
             )
         )
@@ -387,7 +387,7 @@ export default {
                 'es-ES': 'movimientos',
                 'de': 'attacken',
                 'fr': 'attaques',
-                'ar': 'حركات'
+                // 'ar': 'حركات'
             })
             .setDescription("Check your Pokemon's moves")
             .setDescriptionLocalizations({
@@ -395,7 +395,7 @@ export default {
                 'es-ES': 'Revisa los movimientos de tu Pokémon',
                 'de': 'Überprüfe die Attacken deines Pokémons',
                 'fr': 'Vérifiez les attaques de votre Pokémon',
-                'ar': 'تحقق من حركات بوكيمونك'
+                // 'ar': 'تحقق من حركات بوكيمونك'
             })
         )
         .addSubcommand(x => x
@@ -405,7 +405,7 @@ export default {
                 'es-ES': 'equipo',
                 'de': 'team',
                 'fr': 'équipe',
-                'ar': 'فريق'
+                // 'ar': 'فريق'
             })
             .setDescription("Check your Pokemons!")
             .setDescriptionLocalizations({
@@ -413,7 +413,7 @@ export default {
                 'es-ES': '¡Revisa tus Pokémons!',
                 'de': 'Überprüfe deine Pokémons!',
                 'fr': 'Vérifiez vos Pokémons!',
-                'ar': 'تحقق من بوكيموناتك!'
+                // 'ar': 'تحقق من بوكيموناتك!'
             })
         )
         .addSubcommand(x => x.setName("help").setDescription("Check out how to use the Duel Command and battle your rival!")
@@ -422,14 +422,14 @@ export default {
                 'es-ES': 'ayuda',
                 'de': 'hilfe',
                 'fr': 'aide',
-                'ar': 'مساعدة'
+                // 'ar': 'مساعدة'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Confira como usar o Comando de Duelo e batalhar com seu rival!',
                 'es-ES': '¡Echa un vistazo a cómo usar el Comando de Duelo y luchar contra tu rival!',
                 'de': 'Schau dir an, wie du den Duell-Befehl verwendest und deinen Rivalen bekämpfst!',
                 'fr': 'Découvrez comment utiliser la commande Duel et affronter votre rival!',
-                'ar': 'تحقق من كيفية استخدام أمر المبارزة ومحاربة خصمك!'
+                // 'ar': 'تحقق من كيفية استخدام أمر المبارزة ومحاربة خصمك!'
             })
         ),
     async execute(msg) {

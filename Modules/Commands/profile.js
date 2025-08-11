@@ -12,7 +12,7 @@ export default {
             'es-ES': 'perfil',
             'de': 'profil',
             'fr': 'profil',
-            'ar': 'الملف-الشخصي'
+            // 'ar': 'الملف-الشخصي'
         })
         .setDescription('Flex your awesome profile and even customize it!')
         .setDescriptionLocalizations({
@@ -20,7 +20,7 @@ export default {
             'es-ES': '¡Muestra tu increíble perfil e incluso personalízalo!',
             'de': 'Zeige dein fantastisches Profil und passe es sogar an!',
             'fr': 'Affichez votre profil génial et personnalisez-le même!',
-            'ar': 'استعرض ملفك الشخصي الرائع وقم بتخصيص!'
+            // 'ar': 'استعرض ملفك الشخصي الرائع وقم بتخصيص!'
         })
         .addSubcommand(x => x
             .setName("view")
@@ -29,7 +29,7 @@ export default {
                 'es-ES': 'ver',
                 'de': 'ansehen',
                 'fr': 'voir',
-                'ar': 'عرض'
+                // 'ar': 'عرض'
             })
             .setDescription("See your current Profile")
             .setDescriptionLocalizations({
@@ -37,7 +37,7 @@ export default {
                 'es-ES': 'Ver tu perfil actual',
                 'de': 'Sieh dir dein aktuelles Profil an',
                 'fr': 'Voir votre profil actuel',
-                'ar': 'عرض ملفك الشخصي الحالي'
+                // 'ar': 'عرض ملفك الشخصي الحالي'
             })
         )
         .addSubcommand(x => x
@@ -47,7 +47,7 @@ export default {
                 'es-ES': 'iniciar',
                 'de': 'start',
                 'fr': 'démarrer',
-                'ar': 'ابدأ'
+                // 'ar': 'ابدأ'
             })
             .setDescription("Be sure to fill up all the required options to start your adventure!")
             .setDescriptionLocalizations({
@@ -55,7 +55,7 @@ export default {
                 'es-ES': '¡Asegúrate de completar todas las opciones requeridas para comenzar tu aventura!',
                 'de': 'Stelle sicher, dass du alle erforderlichen Optionen ausfüllst, um dein Abenteuer zu beginnen!',
                 'fr': 'Assurez-vous de remplir toutes les options requises pour commencer votre aventure!',
-                'ar': 'تأكد من ملء جميع الخيارات المطلوبة لبدء مغامرتك!'
+                // 'ar': 'تأكد من ملء جميع الخيارات المطلوبة لبدء مغامرتك!'
             })
             .addIntegerOption(y => y
                 .setRequired(true)
@@ -65,7 +65,7 @@ export default {
                     'es-ES': 'personaje',
                     'de': 'charakter',
                     'fr': 'personnage',
-                    'ar': 'شخصية'
+                    // 'ar': 'شخصية'
                 })
                 .setDescription("Select the character you connect to most!")
                 .setDescriptionLocalizations({
@@ -73,7 +73,7 @@ export default {
                     'es-ES': '¡Selecciona el personaje con el que más te conectas!',
                     'de': 'Wähle den Charakter aus, mit dem du dich am meisten verbunden fühlst!',
                     'fr': 'Sélectionnez le personnage auquel vous vous connectez le plus!',
-                    'ar': 'اختر الشخصية التي تتواصل معها أكثر!'
+                    // 'ar': 'اختر الشخصية التي تتواصل معها أكثر!'
                 })
                 .addChoices({
                     "name": "Red",
@@ -111,7 +111,7 @@ export default {
                     'es-ES': 'genero',
                     'de': 'geschlecht',
                     'fr': 'genre',
-                    'ar': 'الجنس'
+                    // 'ar': 'الجنس'
                 })
                 .setDescription("Are you a boy or a girl? ~ (Professor Oak)")
                 .setDescriptionLocalizations({
@@ -119,7 +119,7 @@ export default {
                     'es-ES': '¿Eres un niño o una niña? ~ (Profesor Oak)',
                     'de': 'Bist du ein Junge oder ein Mädchen? ~ (Professor Eich)',
                     'fr': 'Êtes-vous un garçon ou une fille? ~ (Professeur Chen)',
-                    'ar': 'هل أنت فتى أم فتاة؟ ~ (البروفيسور أوك)'
+                    // 'ar': 'هل أنت فتى أم فتاة؟ ~ (البروفيسور أوك)'
                 })
                 .addChoices({
                     name: "Male",
@@ -141,7 +141,7 @@ export default {
                 'es-ES': 'listado',
                 'de': 'auflistung',
                 'fr': 'liste',
-                'ar': 'قائمة'
+                // 'ar': 'قائمة'
             })
             .setDescription("See the available character options")
             .setDescriptionLocalizations({
@@ -149,7 +149,7 @@ export default {
                 'es-ES': 'Ver las opciones de personajes disponibles',
                 'de': 'Sieh dir die verfügbaren Charakteroptionen an',
                 'fr': 'Voir les options de personnages disponibles',
-                'ar': 'عرض خيارات الشخصيات المتاحة'
+                // 'ar': 'عرض خيارات الشخصيات المتاحة'
             }))
         .addSubcommand(x => x
             .setName("help")
@@ -158,7 +158,7 @@ export default {
                 'es-ES': 'ayuda',
                 'de': 'hilfe',
                 'fr': 'aide',
-                'ar': 'مساعدة'
+                // 'ar': 'مساعدة'
             })
             .setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
             .setDescriptionLocalizations({
@@ -166,7 +166,7 @@ export default {
                 'es-ES': '¡Echa un vistazo a cómo usar el Comando del Mercado y aparentemente abandonar aquello en lo que ganaste confianza!',
                 'de': 'Schau dir an, wie du den Markt-Befehl benutzt und anscheinend das aufgibst, wessen Vertrauen du gewonnen hast!',
                 'fr': 'Découvrez comment utiliser la commande Marché et abandonnez apparemment ce dont vous avez gagné la confiance!',
-                'ar': 'تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!'
+                // 'ar': 'تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!'
             })
         ),
     async execute(msg) {

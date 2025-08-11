@@ -8,7 +8,7 @@ export default {
             "pt-BR": "ordenar",
             "de": "reihenfolge",
             "fr": "ordre",
-            "ar": "ترتيب"
+            // "ar": "ترتيب"
         })
         .setDescription('Select how you want to order your pokemon in the list')
         .setDescriptionLocalizations({
@@ -16,7 +16,7 @@ export default {
             'es-ES': 'Selecciona cómo quieres ordenar tus pokemon en la lista',
             'de': 'Wähle aus, wie du deine Pokémon in der Liste ordnen möchtest',
             'fr': 'Sélectionnez comment vous voulez classer vos pokémon dans la liste',
-            'ar': 'حدد كيف تريد ترتيب بوكيموناتك في القائمة'
+            // 'ar': 'حدد كيف تريد ترتيب بوكيموناتك في القائمة'
         })
         .addStringOption(option => option.setName('style').setDescription('Select how you want your pokemon ordered').setRequired(true)
             .setNameLocalizations({
@@ -24,14 +24,14 @@ export default {
                 'es-ES': 'estilo',
                 'de': 'stil',
                 'fr': 'style',
-                'ar': 'نمط'
+                // 'ar': 'نمط'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Selecione como você quer que seus pokemon sejam ordenados',
                 'es-ES': 'Selecciona cómo quieres que se ordenen tus pokemon',
                 'de': 'Wähle aus, wie deine Pokémon geordnet werden sollen',
                 'fr': 'Sélectionnez comment vous voulez que vos pokemon soient classés',
-                'ar': 'حدد كيف تريد ترتيب بوكيموناتك'
+                // 'ar': 'حدد كيف تريد ترتيب بوكيموناتك'
             })
             .addChoices({ name: 'Number', value: 'idx' },
                 { name: 'IV', value: 'iv' },
@@ -44,14 +44,14 @@ export default {
                 'es-ES': 'orden',
                 'de': 'reihenfolge',
                 'fr': 'ordre',
-                'ar': 'ترتيب'
+                // 'ar': 'ترتيب'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Selecione se você quer que a ordem seja ascendente ou descendente',
                 'es-ES': 'Selecciona si quieres que el orden sea ascendente o descendente',
                 'de': 'Wähle aus, ob die Reihenfolge aufsteigend oder absteigend sein soll',
                 'fr': 'Sélectionnez si vous voulez que l\'ordre soit croissant ou décroissant',
-                'ar': 'حدد ما إذا كنت تريد أن يكون الترتيب تصاعديًا أم تنازليًا'
+                // 'ar': 'حدد ما إذا كنت تريد أن يكون الترتيب تصاعديًا أم تنازليًا'
             })
             .addChoices({
             name: "Ascending", value: "asc"

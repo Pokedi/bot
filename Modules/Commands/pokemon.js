@@ -61,7 +61,7 @@ export default {
             'es-ES': 'pokemon',
             'de': 'pokemon',
             'fr': 'pokemon',
-            'ar': 'بوكيمون'
+            // 'ar': 'بوكيمون'
         })
         .setDescription('List your Pokemon')
         .setDescriptionLocalizations({
@@ -69,7 +69,7 @@ export default {
             'es-ES': 'Lista tus Pokémon',
             'de': 'Liste deine Pokémon auf',
             'fr': 'Listez vos Pokémon',
-            'ar': 'اعرض قائمة بوكيموناتك'
+            // 'ar': 'اعرض قائمة بوكيموناتك'
         })
         .addNumberOption(option => option.setName('page').setDescription('Page of Pokemon list')
             .setNameLocalizations({
@@ -77,14 +77,14 @@ export default {
                 'es-ES': 'pagina',
                 'de': 'seite',
                 'fr': 'page',
-                'ar': 'صفحة'
+                // 'ar': 'صفحة'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Página da lista de Pokémon',
                 'es-ES': 'Página de la lista de Pokémon',
                 'de': 'Seite der Pokémon-Liste',
                 'fr': 'Page de la liste de Pokémon',
-                'ar': 'صفحة قائمة البوكيمون'
+                // 'ar': 'صفحة قائمة البوكيمون'
             }))
         .addStringOption(option => option.setName('orderby').setDescription('1 - idx; 2 - iv; 3 - level; 4 - alphabetic').addChoices({ name: "IDX", value: "idx" }, { name: "IV", value: "iv" }, { name: "Level", value: "level" }, { name: "Alphabetical", value: "pokemon" })
             .setNameLocalizations({
@@ -92,14 +92,14 @@ export default {
                 'es-ES': 'ordenarpor',
                 'de': 'sortierenach',
                 'fr': 'trierpar',
-                'ar': 'ترتيب-حسب'
+                // 'ar': 'ترتيب-حسب'
             })
             .setDescriptionLocalizations({
                 'pt-BR': '1 - idx; 2 - iv; 3 - nível; 4 - alfabético',
                 'es-ES': '1 - idx; 2 - iv; 3 - nivel; 4 - alfabético',
                 'de': '1 - idx; 2 - iv; 3 - level; 4 - alphabetisch',
                 'fr': '1 - idx; 2 - iv; 3 - niveau; 4 - alphabétique',
-                'ar': '1 - idx; 2 - iv; 3 - المستوى; 4 - أبجدي'
+                // 'ar': '1 - idx; 2 - iv; 3 - المستوى; 4 - أبجدي'
             }))
         .addStringOption(option => option.setName('ordertype').setDescription('ASC (default), Desc').addChoices({ name: "Ascending", value: "asc" }, { name: "Descending", value: "desc" })
             .setNameLocalizations({
@@ -107,14 +107,14 @@ export default {
                 'es-ES': 'tipodeorden',
                 'de': 'sortierungstyp',
                 'fr': 'typedeclassement',
-                'ar': 'نوع-الترتيب'
+                // 'ar': 'نوع-الترتيب'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'ASC (padrão), Desc',
                 'es-ES': 'ASC (predeterminado), Desc',
                 'de': 'ASC (Standard), Desc',
                 'fr': 'ASC (par défaut), Desc',
-                'ar': 'تصاعدي (افتراضي)، تنازلي'
+                // 'ar': 'تصاعدي (افتراضي)، تنازلي'
             }))
         .addStringOption(option => option.setName('query').setDescription('Enter the needed query. [Read Query cheatsheet for more help]')
             .setNameLocalizations({
@@ -122,14 +122,14 @@ export default {
                 'es-ES': 'consulta',
                 'de': 'abfrage',
                 'fr': 'requête',
-                'ar': 'استعلام'
+                // 'ar': 'استعلام'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Digite a consulta necessária. [Leia a folha de dicas de consulta para mais ajuda]',
                 'es-ES': 'Introduce la consulta necesaria. [Lee la hoja de trucos de consulta para más ayuda]',
                 'de': 'Gib die benötigte Abfrage ein. [Lies das Query-Cheatsheet für weitere Hilfe]',
                 'fr': 'Entrez la requête nécessaire. [Lisez la feuille de triche de requête pour plus d\'aide]',
-                'ar': 'أدخل الاستعلام المطلوب. [اقرأ ورقة الغش الخاصة بالاستعلام لمزيد من المساعدة]'
+                // 'ar': 'أدخل الاستعلام المطلوب. [اقرأ ورقة الغش الخاصة بالاستعلام لمزيد من المساعدة]'
             }))
         .addStringOption(option => option.setName('export').setDescription("Export choices")
             .setNameLocalizations({
@@ -137,14 +137,14 @@ export default {
                 'es-ES': 'exportar',
                 'de': 'exportieren',
                 'fr': 'exporter',
-                'ar': 'تصدير'
+                // 'ar': 'تصدير'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Opções de exportação',
                 'es-ES': 'Opciones de exportación',
                 'de': 'Exportoptionen',
                 'fr': 'Choix d\'exportation',
-                'ar': 'خيارات التصدير'
+                // 'ar': 'خيارات التصدير'
             })
             .addChoices({
             name: "ID Export",
@@ -159,14 +159,14 @@ export default {
                 'es-ES': 'ayuda',
                 'de': 'hilfe',
                 'fr': 'aide',
-                'ar': 'مساعدة'
+                // 'ar': 'مساعدة'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Veja detalhes sobre como usar este comando',
                 'es-ES': 'Ver detalles sobre cómo usar este comando',
                 'de': 'Details zur Verwendung dieses Befehls anzeigen',
                 'fr': 'Voir les détails sur la façon d\'utiliser cette commande',
-                'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
+                // 'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
             })),
     alias: ['p'],
     mention_support: true,

@@ -10,14 +10,14 @@ export default {
             "es-ES": "diario",
             "pt-BR": "diario",
             "fr": "quotidien",
-            "ar": "يومي"
+            // "ar": "يومي"
         })
         .setDescription('Check your daily balance.').setDescriptionLocalizations({
             'pt-BR': 'Verifique seu saldo diário.',
             'es-ES': 'Consulta tu saldo diario.',
             'de': 'Überprüfen Sie Ihr tägliches Guthaben.',
             'fr': 'Vérifiez votre solde quotidien.',
-            'ar': 'تحقق من رصيدك اليومي.'
+            // 'ar': 'تحقق من رصيدك اليومي.'
         }),
     async execute(msg) {
         // Send Wait message

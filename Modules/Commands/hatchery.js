@@ -12,7 +12,7 @@ export default {
             'es-ES': 'incubadora',
             'de': 'brüterei',
             'fr': 'écloserie',
-            'ar': 'حضانة'
+            // 'ar': 'حضانة'
         })
         .setDescription('Incubate your eggs, and see what mysteries hide behind them')
         .setDescriptionLocalizations({
@@ -20,7 +20,7 @@ export default {
             'es-ES': 'Incuba tus huevos y mira qué misterios se esconden detrás de ellos',
             'de': 'Brüte deine Eier aus und sieh, welche Geheimnisse sich dahinter verbergen',
             'fr': 'Incubez vos œufs et voyez quels mystères se cachent derrière eux',
-            'ar': 'احتضن بيضك ، وانظر ما هي الألغاز التي تختبئ وراءها'
+            // 'ar': 'احتضن بيضك ، وانظر ما هي الألغاز التي تختبئ وراءها'
         })
         .addSubcommand(x => x
             .setName("view")
@@ -29,7 +29,7 @@ export default {
                 'es-ES': 'ver',
                 'de': 'ansehen',
                 'fr': 'voir',
-                'ar': 'عرض'
+                // 'ar': 'عرض'
             })
             .setDescription("View your hatchery")
             .setDescriptionLocalizations({
@@ -37,7 +37,7 @@ export default {
                 'es-ES': 'Ver tu incubadora',
                 'de': 'Sieh dir deine Brüterei an',
                 'fr': 'Voir votre écloserie',
-                'ar': 'عرض حضانتك'
+                // 'ar': 'عرض حضانتك'
             })
             .addIntegerOption(z => z.setName("slot").setDescription("Monitor the slot of your Egg").setMaxValue(4).setMinValue(1)
                 .setNameLocalizations({
@@ -45,14 +45,14 @@ export default {
                     'es-ES': 'ranura',
                     'de': 'steckplatz',
                     'fr': 'emplacement',
-                    'ar': 'فتحة'
+                    // 'ar': 'فتحة'
                 })
                 .setDescriptionLocalizations({
                     'pt-BR': 'Monitore o ninho do seu Ovo',
                     'es-ES': 'Monitorea la ranura de tu Huevo',
                     'de': 'Überwache den Steckplatz deines Eies',
                     'fr': 'Surveillez l\'emplacement de votre Oeuf',
-                    'ar': 'مراقبة فتحة بيضتك'
+                    // 'ar': 'مراقبة فتحة بيضتك'
                 }))
         )
         .addSubcommand(x => x
@@ -62,7 +62,7 @@ export default {
                 'es-ES': 'establecer',
                 'de': 'einstellen',
                 'fr': 'définir',
-                'ar': 'تعيين'
+                // 'ar': 'تعيين'
             })
             .setDescription("Set the Egg to keep close in your journey")
             .setDescriptionLocalizations({
@@ -70,7 +70,7 @@ export default {
                 'es-ES': 'Establece el Huevo para mantenerlo cerca en tu viaje',
                 'de': 'Stelle das Ei so ein, dass es auf deiner Reise in deiner Nähe bleibt',
                 'fr': 'Définissez l\'Oeuf à garder près de vous pendant votre voyage',
-                'ar': 'ضع البيضة لتبقى قريبة في رحلتك'
+                // 'ar': 'ضع البيضة لتبقى قريبة في رحلتك'
             })
             .addIntegerOption(z => z.setName("egg-id").setDescription("The ID of the Egg you wish to add to the Slot").setRequired(true)
                 .setNameLocalizations({
@@ -78,14 +78,14 @@ export default {
                     'es-ES': 'id-huevo',
                     'de': 'ei-id',
                     'fr': 'id-oeuf',
-                    'ar': 'معرف-البيضة'
+                    // 'ar': 'معرف-البيضة'
                 })
                 .setDescriptionLocalizations({
                     'pt-BR': 'O ID do Ovo que você deseja adicionar ao Ninho',
                     'es-ES': 'El ID del Huevo que deseas agregar a la Ranura',
                     'de': 'Die ID des Eies, das du zum Steckplatz hinzufügen möchtest',
                     'fr': "L'ID de l'Oeuf que vous souhaitez ajouter à l'Emplacement",
-                    'ar': 'معرف البيضة الذي ترغب في إضافته إلى الفتحة'
+                    // 'ar': 'معرف البيضة الذي ترغب في إضافته إلى الفتحة'
                 }))
             .addIntegerOption(z => z.setName("slot").setDescription("Set the slot of your Egg").setMaxValue(4).setMinValue(1)
                 .setNameLocalizations({
@@ -93,14 +93,14 @@ export default {
                     'es-ES': 'ranura',
                     'de': 'steckplatz',
                     'fr': 'emplacement',
-                    'ar': 'فتحة'
+                    // 'ar': 'فتحة'
                 })
                 .setDescriptionLocalizations({
                     'pt-BR': 'Defina o ninho do seu Ovo',
                     'es-ES': 'Establece la ranura de tu Huevo',
                     'de': 'Stelle den Steckplatz deines Eies ein',
                     'fr': 'Définir l\'emplacement de votre Oeuf',
-                    'ar': 'تعيين فتحة بيضتك'
+                    // 'ar': 'تعيين فتحة بيضتك'
                 }))
         )
         .addSubcommand(x => x
@@ -110,7 +110,7 @@ export default {
                 'es-ES': 'quitar',
                 'de': 'entfernen',
                 'fr': 'retirer',
-                'ar': 'إزالة'
+                // 'ar': 'إزالة'
             })
             .setDescription("Remove an Egg from its Nest [Progress is Reset]")
             .setDescriptionLocalizations({
@@ -118,7 +118,7 @@ export default {
                 'es-ES': 'Quita un Huevo de su Nido [El progreso se reinicia]',
                 'de': 'Entferne ein Ei aus seinem Nest [Fortschritt wird zurückgesetzt]',
                 'fr': 'Retirez un Oeuf de son Nid [La progression est réinitialisée]',
-                'ar': 'إزالة بيضة من عشها [يتم إعادة تعيين التقدم]'
+                // 'ar': 'إزالة بيضة من عشها [يتم إعادة تعيين التقدم]'
             })
             .addIntegerOption(z => z.setName("slot").setDescription("Nest you wish to remove the egg from.").setMaxValue(4).setMinValue(1).setRequired(true)
                 .setNameLocalizations({
@@ -126,14 +126,14 @@ export default {
                     'es-ES': 'nido',
                     'de': 'nest',
                     'fr': 'nid',
-                    'ar': 'عش'
+                    // 'ar': 'عش'
                 })
                 .setDescriptionLocalizations({
                     'pt-BR': 'Ninho do qual você deseja remover o ovo.',
                     'es-ES': 'Nido del que deseas quitar el huevo.',
                     'de': 'Nest, aus dem du das Ei entfernen möchtest.',
                     'fr': 'Nid duquel vous souhaitez retirer l\'œuf.',
-                    'ar': 'العش الذي ترغب في إزالة البيضة منه.'
+                    // 'ar': 'العش الذي ترغب في إزالة البيضة منه.'
                 }))
         )
         .addSubcommand(x => x
@@ -143,7 +143,7 @@ export default {
                 'es-ES': 'tienda',
                 'de': 'laden',
                 'fr': 'boutique',
-                'ar': 'متجر'
+                // 'ar': 'متجر'
             })
             .setDescription("Buy available Slots")
             .setDescriptionLocalizations({
@@ -151,7 +151,7 @@ export default {
                 'es-ES': 'Comprar Ranuras disponibles',
                 'de': 'Kaufe verfügbare Steckplätze',
                 'fr': 'Acheter des Emplacements disponibles',
-                'ar': 'شراء فتحات متاحة'
+                // 'ar': 'شراء فتحات متاحة'
             })
             .addBooleanOption(z => z.setName("first-slot").setDescription("Buy your first Slot if you haven't already!")
                 .setNameLocalizations({
@@ -159,14 +159,14 @@ export default {
                     'es-ES': 'primera-ranura',
                     'de': 'erster-steckplatz',
                     'fr': 'premier-emplacement',
-                    'ar': 'الفتحة-الأولى'
+                    // 'ar': 'الفتحة-الأولى'
                 })
                 .setDescriptionLocalizations({
                     'pt-BR': 'Compre seu primeiro Ninho se ainda não o fez!',
                     'es-ES': '¡Compra tu primera Ranura si aún no lo has hecho!',
                     'de': 'Kaufe deinen ersten Steckplatz, wenn du es noch nicht getan hast!',
                     'fr': 'Achetez votre premier Emplacement si vous ne l\'avez pas déjà fait!',
-                    'ar': 'اشترِ فتحتك الأولى إذا لم تكن قد فعلت ذلك بالفعل!'
+                    // 'ar': 'اشترِ فتحتك الأولى إذا لم تكن قد فعلت ذلك بالفعل!'
                 }))
         )
         .addSubcommand(x => x
@@ -176,7 +176,7 @@ export default {
                 'es-ES': 'ayuda',
                 'de': 'hilfe',
                 'fr': 'aide',
-                'ar': 'مساعدة'
+                // 'ar': 'مساعدة'
             })
             .setDescription("View the helpful information of this command")
             .setDescriptionLocalizations({
@@ -184,7 +184,7 @@ export default {
                 'es-ES': 'Ver la información útil de este comando',
                 'de': 'Sieh dir die hilfreichen Informationen dieses Befehls an',
                 'fr': 'Voir les informations utiles de cette commande',
-                'ar': 'عرض المعلومات المفيدة لهذا الأمر'
+                // 'ar': 'عرض المعلومات المفيدة لهذا الأمر'
             })
         ),
     async execute(msg) {

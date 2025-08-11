@@ -14,7 +14,7 @@ export default {
             'es-ES': 'info',
             'de': 'info',
             'fr': 'info',
-            'ar': 'معلومات'
+            // 'ar': 'معلومات'
         })
         .setDescription('View your Pokemon!')
         .setDescriptionLocalizations({
@@ -22,7 +22,7 @@ export default {
             'es-ES': '¡Mira tu Pokémon!',
             'de': 'Sieh dir dein Pokémon an!',
             'fr': 'Voir votre Pokémon!',
-            'ar': 'اعرض بوكيمونك!'
+            // 'ar': 'اعرض بوكيمونك!'
         })
         .addStringOption(option => option.setName('query').setDescription('Type in the ID of the pokemon. (You may type in "latest" for the last one)')
             .setNameLocalizations({
@@ -30,14 +30,14 @@ export default {
                 'es-ES': 'consulta',
                 'de': 'abfrage',
                 'fr': 'requête',
-                'ar': 'استعلام'
+                // 'ar': 'استعلام'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Digite o ID do pokemon. (Você pode digitar "latest" para o último)',
                 'es-ES': 'Escribe el ID del pokemon. (Puedes escribir "latest" para el último)',
                 'de': 'Gib die ID des Pokemons ein. (Du kannst "latest" für das letzte eingeben)',
                 'fr': 'Tapez l\'ID du pokémon. (Vous pouvez taper "latest" pour le dernier)',
-                'ar': 'اكتب معرف البوكيمون. (يمكنك كتابة "latest" للأخير)'
+                // 'ar': 'اكتب معرف البوكيمون. (يمكنك كتابة "latest" للأخير)'
             }))
         .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command")
             .setNameLocalizations({
@@ -45,14 +45,14 @@ export default {
                 'es-ES': 'ayuda',
                 'de': 'hilfe',
                 'fr': 'aide',
-                'ar': 'مساعدة'
+                // 'ar': 'مساعدة'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Veja detalhes sobre como usar este comando',
                 'es-ES': 'Ver detalles sobre cómo usar este comando',
                 'de': 'Details zur Verwendung dieses Befehls anzeigen',
                 'fr': 'Voir les détails sur la façon d\'utiliser cette commande',
-                'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
+                // 'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
             })),
     alias: ["i"],
     mention_support: true,

@@ -9,7 +9,7 @@ export default {
             'es-ES': 'ayuda',
             'de': 'hilfe',
             'fr': 'aide',
-            'ar': 'مساعدة'
+            // 'ar': 'مساعدة'
         })
         .setDescription("Look up a command and their usages")
         .setDescriptionLocalizations({
@@ -17,7 +17,7 @@ export default {
             'es-ES': 'Busca un comando y sus usos',
             'de': 'Suche einen Befehl und seine Verwendungen nach',
             'fr': 'Rechercher une commande et ses utilisations',
-            'ar': 'ابحث عن أمر واستخداماته'
+            // 'ar': 'ابحث عن أمر واستخداماته'
         })
         .addStringOption(option => option
             .setName("command_name")
@@ -26,7 +26,7 @@ export default {
                 'es-ES': 'nombre_comando',
                 'de': 'befehlsname',
                 'fr': 'nom_commande',
-                'ar': 'اسم_الأمر'
+                // 'ar': 'اسم_الأمر'
             })
             .setDescription("The name of the command you want the details and instructions of")
             .setDescriptionLocalizations({
@@ -34,7 +34,7 @@ export default {
                 'es-ES': 'El nombre del comando del que quieres los detalles e instrucciones',
                 'de': 'Der Name des Befehls, dessen Details und Anweisungen Sie wünschen',
                 'fr': 'Le nom de la commande dont vous voulez les détails et les instructions',
-                'ar': 'اسم الأمر الذي تريد تفاصيله وتعليماته'
+                // 'ar': 'اسم الأمر الذي تريد تفاصيله وتعليماته'
             })),
     async execute(msg) {
 

@@ -11,14 +11,14 @@ export default {
             "es-ES": "saldo",
             "de": "konto",
             "fr": "solde",
-            "ar": "رصيد"
+            // "ar": "رصيد"
         })
         .setDescription('Check your credit balance.').setDescriptionLocalizations({
             'pt-BR': "Verifique seu saldo de créditos.",
             "es-ES": "Consulta tu saldo de créditos.",
             "de": "Überprüfen Sie Ihren Kontostand.",
             "fr": "Consultez votre solde de crédits.",
-            "ar": "تحقق من رصيد قروضك"
+            // "ar": "تحقق من رصيد قروضك"
         }),
     aliases: ['balance', 'credits', 'credit'],
     async execute(msg) {

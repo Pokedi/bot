@@ -14,7 +14,7 @@ export default {
             "pt-BR": "mercado",
             "de": "markt",
             "fr": "marché",
-            "ar": "سوق"
+            // "ar": "سوق"
         })
         .setDescription("The Market where Pokemon are put up for sale for (un)reasonable prices.")
         .setDescriptionLocalizations({
@@ -22,7 +22,7 @@ export default {
             "es-ES": "El Mercado donde los Pokémon se ponen a la venta por precios (in)justos.",
             "de": "Der Markt, auf dem Pokémon zu (un)angemessenen Preisen zum Verkauf angeboten werden.",
             "fr": "Le marché où les Pokémon sont mis en vente à des prix (déraisonnables).",
-            "ar": "السوق حيث يتم عرض البوكيمون للبيع بأسعار (غير) معقولة."
+            // "ar": "السوق حيث يتم عرض البوكيمون للبيع بأسعار (غير) معقولة."
         })
         .addSubcommand(subcommand =>
             subcommand
@@ -32,7 +32,7 @@ export default {
                     "es-ES": "info",
                     "de": "info",
                     "fr": "info",
-                    "ar": "معلومات"
+                    // "ar": "معلومات"
                 })
                 .setDescription("Are you seriously just gonna buy a Pokemon as if it's a tool? (Slavery???)")
                 .setDescriptionLocalizations({
@@ -40,7 +40,7 @@ export default {
                     "es-ES": "¿En serio vas a comprar un Pokémon como si fuera una herramienta? (¿¿¿Esclavitud???)",
                     "de": "Willst du ernsthaft ein Pokémon kaufen, als wäre es ein Werkzeug? (Sklaverei???)",
                     "fr": "Allez-vous sérieusement acheter un Pokémon comme si c'était un outil? (Esclavage???)",
-                    "ar": "هل ستشتري بوكيمونًا وكأنه أداة؟ (عبودية؟؟؟)"
+                    // "ar": "هل ستشتري بوكيمونًا وكأنه أداة؟ (عبودية؟؟؟)"
                 })
                 .addIntegerOption(option => option
                     .setName("id")
@@ -49,7 +49,7 @@ export default {
                         "es-ES": "id",
                         "de": "id",
                         "fr": "id",
-                        "ar": "المعرف"
+                        // "ar": "المعرف"
                     })
                     .setDescription("The description of the pokemon you're looking for")
                     .setDescriptionLocalizations({
@@ -57,7 +57,7 @@ export default {
                         "es-ES": "La descripción del pokémon que estás buscando",
                         "de": "Die Beschreibung des Pokémon, das du suchst",
                         "fr": "La description du pokémon que vous recherchez",
-                        "ar": "وصف البوكيمون الذي تبحث عنه"
+                        // "ar": "وصف البوكيمون الذي تبحث عنه"
                     })
                     .setRequired(true)
                 ))
@@ -69,7 +69,7 @@ export default {
                     "es-ES": "comprar",
                     "de": "kaufen",
                     "fr": "acheter",
-                    "ar": "شراء"
+                    // "ar": "شراء"
                 })
                 .setDescription("Are you seriously just gonna buy a Pokemon as if it's a tool? (Slavery???)")
                 .setDescriptionLocalizations({
@@ -77,7 +77,7 @@ export default {
                     "es-ES": "¿En serio vas a comprar un Pokémon como si fuera una herramienta? (¿¿¿Esclavitud???)",
                     "de": "Willst du ernsthaft ein Pokémon kaufen, als wäre es ein Werkzeug? (Sklaverei???)",
                     "fr": "Allez-vous sérieusement acheter un Pokémon comme si c'était un outil? (Esclavage???)",
-                    "ar": "هل ستشتري بوكيمونًا وكأنه أداة؟ (عبودية؟؟؟)"
+                    // "ar": "هل ستشتري بوكيمونًا وكأنه أداة؟ (عبودية؟؟؟)"
                 })
                 .addIntegerOption(option => option
                     .setName("id")
@@ -86,7 +86,7 @@ export default {
                         "es-ES": "id",
                         "de": "id",
                         "fr": "id",
-                        "ar": "المعرف"
+                        // "ar": "المعرف"
                     })
                     .setDescription("The description of the pokemon you're looking for")
                     .setDescriptionLocalizations({
@@ -94,7 +94,7 @@ export default {
                         "es-ES": "La descripción del pokémon que estás buscando",
                         "de": "Die Beschreibung des Pokémon, das du suchst",
                         "fr": "La description du pokémon que vous recherchez",
-                        "ar": "وصف البوكيمون الذي تبحث عنه"
+                        // "ar": "وصف البوكيمون الذي تبحث عنه"
                     })
                     .setRequired(true)
                 ))
@@ -106,7 +106,7 @@ export default {
                     "es-ES": "vender",
                     "de": "verkaufen",
                     "fr": "vendre",
-                    "ar": "بيع"
+                    // "ar": "بيع"
                 })
                 .setDescription("Put your innocent Pokemon up for sell (you be sick)")
                 .setDescriptionLocalizations({
@@ -114,7 +114,7 @@ export default {
                     "es-ES": "Pon a tu Pokémon inocente en venta (estás enfermo)",
                     "de": "Biete dein unschuldiges Pokémon zum Verkauf an (du bist krank)",
                     "fr": "Mettez votre Pokémon innocent en vente (vous êtes malade)",
-                    "ar": "اعرض بوكيمونك البريء للبيع (أنت مريض)"
+                    // "ar": "اعرض بوكيمونك البريء للبيع (أنت مريض)"
                 })
                 .addIntegerOption(option =>
                     option
@@ -124,7 +124,7 @@ export default {
                             "es-ES": "id",
                             "de": "id",
                             "fr": "id",
-                            "ar": "المعرف"
+                            // "ar": "المعرف"
                         })
                         .setDescription("The ID of the innocent creature")
                         .setDescriptionLocalizations({
@@ -132,7 +132,7 @@ export default {
                             "es-ES": "El ID de la criatura inocente",
                             "de": "Die ID der unschuldigen Kreatur",
                             "fr": "L'ID de la créature innocente",
-                            "ar": "معرف المخلوق البريء"
+                            // "ar": "معرف المخلوق البريء"
                         })
                         .setRequired(true))
                 .addIntegerOption(option =>
@@ -143,7 +143,7 @@ export default {
                             "es-ES": "precio",
                             "de": "preis",
                             "fr": "prix",
-                            "ar": "السعر"
+                            // "ar": "السعر"
                         })
                         .setMinValue(200)
                         .setMaxValue(1e10)
@@ -154,7 +154,7 @@ export default {
                             "es-ES": "El precio que le pondrías al joven ser.",
                             "de": "Der Preis, den du für das junge Wesen festlegen würdest.",
                             "fr": "Le prix que vous fixeriez pour le jeune être.",
-                            "ar": "السعر الذي ستضعه للكائن الشاب."
+                            // "ar": "السعر الذي ستضعه للكائن الشاب."
                         }))
         )
         .addSubcommand(subcommand =>
@@ -165,7 +165,7 @@ export default {
                     "es-ES": "buscar",
                     "de": "suchen",
                     "fr": "rechercher",
-                    "ar": "بحث"
+                    // "ar": "بحث"
                 })
                 .setDescription("Search for the pokemon of your dreams(???) (Why are we selling pokemon to begin with)")
                 .setDescriptionLocalizations({
@@ -173,7 +173,7 @@ export default {
                     "es-ES": "Busca el pokémon de tus sueños(???) (¿Por qué estamos vendiendo pokémon para empezar?)",
                     "de": "Suche nach dem Pokémon deiner Träume(???) (Warum verkaufen wir überhaupt Pokémon?)",
                     "fr": "Cherchez le pokémon de vos rêves(???) (Pourquoi vendons-nous des pokémon pour commencer?)",
-                    "ar": "ابحث عن بوكيمون أحلامك (؟؟؟) (لماذا نبيع البوكيمون في المقام الأول)"
+                    // "ar": "ابحث عن بوكيمون أحلامك (؟؟؟) (لماذا نبيع البوكيمون في المقام الأول)"
                 })
                 .addIntegerOption(option => option
                     .setName("page")
@@ -182,7 +182,7 @@ export default {
                         "es-ES": "pagina",
                         "de": "seite",
                         "fr": "page",
-                        "ar": "صفحة"
+                        // "ar": "صفحة"
                     })
                     .setDescription("Pagination")
                     .setDescriptionLocalizations({
@@ -190,7 +190,7 @@ export default {
                         "es-ES": "Paginación",
                         "de": "Paginierung",
                         "fr": "Pagination",
-                        "ar": "ترقيم الصفحات"
+                        // "ar": "ترقيم الصفحات"
                     }))
                 .addIntegerOption(option => option
                     .setName("price_greater")
@@ -199,7 +199,7 @@ export default {
                         "es-ES": "precio_mayor",
                         "de": "preis_groesser",
                         "fr": "prix_superieur",
-                        "ar": "السعر_أكبر"
+                        // "ar": "السعر_أكبر"
                     })
                     .setDescription("Price range of the Pokemon")
                     .setDescriptionLocalizations({
@@ -207,7 +207,7 @@ export default {
                         "es-ES": "Rango de precios del Pokémon",
                         "de": "Preisspanne des Pokémon",
                         "fr": "Fourchette de prix du Pokémon",
-                        "ar": "نطاق سعر البوكيمون"
+                        // "ar": "نطاق سعر البوكيمون"
                     }))
                 .addIntegerOption(option => option
                     .setName("price_lesser")
@@ -216,7 +216,7 @@ export default {
                         "es-ES": "precio_menor",
                         "de": "preis_kleiner",
                         "fr": "prix_inferieur",
-                        "ar": "السعر_أصغر"
+                        // "ar": "السعر_أصغر"
                     })
                     .setDescription("Price range of the Pokemon")
                     .setDescriptionLocalizations({
@@ -224,7 +224,7 @@ export default {
                         "es-ES": "Rango de precios del Pokémon",
                         "de": "Preisspanne des Pokémon",
                         "fr": "Fourchette de prix du Pokémon",
-                        "ar": "نطاق سعر البوكيمون"
+                        // "ar": "نطاق سعر البوكيمون"
                     }))
                 .addIntegerOption(option => option
                     .setName("id")
@@ -233,7 +233,7 @@ export default {
                         "es-ES": "id",
                         "de": "id",
                         "fr": "id",
-                        "ar": "المعرف"
+                        // "ar": "المعرف"
                     })
                     .setDescription("ID of the pokemon you're looking for or greater")
                     .setDescriptionLocalizations({
@@ -241,7 +241,7 @@ export default {
                         "es-ES": "ID del pokémon que estás buscando o mayor",
                         "de": "ID des Pokémon, das du suchst oder größer",
                         "fr": "ID du pokémon que vous recherchez ou supérieur",
-                        "ar": "معرف البوكيمون الذي تبحث عنه أو أكبر"
+                        // "ar": "معرف البوكيمون الذي تبحث عنه أو أكبر"
                     }))
                 .addStringOption(option => option
                     .setName("user_id")
@@ -250,7 +250,7 @@ export default {
                         "es-ES": "id_usuario",
                         "de": "benutzer_id",
                         "fr": "id_utilisateur",
-                        "ar": "معرف_المستخدم"
+                        // "ar": "معرف_المستخدم"
                     })
                     .setDescription("ID of the User")
                     .setDescriptionLocalizations({
@@ -258,7 +258,7 @@ export default {
                         "es-ES": "ID del Usuario",
                         "de": "ID des Benutzers",
                         "fr": "ID de l'Utilisateur",
-                        "ar": "معرف المستخدم"
+                        // "ar": "معرف المستخدم"
                     }))
                 .addStringOption(option => option
                     .setName("name")
@@ -267,7 +267,7 @@ export default {
                         "es-ES": "nombre",
                         "de": "name",
                         "fr": "nom",
-                        "ar": "اسم"
+                        // "ar": "اسم"
                     })
                     .setDescription("Name of the pokemon")
                     .setDescriptionLocalizations({
@@ -275,7 +275,7 @@ export default {
                         "es-ES": "Nombre del pokémon",
                         "de": "Name des Pokémon",
                         "fr": "Nom du pokémon",
-                        "ar": "اسم البوكيمون"
+                        // "ar": "اسم البوكيمون"
                     }))
                 .addStringOption(option => option
                     .setName("nature")
@@ -284,7 +284,7 @@ export default {
                         "es-ES": "naturaleza",
                         "de": "wesen",
                         "fr": "nature",
-                        "ar": "طبيعة"
+                        // "ar": "طبيعة"
                     })
                     .addChoices({ name: 'Hardy', value: 'hardy' },
                         { name: 'Lonely', value: 'lonely' },
@@ -317,7 +317,7 @@ export default {
                         "es-ES": "Naturaleza de la consulta igual a Pokémon",
                         "de": "Wesen der Pokémon-gleichen Abfrage",
                         "fr": "Nature de la requête égale à Pokémon",
-                        "ar": "طبيعة استعلام يساوي بوكيمون"
+                        // "ar": "طبيعة استعلام يساوي بوكيمون"
                     }))
                 .addNumberOption(option => option
                     .setName("iv-greater")
@@ -326,7 +326,7 @@ export default {
                         "es-ES": "iv-mayor",
                         "de": "iv-groesser",
                         "fr": "iv-superieur",
-                        "ar": "iv-أكبر"
+                        // "ar": "iv-أكبر"
                     })
                     .setDescription("Total IV MORE than or-equal to Query")
                     .setDescriptionLocalizations({
@@ -334,7 +334,7 @@ export default {
                         "es-ES": "IV Total MÁS que o igual a la Consulta",
                         "de": "Gesamt-IV MEHR als oder gleich der Abfrage",
                         "fr": "IV Total PLUS que ou égal à la Requête",
-                        "ar": "إجمالي IV أكبر من أو يساوي الاستعلام"
+                        // "ar": "إجمالي IV أكبر من أو يساوي الاستعلام"
                     }))
                 .addNumberOption(option => option
                     .setName("iv-lesser")
@@ -343,7 +343,7 @@ export default {
                         "es-ES": "iv-menor",
                         "de": "iv-kleiner",
                         "fr": "iv-inferieur",
-                        "ar": "iv-أصغر"
+                        // "ar": "iv-أصغر"
                     })
                     .setDescription("Total IV LESS than or-equal to Query")
                     .setDescriptionLocalizations({
@@ -351,7 +351,7 @@ export default {
                         "es-ES": "IV Total MENOS que o igual a la Consulta",
                         "de": "Gesamt-IV WENIGER als oder gleich der Abfrage",
                         "fr": "IV Total MOINS que ou égal à la Requête",
-                        "ar": "إجمالي IV أصغر من أو يساوي الاستعلام"
+                        // "ar": "إجمالي IV أصغر من أو يساوي الاستعلام"
                     }))
                 .addIntegerOption(option => option
                     .setName("atk-greater")
@@ -402,7 +402,7 @@ export default {
                         "es-ES": "variocolor",
                         "de": "schillernd",
                         "fr": "brillant",
-                        "ar": "لامع"
+                        // "ar": "لامع"
                     })
                     .setDescription("Check if Pokemon is a shiny")
                     .setDescriptionLocalizations({
@@ -410,7 +410,7 @@ export default {
                         "es-ES": "Comprueba si el Pokémon es variocolor",
                         "de": "Überprüfe, ob das Pokémon ein Schillerndes ist",
                         "fr": "Vérifiez si le Pokémon est brillant",
-                        "ar": "تحقق مما إذا كان البوكيمون لامعًا"
+                        // "ar": "تحقق مما إذا كان البوكيمون لامعًا"
                     }))
                 .addIntegerOption(option => option
                     .setName("sorting_order")
@@ -419,7 +419,7 @@ export default {
                         "es-ES": "orden_clasificacion",
                         "de": "sortierreihenfolge",
                         "fr": "ordre_tri",
-                        "ar": "ترتيب_الفرز"
+                        // "ar": "ترتيب_الفرز"
                     })
                     .setDescription("Select the Ordering of your List")
                     .setDescriptionLocalizations({
@@ -427,7 +427,7 @@ export default {
                         "es-ES": "Selecciona el Orden de tu Lista",
                         "de": "Wähle die Reihenfolge deiner Liste",
                         "fr": "Sélectionnez l'Ordre de votre Liste",
-                        "ar": "حدد ترتيب قائمتك"
+                        // "ar": "حدد ترتيب قائمتك"
                     })
                     .addChoices({
                         name: "Sort by ID Ascending",
@@ -450,7 +450,7 @@ export default {
                 "es-ES": "ayuda",
                 "de": "hilfe",
                 "fr": "aide",
-                "ar": "مساعدة"
+                // "ar": "مساعدة"
             })
             .setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
             .setDescriptionLocalizations({
@@ -458,7 +458,7 @@ export default {
                 "es-ES": "¡Echa un vistazo a cómo usar el Comando del Mercado y aparentemente abandonar aquello en lo que ganaste confianza!",
                 "de": "Schau dir an, wie du den Markt-Befehl benutzt und anscheinend das aufgibst, wessen Vertrauen du gewonnen hast!",
                 "fr": "Découvrez comment utiliser la commande Marché et abandonnez apparemment ce dont vous avez gagné la confiance!",
-                "ar": "تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!"
+                // "ar": "تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!"
             })
         ),
     async execute(msg) {

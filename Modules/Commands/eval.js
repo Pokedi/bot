@@ -11,7 +11,7 @@ export default {
             'es-ES': 'evaluar',
             'de': 'auswerten',
             'fr': 'évaluer',
-            'ar': 'تقييم'
+            // 'ar': 'تقييم'
         })
         .setDescription('Admin command')
         .setDescriptionLocalizations({
@@ -19,7 +19,7 @@ export default {
             'es-ES': 'Comando de administrador',
             'de': 'Admin-Befehl',
             'fr': 'Commande administrateur',
-            'ar': 'أمر المسؤول'
+            // 'ar': 'أمر المسؤول'
         })
         .addStringOption(option => option.setName('command').setDescription('code to execute')
             .setNameLocalizations({
@@ -27,14 +27,14 @@ export default {
                 'es-ES': 'comando',
                 'de': 'befehl',
                 'fr': 'commande',
-                'ar': 'أمر'
+                // 'ar': 'أمر'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'código para executar',
                 'es-ES': 'código para ejecutar',
                 'de': 'auszuführender Code',
                 'fr': 'code à exécuter',
-                'ar': 'كود للتنفيذ'
+                // 'ar': 'كود للتنفيذ'
             }))
         .addStringOption(option => option.setName("command-check").setDescription("Check a command")
             .setNameLocalizations({
@@ -42,14 +42,14 @@ export default {
                 'es-ES': 'verificar-comando',
                 'de': 'befehl-prüfen',
                 'fr': 'vérifier-commande',
-                'ar': 'تحقق-من-الأمر'
+                // 'ar': 'تحقق-من-الأمر'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Verificar um comando',
                 'es-ES': 'Verificar un comando',
                 'de': 'Einen Befehl prüfen',
                 'fr': 'Vérifier une commande',
-                'ar': 'تحقق من أمر'
+                // 'ar': 'تحقق من أمر'
             }))
         .addIntegerOption(option => option.setName("order").setDescription("Select how you wish to calculate the usages")
             .setNameLocalizations({
@@ -57,14 +57,14 @@ export default {
                 'es-ES': 'orden',
                 'de': 'reihenfolge',
                 'fr': 'ordre',
-                'ar': 'ترتيب'
+                // 'ar': 'ترتيب'
             })
             .setDescriptionLocalizations({
                 'pt-BR': 'Selecione como você deseja calcular os usos',
                 'es-ES': 'Selecciona cómo deseas calcular los usos',
                 'de': 'Wählen Sie aus, wie Sie die Verwendungen berechnen möchten',
                 'fr': 'Sélectionnez comment vous souhaitez calculer les utilisations',
-                'ar': 'حدد كيف ترغب في حساب الاستخدامات'
+                // 'ar': 'حدد كيف ترغب في حساب الاستخدامات'
             })),
     mention_support: true,
     async execute(msg) {
