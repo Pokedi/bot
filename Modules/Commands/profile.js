@@ -163,7 +163,7 @@ export default {
             .setDescription("Learn how to use the Profile Command and make the most of customizing your profile!")
             .setDescriptionLocalizations({
                 'pt-BR': 'Aprenda a usar o Comando de Perfil e aproveite ao máximo para personalizar seu perfil!',
-                'es-ES': '¡Aprende a usar el Comando de Perfil y sácale el máximo provecho a la personalización de tu perfil!',
+                'es-ES': 'Aprende a usar el Comando de Perfil y sácale el máximo provecho a la personalización de tu perfil',
                 'de': 'Erfahre, wie du den Profil-Befehl nutzt und das Beste aus der Anpassung deines Profils herausholst!',
                 'fr': 'Apprenez à utiliser la commande Profil et profitez pleinement de la personnalisation de votre profil !',
                 // 'ar': 'تعلم كيفية استخدام أمر الملف الشخصي والاستفادة القصوى من تخصيص ملفك!'
