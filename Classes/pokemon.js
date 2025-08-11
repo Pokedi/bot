@@ -1,16 +1,11 @@
 import { Chance } from "chance";
-import { ENUM_POKEMON_TYPES, POKEMON_NATURES } from "../Utilities/Data/enums.js";
-import IVCalculator from "../Utilities/Pokemon/IVCalculator.js";
-import randomint from "../Utilities/Misc/randomint.js";
+import { ENUM_POKEMON_TYPES } from "../Utilities/Data/enums.js";
 import spawnImage from "../Utilities/Pokemon/spawnImage.js";
 import time_gradient from "../Utilities/Misc/time_gradient.js";
-import calculateNextLevelEXP from "../Utilities/Misc/calculateNextLevelEXP.js";
-import getTime from "../Utilities/Misc/getTime.js";
 import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 import { readySinglePokemonFrontBack } from "../Utilities/Pokemon/pokemonBattleImage.js";
 import moves from "../Utilities/Data/moves.json" with {type: "json"}; // Local moves data
 import capitalize from "../Utilities/Misc/capitalize.js";
-import pokemondb from "../Modules/Database/pokedb.js";
 import Move from "./move.js";
 import { logCustomReport } from "../Utilities/User/logReport.js";
 

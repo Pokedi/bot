@@ -1,5 +1,5 @@
 import pokeapisql from "../Modules/Database/pokedb.js";
-import { ENUM_POKEMON_BASE_STATS, POKEMON_NATURES, reverseENUM, ENUM_POKEMON_TYPES_ID, ENUM_POKEMON_FULL_TYPES_ID } from "../Utilities/Data/enums.js";
+import { POKEMON_NATURES, ENUM_POKEMON_TYPES_ID} from "../Utilities/Data/enums.js";
 import Pokemon from "./pokemon.js";
 import randomint from "../Utilities/Misc/randomint.js";
 import { Chance } from "chance";
