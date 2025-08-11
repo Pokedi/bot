@@ -16,13 +16,12 @@ export default {
             "fr": "marché",
             // "ar": "سوق"
         })
-        .setDescription("The Market where Pokemon are put up for sale for (un)reasonable prices.")
+        .setDescription("Market where Pokémon are sold at (un)fair prices.")
         .setDescriptionLocalizations({
-            "pt-BR": "O Mercado onde Pokémon são colocados à venda por preços (in)justos.",
-            "es-ES": "El Mercado donde los Pokémon se ponen a la venta por precios (in)justos.",
-            "de": "Der Markt, auf dem Pokémon zu (un)angemessenen Preisen zum Verkauf angeboten werden.",
-            "fr": "Le marché où les Pokémon sont mis en vente à des prix (déraisonnables).",
-            // "ar": "السوق حيث يتم عرض البوكيمون للبيع بأسعار (غير) معقولة."
+            "pt-BR": "Mercado onde Pokémon são vendidos a preços (in)justos.",
+            "es-ES": "Mercado donde se venden Pokémon a precios (in)justos.",
+            "de": "Markt, wo Pokémon zu (un)fairen Preisen verkauft werden.",
+            "fr": "Marché où des Pokémon sont vendus à prix (déraisonnables)."
         })
         .addSubcommand(subcommand =>
             subcommand
@@ -34,13 +33,12 @@ export default {
                     "fr": "info",
                     // "ar": "معلومات"
                 })
-                .setDescription("Are you seriously just gonna buy a Pokemon as if it's a tool? (Slavery???)")
+                .setDescription("Really buying a Pokémon like it's a tool? (Slavery???)")
                 .setDescriptionLocalizations({
-                    "pt-BR": "Você vai mesmo comprar um Pokémon como se fosse uma ferramenta? (Escravidão???)",
-                    "es-ES": "¿En serio vas a comprar un Pokémon como si fuera una herramienta? (¿¿¿Esclavitud???)",
-                    "de": "Willst du ernsthaft ein Pokémon kaufen, als wäre es ein Werkzeug? (Sklaverei???)",
-                    "fr": "Allez-vous sérieusement acheter un Pokémon comme si c'était un outil? (Esclavage???)",
-                    // "ar": "هل ستشتري بوكيمونًا وكأنه أداة؟ (عبودية؟؟؟)"
+                    "pt-BR": "Vai comprar um Pokémon como se fosse ferramenta? (Escravidão???)",
+                    "es-ES": "¿Comprarás un Pokémon como si fuera herramienta? (¿Esclavitud???)",
+                    "de": "Kaufst du ein Pokémon wie ein Werkzeug? (Sklaverei???)",
+                    "fr": "Acheter un Pokémon comme un outil ? (Esclavage???)"
                 })
                 .addIntegerOption(option => option
                     .setName("id")
@@ -51,13 +49,12 @@ export default {
                         "fr": "id",
                         // "ar": "المعرف"
                     })
-                    .setDescription("The description of the pokemon you're looking for")
+                    .setDescription("Description of the Pokémon you're after")
                     .setDescriptionLocalizations({
-                        "pt-BR": "A descrição do pokémon que você está procurando",
-                        "es-ES": "La descripción del pokémon que estás buscando",
-                        "de": "Die Beschreibung des Pokémon, das du suchst",
-                        "fr": "La description du pokémon que vous recherchez",
-                        // "ar": "وصف البوكيمون الذي تبحث عنه"
+                        "pt-BR": "Descrição do Pokémon que procura",
+                        "es-ES": "Descripción del Pokémon que buscas",
+                        "de": "Beschreibung des Pokémon, das du suchst",
+                        "fr": "Description du Pokémon recherché"
                     })
                     .setRequired(true)
                 ))
@@ -71,13 +68,12 @@ export default {
                     "fr": "acheter",
                     // "ar": "شراء"
                 })
-                .setDescription("Are you seriously just gonna buy a Pokemon as if it's a tool? (Slavery???)")
+                .setDescription("Really buying a Pokémon like it's a tool? (Slavery???)")
                 .setDescriptionLocalizations({
-                    "pt-BR": "Você vai mesmo comprar um Pokémon como se fosse uma ferramenta? (Escravidão???)",
-                    "es-ES": "¿En serio vas a comprar un Pokémon como si fuera una herramienta? (¿¿¿Esclavitud???)",
-                    "de": "Willst du ernsthaft ein Pokémon kaufen, als wäre es ein Werkzeug? (Sklaverei???)",
-                    "fr": "Allez-vous sérieusement acheter un Pokémon comme si c'était un outil? (Esclavage???)",
-                    // "ar": "هل ستشتري بوكيمونًا وكأنه أداة؟ (عبودية؟؟؟)"
+                    "pt-BR": "Vai comprar um Pokémon como se fosse ferramenta? (Escravidão???)",
+                    "es-ES": "¿Comprarás un Pokémon como si fuera herramienta? (¿Esclavitud???)",
+                    "de": "Kaufst du ein Pokémon wie ein Werkzeug? (Sklaverei???)",
+                    "fr": "Acheter un Pokémon comme un outil ? (Esclavage???)"
                 })
                 .addIntegerOption(option => option
                     .setName("id")
@@ -88,13 +84,12 @@ export default {
                         "fr": "id",
                         // "ar": "المعرف"
                     })
-                    .setDescription("The description of the pokemon you're looking for")
+                    .setDescription("Description of the Pokémon you're after")
                     .setDescriptionLocalizations({
-                        "pt-BR": "A descrição do pokémon que você está procurando",
-                        "es-ES": "La descripción del pokémon que estás buscando",
-                        "de": "Die Beschreibung des Pokémon, das du suchst",
-                        "fr": "La description du pokémon que vous recherchez",
-                        // "ar": "وصف البوكيمون الذي تبحث عنه"
+                        "pt-BR": "Descrição do Pokémon que procura",
+                        "es-ES": "Descripción del Pokémon que buscas",
+                        "de": "Beschreibung des Pokémon, das du suchst",
+                        "fr": "Description du Pokémon recherché"
                     })
                     .setRequired(true)
                 ))
@@ -108,13 +103,12 @@ export default {
                     "fr": "vendre",
                     // "ar": "بيع"
                 })
-                .setDescription("Put your innocent Pokemon up for sell (you be sick)")
+                .setDescription("Put your innocent Pokémon up for sale (sick)")
                 .setDescriptionLocalizations({
-                    "pt-BR": "Coloque seu Pokémon inocente à venda (você é doente)",
-                    "es-ES": "Pon a tu Pokémon inocente en venta (estás enfermo)",
-                    "de": "Biete dein unschuldiges Pokémon zum Verkauf an (du bist krank)",
-                    "fr": "Mettez votre Pokémon innocent en vente (vous êtes malade)",
-                    // "ar": "اعرض بوكيمونك البريء للبيع (أنت مريض)"
+                    "pt-BR": "Coloque seu Pokémon inocente à venda (doente)",
+                    "es-ES": "Pon tu Pokémon inocente en venta (enfermo)",
+                    "de": "Biete dein unschuldiges Pokémon an (krank)",
+                    "fr": "Mettez en vente votre Pokémon innocent (malade)"
                 })
                 .addIntegerOption(option =>
                     option
@@ -126,13 +120,12 @@ export default {
                             "fr": "id",
                             // "ar": "المعرف"
                         })
-                        .setDescription("The ID of the innocent creature")
+                        .setDescription("ID of the innocent creature")
                         .setDescriptionLocalizations({
-                            "pt-BR": "O ID da criatura inocente",
-                            "es-ES": "El ID de la criatura inocente",
-                            "de": "Die ID der unschuldigen Kreatur",
-                            "fr": "L'ID de la créature innocente",
-                            // "ar": "معرف المخلوق البريء"
+                            "pt-BR": "ID da criatura inocente",
+                            "es-ES": "ID de la criatura inocente",
+                            "de": "ID der unschuldigen Kreatur",
+                            "fr": "ID de la créature innocente"
                         })
                         .setRequired(true))
                 .addIntegerOption(option =>
@@ -148,14 +141,14 @@ export default {
                         .setMinValue(200)
                         .setMaxValue(1e10)
                         .setRequired(true)
-                        .setDescription("The price you'd put for the young being.")
+                        .setDescription("Price for the young being.")
                         .setDescriptionLocalizations({
-                            "pt-BR": "O preço que você colocaria para o jovem ser.",
-                            "es-ES": "El precio que le pondrías al joven ser.",
-                            "de": "Der Preis, den du für das junge Wesen festlegen würdest.",
-                            "fr": "Le prix que vous fixeriez pour le jeune être.",
-                            // "ar": "السعر الذي ستضعه للكائن الشاب."
-                        }))
+                            "pt-BR": "Preço para o jovem ser.",
+                            "es-ES": "Precio para el joven ser.",
+                            "de": "Preis für das junge Wesen.",
+                            "fr": "Prix pour le jeune être."
+                        })
+                )
         )
         .addSubcommand(subcommand =>
             subcommand
@@ -167,13 +160,12 @@ export default {
                     "fr": "rechercher",
                     // "ar": "بحث"
                 })
-                .setDescription("Search for the pokemon of your dreams(???) (Why are we selling pokemon to begin with)")
+                .setDescription("Search for your dream Pokémon (why are we selling them?)")
                 .setDescriptionLocalizations({
-                    "pt-BR": "Procure o pokémon dos seus sonhos(???) (Por que estamos vendendo pokémon para começo de conversa)",
-                    "es-ES": "Busca el pokémon de tus sueños(???) (¿Por qué estamos vendiendo pokémon para empezar?)",
-                    "de": "Suche nach dem Pokémon deiner Träume(???) (Warum verkaufen wir überhaupt Pokémon?)",
-                    "fr": "Cherchez le pokémon de vos rêves(???) (Pourquoi vendons-nous des pokémon pour commencer?)",
-                    // "ar": "ابحث عن بوكيمون أحلامك (؟؟؟) (لماذا نبيع البوكيمون في المقام الأول)"
+                    "pt-BR": "Procure o Pokémon dos seus sonhos (por que vendê-los?)",
+                    "es-ES": "Busca el Pokémon de tus sueños (¿por qué venderlos?)",
+                    "de": "Suche dein Traum-Pokémon (warum verkaufen wir sie?)",
+                    "fr": "Cherchez le Pokémon de vos rêves (pourquoi les vendre ?)"
                 })
                 .addIntegerOption(option => option
                     .setName("page")
@@ -452,13 +444,12 @@ export default {
                 "fr": "aide",
                 // "ar": "مساعدة"
             })
-            .setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
+            .setDescription("Learn how to use Market and abandon those who trusted you!")
             .setDescriptionLocalizations({
-                "pt-BR": "Confira como usar o Comando do Mercado e aparentemente abandonar aquilo em que você conquistou a confiança!",
-                "es-ES": "¡Echa un vistazo a cómo usar el Comando del Mercado y aparentemente abandonar aquello en lo que ganaste confianza!",
-                "de": "Schau dir an, wie du den Markt-Befehl benutzt und anscheinend das aufgibst, wessen Vertrauen du gewonnen hast!",
-                "fr": "Découvrez comment utiliser la commande Marché et abandonnez apparemment ce dont vous avez gagné la confiance!",
-                // "ar": "تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!"
+                "pt-BR": "Aprenda a usar o Mercado e abandonar quem confiou em você!",
+                "es-ES": "Aprende a usar el Mercado y abandonar a quien confió en ti!",
+                "de": "Lerne den Markt zu nutzen und die zu verlassen, die dir vertrauten!",
+                "fr": "Apprenez à utiliser le Marché et à quitter ceux qui vous faisaient confiance!"
             })
         ),
     async execute(msg) {
