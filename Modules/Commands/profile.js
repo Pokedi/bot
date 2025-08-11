@@ -160,13 +160,13 @@ export default {
                 'fr': 'aide',
                 // 'ar': 'مساعدة'
             })
-            .setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
+            .setDescription("Learn how to use the Profile Command and make the most of customizing your profile!")
             .setDescriptionLocalizations({
-                'pt-BR': 'Confira como usar o Comando do Mercado e aparentemente abandonar aquilo em que você conquistou a confiança!',
-                'es-ES': '¡Echa un vistazo a cómo usar el Comando del Mercado y aparentemente abandonar aquello en lo que ganaste confianza!',
-                'de': 'Schau dir an, wie du den Markt-Befehl benutzt und anscheinend das aufgibst, wessen Vertrauen du gewonnen hast!',
-                'fr': 'Découvrez comment utiliser la commande Marché et abandonnez apparemment ce dont vous avez gagné la confiance!',
-                // 'ar': 'تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!'
+                'pt-BR': 'Aprenda a usar o Comando de Perfil e aproveite ao máximo para personalizar seu perfil!',
+                'es-ES': '¡Aprende a usar el Comando de Perfil y sácale el máximo provecho a la personalización de tu perfil!',
+                'de': 'Erfahre, wie du den Profil-Befehl nutzt und das Beste aus der Anpassung deines Profils herausholst!',
+                'fr': 'Apprenez à utiliser la commande Profil et profitez pleinement de la personnalisation de votre profil !',
+                // 'ar': 'تعلم كيفية استخدام أمر الملف الشخصي والاستفادة القصوى من تخصيص ملفك!'
             })
         ),
     async execute(msg) {

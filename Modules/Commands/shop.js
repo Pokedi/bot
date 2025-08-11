@@ -474,23 +474,6 @@ export default {
                     "fr": "Aperçu de l'arrière-plan!",
                     // "ar": "معاينة الخلفية!"
                 }))
-        )
-        .addSubcommand(y => y
-            .setName("help").setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
-            .setNameLocalizations({
-                "pt-BR": "ajuda",
-                "es-ES": "ayuda",
-                "de": "hilfe",
-                "fr": "aide",
-                // "ar": "مساعدة"
-            })
-            .setDescriptionLocalizations({
-                "pt-BR": "Confira como usar o Comando do Mercado e aparentemente abandonar aquilo em que você conquistou a confiança!",
-                "es-ES": "¡Echa un vistazo a cómo usar el Comando del Mercado y aparentemente abandonar aquello en lo que ganaste confianza!",
-                "de": "Schau dir an, wie du den Markt-Befehl benutzt und anscheinend das aufgibst, wessen Vertrauen du gewonnen hast!",
-                "fr": "Découvrez comment utiliser la commande Marché et abandonnez apparemment ce dont vous avez gagné la confiance!",
-                // "ar": "تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!"
-            })
         ),
     // .addSubcommand(y => y
     //     .setName("misc")

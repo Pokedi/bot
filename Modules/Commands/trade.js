@@ -266,27 +266,6 @@ export default {
                 "de": "Brich den Tausch zwischen dir und dem geheimnisvollen Händler ab",
                 // "ar": "ألغِ التبادل بينك وبين التاجر الغامض"
             })
-    )
-
-    // HELP subcommand
-    .addSubcommand(subcommand =>
-        subcommand
-            .setName("help")
-            .setNameLocalizations({
-                "es-ES": "ayuda",
-                "pt-BR": "ajuda",
-                "fr": "aide",
-                "de": "hilfe",
-                // "ar": "مساعدة"
-            })
-            .setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
-            .setDescriptionLocalizations({
-                "es-ES": "Descubre cómo usar el comando de mercado y, aparentemente, abandonar aquello en lo que ganaste confianza.",
-                "pt-BR": "Veja como usar o comando de mercado e aparentemente abandonar aquilo em que ganhou confiança.",
-                "fr": "Découvrez comment utiliser la commande du marché et apparemment abandonner ce en quoi vous aviez confiance.",
-                "de": "Erfahre, wie du den Marktbefehl benutzt und anscheinend das aufgibst, dem du vertraut hast.",
-                // "ar": "اكتشف كيفية استخدام أمر السوق وبشكل غريب التخلي عما كسبت ثقته."
-            })
     ),
     async execute(msg) {
 

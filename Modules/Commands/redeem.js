@@ -83,13 +83,13 @@ export default {
                     "fr": "échanger",
                     // "ar": "استرداد"
                 })
-                .setDescription("Gift someone a Redeem (Please remember that this command is limited to one redeem per usage)")
+                .setDescription("Gift someone a Redeem (limited to one redeem per use)")
                 .setDescriptionLocalizations({
-                    "pt-BR": "Presenteie alguém com um Resgate (Lembre-se que este comando é limitado a um resgate por uso)",
-                    "es-ES": "Regala a alguien un Canje (Recuerda que este comando está limitado a un canje por uso)",
-                    "de": "Schenke jemandem eine Einlösung (Bitte denke daran, dass dieser Befehl auf eine Einlösung pro Nutzung beschränkt ist)",
-                    "fr": "Offrez à quelqu'un un Échange (N'oubliez pas que cette commande est limitée à un échange par utilisation)",
-                    // "ar": "أهدِ شخصًا ما استردادًا (يرجى تذكر أن هذا الأمر يقتصر على استرداد واحد لكل استخدام)"
+                    "pt-BR": "Presenteie alguém com um Resgate (limite de um por uso)",
+                    "es-ES": "Regala un Canje (límite de uno por uso)",
+                    "de": "Schenke eine Einlösung (auf eine pro Nutzung begrenzt)",
+                    "fr": "Offrez un Échange (limité à un par utilisation)",
+                    // "ar": "أهدِ استردادًا واحدًا لكل استخدام"
                 })
             )
         )
@@ -266,13 +266,13 @@ export default {
                 "fr": "aide",
                 // "ar": "مساعدة"
             })
-            .setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
+            .setDescription("Learn how to use the Redeem command!")
             .setDescriptionLocalizations({
-                "pt-BR": "Confira como usar o Comando do Mercado e aparentemente abandonar aquilo em que você conquistou a confiança!",
-                "es-ES": "¡Echa un vistazo a cómo usar el Comando del Mercado y aparentemente abandonar aquello en lo que ganaste confianza!",
-                "de": "Schau dir an, wie du den Markt-Befehl benutzt und anscheinend das aufgibst, wessen Vertrauen du gewonnen hast!",
-                "fr": "Découvrez comment utiliser la commande Marché et abandonnez apparemment ce dont vous avez gagné la confiance!",
-                // "ar": "تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!"
+                "pt-BR": "Aprenda a usar o comando Resgate!",
+                "es-ES": "¡Aprende a usar el comando Canje!",
+                "de": "Lerne den Befehl Einlösen zu nutzen!",
+                "fr": "Apprenez à utiliser la commande Échange!",
+                // "ar": "تعلم كيفية استخدام أمر الاسترداد!"
             })
         ),
     async execute(msg) {
@@ -439,7 +439,7 @@ export default {
                             return await msg.reply("You haven't acquired a Snowflake yet!");
 
                         // Access JSON
-                        const { default: event } = await import("../../Utilities/Data/events.json", { type: "json" } );
+                        const { default: event } = await import("../../Utilities/Data/events.json", { type: "json" });
 
                         // Event Name
                         const eventName = 'snow-event-2023'

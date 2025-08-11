@@ -18,13 +18,12 @@ export default {
             'fr': 'attaques',
             // 'ar': 'حركات'
         })
-        .setDescription('View possible and set Pokemon moves')
+        .setDescription('View and set Pokémon moves')
         .setDescriptionLocalizations({
-            'pt-BR': 'Veja os movimentos possíveis e defina os movimentos do Pokémon',
-            'es-ES': 'Ver movimientos posibles y establecer movimientos de Pokémon',
-            'de': 'Mögliche Attacken anzeigen und Pokémon-Attacken festlegen',
-            'fr': 'Voir les attaques possibles et définir les attaques de Pokémon',
-            // 'ar': 'عرض الحركات الممكنة وتعيين حركات البوكيمون'
+            'pt-BR': 'Veja e defina movimentos de Pokémon',
+            'es-ES': 'Ver y establecer movimientos de Pokémon',
+            'de': 'Pokémon-Attacken anzeigen und festlegen',
+            'fr': 'Voir et définir les attaques de Pokémon'
         })
         .addSubcommand(y => y
             .setName("info")
@@ -35,13 +34,12 @@ export default {
                 'fr': 'info',
                 // 'ar': 'معلومات'
             })
-            .setDescription("Check up information on moves!")
+            .setDescription("Check move information!")
             .setDescriptionLocalizations({
-                'pt-BR': 'Verifique informações sobre movimentos!',
-                'es-ES': '¡Comprueba la información sobre los movimientos!',
-                'de': 'Überprüfe Informationen zu Attacken!',
-                'fr': 'Vérifiez les informations sur les attaques!',
-                // 'ar': 'تحقق من المعلومات حول الحركات!'
+                'pt-BR': 'Verifique informações de movimentos!',
+                'es-ES': '¡Consulta información de movimientos!',
+                'de': 'Infos zu Attacken prüfen!',
+                'fr': 'Vérifiez les infos sur les attaques!'
             })
             .addIntegerOption(x => x
                 .setName("move-info")
@@ -71,13 +69,12 @@ export default {
                     'fr': 'emplacement-pokemon',
                     // 'ar': 'فتحة-البوكيمون'
                 })
-                .setDescription("Select the Pokemon you want to check [Default: 1]")
+                .setDescription("Select Pokémon to check [Default: 1]")
                 .setDescriptionLocalizations({
-                    'pt-BR': 'Selecione o Pokémon que você quer verificar [Padrão: 1]',
-                    'es-ES': 'Selecciona el Pokémon que quieres comprobar [Predeterminado: 1]',
-                    'de': 'Wähle das Pokémon aus, das du überprüfen möchtest [Standard: 1]',
-                    'fr': 'Sélectionnez le Pokémon que vous voulez vérifier [Défaut: 1]',
-                    // 'ar': 'حدد البوكيمون الذي تريد التحقق منه [الافتراضي: 1]'
+                    'pt-BR': 'Selecione o Pokémon para verificar [Padrão: 1]',
+                    'es-ES': 'Selecciona Pokémon para comprobar [Predeterminado: 1]',
+                    'de': 'Pokémon zum Prüfen wählen [Standard: 1]',
+                    'fr': 'Sélectionnez Pokémon à vérifier [Défaut: 1]'
                 })
                 .setMaxValue(6)
                 .setMinValue(1)
@@ -91,13 +88,12 @@ export default {
                     'fr': 'attaques-niveau',
                     // 'ar': 'حركات-المستوى'
                 })
-                .setDescription("Show Moves you can gain through leveling up your Pokemon")
+                .setDescription("Show moves gained by leveling up")
                 .setDescriptionLocalizations({
-                    'pt-BR': 'Mostre os Movimentos que você pode ganhar ao subir o nível do seu Pokémon',
-                    'es-ES': 'Muestra los Movimientos que puedes obtener al subir de nivel a tu Pokémon',
-                    'de': 'Zeige Attacken, die du durch das Aufleveln deines Pokémon erhalten kannst',
-                    'fr': 'Montrez les attaques que vous pouvez obtenir en faisant monter de niveau votre Pokémon',
-                    // 'ar': 'أظهر الحركات التي يمكنك الحصول عليها من خلال رفع مستوى بوكيمونك'
+                    'pt-BR': 'Mostra movimentos ganhos ao subir de nível',
+                    'es-ES': 'Muestra movimientos al subir de nivel',
+                    'de': 'Attacken durchs Leveln anzeigen',
+                    'fr': 'Montre attaques gagnées en montant de niveau'
                 })
             )
             .addBooleanOption(x => x
@@ -109,13 +105,12 @@ export default {
                     'fr': 'attaques-ct',
                     // 'ar': 'حركات-tm'
                 })
-                .setDescription("Show Moves you can gain through buying Technical-Machines for your Pokemon")
+                .setDescription("Show moves learned via TMs")
                 .setDescriptionLocalizations({
-                    'pt-BR': 'Mostre os Movimentos que você pode ganhar comprando Máquinas Técnicas para o seu Pokémon',
-                    'es-ES': 'Muestra los Movimientos que puedes obtener comprando Máquinas Técnicas para tu Pokémon',
-                    'de': 'Zeige Attacken, die du durch den Kauf von Technischen Maschinen für dein Pokémon erhalten kannst',
-                    'fr': 'Montrez les attaques que vous pouvez obtenir en achetant des Machines Techniques pour votre Pokémon',
-                    // 'ar': 'أظهر الحركات التي يمكنك الحصول عليها من خلال شراء آلات تقنية لبوكيمونك'
+                    'pt-BR': 'Mostra movimentos aprendidos por MTs',
+                    'es-ES': 'Muestra movimientos aprendidos por MTs',
+                    'de': 'Attacken durch TMs anzeigen',
+                    'fr': 'Montre attaques apprises via CT'
                 })
             )
         )
@@ -128,13 +123,12 @@ export default {
                 'fr': 'boutique',
                 // 'ar': 'متجر'
             })
-            .setDescription("Set or Buy moves to train your Pokemon!")
+            .setDescription("Set or buy moves for your Pokémon")
             .setDescriptionLocalizations({
-                'pt-BR': 'Defina ou compre movimentos para treinar seu Pokémon!',
-                'es-ES': '¡Establece o compra movimientos para entrenar a tu Pokémon!',
-                'de': 'Lege oder kaufe Attacken, um dein Pokémon zu trainieren!',
-                'fr': 'Définissez ou achetez des attaques pour entraîner votre Pokémon!',
-                // 'ar': 'قم بتعيين أو شراء حركات لتدريب بوكيمونك!'
+                'pt-BR': 'Defina ou compre movimentos para seu Pokémon',
+                'es-ES': 'Establece o compra movimientos para tu Pokémon',
+                'de': 'Attacken festlegen oder kaufen',
+                'fr': 'Définir ou acheter attaques pour Pokémon'
             })
             .addIntegerOption(x => x
                 .setName("move-id")
@@ -145,13 +139,12 @@ export default {
                     'fr': 'id-attaque',
                     // 'ar': 'معرف-الحركة'
                 })
-                .setDescription("ID of the Move you wish to set or view")
+                .setDescription("ID of the move to set or view")
                 .setDescriptionLocalizations({
-                    'pt-BR': 'ID do Movimento que você deseja definir ou visualizar',
-                    'es-ES': 'ID del Movimiento que deseas establecer o ver',
-                    'de': 'ID der Attacke, die du festlegen oder anzeigen möchtest',
-                    'fr': 'ID de l\'attaque que vous souhaitez définir ou afficher',
-                    // 'ar': 'معرف الحركة الذي ترغب في تعيينه أو عرضه'
+                    'pt-BR': 'ID do movimento para definir ou ver',
+                    'es-ES': 'ID del movimiento para establecer o ver',
+                    'de': 'ID der Attacke zum Festlegen oder Anzeigen',
+                    'fr': 'ID de l\'attaque à définir ou voir'
                 })
                 .setAutocomplete(true)
             )
@@ -164,13 +157,12 @@ export default {
                     'fr': 'id-ct',
                     // 'ar': 'معرف-tm'
                 })
-                .setDescription("ID of the TM Move you wish to set or view")
+                .setDescription("ID of the TM move to set or view")
                 .setDescriptionLocalizations({
-                    'pt-BR': 'ID do Movimento de TM que você deseja definir ou visualizar',
-                    'es-ES': 'ID del Movimiento de MT que deseas establecer o ver',
-                    'de': 'ID der TM-Attacke, die du festlegen oder anzeigen möchtest',
-                    'fr': 'ID de l\'attaque CT que vous souhaitez définir ou afficher',
-                    // 'ar': 'معرف حركة TM الذي ترغب في تعيينه أو عرضه'
+                    'pt-BR': 'ID do movimento MT para definir ou ver',
+                    'es-ES': 'ID del movimiento MT para establecer o ver',
+                    'de': 'ID der TM-Attacke zum Festlegen oder Anzeigen',
+                    'fr': 'ID de l\'attaque CT à définir ou voir'
                 })
                 .setAutocomplete(true)
             )
@@ -183,13 +175,12 @@ export default {
                     'fr': 'emplacement-attaque',
                     // 'ar': 'فتحة-الحركة'
                 })
-                .setDescription("The slot in which you wish to replace the move")
+                .setDescription("Slot to replace the move in")
                 .setDescriptionLocalizations({
-                    'pt-BR': 'O espaço no qual você deseja substituir o movimento',
-                    'es-ES': 'La ranura en la que deseas reemplazar el movimiento',
-                    'de': 'Der Platz, auf dem du die Attacke ersetzen möchtest',
-                    'fr': 'L\'emplacement dans lequel vous souhaitez remplacer l\'attaque',
-                    // 'ar': 'الفتحة التي ترغب في استبدال الحركة فيها'
+                    'pt-BR': 'Espaço onde substituir o movimento',
+                    'es-ES': 'Ranura para reemplazar el movimiento',
+                    'de': 'Platz zum Ersetzen der Attacke',
+                    'fr': 'Emplacement où remplacer l\'attaque'
                 })
                 .setMaxValue(4)
                 .setMinValue(1)
@@ -203,13 +194,12 @@ export default {
                     'fr': 'emplacement-pokemon',
                     // 'ar': 'فتحة-البوكيمون'
                 })
-                .setDescription("Select the Pokemon you want to set a move for [Default: 1]")
+                .setDescription("Pokémon to set a move for [Default: 1]")
                 .setDescriptionLocalizations({
-                    'pt-BR': 'Selecione o Pokémon para o qual você quer definir um movimento [Padrão: 1]',
-                    'es-ES': 'Selecciona el Pokémon para el que quieres establecer un movimiento [Predeterminado: 1]',
-                    'de': 'Wähle das Pokémon aus, für das du eine Attacke festlegen möchtest [Standard: 1]',
-                    'fr': 'Sélectionnez le Pokémon pour lequel vous voulez définir une attaque [Défaut: 1]',
-                    // 'ar': 'حدد البوكيمون الذي تريد تعيين حركة له [الافتراضي: 1]'
+                    'pt-BR': 'Pokémon para definir movimento [Padrão: 1]',
+                    'es-ES': 'Pokémon para establecer movimiento [Predeterminado: 1]',
+                    'de': 'Pokémon für Attacke wählen [Standard: 1]',
+                    'fr': 'Pokémon pour définir une attaque [Défaut: 1]'
                 })
                 .setMaxValue(6)
                 .setMinValue(1)
@@ -224,13 +214,12 @@ export default {
                 'fr': 'aide',
                 // 'ar': 'مساعدة'
             })
-            .setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
+            .setDescription("Learn how to use the Moves command!")
             .setDescriptionLocalizations({
-                'pt-BR': 'Confira como usar o Comando do Mercado e aparentemente abandonar aquilo em que você conquistou a confiança!',
-                'es-ES': '¡Echa un vistazo a cómo usar el Comando del Mercado y aparentemente abandonar aquello en lo que ganaste confianza!',
-                'de': 'Schau dir an, wie du den Markt-Befehl benutzt und anscheinend das aufgibst, wessen Vertrauen du gewonnen hast!',
-                'fr': 'Découvrez comment utiliser la commande Marché et abandonnez apparemment ce dont vous avez gagné la confiance!',
-                // 'ar': 'تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!'
+                'pt-BR': 'Aprenda a usar o comando Movimentos!',
+                'es-ES': 'Aprende a usar el comando Movimientos!',
+                'de': 'Lerne den Moves-Befehl zu nutzen!',
+                'fr': 'Apprenez à utiliser la commande Attaques!'
             })
         ),
     async execute(msg) {
