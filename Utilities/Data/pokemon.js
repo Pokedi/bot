@@ -14,6 +14,6 @@ import pokemondb from "../../Modules/Database/pokedb.js";
 
 // const allPokemon = [...gen1, ...gen2, ...gen3, ...gen4, ...gen5, ...gen6, ...gen7, ...gen8, ...custom];
 
-const allPokemon = await pokemondb`SELECT * FROM pokemon_dex`;
+const allPokemon = await pokemondb`SELECT * FROM pokemon_v2_pokemon`;
 
 export default allPokemon;
