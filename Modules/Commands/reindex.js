@@ -4,7 +4,21 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName('reindex')
-        .setDescription('Index your Pokemon'),
+        .setNameLocalizations({
+            'pt-BR': 'reindexar',
+            'es-ES': 'reindexar',
+            'de': 'neuindizieren',
+            'fr': 'réindexer',
+            'ar': 'إعادة-الفهرسة'
+        })
+        .setDescription('Index your Pokemon')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Indexe seu Pokémon',
+            'es-ES': 'Indexa tu Pokémon',
+            'de': 'Indiziere dein Pokémon',
+            'fr': 'Indexez votre Pokémon',
+            'ar': 'فهرسة بوكيمونك'
+        }),
     async execute(msg) {
 
         // TODO:

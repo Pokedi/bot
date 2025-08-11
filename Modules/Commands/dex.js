@@ -9,14 +9,112 @@ import { existsSync } from "fs";
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
-        .addStringOption(option => option.setName('pokemon').setDescription('Name of the Pokemon you are searching'))
-        .addBooleanOption(option => option.setName("progress").setDescription("Check your progress with the Pokedex"))
-        .addBooleanOption(option => option.setName("claim").setDescription("Claim your prizes!"))
-        .addIntegerOption(option => option.setName("page").setDescription("Select the page of the Progressing Pokedex").setMinValue(1))
-        .addBooleanOption(option => option.setName("shiny").setDescription("Set to true if you're looking for the Shiny version"))
         .setName('dex')
-        .setDescription('View your Pokemon!'),
+        .setNameLocalizations({
+            'pt-BR': 'pokedex',
+            'es-ES': 'pokedex',
+            'de': 'pokedex',
+            'fr': 'pokédex',
+            'ar': 'بوكيديكس'
+        })
+        .setDescription('View your Pokemon!')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Veja seus Pokémon!',
+            'es-ES': '¡Mira tus Pokémon!',
+            'de': 'Sieh dir deine Pokémon an!',
+            'fr': 'Voir vos Pokémon!',
+            'ar': 'اعرض بوكيموناتك!'
+        })
+        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command")
+            .setNameLocalizations({
+                'pt-BR': 'ajuda',
+                'es-ES': 'ayuda',
+                'de': 'hilfe',
+                'fr': 'aide',
+                'ar': 'مساعدة'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Veja detalhes sobre como usar este comando',
+                'es-ES': 'Ver detalles sobre cómo usar este comando',
+                'de': 'Details zur Verwendung dieses Befehls anzeigen',
+                'fr': 'Voir les détails sur la façon d\'utiliser cette commande',
+                'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
+            }))
+        .addStringOption(option => option.setName('pokemon').setDescription('Name of the Pokemon you are searching')
+            .setNameLocalizations({
+                'pt-BR': 'pokemon',
+                'es-ES': 'pokemon',
+                'de': 'pokemon',
+                'fr': 'pokémon',
+                'ar': 'بوكيمون'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Nome do Pokémon que você está procurando',
+                'es-ES': 'Nombre del Pokémon que estás buscando',
+                'de': 'Name des gesuchten Pokémons',
+                'fr': 'Nom du Pokémon que vous recherchez',
+                'ar': 'اسم البوكيمون الذي تبحث عنه'
+            }))
+        .addBooleanOption(option => option.setName("progress").setDescription("Check your progress with the Pokedex")
+            .setNameLocalizations({
+                'pt-BR': 'progresso',
+                'es-ES': 'progreso',
+                'de': 'fortschritt',
+                'fr': 'progrès',
+                'ar': 'تقدم'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Verifique seu progresso com a Pokédex',
+                'es-ES': 'Consulta tu progreso con la Pokédex',
+                'de': 'Überprüfen Sie Ihren Fortschritt mit dem Pokédex',
+                'fr': 'Vérifiez votre progression avec le Pokédex',
+                'ar': 'تحقق من تقدمك في البوكيديكس'
+            }))
+        .addBooleanOption(option => option.setName("claim").setDescription("Claim your prizes!")
+            .setNameLocalizations({
+                'pt-BR': 'reivindicar',
+                'es-ES': 'reclamar',
+                'de': 'beanspruchen',
+                'fr': 'réclamer',
+                'ar': 'مطالبة'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Reivindique seus prêmios!',
+                'es-ES': '¡Reclama tus premios!',
+                'de': 'Fordere deine Preise an!',
+                'fr': 'Réclamez vos prix!',
+                'ar': 'طالب بجوائزك!'
+            }))
+        .addIntegerOption(option => option.setName("page").setDescription("Select the page of the Progressing Pokedex").setMinValue(1)
+            .setNameLocalizations({
+                'pt-BR': 'pagina',
+                'es-ES': 'pagina',
+                'de': 'seite',
+                'fr': 'page',
+                'ar': 'صفحة'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Selecione a página da Pokédex em andamento',
+                'es-ES': 'Selecciona la página de la Pokédex en progreso',
+                'de': 'Wählen Sie die Seite des fortschreitenden Pokédex aus',
+                'fr': 'Sélectionnez la page du Pokédex en cours',
+                'ar': 'حدد صفحة البوكيديكس المتقدم'
+            }))
+        .addBooleanOption(option => option.setName("shiny").setDescription("Set to true if you\'re looking for the Shiny version")
+            .setNameLocalizations({
+                'pt-BR': 'brilhante',
+                'es-ES': 'variocolor',
+                'de': 'schillernd',
+                'fr': 'brillant',
+                'ar': 'لامع'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Defina como verdadeiro se estiver procurando a versão Brilhante',
+                'es-ES': 'Establecer en verdadero si buscas la versión Variocolor',
+                'de': 'Auf „wahr“ setzen, wenn Sie nach der Schillernden-Version suchen',
+                'fr': 'Mettre à vrai si vous recherchez la version Brillante',
+                'ar': 'اضبط على "صحيح" إذا كنت تبحث عن الإصدار اللامع'
+            })),
     async execute(msg) {
 
         if (msg.options.getBoolean("help"))

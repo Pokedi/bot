@@ -5,11 +5,81 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName('reload')
+        .setNameLocalizations({
+            'pt-BR': 'recarregar',
+            'es-ES': 'recargar',
+            'de': 'neuladen',
+            'fr': 'recharger',
+            'ar': 'إعادة-تحميل'
+        })
         .setDescription('Reload Cache')
-        .addBooleanOption(x => x.setName("reset-states").setDescription("[Admin Only]"))
-        .addBooleanOption(x => x.setName("reset-commands-rest").setDescription("[Admin Only]"))
-        .addBooleanOption(x => x.setName("reset-commands").setDescription("[Admin Only]"))
-        .addBooleanOption(x => x.setName("git-pull").setDescription("[Admin Only]")),
+        .setDescriptionLocalizations({
+            'pt-BR': 'Recarregar Cache',
+            'es-ES': 'Recargar Caché',
+            'de': 'Cache neu laden',
+            'fr': 'Recharger le Cache',
+            'ar': 'إعادة تحميل ذاكرة التخزين المؤقت'
+        })
+        .addBooleanOption(x => x.setName("reset-states").setDescription("[Admin Only]")
+            .setNameLocalizations({
+                'pt-BR': 'resetar-estados',
+                'es-ES': 'restablecer-estados',
+                'de': 'zustände-zurücksetzen',
+                'fr': 'réinitialiser-états',
+                'ar': 'إعادة-تعيين-الحالات'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': '[Apenas Admin]',
+                'es-ES': '[Solo Admin]',
+                'de': '[Nur Admin]',
+                'fr': '[Admin seulement]',
+                'ar': '[مسؤول فقط]'
+            }))
+        .addBooleanOption(x => x.setName("reset-commands-rest").setDescription("[Admin Only]")
+            .setNameLocalizations({
+                'pt-BR': 'resetar-comandos-rest',
+                'es-ES': 'restablecer-comandos-rest',
+                'de': 'befehle-zurücksetzen-rest',
+                'fr': 'réinitialiser-commandes-rest',
+                'ar': 'إعادة-تعيين-أوامر-rest'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': '[Apenas Admin]',
+                'es-ES': '[Solo Admin]',
+                'de': '[Nur Admin]',
+                'fr': '[Admin seulement]',
+                'ar': '[مسؤول فقط]'
+            }))
+        .addBooleanOption(x => x.setName("reset-commands").setDescription("[Admin Only]")
+            .setNameLocalizations({
+                'pt-BR': 'resetar-comandos',
+                'es-ES': 'restablecer-comandos',
+                'de': 'befehle-zurücksetzen',
+                'fr': 'réinitialiser-commandes',
+                'ar': 'إعادة-تعيين-الأوامر'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': '[Apenas Admin]',
+                'es-ES': '[Solo Admin]',
+                'de': '[Nur Admin]',
+                'fr': '[Admin seulement]',
+                'ar': '[مسؤول فقط]'
+            }))
+        .addBooleanOption(x => x.setName("git-pull").setDescription("[Admin Only]")
+            .setNameLocalizations({
+                'pt-BR': 'git-pull',
+                'es-ES': 'git-pull',
+                'de': 'git-pull',
+                'fr': 'git-pull',
+                'ar': 'git-pull'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': '[Apenas Admin]',
+                'es-ES': '[Solo Admin]',
+                'de': '[Nur Admin]',
+                'fr': '[Admin seulement]',
+                'ar': '[مسؤول فقط]'
+            })),
     async execute(msg) {
         if (process.env.DEVIDS && JSON.parse(process.env.DEVIDS).includes(msg.user.id)) {
 

@@ -6,12 +6,82 @@ import capitalize from "../../Utilities/Misc/capitalize.js";
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .addIntegerOption(option => option.setName("id").setDescription("ID of the Pokemon you intend to release").setMinValue(1))
-        .addIntegerOption(option => option.setName("slot").setDescription("ID of the Pokemon you intend to release").setMinValue(1).setMaxValue(6))
-        .addBooleanOption(option => option.setName('clear').setDescription("Clear entire team"))
-        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .setName('select')
-        .setDescription('Select your Pokemon!'),
+        .setNameLocalizations({
+            'pt-BR': 'selecionar',
+            'es-ES': 'seleccionar',
+            'de': 'auswählen',
+            'fr': 'sélectionner',
+            'ar': 'تحديد'
+        })
+        .setDescription('Select your Pokemon!')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Selecione seu Pokémon!',
+            'es-ES': '¡Selecciona tu Pokémon!',
+            'de': 'Wähle dein Pokémon aus!',
+            'fr': 'Sélectionnez votre Pokémon!',
+            'ar': 'اختر بوكيمونك!'
+        })
+        .addIntegerOption(option => option.setName("id").setDescription("ID of the Pokemon you intend to release").setMinValue(1)
+            .setNameLocalizations({
+                'pt-BR': 'id',
+                'es-ES': 'id',
+                'de': 'id',
+                'fr': 'id',
+                'ar': 'المعرف'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'ID do Pokémon que você pretende soltar',
+                'es-ES': 'ID del Pokémon que pretendes liberar',
+                'de': 'ID des Pokémon, das du freilassen möchtest',
+                'fr': 'ID du Pokémon que vous avez l\'intention de relâcher',
+                'ar': 'معرف البوكيمون الذي تنوي إطلاقه'
+            }))
+        .addIntegerOption(option => option.setName("slot").setDescription("ID of the Pokemon you intend to release").setMinValue(1).setMaxValue(6)
+            .setNameLocalizations({
+                'pt-BR': 'espaco',
+                'es-ES': 'ranura',
+                'de': 'steckplatz',
+                'fr': 'emplacement',
+                'ar': 'فتحة'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'ID do Pokémon que você pretende soltar',
+                'es-ES': 'ID del Pokémon que pretendes liberar',
+                'de': 'ID des Pokémon, das du freilassen möchtest',
+                'fr': 'ID du Pokémon que vous avez l\'intention de relâcher',
+                'ar': 'معرف البوكيمون الذي تنوي إطلاقه'
+            }))
+        .addBooleanOption(option => option.setName('clear').setDescription("Clear entire team")
+            .setNameLocalizations({
+                'pt-BR': 'limpar',
+                'es-ES': 'limpiar',
+                'de': 'löschen',
+                'fr': 'effacer',
+                'ar': 'مسح'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Limpar equipe inteira',
+                'es-ES': 'Limpiar equipo completo',
+                'de': 'Ganzes Team löschen',
+                'fr': 'Effacer toute l\'équipe',
+                'ar': 'مسح الفريق بأكمله'
+            }))
+        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command")
+            .setNameLocalizations({
+                'pt-BR': 'ajuda',
+                'es-ES': 'ayuda',
+                'de': 'hilfe',
+                'fr': 'aide',
+                'ar': 'مساعدة'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Veja detalhes sobre como usar este comando',
+                'es-ES': 'Ver detalles sobre cómo usar este comando',
+                'de': 'Details zur Verwendung dieses Befehls anzeigen',
+                'fr': 'Voir les détails sur la façon d\'utiliser cette commande',
+                'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
+            })),
     alias: ["s"],
     mention_support: true,
     async execute(msg) {

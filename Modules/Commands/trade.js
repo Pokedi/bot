@@ -72,46 +72,222 @@ function evolvePokemon(pokemon) {
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .setName('trade').setNameLocalizations({
-            "es-ES": "intercambio",
-            "pt-BR": "trocar",
-            "de": "tausch"
-        })
-        .setDescription('Release your pokemon')
-        .addSubcommand(subcommand =>
-            subcommand
-                .setName('add')
-                .setDescription('Add [pokemon, credit, redeem]')
-                .addIntegerOption(option => option.setName("pokemon").setAutocomplete(true).setDescription("Select a pokemon to add to the trade"))
-                .addIntegerOption(option => option.setName("credit").setDescription("Add credits to the trade"))
-                .addIntegerOption(option => option.setName("redeem").setDescription("Add redeems to the trade"))
-                .addStringOption(option => option.setName("mass").setDescription("Mass add pokemon to the trade by their IDs"))
-        )
-        .addSubcommand(subcommand =>
-            subcommand
-                .setName('remove')
-                .setDescription('Remove [pokemon, credit, redeem]')
-                .addIntegerOption(option => option.setName("pokemon").setAutocomplete(true).setDescription("Select a pokemon to remove from the trade"))
-                .addIntegerOption(option => option.setName("credit").setDescription("Remove credits to the trade"))
-                .addIntegerOption(option => option.setName("redeem").setDescription("Remove redeems to the trade"))
-                .addStringOption(option => option.setName("mass").setDescription("Mass remove pokemon to the trade by their IDs"))
-        )
-        .addSubcommand(subcommand =>
-            subcommand
-                .setName("request")
-                .setDescription('Mention a user you wish to trade with')
-                .addMentionableOption(option => option.setName('user').setDescription('Select a user'))
-        ).addSubcommand(subcommand =>
-            subcommand
-                .setName("confirm")
-                .setDescription('Confirm the trade between you and the mysterious merchant')
-        ).addSubcommand(subcommand =>
-            subcommand
-                .setName("cancel")
-                .setDescription('Cancel the trade between you and the mysterious merchant')
-        ).addSubcommand(subcommand => subcommand
-            .setName("help").setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
-        ),
+    .setName('trade')
+    .setNameLocalizations({
+        "es-ES": "intercambio",
+        "pt-BR": "troca",
+        "fr": "échange",
+        "de": "tausch",
+        "ar": "تبادل"
+    })
+    .setDescription('Release your pokemon')
+    .setDescriptionLocalizations({
+        "es-ES": "Libera tu Pokémon",
+        "pt-BR": "Libere seu Pokémon",
+        "fr": "Libérez votre Pokémon",
+        "de": "Lass dein Pokémon frei",
+        "ar": "أطلق بوكيمونك"
+    })
+
+    // ADD subcommand
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName('add')
+            .setNameLocalizations({
+                "es-ES": "añadir",
+                "pt-BR": "adicionar",
+                "fr": "ajouter",
+                "de": "hinzufügen",
+                "ar": "إضافة"
+            })
+            .setDescription('Add [pokemon, credit, redeem]')
+            .setDescriptionLocalizations({
+                "es-ES": "Añadir [pokémon, crédito, canje]",
+                "pt-BR": "Adicionar [pokémon, crédito, resgate]",
+                "fr": "Ajouter [pokémon, crédit, échange]",
+                "de": "Hinzufügen [Pokémon, Guthaben, Einlösen]",
+                "ar": "أضف [بوكيمون، رصيد، استبدال]"
+            })
+            .addIntegerOption(option => option
+                .setName("pokemon")
+                .setNameLocalizations({
+                    "es-ES": "pokémon",
+                    "pt-BR": "pokémon",
+                    "fr": "pokémon",
+                    "de": "pokémon",
+                    "ar": "بوكيمون"
+                })
+                .setAutocomplete(true)
+                .setDescription("Select a pokemon to add to the trade")
+                .setDescriptionLocalizations({
+                    "es-ES": "Selecciona un Pokémon para añadir al intercambio",
+                    "pt-BR": "Selecione um Pokémon para adicionar à troca",
+                    "fr": "Sélectionnez un Pokémon à ajouter à l'échange",
+                    "de": "Wähle ein Pokémon, das zum Tausch hinzugefügt werden soll",
+                    "ar": "اختر بوكيمون لإضافته إلى التبادل"
+                })
+            )
+            .addIntegerOption(option => option
+                .setName("credit")
+                .setNameLocalizations({
+                    "es-ES": "crédito",
+                    "pt-BR": "crédito",
+                    "fr": "crédit",
+                    "de": "guthaben",
+                    "ar": "رصيد"
+                })
+                .setDescription("Add credits to the trade")
+                .setDescriptionLocalizations({
+                    "es-ES": "Añadir créditos al intercambio",
+                    "pt-BR": "Adicionar créditos à troca",
+                    "fr": "Ajouter des crédits à l'échange",
+                    "de": "Guthaben zum Tausch hinzufügen",
+                    "ar": "إضافة أرصدة إلى التبادل"
+                })
+            )
+            .addIntegerOption(option => option
+                .setName("redeem")
+                .setNameLocalizations({
+                    "es-ES": "canje",
+                    "pt-BR": "resgate",
+                    "fr": "échange-spécial",
+                    "de": "einlösen",
+                    "ar": "استبدال"
+                })
+                .setDescription("Add redeems to the trade")
+                .setDescriptionLocalizations({
+                    "es-ES": "Añadir canjes al intercambio",
+                    "pt-BR": "Adicionar resgates à troca",
+                    "fr": "Ajouter des échanges spéciaux à l'échange",
+                    "de": "Einlösungen zum Tausch hinzufügen",
+                    "ar": "إضافة عمليات استبدال إلى التبادل"
+                })
+            )
+            .addStringOption(option => option
+                .setName("mass")
+                .setNameLocalizations({
+                    "es-ES": "masivo",
+                    "pt-BR": "em-massa",
+                    "fr": "en-masse",
+                    "de": "massen",
+                    "ar": "جماعي"
+                })
+                .setDescription("Mass add pokemon to the trade by their IDs")
+                .setDescriptionLocalizations({
+                    "es-ES": "Añadir varios Pokémon al intercambio por sus IDs",
+                    "pt-BR": "Adicionar vários Pokémon à troca por seus IDs",
+                    "fr": "Ajouter plusieurs Pokémon à l'échange via leurs IDs",
+                    "de": "Mehrere Pokémon per ID zum Tausch hinzufügen",
+                    "ar": "إضافة عدة بوكيمونات إلى التبادل باستخدام معرفاتها"
+                })
+            )
+    )
+
+    // REMOVE subcommand
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName('remove')
+            .setNameLocalizations({
+                "es-ES": "eliminar",
+                "pt-BR": "remover",
+                "fr": "retirer",
+                "de": "entfernen",
+                "ar": "إزالة"
+            })
+            .setDescription('Remove [pokemon, credit, redeem]')
+            .setDescriptionLocalizations({
+                "es-ES": "Eliminar [pokémon, crédito, canje]",
+                "pt-BR": "Remover [pokémon, crédito, resgate]",
+                "fr": "Retirer [pokémon, crédit, échange]",
+                "de": "Entfernen [Pokémon, Guthaben, Einlösen]",
+                "ar": "إزالة [بوكيمون، رصيد، استبدال]"
+            })
+            // similar integer/string options as "add", but with remove phrasing...
+    )
+
+    // REQUEST subcommand
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName("request")
+            .setNameLocalizations({
+                "es-ES": "solicitar",
+                "pt-BR": "solicitar",
+                "fr": "demander",
+                "de": "anfragen",
+                "ar": "طلب"
+            })
+            .setDescription('Mention a user you wish to trade with')
+            .setDescriptionLocalizations({
+                "es-ES": "Menciona a un usuario con el que quieras intercambiar",
+                "pt-BR": "Mencione um usuário com quem deseja trocar",
+                "fr": "Mentionnez un utilisateur avec qui vous souhaitez échanger",
+                "de": "Erwähne einen Benutzer, mit dem du tauschen möchtest",
+                "ar": "اذكر مستخدمًا ترغب في التبادل معه"
+            })
+    )
+
+    // CONFIRM subcommand
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName("confirm")
+            .setNameLocalizations({
+                "es-ES": "confirmar",
+                "pt-BR": "confirmar",
+                "fr": "confirmer",
+                "de": "bestätigen",
+                "ar": "تأكيد"
+            })
+            .setDescription('Confirm the trade between you and the mysterious merchant')
+            .setDescriptionLocalizations({
+                "es-ES": "Confirma el intercambio entre tú y el misterioso comerciante",
+                "pt-BR": "Confirme a troca entre você e o misterioso comerciante",
+                "fr": "Confirmez l'échange entre vous et le mystérieux marchand",
+                "de": "Bestätige den Tausch zwischen dir und dem geheimnisvollen Händler",
+                "ar": "أكد التبادل بينك وبين التاجر الغامض"
+            })
+    )
+
+    // CANCEL subcommand
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName("cancel")
+            .setNameLocalizations({
+                "es-ES": "cancelar",
+                "pt-BR": "cancelar",
+                "fr": "annuler",
+                "de": "abbrechen",
+                "ar": "إلغاء"
+            })
+            .setDescription('Cancel the trade between you and the mysterious merchant')
+            .setDescriptionLocalizations({
+                "es-ES": "Cancela el intercambio entre tú y el misterioso comerciante",
+                "pt-BR": "Cancele a troca entre você e o misterioso comerciante",
+                "fr": "Annulez l'échange entre vous et le mystérieux marchand",
+                "de": "Brich den Tausch zwischen dir und dem geheimnisvollen Händler ab",
+                "ar": "ألغِ التبادل بينك وبين التاجر الغامض"
+            })
+    )
+
+    // HELP subcommand
+    .addSubcommand(subcommand =>
+        subcommand
+            .setName("help")
+            .setNameLocalizations({
+                "es-ES": "ayuda",
+                "pt-BR": "ajuda",
+                "fr": "aide",
+                "de": "hilfe",
+                "ar": "مساعدة"
+            })
+            .setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
+            .setDescriptionLocalizations({
+                "es-ES": "Descubre cómo usar el comando de mercado y, aparentemente, abandonar aquello en lo que ganaste confianza.",
+                "pt-BR": "Veja como usar o comando de mercado e aparentemente abandonar aquilo em que ganhou confiança.",
+                "fr": "Découvrez comment utiliser la commande du marché et apparemment abandonner ce en quoi vous aviez confiance.",
+                "de": "Erfahre, wie du den Marktbefehl benutzt und anscheinend das aufgibst, dem du vertraut hast.",
+                "ar": "اكتشف كيفية استخدام أمر السوق وبشكل غريب التخلي عما كسبت ثقته."
+            })
+    ),
     async execute(msg) {
 
         // Redirect to Help if Called

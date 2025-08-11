@@ -7,18 +7,74 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName('profile')
+        .setNameLocalizations({
+            'pt-BR': 'perfil',
+            'es-ES': 'perfil',
+            'de': 'profil',
+            'fr': 'profil',
+            'ar': 'الملف-الشخصي'
+        })
         .setDescription('Flex your awesome profile and even customize it!')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Mostre seu perfil incrível e até personalize-o!',
+            'es-ES': '¡Muestra tu increíble perfil e incluso personalízalo!',
+            'de': 'Zeige dein fantastisches Profil und passe es sogar an!',
+            'fr': 'Affichez votre profil génial et personnalisez-le même!',
+            'ar': 'استعرض ملفك الشخصي الرائع وقم بتخصيص!'
+        })
         .addSubcommand(x => x
             .setName("view")
+            .setNameLocalizations({
+                'pt-BR': 'ver',
+                'es-ES': 'ver',
+                'de': 'ansehen',
+                'fr': 'voir',
+                'ar': 'عرض'
+            })
             .setDescription("See your current Profile")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Veja seu perfil atual',
+                'es-ES': 'Ver tu perfil actual',
+                'de': 'Sieh dir dein aktuelles Profil an',
+                'fr': 'Voir votre profil actuel',
+                'ar': 'عرض ملفك الشخصي الحالي'
+            })
         )
         .addSubcommand(x => x
             .setName("start")
+            .setNameLocalizations({
+                'pt-BR': 'iniciar',
+                'es-ES': 'iniciar',
+                'de': 'start',
+                'fr': 'démarrer',
+                'ar': 'ابدأ'
+            })
             .setDescription("Be sure to fill up all the required options to start your adventure!")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Certifique-se de preencher todas as opções necessárias para iniciar sua aventura!',
+                'es-ES': '¡Asegúrate de completar todas las opciones requeridas para comenzar tu aventura!',
+                'de': 'Stelle sicher, dass du alle erforderlichen Optionen ausfüllst, um dein Abenteuer zu beginnen!',
+                'fr': 'Assurez-vous de remplir toutes les options requises pour commencer votre aventure!',
+                'ar': 'تأكد من ملء جميع الخيارات المطلوبة لبدء مغامرتك!'
+            })
             .addIntegerOption(y => y
                 .setRequired(true)
                 .setName("character")
+                .setNameLocalizations({
+                    'pt-BR': 'personagem',
+                    'es-ES': 'personaje',
+                    'de': 'charakter',
+                    'fr': 'personnage',
+                    'ar': 'شخصية'
+                })
                 .setDescription("Select the character you connect to most!")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'Selecione o personagem com o qual você mais se conecta!',
+                    'es-ES': '¡Selecciona el personaje con el que más te conectas!',
+                    'de': 'Wähle den Charakter aus, mit dem du dich am meisten verbunden fühlst!',
+                    'fr': 'Sélectionnez le personnage auquel vous vous connectez le plus!',
+                    'ar': 'اختر الشخصية التي تتواصل معها أكثر!'
+                })
                 .addChoices({
                     "name": "Red",
                     "value": 1
@@ -50,7 +106,21 @@ export default {
             )
             .addStringOption(y => y
                 .setName("gender")
+                .setNameLocalizations({
+                    'pt-BR': 'genero',
+                    'es-ES': 'genero',
+                    'de': 'geschlecht',
+                    'fr': 'genre',
+                    'ar': 'الجنس'
+                })
                 .setDescription("Are you a boy or a girl? ~ (Professor Oak)")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'Você é um menino ou uma menina? ~ (Professor Carvalho)',
+                    'es-ES': '¿Eres un niño o una niña? ~ (Profesor Oak)',
+                    'de': 'Bist du ein Junge oder ein Mädchen? ~ (Professor Eich)',
+                    'fr': 'Êtes-vous un garçon ou une fille? ~ (Professeur Chen)',
+                    'ar': 'هل أنت فتى أم فتاة؟ ~ (البروفيسور أوك)'
+                })
                 .addChoices({
                     name: "Male",
                     value: "male"
@@ -66,9 +136,38 @@ export default {
         )
         .addSubcommand(x => x
             .setName("listing")
-            .setDescription("See the available character options"))
+            .setNameLocalizations({
+                'pt-BR': 'listagem',
+                'es-ES': 'listado',
+                'de': 'auflistung',
+                'fr': 'liste',
+                'ar': 'قائمة'
+            })
+            .setDescription("See the available character options")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Veja as opções de personagens disponíveis',
+                'es-ES': 'Ver las opciones de personajes disponibles',
+                'de': 'Sieh dir die verfügbaren Charakteroptionen an',
+                'fr': 'Voir les options de personnages disponibles',
+                'ar': 'عرض خيارات الشخصيات المتاحة'
+            }))
         .addSubcommand(x => x
-            .setName("help").setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
+            .setName("help")
+            .setNameLocalizations({
+                'pt-BR': 'ajuda',
+                'es-ES': 'ayuda',
+                'de': 'hilfe',
+                'fr': 'aide',
+                'ar': 'مساعدة'
+            })
+            .setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Confira como usar o Comando do Mercado e aparentemente abandonar aquilo em que você conquistou a confiança!',
+                'es-ES': '¡Echa un vistazo a cómo usar el Comando del Mercado y aparentemente abandonar aquello en lo que ganaste confianza!',
+                'de': 'Schau dir an, wie du den Markt-Befehl benutzt und anscheinend das aufgibst, wessen Vertrauen du gewonnen hast!',
+                'fr': 'Découvrez comment utiliser la commande Marché et abandonnez apparemment ce dont vous avez gagné la confiance!',
+                'ar': 'تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!'
+            })
         ),
     async execute(msg) {
 

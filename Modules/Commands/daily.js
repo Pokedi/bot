@@ -8,9 +8,17 @@ export default {
         .setName('daily').setNameLocalizations({
             "de": "täglich",
             "es-ES": "diario",
-            "pt-BR": "diario"
+            "pt-BR": "diario",
+            "fr": "quotidien",
+            "ar": "يومي"
         })
-        .setDescription('Check your daily balance.'),
+        .setDescription('Check your daily balance.').setDescriptionLocalizations({
+            'pt-BR': 'Verifique seu saldo diário.',
+            'es-ES': 'Consulta tu saldo diario.',
+            'de': 'Überprüfen Sie Ihr tägliches Guthaben.',
+            'fr': 'Vérifiez votre solde quotidien.',
+            'ar': 'تحقق من رصيدك اليومي.'
+        }),
     async execute(msg) {
         // Send Wait message
         // const main = await msg.reply({ content: "🕰️ ... 🕰️", withResponse: true });

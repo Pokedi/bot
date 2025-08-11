@@ -19,15 +19,53 @@ export default {
         .setName("shop")
         .setNameLocalizations({
             "es-ES": "tienda",
-            "pt-BR": "loja"
+            "pt-BR": "loja",
+            "de": "laden",
+            "fr": "boutique",
+            "ar": "متجر"
         })
         .setDescription("The place where dreams can come true, I think")
+        .setDescriptionLocalizations({
+            "pt-BR": "O lugar onde os sonhos podem se tornar realidade, eu acho",
+            "es-ES": "El lugar donde los sueños pueden hacerse realidad, creo",
+            "de": "Der Ort, an dem Träume wahr werden können, denke ich",
+            "fr": "L'endroit où les rêves peuvent devenir réalité, je pense",
+            "ar": "المكان الذي يمكن أن تتحقق فيه الأحلام ، على ما أعتقد"
+        })
         .addSubcommand(y => y
             .setName("xp")
+            .setNameLocalizations({
+                "pt-BR": "xp",
+                "es-ES": "xp",
+                "de": "ep",
+                "fr": "xp",
+                "ar": "نقاط-الخبرة"
+            })
             .setDescription("XP Boosters & Rare Candy")
+            .setDescriptionLocalizations({
+                "pt-BR": "Boosters de XP e Doce Raro",
+                "es-ES": "Potenciadores de XP y Caramelo Raro",
+                "de": "EP-Booster & Sonderbonbon",
+                "fr": "Boosters d'XP et Super Bonbon",
+                "ar": "معززات نقاط الخبرة والحلوى النادرة"
+            })
             .addIntegerOption(z => z
                 .setName("buy")
+                .setNameLocalizations({
+                    "pt-BR": "comprar",
+                    "es-ES": "comprar",
+                    "de": "kaufen",
+                    "fr": "acheter",
+                    "ar": "شراء"
+                })
                 .setDescription("Buy a booster or EXP")
+                .setDescriptionLocalizations({
+                    "pt-BR": "Compre um booster ou EXP",
+                    "es-ES": "Compra un potenciador o EXP",
+                    "de": "Kaufe einen Booster oder EP",
+                    "fr": "Achetez un booster ou de l'XP",
+                    "ar": "شراء معزز أو نقاط خبرة"
+                })
                 .addChoices({
                     name: "Rare Candy (50c per candy)",
                     value: 4
@@ -44,64 +82,114 @@ export default {
             )
             .addIntegerOption(z => z
                 .setName("amount")
+                .setNameLocalizations({
+                    "pt-BR": "quantidade",
+                    "es-ES": "cantidad",
+                    "de": "menge",
+                    "fr": "montant",
+                    "ar": "كمية"
+                })
                 .setDescription("Amount you wish to buy")
+                .setDescriptionLocalizations({
+                    "pt-BR": "Quantidade que você deseja comprar",
+                    "es-ES": "Cantidad que deseas comprar",
+                    "de": "Menge, die du kaufen möchtest",
+                    "fr": "Montant que vous souhaitez acheter",
+                    "ar": "الكمية التي ترغب في شرائها"
+                })
                 .setMinValue(1)
             )
         )
         .addSubcommand(y => y
             .setName("stones")
+            .setNameLocalizations({
+                "pt-BR": "pedras",
+                "es-ES": "piedras",
+                "de": "steine",
+                "fr": "pierres",
+                "ar": "أحجار"
+            })
             .setDescription("Evolution Stones used for evolving your Pokemon")
+            .setDescriptionLocalizations({
+                "pt-BR": "Pedras de Evolução usadas para evoluir seu Pokémon",
+                "es-ES": "Piedras de Evolución utilizadas para evolucionar a tu Pokémon",
+                "de": "Entwicklungssteine, die zur Entwicklung deines Pokémon verwendet werden",
+                "fr": "Pierres d'Évolution utilisées pour faire évoluer votre Pokémon",
+                "ar": "أحجار التطور المستخدمة لتطوير بوكيمونك"
+            })
             .addIntegerOption(z => z
                 .setName("stone")
+                .setNameLocalizations({
+                    "pt-BR": "pedra",
+                    "es-ES": "piedra",
+                    "de": "stein",
+                    "fr": "pierre",
+                    "ar": "حجر"
+                })
                 .setDescription("Give a stone to your Pokemon to evolve from")
-                // .addChoices({
-                //     name: "Dawn Stone || 250c",
-                //     value: "dawn"
-                // }, {
-                //     name: "Dusk Stone || 250c",
-                //     value: "dusk"
-                // }, {
-                //     name: "Fire Stone || 250c",
-                //     value: "fire",
-                // }, {
-                //     name: "Ice Stone || 250c",
-                //     value: "ice"
-                // }, {
-                //     name: "Leaf Stone || 250c",
-                //     value: "leaf"
-                // }, {
-                //     name: "Moon Stone || 250c",
-                //     value: "moon"
-                // }, {
-                //     name: "Shiny Stone || 250c",
-                //     value: "oval"
-                // }, {
-                //     name: "Sun Stone || 250c",
-                //     value: "sun"
-                // }, {
-                //     name: "Thunder Stone || 250c",
-                //     value: "thunder"
-                // }, {
-                //     name: "Water Stone || 250c",
-                //     value: "water"
-                // }, {
-                //     name: "Friendship Bracelet || 250c",
-                //     value: "friendship"
-                // })
+                .setDescriptionLocalizations({
+                    "pt-BR": "Dê uma pedra ao seu Pokémon para evoluir",
+                    "es-ES": "Dale una piedra a tu Pokémon para que evolucione",
+                    "de": "Gib deinem Pokémon einen Stein, um sich zu entwickeln",
+                    "fr": "Donnez une pierre à votre Pokémon pour le faire évoluer",
+                    "ar": "أعط حجرا لبوكيمونك ليتطور"
+                })
                 .setAutocomplete(true)
                 .setRequired(true)
             ).addIntegerOption(y => y
                 .setName("id")
+                .setNameLocalizations({
+                    "pt-BR": "id",
+                    "es-ES": "id",
+                    "de": "id",
+                    "fr": "id",
+                    "ar": "المعرف"
+                })
                 .setDescription("ID of the pokemon if provided")
+                .setDescriptionLocalizations({
+                    "pt-BR": "ID do pokemon se fornecido",
+                    "es-ES": "ID del pokemon si se proporciona",
+                    "de": "ID des Pokémon, falls angegeben",
+                    "fr": "ID du pokémon si fourni",
+                    "ar": "معرف البوكيمون إذا تم توفيره"
+                })
                 .setMinValue(1)
             )
         )
         .addSubcommand(y => y
             .setName("nature")
+            .setNameLocalizations({
+                "pt-BR": "natureza",
+                "es-ES": "naturaleza",
+                "de": "wesen",
+                "fr": "nature",
+                "ar": "طبيعة"
+            })
             .setDescription("Turn your shy child into a smile child")
+            .setDescriptionLocalizations({
+                "pt-BR": "Transforme sua criança tímida em uma criança sorridente",
+                "es-ES": "Convierte a tu niño tímido en un niño sonriente",
+                "de": "Verwandle dein schüchternes Kind in ein lächelndes Kind",
+                "fr": "Transformez votre enfant timide en un enfant souriant",
+                "ar": "حول طفلك الخجول إلى طفل مبتسم"
+            })
             .addStringOption(z => z
                 .setName("nature")
+                .setNameLocalizations({
+                    "pt-BR": "natureza",
+                    "es-ES": "naturaleza",
+                    "de": "wesen",
+                    "fr": "nature",
+                    "ar": "طبيعة"
+                })
                 .setDescription("Select the nature you wish to give your Pokemon. 500c each.")
+                .setDescriptionLocalizations({
+                    "pt-BR": "Selecione a natureza que você deseja dar ao seu Pokémon. 500c cada.",
+                    "es-ES": "Selecciona la naturaleza que deseas darle a tu Pokémon. 500c cada una.",
+                    "de": "Wähle das Wesen aus, das du deinem Pokémon geben möchtest. 500c pro Stück.",
+                    "fr": "Sélectionnez la nature que vous souhaitez donner à votre Pokémon. 500c chacun.",
+                    "ar": "اختر الطبيعة التي ترغب في إعطائها لبوكيمونك. 500c لكل منها."
+                })
                 .addChoices(
                     {
                         name: 'Hardy',
@@ -206,36 +294,203 @@ export default {
                 ).setRequired(true)
             ).addIntegerOption(y => y
                 .setName("id")
+                .setNameLocalizations({
+                    "pt-BR": "id",
+                    "es-ES": "id",
+                    "de": "id",
+                    "fr": "id",
+                    "ar": "المعرف"
+                })
                 .setDescription("ID of the pokemon if provided")
+                .setDescriptionLocalizations({
+                    "pt-BR": "ID do pokemon se fornecido",
+                    "es-ES": "ID del pokemon si se proporciona",
+                    "de": "ID des Pokémon, falls angegeben",
+                    "fr": "ID du pokémon si fourni",
+                    "ar": "معرف البوكيمون إذا تم توفيره"
+                })
                 .setMinValue(1)
             )
         )
         .addSubcommand(y => y
             .setName("evolve")
+            .setNameLocalizations({
+                "pt-BR": "evoluir",
+                "es-ES": "evolucionar",
+                "de": "entwickeln",
+                "fr": "évoluer",
+                "ar": "تطور"
+            })
             .setDescription("Evolutions || Items & Plates, ya know?")
-            .addIntegerOption(x => x.setName('item-name').setDescription("Name of the Form, Item, or State.").setAutocomplete(true))
+            .setDescriptionLocalizations({
+                "pt-BR": "Evoluções || Itens e Placas, sabe?",
+                "es-ES": "Evoluciones || Objetos y Placas, ¿sabes?",
+                "de": "Entwicklungen || Items & Platten, weißt du?",
+                "fr": "Évolutions || Objets et Plaques, tu sais?",
+                "ar": "التطورات || العناصر واللوحات ، كما تعلم؟"
+            })
+            .addIntegerOption(x => x.setName('item-name').setDescription("Name of the Form, Item, or State.").setAutocomplete(true)
+                .setNameLocalizations({
+                    "pt-BR": "nome-item",
+                    "es-ES": "nombre-articulo",
+                    "de": "gegenstand-name",
+                    "fr": "nom-objet",
+                    "ar": "اسم-العنصر"
+                })
+                .setDescriptionLocalizations({
+                    "pt-BR": "Nome da Forma, Item ou Estado.",
+                    "es-ES": "Nombre de la Forma, Objeto o Estado.",
+                    "de": "Name der Form, des Gegenstands oder des Zustands.",
+                    "fr": "Nom de la Forme, de l'Objet ou de l'État.",
+                    "ar": "اسم النموذج أو العنصر أو الحالة."
+                }))
             .addIntegerOption(y => y
                 .setName("id")
+                .setNameLocalizations({
+                    "pt-BR": "id",
+                    "es-ES": "id",
+                    "de": "id",
+                    "fr": "id",
+                    "ar": "المعرف"
+                })
                 .setDescription("ID of the pokemon if provided")
+                .setDescriptionLocalizations({
+                    "pt-BR": "ID do pokemon se fornecido",
+                    "es-ES": "ID del pokemon si se proporciona",
+                    "de": "ID des Pokémon, falls angegeben",
+                    "fr": "ID du pokémon si fourni",
+                    "ar": "معرف البوكيمون إذا تم توفيره"
+                })
                 .setMinValue(1)
             )
         )
         .addSubcommand(y => y
             .setName("forms")
+            .setNameLocalizations({
+                "pt-BR": "formas",
+                "es-ES": "formas",
+                "de": "formen",
+                "fr": "formes",
+                "ar": "نماذج"
+            })
             .setDescription("Forms & Mega Evolutions || Items & Plates, ya know?")
-            .addBooleanOption(x => x.setName("listing").setDescription("Check available form options"))
-            .addStringOption(x => x.setName('item-name').setDescription("Name of the Form, Item, or State."))
+            .setDescriptionLocalizations({
+                "pt-BR": "Formas e Mega Evoluções || Itens e Placas, sabe?",
+                "es-ES": "Formas y Mega Evoluciones || Objetos y Placas, ¿sabes?",
+                "de": "Formen & Mega-Entwicklungen || Items & Platten, weißt du?",
+                "fr": "Formes et Méga-Évolutions || Objets et Plaques, tu sais?",
+                "ar": "النماذج والتطورات الضخمة || العناصر واللوحات ، كما تعلم؟"
+            })
+            .addBooleanOption(x => x.setName("listing").setDescription("Check available form options")
+                .setNameLocalizations({
+                    "pt-BR": "listagem",
+                    "es-ES": "listado",
+                    "de": "auflistung",
+                    "fr": "liste",
+                    "ar": "قائمة"
+                })
+                .setDescriptionLocalizations({
+                    "pt-BR": "Verifique as opções de formulário disponíveis",
+                    "es-ES": "Consultar las opciones de formulario disponibles",
+                    "de": "Verfügbare Formularoptionen prüfen",
+                    "fr": "Vérifier les options de formulaire disponibles",
+                    "ar": "تحقق من خيارات النموذج المتاحة"
+                }))
+            .addStringOption(x => x.setName('item-name').setDescription("Name of the Form, Item, or State.")
+                .setNameLocalizations({
+                    "pt-BR": "nome-item",
+                    "es-ES": "nombre-articulo",
+                    "de": "gegenstand-name",
+                    "fr": "nom-objet",
+                    "ar": "اسم-العنصر"
+                })
+                .setDescriptionLocalizations({
+                    "pt-BR": "Nome da Forma, Item ou Estado.",
+                    "es-ES": "Nombre de la Forma, Objeto o Estado.",
+                    "de": "Name der Form, des Gegenstands oder des Zustands.",
+                    "fr": "Nom de la Forme, de l'Objet ou de l'État.",
+                    "ar": "اسم النموذج أو العنصر أو الحالة."
+                }))
         )
         .addSubcommand(y => y
             .setName("profile")
+            .setNameLocalizations({
+                "pt-BR": "perfil",
+                "es-ES": "perfil",
+                "de": "profil",
+                "fr": "profil",
+                "ar": "الملف-الشخصي"
+            })
             .setDescription("Check available Trainer Profiles or Backgrounds to show off to your friends!")
-            .addBooleanOption(z => z.setName("background-listing").setDescription("Check out available backgrounds"))
-            .addIntegerOption(z => z.setName("background-id").setDescription("Select the Background you wish to buy"))
-            .addBooleanOption(z => z.setName("preview").setDescription("Preview the Background!"))
-            // .addBooleanOption(z => z.setName("profile-listing").setDescription("Check out available profiles"))
+            .setDescriptionLocalizations({
+                "pt-BR": "Confira os Perfis de Treinador ou Planos de Fundo disponíveis para mostrar aos seus amigos!",
+                "es-ES": "¡Consulta los Perfiles de Entrenador o Fondos disponibles para presumir ante tus amigos!",
+                "de": "Überprüfe verfügbare Trainerprofile oder Hintergründe, um sie deinen Freunden zu zeigen!",
+                "fr": "Consultez les profils d'entraîneur ou les arrière-plans disponibles pour les montrer à vos amis!",
+                "ar": "تحقق من ملفات تعريف المدربين أو الخلفيات المتاحة للتباهي بها أمام أصدقائك!"
+            })
+            .addBooleanOption(z => z.setName("background-listing").setDescription("Check out available backgrounds")
+                .setNameLocalizations({
+                    "pt-BR": "listagem-fundo",
+                    "es-ES": "listado-fondo",
+                    "de": "hintergrund-auflistung",
+                    "fr": "liste-arrière-plan",
+                    "ar": "قائمة-الخلفية"
+                })
+                .setDescriptionLocalizations({
+                    "pt-BR": "Confira os planos de fundo disponíveis",
+                    "es-ES": "Consultar los fondos disponibles",
+                    "de": "Verfügbare Hintergründe ansehen",
+                    "fr": "Consultez les arrière-plans disponibles",
+                    "ar": "تحقق من الخلفيات المتاحة"
+                }))
+            .addIntegerOption(z => z.setName("background-id").setDescription("Select the Background you wish to buy")
+                .setNameLocalizations({
+                    "pt-BR": "id-fundo",
+                    "es-ES": "id-fondo",
+                    "de": "hintergrund-id",
+                    "fr": "id-arrière-plan",
+                    "ar": "معرف-الخلفية"
+                })
+                .setDescriptionLocalizations({
+                    "pt-BR": "Selecione o Plano de Fundo que deseja comprar",
+                    "es-ES": "Selecciona el Fondo que deseas comprar",
+                    "de": "Wähle den Hintergrund aus, den du kaufen möchtest",
+                    "fr": "Sélectionnez l'arrière-plan que vous souhaitez acheter",
+                    "ar": "حدد الخلفية التي ترغب في شرائها"
+                }))
+            .addBooleanOption(z => z.setName("preview").setDescription("Preview the Background!")
+                .setNameLocalizations({
+                    "pt-BR": "visualizar",
+                    "es-ES": "vista-previa",
+                    "de": "vorschau",
+                    "fr": "aperçu",
+                    "ar": "معاينة"
+                })
+                .setDescriptionLocalizations({
+                    "pt-BR": "Visualize o Plano de Fundo!",
+                    "es-ES": "¡Vista previa del Fondo!",
+                    "de": "Vorschau des Hintergrunds!",
+                    "fr": "Aperçu de l'arrière-plan!",
+                    "ar": "معاينة الخلفية!"
+                }))
         )
         .addSubcommand(y => y
             .setName("help").setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
+            .setNameLocalizations({
+                "pt-BR": "ajuda",
+                "es-ES": "ayuda",
+                "de": "hilfe",
+                "fr": "aide",
+                "ar": "مساعدة"
+            })
+            .setDescriptionLocalizations({
+                "pt-BR": "Confira como usar o Comando do Mercado e aparentemente abandonar aquilo em que você conquistou a confiança!",
+                "es-ES": "¡Echa un vistazo a cómo usar el Comando del Mercado y aparentemente abandonar aquello en lo que ganaste confianza!",
+                "de": "Schau dir an, wie du den Markt-Befehl benutzt und anscheinend das aufgibst, wessen Vertrauen du gewonnen hast!",
+                "fr": "Découvrez comment utiliser la commande Marché et abandonnez apparemment ce dont vous avez gagné la confiance!",
+                "ar": "تحقق من كيفية استخدام أمر السوق والتخلي على ما يبدو عما اكتسبت ثقته!"
+            })
         ),
     // .addSubcommand(y => y
     //     .setName("misc")

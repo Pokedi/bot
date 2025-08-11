@@ -7,10 +7,52 @@ import { Chance } from "chance";
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .addIntegerOption(option => option.setName("id").setDescription("ID of the Pokemon you intend to release").setMinValue(1))
-        .addBooleanOption(option => option.setName("latest").setDescription("Selects the last pokemon to release"))
         .setName('release')
-        .setDescription('Release your Pokemon!'),
+        .setNameLocalizations({
+            'pt-BR': 'soltar',
+            'es-ES': 'liberar',
+            'de': 'freilassen',
+            'fr': 'relâcher',
+            'ar': 'إطلاق'
+        })
+        .setDescription('Release your Pokemon!')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Solte seu Pokémon!',
+            'es-ES': '¡Libera a tu Pokémon!',
+            'de': 'Lass dein Pokémon frei!',
+            'fr': 'Relâchez votre Pokémon!',
+            'ar': 'أطلق بوكيمونك!'
+        })
+        .addIntegerOption(option => option.setName("id").setDescription("ID of the Pokemon you intend to release").setMinValue(1)
+            .setNameLocalizations({
+                'pt-BR': 'id',
+                'es-ES': 'id',
+                'de': 'id',
+                'fr': 'id',
+                'ar': 'المعرف'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'ID do Pokémon que você pretende soltar',
+                'es-ES': 'ID del Pokémon que pretendes liberar',
+                'de': 'ID des Pokémon, das du freilassen möchtest',
+                'fr': 'ID du Pokémon que vous avez l\'intention de relâcher',
+                'ar': 'معرف البوكيمون الذي تنوي إطلاقه'
+            }))
+        .addBooleanOption(option => option.setName("latest").setDescription("Selects the last pokemon to release")
+            .setNameLocalizations({
+                'pt-BR': 'ultimo',
+                'es-ES': 'ultimo',
+                'de': 'letzte',
+                'fr': 'dernier',
+                'ar': 'الأخير'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Seleciona o último pokemon a ser solto',
+                'es-ES': 'Selecciona el último pokemon a liberar',
+                'de': 'Wählt das letzte Pokémon zum Freilassen aus',
+                'fr': 'Sélectionne le dernier pokémon à relâcher',
+                'ar': 'يختار آخر بوكيمون لإطلاقه'
+            })),
     async execute(msg) {
 
         const id = msg.options.getInteger('id');

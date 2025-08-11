@@ -4,10 +4,38 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName("help")
+        .setNameLocalizations({
+            'pt-BR': 'ajuda',
+            'es-ES': 'ayuda',
+            'de': 'hilfe',
+            'fr': 'aide',
+            'ar': 'مساعدة'
+        })
         .setDescription("Look up a command and their usages")
+        .setDescriptionLocalizations({
+            'pt-BR': 'Procure um comando e seus usos',
+            'es-ES': 'Busca un comando y sus usos',
+            'de': 'Suche einen Befehl und seine Verwendungen nach',
+            'fr': 'Rechercher une commande et ses utilisations',
+            'ar': 'ابحث عن أمر واستخداماته'
+        })
         .addStringOption(option => option
             .setName("command_name")
-            .setDescription("The name of the command you want the details and instructions of")),
+            .setNameLocalizations({
+                'pt-BR': 'nome_comando',
+                'es-ES': 'nombre_comando',
+                'de': 'befehlsname',
+                'fr': 'nom_commande',
+                'ar': 'اسم_الأمر'
+            })
+            .setDescription("The name of the command you want the details and instructions of")
+            .setDescriptionLocalizations({
+                'pt-BR': 'O nome do comando do qual você quer os detalhes e instruções',
+                'es-ES': 'El nombre del comando del que quieres los detalles e instrucciones',
+                'de': 'Der Name des Befehls, dessen Details und Anweisungen Sie wünschen',
+                'fr': 'Le nom de la commande dont vous voulez les détails et les instructions',
+                'ar': 'اسم الأمر الذي تريد تفاصيله وتعليماته'
+            })),
     async execute(msg) {
 
         const commandName = msg.options.getString("command_name");

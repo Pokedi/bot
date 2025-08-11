@@ -4,9 +4,37 @@ import Pokedex from "../../Classes/pokedex.js";
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .addStringOption(option => option.setName('pokemon').setDescription('Name of the Pokemon you are trying to spawn'))
         .setName('forcespawn')
-        .setDescription('Force Spawn Pokemon! [Admin]'),
+        .setNameLocalizations({
+            'pt-BR': 'forcaraparecimento',
+            'es-ES': 'forzaraparicion',
+            'de': 'erzwingespawn',
+            'fr': 'forcerapparition',
+            'ar': 'فرض-الظهور'
+        })
+        .setDescription('Force Spawn Pokemon! [Admin]')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Forçar o aparecimento de Pokémon! [Admin]',
+            'es-ES': '¡Forzar la aparición de Pokémon! [Admin]',
+            'de': 'Erzwinge das Spawnen von Pokémon! [Admin]',
+            'fr': 'Forcer l\'apparition de Pokémon! [Admin]',
+            'ar': 'فرض ظهور بوكيمون! [مسؤول]'
+        })
+        .addStringOption(option => option.setName('pokemon').setDescription('Name of the Pokemon you are trying to spawn')
+            .setNameLocalizations({
+                'pt-BR': 'pokemon',
+                'es-ES': 'pokemon',
+                'de': 'pokemon',
+                'fr': 'pokemon',
+                'ar': 'بوكيمون'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Nome do Pokémon que você está tentando fazer aparecer',
+                'es-ES': 'Nombre del Pokémon que estás intentando que aparezca',
+                'de': 'Name des Pokémons, das du spawnen lassen möchtest',
+                'fr': 'Nom du Pokémon que vous essayez de faire apparaître',
+                'ar': 'اسم البوكيمون الذي تحاول إظهاره'
+            })),
     async execute(msg) {
         if (process.env.DEVIDS && JSON.parse(process.env.DEVIDS).includes(msg.user.id)) {
             try {
