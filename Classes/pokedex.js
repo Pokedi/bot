@@ -47,163 +47,244 @@ class Pokedex extends Pokemon {
     }
 
     async getPokemonSpecies(identifier) {
+        if (!possiblePokemon) {
+            await initializeMiniSearch();  // Ensure miniSearch initialized before usage
+        }
+
+        // Helper: standardized query to fetch Pokemon by condition
+        // Uses parameterized queries to prevent SQL injection
+        const basePokemonQuery = async (field, value) => {
+            const query = `
+      SELECT
+        p.id,
+        p.name AS _id, -- Use name as _id (slug) for consistency
+        p.name,
+        p.height,
+        p.weight,
+        p.base_experience,
+        ps.gender_rate,
+        ps.capture_rate,
+        ps.base_happiness,
+        ps.is_baby,
+        ps.hatch_counter,
+        ps.forms_switchable,
+        ps.has_gender_differences,
+        ps.evolves_from_species_id,
+        stats.spd,
+        stats.hp,
+        stats.def,
+        stats.atk,
+        stats.spdef,
+        stats.spatk,
+        stats.eva,
+        stats.acc,
+        NULL::integer AS acc, -- Placeholder if not available in current schema
+        NULL::integer AS eva, -- Placeholder if not available in current schema
+        types.types,
+        ps.pokemon_color_id,
+        ps.pokemon_shape_id,
+        ps.growth_rate_id,
+        ps.pokemon_habitat_id,
+        ps.is_mythical,
+        ps.is_legendary,
+        FALSE AS is_sub_legendary,
+        FALSE AS is_custom,
+        FALSE AS is_nonspawnable,
+        FALSE AS is_event,
+        NULL::text AS art,
+        p.id AS dexid
+      FROM pokemon_v2_pokemon p
+      JOIN pokemon_v2_pokemonspecies ps ON ps.id = p.pokemon_species_id
+      LEFT JOIN (
+        SELECT
+          s.pokemon_id,
+          MAX(CASE WHEN s.stat_id = 4 THEN s.base_stat END) AS spd,
+          MAX(CASE WHEN s.stat_id = 1 THEN s.base_stat END) AS hp,
+          MAX(CASE WHEN s.stat_id = 3 THEN s.base_stat END) AS def,
+          MAX(CASE WHEN s.stat_id = 2 THEN s.base_stat END) AS atk,
+          MAX(CASE WHEN s.stat_id = 6 THEN s.base_stat END) AS spdef,
+          MAX(CASE WHEN s.stat_id = 5 THEN s.base_stat END) AS spatk,
+          MAX(CASE WHEN s.stat_id = 7 THEN s.base_stat END) AS acc,
+          MAX(CASE WHEN s.stat_id = 8 THEN s.base_stat END) AS eva
+        FROM pokemon_v2_pokemonstat s
+        GROUP BY s.pokemon_id
+      ) stats ON stats.pokemon_id = p.id
+      LEFT JOIN (
+        SELECT
+          pt_sub.pokemon_id,
+          ARRAY_AGG(t.name ORDER BY pt_sub.slot) AS types
+        FROM (
+          SELECT DISTINCT ON (pt.pokemon_id, pt.type_id)
+            pt.pokemon_id, pt.type_id, pt.slot
+          FROM pokemon_v2_pokemontype pt
+          ORDER BY pt.pokemon_id, pt.type_id, pt.slot
+        ) pt_sub
+        JOIN pokemon_v2_type t ON t.id = pt_sub.type_id
+        GROUP BY pt_sub.pokemon_id
+      ) types ON types.pokemon_id = p.id
+      WHERE ${field} = $1
+      LIMIT 1
+    `;
+            return await pokeapisql.query(query, [value]);
+        };
+
+        // Normalize identifier
+        const isNumeric = (val) =>
+            typeof val === "number" || (typeof val === "string" && /^\d+$/.test(val));
 
         let pokemonRow = null;
 
-        if (!possiblePokemon) {
-            await initializeMiniSearch();
-        }
-
-        const basePokemonQuery = (condition, value) => pokeapisql.unsafe(`
-            SELECT
-                p.id,
-                p.name AS _id, -- Use name as _id (slug) for consistency
-                p.name AS name,
-                p.height,
-                p.weight,
-                p.base_experience,
-                ps.gender_rate,
-                ps.capture_rate,
-                ps.base_happiness,
-                ps.is_baby,
-                ps.hatch_counter,
-                ps.forms_switchable,
-                ps.has_gender_differences,
-                ps.evolves_from_species_id,
-                stats.spd,
-                stats.hp,
-                stats.def,
-                stats.atk,
-                stats.spdef,
-                stats.spatk,
-                NULL::integer AS acc, -- Placeholder if not available in current schema
-                NULL::integer AS eva, -- Placeholder if not available in current schema
-                types.types,
-                ps.pokemon_color_id,
-                ps.pokemon_shape_id,
-                ps.growth_rate_id,
-                ps.pokemon_habitat_id,
-                ps.is_mythical,
-                ps.is_legendary,
-                FALSE AS is_sub_legendary, -- Set explicitly as false based on schema mapping
-                FALSE AS is_custom,        -- Set explicitly as false
-                FALSE AS is_nonspawnable,  -- Set explicitly as false
-                FALSE AS is_event,         -- Set explicitly as false
-                NULL::text AS art,         -- Placeholder for art URL
-                p.id AS dexid
-            FROM pokemon_v2_pokemon p
-            JOIN pokemon_v2_pokemonspecies ps ON ps.id = p.pokemon_species_id
-            -- Subquery for stats
-            LEFT JOIN (
-                SELECT
-                    s.pokemon_id,
-                    MAX(CASE WHEN s.stat_id = 7 THEN s.base_stat END) AS spd, -- Speed
-                    MAX(CASE WHEN s.stat_id = 1 THEN s.base_stat END) AS hp,  -- HP
-                    MAX(CASE WHEN s.stat_id = 3 THEN s.base_stat END) AS def, -- Defense
-                    MAX(CASE WHEN s.stat_id = 2 THEN s.base_stat END) AS atk, -- Attack
-                    MAX(CASE WHEN s.stat_id = 6 THEN s.base_stat END) AS spdef, -- Special Defense
-                    MAX(CASE WHEN s.stat_id = 4 THEN s.base_stat END) AS spatk -- Special Attack
-                FROM pokemon_v2_pokemonstat s
-                GROUP BY s.pokemon_id
-            ) stats ON stats.pokemon_id = p.id
-            -- Subquery for types with names
-            LEFT JOIN (
-                SELECT
-                    pt_sub.pokemon_id,
-                    ARRAY_AGG(t.name ORDER BY pt_sub.slot) AS types
-                FROM (
-                    SELECT DISTINCT ON (pt.pokemon_id, pt.type_id)
-                        pt.pokemon_id, pt.type_id, pt.slot
-                    FROM pokemon_v2_pokemontype pt
-                    ORDER BY pt.pokemon_id, pt.type_id, pt.slot
-                ) pt_sub
-                JOIN pokemon_v2_type t ON t.id = pt_sub.type_id
-                GROUP BY pt_sub.pokemon_id
-            ) types ON types.pokemon_id = p.id
-            WHERE ${condition} = ${value} LIMIT 1
-        `);
-
-        if (typeof identifier === 'number' || (typeof identifier === 'string' && /^\d+$/.test(identifier))) {
+        if (isNumeric(identifier)) {
+            // Search by numeric ID
             const numId = parseInt(identifier);
-            [pokemonRow] = await basePokemonQuery("p.id", numId);
+            const result = await basePokemonQuery("p.id", numId);
+            pokemonRow = result[0];
         }
 
         if (!pokemonRow && typeof identifier === "string") {
-            const normalizedIdentifier = identifier.toLowerCase().replace(/ /gmi, '-');
-            [pokemonRow] = await basePokemonQuery("p.name", "'" + normalizedIdentifier + "'");
+            // Search by normalized slug name
+            const normalized = identifier.toLowerCase().replace(/\s+/g, "-");
+            const result = await basePokemonQuery("p.name", normalized);
+            pokemonRow = result[0];
         }
 
         if (!pokemonRow && typeof identifier === "string") {
-
+            // Use MiniSearch fuzzy search
             const miniSearchMatches = possiblePokemon.search(identifier, { boost: { name: 2 } });
             if (miniSearchMatches.length > 0) {
                 const bestMatchId = miniSearchMatches[0].id;
-                [pokemonRow] = await basePokemonQuery("p.id", bestMatchId);
+                const result = await basePokemonQuery("p.id", bestMatchId);
+                pokemonRow = result[0];
             }
-
         }
 
-        if (!pokemonRow && typeof identifier === 'string') {
+        if (!pokemonRow && typeof identifier === "string") {
+            // Fallback: partial match search using ILIKE + alternate names
             const searchTerm = `%${identifier.toLowerCase()}%`;
-            [pokemonRow] = await pokeapisql`
-                SELECT
-                    p.id,
-                    p.name AS _id,
-                    p.name AS name,
-                    p.height, p.weight, p.base_experience,
-                    ps.gender_rate, ps.capture_rate, ps.base_happiness, ps.is_baby, ps.hatch_counter,
-                    ps.forms_switchable, ps.has_gender_differences, ps.evolves_from_species_id,
-                    stats.spd, stats.hp, stats.def, stats.atk, stats.spdef, stats.spatk,
-                    NULL::integer AS acc, NULL::integer AS eva,
-                    types.types,
-                    ps.pokemon_color_id, ps.pokemon_shape_id, ps.growth_rate_id, ps.pokemon_habitat_id,
-                    ps.is_mythical, ps.is_legendary,
-                    FALSE AS is_sub_legendary, FALSE AS is_custom, FALSE AS is_nonspawnable, FALSE AS is_event,
-                    NULL::text AS art, p.id AS dexid
-                FROM pokemon_v2_pokemon p
-                JOIN pokemon_v2_pokemonspecies ps ON ps.id = p.pokemon_species_id
-                LEFT JOIN (SELECT s.pokemon_id, MAX(CASE WHEN s.stat_id = 7 THEN s.base_stat END) AS spd, MAX(CASE WHEN s.stat_id = 1 THEN s.base_stat END) AS hp, MAX(CASE WHEN s.stat_id = 3 THEN s.base_stat END) AS def, MAX(CASE WHEN s.stat_id = 2 THEN s.base_stat END) AS atk, MAX(CASE WHEN s.stat_id = 6 THEN s.base_stat END) AS spdef, MAX(CASE WHEN s.stat_id = 4 THEN s.base_stat END) AS spatk FROM pokemon_v2_pokemonstat s GROUP BY s.pokemon_id) stats ON stats.pokemon_id = p.id
-                LEFT JOIN (SELECT pt_sub.pokemon_id, ARRAY_AGG(t.name ORDER BY pt_sub.slot) AS types FROM (SELECT DISTINCT ON (pt.pokemon_id, pt.type_id) pt.pokemon_id, pt.type_id, pt.slot FROM pokemon_v2_pokemontype pt ORDER BY pt.pokemon_id, pt.type_id, pt.slot) pt_sub JOIN pokemon_v2_type t ON t.id = pt_sub.type_id GROUP BY pt_sub.pokemon_id) types ON types.pokemon_id = p.id
-                WHERE p.name ilike ${searchTerm}
-                ORDER BY p.id ASC LIMIT 1
-            `;
 
-            // If still not found, check alt names from pokemon_v2_pokemonspeciesname
+            // Query to search primary name by partial match
+            const primaryQuery = `
+      SELECT
+        p.id,
+        p.name AS _id,
+        p.name,
+        p.height,
+        p.weight,
+        p.base_experience,
+        ps.gender_rate,
+        ps.capture_rate,
+        ps.base_happiness,
+        ps.is_baby,
+        ps.hatch_counter,
+        ps.forms_switchable,
+        ps.has_gender_differences,
+        ps.evolves_from_species_id,
+        stats.spd,
+        stats.hp,
+        stats.def,
+        stats.atk,
+        stats.spdef,
+        stats.spatk,
+        stats.eva,
+        stats.acc,
+        NULL::integer AS acc,
+        NULL::integer AS eva,
+        types.types,
+        ps.pokemon_color_id,
+        ps.pokemon_shape_id,
+        ps.growth_rate_id,
+        ps.pokemon_habitat_id,
+        ps.is_mythical,
+        ps.is_legendary,
+        FALSE AS is_sub_legendary,
+        FALSE AS is_custom,
+        FALSE AS is_nonspawnable,
+        FALSE AS is_event,
+        NULL::text AS art,
+        p.id AS dexid
+      FROM pokemon_v2_pokemon p
+      JOIN pokemon_v2_pokemonspecies ps ON ps.id = p.pokemon_species_id
+      LEFT JOIN (
+        SELECT
+          s.pokemon_id,
+          MAX(CASE WHEN s.stat_id = 4 THEN s.base_stat END) AS spd,
+          MAX(CASE WHEN s.stat_id = 1 THEN s.base_stat END) AS hp,
+          MAX(CASE WHEN s.stat_id = 3 THEN s.base_stat END) AS def,
+          MAX(CASE WHEN s.stat_id = 2 THEN s.base_stat END) AS atk,
+          MAX(CASE WHEN s.stat_id = 6 THEN s.base_stat END) AS spdef,
+          MAX(CASE WHEN s.stat_id = 5 THEN s.base_stat END) AS spatk,
+          MAX(CASE WHEN s.stat_id = 7 THEN s.base_stat END) AS acc,
+          MAX(CASE WHEN s.stat_id = 8 THEN s.base_stat END) AS eva
+        FROM pokemon_v2_pokemonstat s
+        GROUP BY s.pokemon_id
+      ) stats ON stats.pokemon_id = p.id
+      LEFT JOIN (
+        SELECT
+          pt_sub.pokemon_id,
+          ARRAY_AGG(t.name ORDER BY pt_sub.slot) AS types
+        FROM (
+          SELECT DISTINCT ON (pt.pokemon_id, pt.type_id)
+            pt.pokemon_id, pt.type_id, pt.slot
+          FROM pokemon_v2_pokemontype pt
+          ORDER BY pt.pokemon_id, pt.type_id, pt.slot
+        ) pt_sub
+        JOIN pokemon_v2_type t ON t.id = pt_sub.type_id
+        GROUP BY pt_sub.pokemon_id
+      ) types ON types.pokemon_id = p.id
+      WHERE p.name ILIKE $1
+      ORDER BY p.id ASC
+      LIMIT 1
+    `;
+
+            const result = await pokeapisql.query(primaryQuery, [searchTerm]);
+            pokemonRow = result[0];
+
+            // If still not found, check alternate names table
             if (!pokemonRow) {
-                const [altNameRow] = await pokeapisql`SELECT pokemon_species_id FROM pokemon_v2_pokemonspeciesname WHERE name ILIKE ${searchTerm} OR genus ILIKE ${searchTerm} LIMIT 1`;
-                if (altNameRow) {
-                    [pokemonRow] = await basePokemonQuery("p.id", altNameRow.pokemon_species_id);
+                const altNameQuery = `
+        SELECT pokemon_species_id
+        FROM pokemon_v2_pokemonspeciesname
+        WHERE name ILIKE $1 OR genus ILIKE $1
+        LIMIT 1
+      `;
+                const altNameResult = await pokeapisql.query(altNameQuery, [searchTerm]);
+                if (altNameResult.length) {
+                    const altSpeciesId = altNameResult[0].pokemon_species_id;
+                    const altResult = await basePokemonQuery("p.id", altSpeciesId);
+                    pokemonRow = altResult[0];
                 }
             }
         }
 
-        if (pokemonRow) {
-
-            this.pokedex = pokemonRow;
-
-            this.pokedex._id = this.pokedex._id ? this.pokedex._id.trim() : null;
-            this.pokedex.name = this.pokedex.name ? this.pokedex.name.trim() : null;
-
-            if (this.pokedex.types && this.pokedex.types.length > 0) {
-                // Convert fetched type names to their corresponding ENUM IDs
-                this.types = this.pokedex.types.map(typeName =>
-                    Object.keys(ENUM_POKEMON_TYPES_ID).find(key => ENUM_POKEMON_TYPES_ID[key].toLowerCase() === typeName.toLowerCase()) || typeName // Fallback to name if ID not found
-                );
-            } else {
-                this.types = [];
-            }
-
-            // Fetch all other detailed information (description, evolution, forms, etc.)
-            await this.fetchDexData();
-
-            // Also set the current Pokemon instance's _id to match the pokedex for consistency
-            this.pokemon = this.pokedex._id;
-            return this.pokedex;
-
+        if (!pokemonRow) {
+            return false; // Not found
         }
 
-        return false; // Pokemon not found
+        // Post processing
+        this.pokedex = pokemonRow;
 
+        // Trim strings
+        this.pokedex._id = this.pokedex._id?.trim() || null;
+        this.pokedex.name = this.pokedex.name?.trim() || null;
+
+        // Map type names to IDs (fallback to name if no mapping)
+        if (this.pokedex.types && this.pokedex.types.length > 0) {
+            this.types = this.pokedex.types.map(typeName =>
+                Object.keys(ENUM_POKEMON_TYPES_ID).find(
+                    key => ENUM_POKEMON_TYPES_ID[key].toLowerCase() === typeName.toLowerCase()
+                ) || typeName
+            );
+        } else {
+            this.types = [];
+        }
+
+        // Fetch additional data (description, evolutions, etc.)
+        await this.fetchDexData();
+
+        // Sync pokemon instance id
+        this.pokemon = this.pokedex._id;
+
+        return this.pokedex;
     }
 
     async generateV2(id, mergingObject = {}) {

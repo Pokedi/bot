@@ -35,6 +35,8 @@ const allPokemon = await pokemondb`SELECT
                 stats.atk,
                 stats.spdef,
                 stats.spatk,
+                stats.eva,
+                stats.acc,
                 NULL::integer AS acc, -- Placeholder if not available in current schema
                 NULL::integer AS eva, -- Placeholder if not available in current schema
                 types.types,
@@ -56,19 +58,22 @@ const allPokemon = await pokemondb`SELECT
             LEFT JOIN (
                 SELECT
                     s.pokemon_id,
-                    MAX(CASE WHEN s.stat_id = 7 THEN s.base_stat END) AS spd, -- Speed
+                    MAX(CASE WHEN s.stat_id = 4 THEN s.base_stat END) AS spd, -- Speed
                     MAX(CASE WHEN s.stat_id = 1 THEN s.base_stat END) AS hp,  -- HP
                     MAX(CASE WHEN s.stat_id = 3 THEN s.base_stat END) AS def, -- Defense
                     MAX(CASE WHEN s.stat_id = 2 THEN s.base_stat END) AS atk, -- Attack
                     MAX(CASE WHEN s.stat_id = 6 THEN s.base_stat END) AS spdef, -- Special Defense
-                    MAX(CASE WHEN s.stat_id = 4 THEN s.base_stat END) AS spatk -- Special Attack
+                    MAX(CASE WHEN s.stat_id = 5 THEN s.base_stat END) AS spatk, -- Special Attack
+                    MAX(CASE WHEN s.stat_id = 7 THEN s.base_stat END) AS acc, -- Accuracy
+                    MAX(CASE WHEN s.stat_id = 8 THEN s.base_stat END) AS eva -- Evasion
                 FROM pokemon_v2_pokemonstat s
                 GROUP BY s.pokemon_id
             ) stats ON stats.pokemon_id = p.id
+            -- Subquery for types with names
             LEFT JOIN (
                 SELECT
                     pt_sub.pokemon_id,
-                    ARRAY_AGG(t.id ORDER BY pt_sub.slot) AS types
+                    ARRAY_AGG(t.name ORDER BY pt_sub.slot) AS types
                 FROM (
                     SELECT DISTINCT ON (pt.pokemon_id, pt.type_id)
                         pt.pokemon_id, pt.type_id, pt.slot
