@@ -581,3 +581,5 @@ class Pokedex extends Pokemon {
             { levelIncreased: preLevel != this.level, level: this.level, hasEvolved: evolvedPokemon != this.pokemon, pokemon: this.pokemon, evolvedPokemon };
     }
 }
+
+export default Pokedex;
