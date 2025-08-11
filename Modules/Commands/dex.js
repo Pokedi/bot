@@ -127,8 +127,7 @@ export default {
 
             let selectedPokemon = new Pokedex();
 
-            if (!(await selectedPokemon.searchByLocal(pokemonName)))
-                await selectedPokemon.searchForID(pokemonName);
+            await selectedPokemon.getPokemonSpecies(pokemonName);
 
             // findPokemon(pokemonName, false);
 
