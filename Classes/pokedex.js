@@ -27,6 +27,8 @@ async function initializeMiniSearch() {
         }
     });
 
+    console.log(pokemonNames.splice(0, 5), "possiblePokemon");
+
     possiblePokemon.addAll(pokemonNames.map(x => ({ id: x.id, name: x.name.replace(/-/gmi, ' ') })));
 
 }
