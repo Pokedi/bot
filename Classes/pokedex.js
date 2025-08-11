@@ -525,7 +525,7 @@ class Pokedex extends Pokemon {
         LEFT JOIN pokemon_v2_pokemon as trade_evo on p.trade_species_id = trade_evo.id
         LEFT JOIN pokemon_v2_pokemon as pre on (pre.id = ps.evolves_from_species_id)
         LEFT JOIN pokemon_v2_item as item on (item.id = p.evolution_item_id OR item.id = p.held_item_id)
-        WHERE ${from ? "o.evolves_from_species_id" : "s.id"} = ${id || this.pokedex.id} AND p.location_id is null;`)
+        WHERE ${from ? "ps.evolves_from_species_id" : "s.id"} = ${id || this.pokedex.id} AND p.location_id is null;`)
     }
 
     readyBattleMode() {
