@@ -517,13 +517,13 @@ class Pokedex extends Pokemon {
     }
 
     async getEvolutionFromSpeciesV2(id, from) {
-        return await pokeapisql.unsafe(`SELECT s.id as pokemon_id, o.id, s.name, pre.name as evolved_from_name, o.evolves_from_species_id as evolved_from, p.min_level, p.min_happiness, p.min_affection, p.time_of_day, p.evolution_item_id, item.name as item_name, t.name as trigger, item.cost as item_price, trade_evo.name as trade_pokemon
-        FROM pokemon_dex as s
+        return await pokeapisql.unsafe(`SELECT s.id as pokemon_id, ps.id, s.name, pre.name as evolved_from_name, ps.evolves_from_species_id as evolved_from, p.min_level, p.min_happiness, p.min_affection, p.time_of_day, p.evolution_item_id, item.name as item_name, t.name as trigger, item.cost as item_price, trade_evo.name as trade_pokemon
+        FROM pokemon_v2_pokemon as s
+        LEFT JOIN pokemon_v2_pokemonspecies ps ON ps.id = s.pokemon_species_id
         LEFT JOIN pokemon_v2_pokemonevolution as p on (p.evolved_species_id = s.id)
-        LEFT JOIN pokemon_dex as o on (s.id = o.id)
         LEFT JOIN pokemon_v2_evolutiontrigger as t on (t.id = p.evolution_trigger_id)
-        LEFT JOIN pokemon_dex as trade_evo on p.trade_species_id = trade_evo.id
-        LEFT JOIN pokemon_dex as pre on (pre.id = o.evolves_from_species_id)
+        LEFT JOIN pokemon_v2_pokemon as trade_evo on p.trade_species_id = trade_evo.id
+        LEFT JOIN pokemon_v2_pokemon as pre on (pre.id = ps.evolves_from_species_id)
         LEFT JOIN pokemon_v2_item as item on (item.id = p.evolution_item_id OR item.id = p.held_item_id)
         WHERE ${from ? "o.evolves_from_species_id" : "s.id"} = ${id || this.pokedex.id} AND p.location_id is null;`)
     }
