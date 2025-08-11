@@ -1,9 +1,9 @@
 import pokeapisql from "../Modules/Database/pokedb.js";
-import { POKEMON_NATURES, ENUM_POKEMON_TYPES_ID} from "../Utilities/Data/enums.js";
+import { POKEMON_NATURES, ENUM_POKEMON_TYPES_ID } from "../Utilities/Data/enums.js";
 import Pokemon from "./pokemon.js";
 import randomint from "../Utilities/Misc/randomint.js";
 import { Chance } from "chance";
-// import fusionPokemon from "../Utilities/Data/PokemonDB/fusions.json" with {type: "json"};
+import fusionPokemon from "../Utilities/Data/PokemonDB/fusions.json" with {type: "json"};
 // import capitalize from "../Utilities/Misc/capitalize.js";
 // import builder from "../Modules/Database/QueryBuilder/queryGenerator.js";
 import IVCalculator from "../Utilities/Pokemon/IVCalculator.js";
@@ -476,6 +476,207 @@ class Pokedex extends Pokemon {
         this.pokedex.fusions = this.getFusionsV2();
 
         return this.pokedex;
+    }
+
+    async getFusionsV2() {
+        // fusionPokemon is imported from a local JSON file.
+        // This will remain the same as it's not from the PokeAPI schema.
+        return fusionPokemon.filter(x => x.first_pokemon == this.pokedex._id || x.second_pokemon == this.pokedex._id);
+    }
+
+    async getEvolutionFormsV2(name = this.pokedex.name) { // Use pokedex.name as the base for forms
+        if (!name) return [];
+        return await pokeapisql`
+                SELECT p.id, p.name as _id, p.name FROM pokemon_v2_pokemon as p
+                JOIN pokemon_v2_pokemonspecies ps ON ps.id = p.pokemon_species_id
+                WHERE ps.id = ${this.pokedex.id} AND p.name != ${this.pokedex.name} -- Exclude the default form itself
+                ORDER BY p.name ASC
+            `;
+    }
+
+    async getEvolutionV2() {
+        if (!this.pokedex.id) return false;
+
+        // First, find the evolution chain ID for the current species
+        const [speciesChain] = await pokeapisql`
+            SELECT evolution_chain_id FROM pokemon_v2_pokemonspecies 
+            WHERE id = ${this.pokedex.id} LIMIT 1
+        `;
+
+        if (!speciesChain || !speciesChain.evolution_chain_id) return [];
+
+        // Fetch all species within that evolution chain
+        const chainSpecies = await pokeapisql`
+            SELECT
+                ps.id,
+                p.name AS _id,
+                p.name AS name,
+                ps.evolves_from_species_id,
+                ec.trigger.name AS trigger_name,
+                ec.trigger.id AS trigger_id,
+                ec.min_level,
+                ec.item_name,
+                ec.held_item_name,
+                ec.gender_id,
+                ec.location_name,
+                ec.time_of_day,
+                ec.move_name,
+                ec.min_happiness,
+                ec.min_beauty,
+                ec.min_affection,
+                ec.needs_overworld_rain,
+                ec.party_species_name,
+                ec.party_type_name,
+                ec.trade_species_name,
+                ec.relative_physical_stats,
+                ec.known_move_name,
+                ec.known_move_type_name,
+                ec.pokemon_species_name,
+                ec.turn_upside_down
+            FROM pokemon_v2_pokemonspecies ps
+            JOIN pokemon_v2_pokemon p ON p.pokemon_species_id = ps.id AND p.is_default = TRUE
+            LEFT JOIN (
+                SELECT
+                    pe.evolved_species_id,
+                    pet.name AS trigger,
+                    pe.min_level,
+                    i.name AS item_name,
+                    hi.name AS held_item_name,
+                    pe.gender_id,
+                    l.name AS location_name,
+                    pe.time_of_day,
+                    m.name AS move_name,
+                    pe.min_happiness,
+                    pe.min_beauty,
+                    pe.min_affection,
+                    pe.needs_overworld_rain,
+                    pps.name AS party_species_name,
+                    pt.name AS party_type_name,
+                    tps.name AS trade_species_name,
+                    pe.relative_physical_stats,
+                    km.name AS known_move_name,
+                    kmt.name AS known_move_type_name,
+                    ps_evo.name AS pokemon_species_name,
+                    pe.turn_upside_down
+                FROM pokemon_v2_pokemonevolution pe
+                LEFT JOIN pokemon_v2_evolutiontrigger pet ON pet.id = pe.evolution_trigger_id
+                LEFT JOIN pokemon_v2_item i ON i.id = pe.evolution_item_id
+                LEFT JOIN pokemon_v2_item hi ON hi.id = pe.held_item_id
+                LEFT JOIN pokemon_v2_location l ON l.id = pe.location_id
+                LEFT JOIN pokemon_v2_move m ON m.id = pe.triggered_by_move_id
+                LEFT JOIN pokemon_v2_pokemonspecies pps ON pps.id = pe.party_species_id
+                LEFT JOIN pokemon_v2_type pt ON pt.id = pe.party_type_id
+                LEFT JOIN pokemon_v2_pokemonspecies tps ON tps.id = pe.trade_species_id
+                LEFT JOIN pokemon_v2_move km ON km.id = pe.known_move_id
+                LEFT JOIN pokemon_v2_type kmt ON kmt.id = pe.known_move_type_id
+                LEFT JOIN pokemon_v2_pokemonspecies ps_evo ON ps_evo.id = pe.pokemon_species_id
+            ) AS ec ON ec.evolved_species_id = ps.id
+            WHERE ps.evolution_chain_id = ${speciesChain.evolution_chain_id}
+            ORDER BY ps.evolves_from_species_id NULLS FIRST, ps.id
+        `;
+
+        // Organize the chain: build a map for quick lookup and then structure
+        const evolutionMap = new Map();
+        chainSpecies.forEach(s => {
+            if (!evolutionMap.has(s.id)) {
+                evolutionMap.set(s.id, {
+                    id: s.id,
+                    _id: s._id,
+                    name: s.name,
+                    evolves_from_species_id: s.evolves_from_species_id,
+                    evolution_details: []
+                });
+            }
+            // Add evolution details only if they exist for this step
+            if (s.trigger_id) {
+                evolutionMap.get(s.id).evolution_details.push({
+                    trigger: s.trigger_name,
+                    min_level: s.min_level,
+                    item_name: s.item_name,
+                    held_item_name: s.held_item_name,
+                    gender_id: s.gender_id,
+                    location_name: s.location_name,
+                    time_of_day: s.time_of_day,
+                    move_name: s.move_name,
+                    min_happiness: s.min_happiness,
+                    min_beauty: s.min_beauty,
+                    min_affection: s.min_affection,
+                    needs_overworld_rain: s.needs_overworld_rain,
+                    party_species_name: s.party_species_name,
+                    party_type_name: s.party_type_name,
+                    trade_species_name: s.trade_species_name,
+                    relative_physical_stats: s.relative_physical_stats,
+                    known_move_name: s.known_move_name,
+                    known_move_type_name: s.known_move_type_name,
+                    pokemon_species_name: s.pokemon_species_name,
+                    turn_upside_down: s.turn_upside_down
+                });
+            }
+        });
+
+        // Determine the base form of the chain
+        let baseFormId = null;
+        for (const species of chainSpecies) {
+            if (!species.evolves_from_species_id) {
+                baseFormId = species.id;
+                break;
+            }
+        }
+
+        // Build the hierarchical chain (can be recursive or iterative)
+        const buildChain = (speciesId) => {
+            const currentSpecies = evolutionMap.get(speciesId);
+            if (!currentSpecies) return null;
+
+            const evolvedForms = chainSpecies.filter(s => s.evolves_from_species_id === speciesId);
+            currentSpecies.evolves_to = evolvedForms.map(s => buildChain(s.id)).filter(Boolean);
+
+            return currentSpecies;
+        };
+
+        const resultChain = baseFormId ? [buildChain(baseFormId)] : [];
+        return resultChain;
+    }
+
+    /**
+     * This method is now integrated into getEvolutionV2 for a complete chain.
+     * It's kept here as a standalone in case it's used elsewhere, but its usage
+     * should be reviewed.
+     * @param {number} id - The species ID to query for.
+     * @param {boolean} from - If true, searches where the Pokemon evolves *from* the given ID (i.e., this ID is the base form).
+     * @returns {Array<Object>} An array of evolution details.
+     */
+    async getEvolutionFromSpeciesV2(id, from) {
+        // This method will now fetch details specifically for direct evolutions/pre-evolutions.
+        // It's a subset of what getEvolutionV2 now provides comprehensively.
+        // The original query needs adjustment for the new schema
+        return await pokeapisql.unsafe(`
+            SELECT 
+                ps.id as pokemon_id,
+                p.name as _id,
+                p.name as name,
+                evolves_from.name as evolved_from_name,
+                ps.evolves_from_species_id as evolved_from,
+                pe.min_level,
+                pe.min_happiness,
+                pe.min_affection,
+                pe.time_of_day,
+                pe.evolution_item_id,
+                item.name as item_name,
+                et.name as trigger_name,
+                item.cost as item_price,
+                trade_species.name as trade_pokemon_name,
+                pe.gender_id
+            FROM pokemon_v2_pokemonspecies ps
+            JOIN pokemon_v2_pokemon p ON p.pokemon_species_id = ps.id AND p.is_default = TRUE
+            LEFT JOIN pokemon_v2_pokemonevolution pe ON pe.evolved_species_id = ps.id
+            LEFT JOIN pokemon_v2_pokemonspecies evolves_from ON evolves_from.id = ps.evolves_from_species_id
+            LEFT JOIN pokemon_v2_evolutiontrigger et ON et.id = pe.evolution_trigger_id
+            LEFT JOIN pokemon_v2_item item ON item.id = pe.evolution_item_id OR item.id = pe.held_item_id
+            LEFT JOIN pokemon_v2_pokemonspecies trade_species ON trade_species.id = pe.trade_species_id
+            WHERE ${from ? "ps.evolves_from_species_id" : "ps.id"} = ${id || this.pokedex.id}
+            AND pe.location_id IS NULL OR pe.location_id IS NOT NULL -- Adjust if you want to filter out location-based evolutions
+        `);
     }
 
     readyBattleMode() {
