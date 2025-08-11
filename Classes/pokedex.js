@@ -130,7 +130,7 @@ class Pokedex extends Pokemon {
 
         if (!pokemonRow && typeof identifier === "string") {
             const normalizedIdentifier = identifier.toLowerCase().replace(/ /gmi, '-');
-            [pokemonRow] = await basePokemonQuery("p.name", normalizedIdentifier);
+            [pokemonRow] = await basePokemonQuery("p.name", "'" + normalizedIdentifier + "'");
         }
 
         if (!pokemonRow && typeof identifier === "string") {
@@ -164,7 +164,7 @@ class Pokedex extends Pokemon {
                 JOIN pokemon_v2_pokemonspecies ps ON ps.id = p.pokemon_species_id
                 LEFT JOIN (SELECT s.pokemon_id, MAX(CASE WHEN s.stat_id = 7 THEN s.base_stat END) AS spd, MAX(CASE WHEN s.stat_id = 1 THEN s.base_stat END) AS hp, MAX(CASE WHEN s.stat_id = 3 THEN s.base_stat END) AS def, MAX(CASE WHEN s.stat_id = 2 THEN s.base_stat END) AS atk, MAX(CASE WHEN s.stat_id = 6 THEN s.base_stat END) AS spdef, MAX(CASE WHEN s.stat_id = 4 THEN s.base_stat END) AS spatk FROM pokemon_v2_pokemonstat s GROUP BY s.pokemon_id) stats ON stats.pokemon_id = p.id
                 LEFT JOIN (SELECT pt_sub.pokemon_id, ARRAY_AGG(t.name ORDER BY pt_sub.slot) AS types FROM (SELECT DISTINCT ON (pt.pokemon_id, pt.type_id) pt.pokemon_id, pt.type_id, pt.slot FROM pokemon_v2_pokemontype pt ORDER BY pt.pokemon_id, pt.type_id, pt.slot) pt_sub JOIN pokemon_v2_type t ON t.id = pt_sub.type_id GROUP BY pt_sub.pokemon_id) types ON types.pokemon_id = p.id
-                WHERE p.name ILIKE ${searchTerm}
+                WHERE p.name ilike ${searchTerm}
                 ORDER BY p.id ASC LIMIT 1
             `;
 
@@ -448,7 +448,7 @@ class Pokedex extends Pokemon {
         // Populate types and stats onto the pokedex object
         // These are mostly handled by the initial getPokemonSpecies query now,
         // but this ensures consistency and can re-process if needed.
-        this.getTypesV2(true);
+        // this.getTypesV2(true);
         this.getStatsV2(true); // Ensures stats object is set on pokedex
 
         // Fetch description and alternative names
