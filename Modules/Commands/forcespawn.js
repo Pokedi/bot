@@ -45,7 +45,7 @@ export default {
                 // Initializing New Pokemon
                 msg.channel.spawn.pokemon = new Pokedex({});
                 // Custom
-                await msg.channel.spawn.pokemon.searchForID(content);
+                await msg.channel.spawn.pokemon.getPokemonSpecies(content);
                 // Spawn Pokemon Execution
                 msg.channel.spawn.pokemon.SpawnFriendlyV2(true);
                 // Send Message Test
