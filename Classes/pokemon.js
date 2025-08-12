@@ -152,7 +152,7 @@ class Pokemon {
 
     async fetchPokemon(postgres, columns = "*") {
 
-        if (!postgres || this.id) {
+        if (!postgres || this.pokemon) {
             return false;
         }
 
