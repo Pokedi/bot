@@ -275,7 +275,7 @@ class Pokemon {
 
     // Definitely would be nice to return details beyond this
     // Pokemon Showdown Move Details might need to get checked out but that's a backend thing of its own
-    async returnMoves() {
+    returnMoves() {
         return this.moves.map(x => {
             const moveDetails = { ...moves[x], id: x };
             moveDetails.name = capitalize(moveDetails.id.replace(/-/gmi, ' '));
