@@ -479,7 +479,7 @@ export default {
 
                     const marketedPokemon = new Pokedex(foundPokemon);
 
-                    await marketedPokemon.searchForID();
+                    await marketedPokemon.getPokemonSpecies(foundPokemon.pokemon);
 
                     await marketedPokemon.getStatsV2(true);
 

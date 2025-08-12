@@ -323,7 +323,7 @@ export default {
 
                         const pokedex = new Pokedex({});
 
-                        await pokedex.searchForID(selectedPokemon);
+                        await pokedex.getPokemonSpecies(selectedPokemon);
 
                         // Reject if Pokemon not found
                         if (!pokedex.pokedex.id)
