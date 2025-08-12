@@ -109,7 +109,7 @@ export default {
         if (!processedPokemon.id)
             return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokémon does not exist." });
 
-        await processedPokemon.fetchByID();
+        await processedPokemon.getPokemonSpecies();
 
         if (!processedPokemon.pokedex.id)
             return msg.reply({ flags: MessageFlags.Ephemeral, content: "This Pokémon has not been registered in the database. Please contact an admin for more help." });

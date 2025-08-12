@@ -36,7 +36,7 @@ export default async (interaction) => {
 
         await selectedPokemon.fetchPokemonByIDX(interaction.client.postgres, "id, pokemon");
 
-        await selectedPokemon.fetchByID();
+        await selectedPokemon.getPokemonSpecies();
 
         const itemEvolution = await selectedPokemon.getItemEvolutionsV2();
 

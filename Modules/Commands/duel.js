@@ -446,7 +446,7 @@ export default {
             teamA[member].fetchInventory(msg.client.postgres, true);
             if (teamA[member].pokemon) {
                 for (const row of teamA[member].pokemon) {
-                    await row.fetchByID();
+                    await row.getPokemonSpecies();
                     await row.fetchMoves();
                     row.readyBattleMode();
                     // await row.getTypesV2();
@@ -462,7 +462,7 @@ export default {
             teamB[member].fetchInventory(msg.client.postgres, true);
             if (teamB[member].pokemon) {
                 for (const row of teamB[member].pokemon) {
-                    await row.fetchByID();
+                    await row.getPokemonSpecies();
                     await row.fetchMoves();
                     row.readyBattleMode();
                     // await row.getTypesV2();

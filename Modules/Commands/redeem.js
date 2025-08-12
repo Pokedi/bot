@@ -450,7 +450,7 @@ export default {
                         // Ready Pokedex
                         const pokedex = new Pokedex({});
 
-                        await pokedex.fetchByID(selectedPokemon.id, true);
+                        await pokedex.getPokemonSpecies(selectedPokemon.id);
 
                         // Reject if Pokemon not found
                         if (!pokedex.pokedex.id)

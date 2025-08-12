@@ -48,6 +48,8 @@ class Pokedex extends Pokemon {
 
     async getPokemonSpecies(identifier) {
 
+        if (!identifier && this.pokemon) return this.getPokemonSpecies(this.pokemon);
+
         let pokemonRow = null;
 
         if (!possiblePokemon) {
