@@ -13,6 +13,11 @@ class Pokemon {
 
     constructor(pokemonObject = {}) {
 
+        this.mergePokemonObjectToClass(pokemonObject);
+
+    }
+
+    mergePokemonObjectToClass(pokemonObject = {}) {
         if (pokemonObject.id || pokemonObject.pokemon) {
             this.id = pokemonObject.id;
             this.idx = pokemonObject.idx;
@@ -44,7 +49,6 @@ class Pokemon {
             this.pokedex = pokemonObject.pokedex || {};
 
         }
-
     }
 
     async spawnToChannel(spawnChannel, commandID = 0) {
@@ -156,7 +160,8 @@ class Pokemon {
 
         try {
             const [row] = await postgres.unsafe(query.text, query.values);
-            return Object.assign(this, super(row));
+            this.mergePokemonObjectToClass(row);
+            return this;
         } catch (err) {
             return false;
         }
