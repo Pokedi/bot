@@ -76,6 +76,7 @@ export default {
                 const content = msg.content;
                 if (content) {
                     try {
+                        const client = msg.client; // Anthony wanted this :3
                         eval(content);
                     } catch (error) {
                         console.log(error);

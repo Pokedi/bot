@@ -156,7 +156,7 @@ class Pokemon {
 
         try {
             const [row] = await postgres.unsafe(query.text, query.values);
-            return Object.assign(this, new Pokemon(row || {}));
+            return Object.assign(this, super(row));
         } catch (err) {
             return false;
         }
