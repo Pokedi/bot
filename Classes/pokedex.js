@@ -359,7 +359,7 @@ class Pokedex extends Pokemon {
         if (!this.pokedex?.name) await this.getPokemonSpecies();
         
         // Reject if not found
-        if (!this.pokedex) return [];
+        if (!this.pokedex?.id) return [];
 
         // Grab Last Version Group
         const [{ max: version_group_id }] = await pokeapisql`SELECT MAX(version_group_id) as max FROM pokemon_v2_pokemonmove WHERE pokemon_id = ${this.pokedex.id}`;
