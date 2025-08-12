@@ -354,8 +354,10 @@ class Pokedex extends Pokemon {
     }
 
     async fetchAllMoves() {
+        
         // Grab DBPokemon
         if (!this.pokedex?.name) await this.getPokemonSpecies();
+        
         // Reject if not found
         if (!this.pokedex) return [];
 

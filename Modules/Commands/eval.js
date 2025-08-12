@@ -88,6 +88,7 @@ export default {
             } else
                 if (msg.options.getString("command")) {
                     try {
+                        const client = msg.client; // Anthony wanted this :3
                         eval(msg.options.getString("command"));
                     } catch (error) {
                         console.log(error);
