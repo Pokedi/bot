@@ -118,7 +118,7 @@ class Pokedex extends Pokemon {
             LEFT JOIN (
                 SELECT
                     pt_sub.pokemon_id,
-                    ARRAY_AGG(t.name ORDER BY pt_sub.slot) AS types
+                    ARRAY_AGG(t.id ORDER BY pt_sub.slot) AS types
                 FROM (
                     SELECT DISTINCT ON (pt.pokemon_id, pt.type_id)
                         pt.pokemon_id, pt.type_id, pt.slot
@@ -172,9 +172,10 @@ class Pokedex extends Pokemon {
 
             if (this.pokedex.types && this.pokedex.types.length > 0) {
                 // Convert fetched type names to their corresponding ENUM IDs
-                this.types = this.pokedex.types.map(typeName =>
-                    Object.keys(ENUM_POKEMON_TYPES_ID).find(key => ENUM_POKEMON_TYPES_ID[key].toLowerCase() === typeName.toLowerCase()) || typeName // Fallback to name if ID not found
-                );
+                this.types = this.pokedex.types;
+                // .map(typeName =>
+                //     Object.keys(ENUM_POKEMON_TYPES_ID).find(key => ENUM_POKEMON_TYPES_ID[key].toLowerCase() === typeName.toLowerCase()) || typeName // Fallback to name if ID not found
+                // );
             } else {
                 this.types = [];
             }

@@ -85,6 +85,15 @@ const filterCommands = {
         ) >= 3`);
 
     },
+    // Gender Bender
+    'gender': (queryObject, value = '') => {
+        // Check if the value is male or female, m or f, or 1 or 2
+        if (value.toLowerCase() === 'male' || value.toLowerCase() === 'm' || value === '2')
+            return queryObject = queryObject.and('gender = \'2\'')
+        if (value.toLowerCase() === 'female' || value.toLowerCase() === 'f' || value === '1')
+            return queryObject = queryObject.and('gender = \'1\'')
+        return queryObject = queryObject.and("gender = '3'");
+    },
     // Qua-Stat Filter
     "qua": (queryObject, value = '') => {
 

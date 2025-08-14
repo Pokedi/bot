@@ -1,5 +1,6 @@
 import { Chance } from "chance";
 import capitalize from "../Misc/capitalize.js";
+import { ENUM_POKEMON_FULL_TYPES_ID } from "../Data/enums.js";
 
 function dexPokemonInfoModule(details = null, color = 16776960) {
     if (!details) return false;
@@ -50,7 +51,7 @@ ${details.gender_rate == -1 ? "Genderless" : (details.gender_rate != null ? `- â
 **Weight:** ${(details.weight).toFixed(2) || "???"}kg
 -----------
 **Type(s):**
-${details.types.map(x => capitalize(x)).join(" | ")}`,
+${details.types.map(x => capitalize(ENUM_POKEMON_FULL_TYPES_ID[x])).join(" | ")}`,
                 inline: true
             }, {
                 name: "Alt Names:",
