@@ -56,7 +56,7 @@ class Pokedex extends Pokemon {
             await initializeMiniSearch();
         }
 
-        const basePokemonQuery = (condition, value) => pokeapisql`
+        const basePokemonQuery = (condition) => pokeapisql`
             SELECT
                 p.id,
                 p.name AS _id, -- Use name as _id (slug) for consistency
@@ -80,8 +80,8 @@ class Pokedex extends Pokemon {
                 stats.spatk,
                 stats.eva,
                 stats.acc,
-                NULL::integer AS acc, -- Placeholder if not available in current schema
-                NULL::integer AS eva, -- Placeholder if not available in current schema
+                stats.acc, -- Placeholder if not available in current schema
+                stats.eva, -- Placeholder if not available in current schema
                 types.types,
                 ps.pokemon_color_id,
                 ps.pokemon_shape_id,
@@ -89,14 +89,16 @@ class Pokedex extends Pokemon {
                 ps.pokemon_habitat_id,
                 ps.is_mythical,
                 ps.is_legendary,
-                FALSE AS is_sub_legendary, -- Set explicitly as false based on schema mapping
-                FALSE AS is_custom,        -- Set explicitly as false
-                FALSE AS is_nonspawnable,  -- Set explicitly as false
-                FALSE AS is_event,         -- Set explicitly as false
-                NULL::text AS art,         -- Placeholder for art URL
-                p.id AS dexid
+                pc.is_sub_legendary,
+                pc.is_custom,       
+                pc.is_nonspawnable,
+                pc.is_event,
+                pa.artist_name AS art,         -- Placeholder for art URL
+                pc.id AS dex_id
             FROM pokemon_v2_pokemon p
             JOIN pokemon_v2_pokemonspecies ps ON ps.id = p.pokemon_species_id
+            JOIN pokedi.pokedi_v2_pokemonconfigs pc ON pc.id = p.id
+            LEFT JOIN pokedi.pokedi_v2_pokemonart pa ON pa.id = p.id
             -- Subquery for stats
             LEFT JOIN (
                 SELECT
@@ -126,17 +128,17 @@ class Pokedex extends Pokemon {
                 JOIN pokemon_v2_type t ON t.id = pt_sub.type_id
                 GROUP BY pt_sub.pokemon_id
             ) types ON types.pokemon_id = p.id
-            WHERE ${pokeapisql(condition)} = ${value} LIMIT 1
+            WHERE ${condition} LIMIT 1
         `;
 
         if (typeof identifier === 'number' || (typeof identifier === 'string' && /^\d+$/.test(identifier))) {
             const numId = parseInt(identifier);
-            [pokemonRow] = await basePokemonQuery("p.id", numId);
+            [pokemonRow] = await basePokemonQuery(pokeapisql`p.id = ${numId}`);
         }
 
         if (!pokemonRow && typeof identifier === "string") {
             const normalizedIdentifier = identifier.toLowerCase().replace(/ /gmi, '-');
-            [pokemonRow] = await basePokemonQuery("p.name", + normalizedIdentifier);
+            [pokemonRow] = await basePokemonQuery(pokeapisql`p.name = ${normalizedIdentifier} OR p.name = ${normalizedIdentifier.replace(/-/gmi, ' ')}`);
         }
 
         if (!pokemonRow && typeof identifier === "string") {
@@ -144,91 +146,19 @@ class Pokedex extends Pokemon {
             const miniSearchMatches = possiblePokemon.search(identifier, { boost: { name: 2, _id: 2 } });
             if (miniSearchMatches.length > 0) {
                 const bestMatchId = miniSearchMatches[0].id;
-                [pokemonRow] = await basePokemonQuery("p.id", bestMatchId);
+                [pokemonRow] = await basePokemonQuery(pokeapisql`p.id = ${bestMatchId}`);
             }
 
         }
 
         if (!pokemonRow && typeof identifier === 'string') {
-            [pokemonRow] = await pokeapisql`
-               SELECT
-                p.id,
-                p.name AS _id, -- Use name as _id (slug) for consistency
-                p.name AS name,
-                p.height,
-                p.weight,
-                p.base_experience,
-                ps.gender_rate,
-                ps.capture_rate,
-                ps.base_happiness,
-                ps.is_baby,
-                ps.hatch_counter,
-                ps.forms_switchable,
-                ps.has_gender_differences,
-                ps.evolves_from_species_id,
-                stats.spd,
-                stats.hp,
-                stats.def,
-                stats.atk,
-                stats.spdef,
-                stats.spatk,
-                stats.eva,
-                stats.acc,
-                NULL::integer AS acc, -- Placeholder if not available in current schema
-                NULL::integer AS eva, -- Placeholder if not available in current schema
-                types.types,
-                ps.pokemon_color_id,
-                ps.pokemon_shape_id,
-                ps.growth_rate_id,
-                ps.pokemon_habitat_id,
-                ps.is_mythical,
-                ps.is_legendary,
-                FALSE AS is_sub_legendary, -- Set explicitly as false based on schema mapping
-                FALSE AS is_custom,        -- Set explicitly as false
-                FALSE AS is_nonspawnable,  -- Set explicitly as false
-                FALSE AS is_event,         -- Set explicitly as false
-                NULL::text AS art,         -- Placeholder for art URL
-                p.id AS dexid
-            FROM pokemon_v2_pokemon p
-            JOIN pokemon_v2_pokemonspecies ps ON ps.id = p.pokemon_species_id
-            -- Subquery for stats
-            LEFT JOIN (
-                SELECT
-                    s.pokemon_id,
-                    MAX(CASE WHEN s.stat_id = 4 THEN s.base_stat END) AS spd, -- Speed
-                    MAX(CASE WHEN s.stat_id = 1 THEN s.base_stat END) AS hp,  -- HP
-                    MAX(CASE WHEN s.stat_id = 3 THEN s.base_stat END) AS def, -- Defense
-                    MAX(CASE WHEN s.stat_id = 2 THEN s.base_stat END) AS atk, -- Attack
-                    MAX(CASE WHEN s.stat_id = 6 THEN s.base_stat END) AS spdef, -- Special Defense
-                    MAX(CASE WHEN s.stat_id = 5 THEN s.base_stat END) AS spatk, -- Special Attack
-                    MAX(CASE WHEN s.stat_id = 7 THEN s.base_stat END) AS acc, -- Accuracy
-                    MAX(CASE WHEN s.stat_id = 8 THEN s.base_stat END) AS eva -- Evasion
-                FROM pokemon_v2_pokemonstat s
-                GROUP BY s.pokemon_id
-            ) stats ON stats.pokemon_id = p.id
-            -- Subquery for types with names
-            LEFT JOIN (
-                SELECT
-                    pt_sub.pokemon_id,
-                    ARRAY_AGG(t.name ORDER BY pt_sub.slot) AS types
-                FROM (
-                    SELECT DISTINCT ON (pt.pokemon_id, pt.type_id)
-                        pt.pokemon_id, pt.type_id, pt.slot
-                    FROM pokemon_v2_pokemontype pt
-                    ORDER BY pt.pokemon_id, pt.type_id, pt.slot
-                ) pt_sub
-                JOIN pokemon_v2_type t ON t.id = pt_sub.type_id
-                GROUP BY pt_sub.pokemon_id
-            ) types ON types.pokemon_id = p.id
-                WHERE p.name ilike ${'%' + identifier.toLowerCase() + '%'}
-                ORDER BY p.id ASC LIMIT 1
-            `;
+            [pokemonRow] = await basePokemonQuery(pokeapisql`p.name ILIKE ${'%' + identifier.toLowerCase() + '%'} OR p.name ILIKE ${'%' + identifier.replace(/ /gmi, '-').toLowerCase() + '%'} OR p.name ILIKE ${'%' + identifier.replace(/ /gmi, ' ') + '%'} OR p.name ILIKE ${'%' + identifier.replace(/ /gmi, '-') + '%'}`);
 
             // If still not found, check alt names from pokemon_v2_pokemonspeciesname
             if (!pokemonRow) {
                 const [altNameRow] = await pokeapisql`SELECT pokemon_species_id FROM pokemon_v2_pokemonspeciesname WHERE name ILIKE ${'%' + identifier.toLowerCase() + '%'} OR genus ILIKE ${'%' + identifier.toLowerCase() + '%'} LIMIT 1`;
                 if (altNameRow) {
-                    [pokemonRow] = await basePokemonQuery("p.id", altNameRow.pokemon_species_id);
+                    [pokemonRow] = await basePokemonQuery(pokeapisql`p.id = ${altNameRow.pokemon_species_id}`);
                 }
             }
         }
