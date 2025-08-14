@@ -136,7 +136,7 @@ class Pokedex extends Pokemon {
 
         if (!pokemonRow && typeof identifier === "string") {
             const normalizedIdentifier = identifier.toLowerCase().replace(/ /gmi, '-');
-            [pokemonRow] = await basePokemonQuery("p.name", "'" + normalizedIdentifier + "'");
+            [pokemonRow] = await basePokemonQuery("p.name", + normalizedIdentifier);
         }
 
         if (!pokemonRow && typeof identifier === "string") {
@@ -150,7 +150,6 @@ class Pokedex extends Pokemon {
         }
 
         if (!pokemonRow && typeof identifier === 'string') {
-            const searchTerm = `%${identifier.toLowerCase()}%`;
             [pokemonRow] = await pokeapisql`
                SELECT
                 p.id,
@@ -221,7 +220,7 @@ class Pokedex extends Pokemon {
                 JOIN pokemon_v2_type t ON t.id = pt_sub.type_id
                 GROUP BY pt_sub.pokemon_id
             ) types ON types.pokemon_id = p.id
-                WHERE p.name ilike ${searchTerm}
+                WHERE p.name ilike %${identifier.toLowerCase()}%
                 ORDER BY p.id ASC LIMIT 1
             `;
 
