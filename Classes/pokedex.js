@@ -20,7 +20,7 @@ async function initializeMiniSearch() {
     let pokemonNames = await pokeapisql`SELECT id, name FROM pokemon_v2_pokemon`;
 
     possiblePokemon = new MiniSearch({
-        fields: ["id", "name"],
+        fields: ["id", "name", "_id"],
         storeFields: ["id"],
         searchOptions: {
             fuzzy: 0.4
@@ -29,7 +29,7 @@ async function initializeMiniSearch() {
 
     // console.log(pokemonNames.splice(0, 5), "possiblePokemon");
 
-    possiblePokemon.addAll(pokemonNames.map(x => ({ id: x.id, name: x.name.replace(/-/gmi, ' ') })));
+    possiblePokemon.addAll(pokemonNames.map(x => ({ id: x.id, name: x.name.replace(/-/gmi, ' '), _id: x.name })));
 
 }
 
