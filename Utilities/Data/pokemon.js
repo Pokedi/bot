@@ -14,7 +14,7 @@ import pokemondb from "../../Modules/Database/pokedb.js";
 
 // const allPokemon = [...gen1, ...gen2, ...gen3, ...gen4, ...gen5, ...gen6, ...gen7, ...gen8, ...custom];
 
-const allPokemon = await pokemondb`SELECT
+const allPokemon = await pokemondb` SELECT
                 p.id,
                 p.name AS _id, -- Use name as _id (slug) for consistency
                 p.name AS name,
@@ -37,8 +37,8 @@ const allPokemon = await pokemondb`SELECT
                 stats.spatk,
                 stats.eva,
                 stats.acc,
-                NULL::integer AS acc, -- Placeholder if not available in current schema
-                NULL::integer AS eva, -- Placeholder if not available in current schema
+                stats.acc, -- Placeholder if not available in current schema
+                stats.eva, -- Placeholder if not available in current schema
                 types.types,
                 ps.pokemon_color_id,
                 ps.pokemon_shape_id,
@@ -46,14 +46,16 @@ const allPokemon = await pokemondb`SELECT
                 ps.pokemon_habitat_id,
                 ps.is_mythical,
                 ps.is_legendary,
-                FALSE AS is_sub_legendary, -- Set explicitly as false based on schema mapping
-                FALSE AS is_custom,        -- Set explicitly as false
-                FALSE AS is_nonspawnable,  -- Set explicitly as false
-                FALSE AS is_event,         -- Set explicitly as false
-                NULL::text AS art,         -- Placeholder for art URL
-                p.id AS dexid
+                pc.is_sub_legendary,
+                pc.is_custom,       
+                pc.is_nonspawnable,
+                pc.is_event,
+                pa.artist_name AS art,         -- Placeholder for art URL
+                pc.id AS dex_id
             FROM pokemon_v2_pokemon p
             JOIN pokemon_v2_pokemonspecies ps ON ps.id = p.pokemon_species_id
+            JOIN pokedi.pokedi_v2_pokemonconfigs pc ON pc.id = p.id
+            LEFT JOIN pokedi.pokedi_v2_pokemonart pa ON pa.id = p.id
             -- Subquery for stats
             LEFT JOIN (
                 SELECT
@@ -73,7 +75,7 @@ const allPokemon = await pokemondb`SELECT
             LEFT JOIN (
                 SELECT
                     pt_sub.pokemon_id,
-                    ARRAY_AGG(t.name ORDER BY pt_sub.slot) AS types
+                    ARRAY_AGG(t.id ORDER BY pt_sub.slot) AS types
                 FROM (
                     SELECT DISTINCT ON (pt.pokemon_id, pt.type_id)
                         pt.pokemon_id, pt.type_id, pt.slot
