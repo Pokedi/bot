@@ -17,7 +17,7 @@ let possiblePokemon; // Gotta initialize this asynchronously
 
 async function initializeMiniSearch() {
 
-    let pokemonNames = await pokeapisql`SELECT id, name FROM pokemon_v2_pokemon`;
+    let pokemonNames = await pokeapisql`SELECT id, name FROM public.pokemon_v2_pokemon`;
 
     possiblePokemon = new MiniSearch({
         fields: ["id", "name", "_id"],
@@ -141,7 +141,7 @@ class Pokedex extends Pokemon {
 
         if (!pokemonRow && typeof identifier === "string") {
 
-            const miniSearchMatches = possiblePokemon.search(identifier, { boost: { name: 2 } });
+            const miniSearchMatches = possiblePokemon.search(identifier, { boost: { name: 2, _id: 2 } });
             if (miniSearchMatches.length > 0) {
                 const bestMatchId = miniSearchMatches[0].id;
                 [pokemonRow] = await basePokemonQuery("p.id", bestMatchId);
@@ -220,13 +220,13 @@ class Pokedex extends Pokemon {
                 JOIN pokemon_v2_type t ON t.id = pt_sub.type_id
                 GROUP BY pt_sub.pokemon_id
             ) types ON types.pokemon_id = p.id
-                WHERE p.name ilike %${identifier.toLowerCase()}%
+                WHERE p.name ilike ${'%' + identifier.toLowerCase() + '%'}
                 ORDER BY p.id ASC LIMIT 1
             `;
 
             // If still not found, check alt names from pokemon_v2_pokemonspeciesname
             if (!pokemonRow) {
-                const [altNameRow] = await pokeapisql`SELECT pokemon_species_id FROM pokemon_v2_pokemonspeciesname WHERE name ILIKE ${searchTerm} OR genus ILIKE ${searchTerm} LIMIT 1`;
+                const [altNameRow] = await pokeapisql`SELECT pokemon_species_id FROM pokemon_v2_pokemonspeciesname WHERE name ILIKE ${'%' + identifier.toLowerCase() + '%'} OR genus ILIKE ${'%' + identifier.toLowerCase() + '%'} LIMIT 1`;
                 if (altNameRow) {
                     [pokemonRow] = await basePokemonQuery("p.id", altNameRow.pokemon_species_id);
                 }
