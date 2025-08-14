@@ -1,72 +1,101 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, MessageFlags } from "discord.js";
+import {
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle,
+    ComponentType,
+    MessageFlags
+} from "discord.js";
 
-const buttonMaker = ({ users = [], disable = [], title = "main" }) => {
-    let content = '';
+function buttonMaker({ users = [], disable = [] }) {
+    const allDisabled = users.every(u => disable.includes(u));
 
-    let alp = [];
+    const description = users.map(userId => {
+        const isDisabled = disable.includes(userId);
+        const mention = `<@${userId}>`;
+        return isDisabled
+            ? `~~${mention}'s verification pending~~`
+            : `${mention}'s verification pending`;
+    }).join("\n");
 
-    const check = !users.filter(x => !disable.includes(x)).length;
-
-    for (let i = 0; i < users.length; i++) {
-        const user_check = disable.includes(users[i]);
-        content += `${user_check ? "~~" : ""}<@${users[i]}>'s verification pending${user_check ? "~~" : ""}\n`;
-    }
-
-    return [new ActionRowBuilder().addComponents(new ButtonBuilder()
-        .setLabel('✅')
-        .setCustomId('approve')
-        .setStyle(ButtonStyle.Primary)
-        .setDisabled(check),
+    const row = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
-            .setLabel('❌')
-            .setCustomId('cancel')
-            .setStyle(ButtonStyle.Primary)), content];
+            .setCustomId("approve")
+            .setLabel("✅ Approve")
+            .setStyle(ButtonStyle.Success)
+            .setDisabled(allDisabled),
+        new ButtonBuilder()
+            .setCustomId("cancel")
+            .setLabel("❌ Cancel")
+            .setStyle(ButtonStyle.Danger)
+            .setDisabled(allDisabled)
+    );
+
+    return [row, description];
 }
 
-async function buttonVerification({ interaction, filter, time = 15000, button_id, users = [], textContent }) {
-    return new Promise(async (resolve) => {
+export async function buttonVerification({
+    interaction,
+    filter,
+    time = 15000,
+    users = [],
+    textContent
+}) {
+    if (!users.length) users = [interaction.user.id];
 
-        if (!users[0]) users = [interaction.user.id];
+    let disable = [];
 
-        const [buttons, content] = buttonMaker({ users, title: button_id || "trade" });
+    const [row, description] = buttonMaker({ users, disable });
 
-        const replied = await interaction.reply({ components: [buttons], embeds: [{ description: content }], content: textContent, withResponse: true })
+    const message = await interaction.reply({
+        content: textContent ?? "",
+        embeds: [{ description }],
+        components: [row],
+        fetchReply: true
+    });
 
-        let disable = [];
+    return new Promise((resolve) => {
+        const collector = message.createMessageComponentCollector({
+            componentType: ComponentType.Button,
+            time,
+            filter: i =>
+                (filter?.(i) ??
+                    (users.includes(i.user.id) &&
+                        (i.customId === "approve" || i.customId === "cancel")))
+        });
 
-        let final_filter = filter || (i => i.message.id == replied.resource.message.id && users.includes(i.user.id) && (i.customId == "cancel" || i.customId == "approve"));
+        collector.on("collect", async i => {
+            await i.reply({ content: "<3", flags: MessageFlags.Ephemeral });
 
-        try {
-            const collector = interaction.channel.createMessageComponentCollector({
-                componentType: ComponentType.Button, time: 25000
-            });
+            if (i.customId === "cancel") {
+                await message.edit({
+                    content: "This interaction was cancelled.",
+                    components: []
+                });
+                collector.stop("cancelled");
+                return resolve(false);
+            }
 
-            collector.on('collect', async i => {
-                await i[i.replied ? "followUp" : "reply"]({ flags: MessageFlags.Ephemeral, content: "<3" });
-                if (!final_filter(i)) return;
-                try {
-                    const u = i.user.id;
-                    if (i.customId == "cancel") {
-                        return replied.resource.message.edit({ content: "This interaction was cancelled", components: [] }),
-                            resolve(false);
-                    } else {
-                        if (!disable.includes(u)) {
-                            disable.push(u);
-                            const [buttons, content] = buttonMaker({ users, disable });
-                            await replied.resource.message.edit({ embeds: [{ description: content }], components: (disable.length != users.length) ? [buttons] : [] });
-                            (disable.length == users.length && resolve(true));
-                            return;
-                        }
-                    }
-                } catch (error) {
-                    console.log(error);
+            // Approve logic
+            if (!disable.includes(i.user.id)) {
+                disable.push(i.user.id);
+                const [newRow, newDesc] = buttonMaker({ users, disable });
+
+                await message.edit({
+                    embeds: [{ description: newDesc }],
+                    components: disable.length === users.length ? [] : [newRow]
+                });
+
+                if (disable.length === users.length) {
+                    collector.stop("all approved");
+                    return resolve(true);
                 }
-                return;
-            });
-            collector.on('end', collected => { if (disable.length == users.length) { resolve(true); } else { resolve(false); } });
-        } catch (err) { console.log(err); }
+            }
+        });
+
+        collector.on("end", () => {
+            resolve(disable.length === users.length);
+        });
     });
 }
-
 
 export default buttonVerification;

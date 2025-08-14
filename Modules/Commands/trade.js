@@ -457,7 +457,7 @@ export default {
                 }
 
                 // Edit Message
-                await tradeMSG.resource.message.edit({ embeds: [{ fields: createField(_trade), description: "~ trade slash commands enabled ~", title: `Trade Between ${_trade[You.id].username} and ${_trade[Them.id].username}` }] });
+                await tradeMSG.edit({ embeds: [{ fields: createField(_trade), description: "~ trade slash commands enabled ~", title: `Trade Between ${_trade[You.id].username} and ${_trade[Them.id].username}` }] });
 
                 return m.reply({ flags: MessageFlags.Ephemeral, content: "✅" });
             });

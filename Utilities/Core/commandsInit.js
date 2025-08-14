@@ -7,7 +7,7 @@ const rest = new REST().setToken(process.env.TOKEN);
 const commands = [];
 
 // Ready Commands
-export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release", "select", "team", "forcespawn", "order", "shop", "trade", "sql", "config", "profile", "duel", "moves", "daily", "shardstats", "redeem", "market", "inventory", "voucher", "help", "vote", "invite", "hatchery"], client, allowRest = process.argv.includes("--force-api") || false) => {
+export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "reload", "start", "reindex", "pokemon", "nickname", "dex", "release", "select", "team", "forcespawn", "order", "shop", "trade", "sql", "config", "profile", "duel", "moves", "daily", "shardstats", "redeem", "market", "inventory", "voucher", "help", "vote", "invite", "hatchery", "battle"], client, allowRest = process.argv.includes("--force-api") || false) => {
 
     // Clear just in-case of reuse
     commands.splice(0, commands.length);
@@ -17,7 +17,7 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
 
     for (const commandName of commandList) {
         try {
-            const { default: importedCommand } = await import("../../Modules/Commands/" + commandName + ".js?update=" + Date.now());
+            const { default: importedCommand } = await import("../../Modules/Commands/" + commandName + ".js");
             commands.push(importedCommand.data.toJSON());
             client.commands.set(commandName, importedCommand.execute);
 
@@ -27,7 +27,7 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
             // Check if it has Aliases => Push to CommandsList + Set in Client Commands => Loop
             if (importedCommand.alias) {
                 for (const alias of importedCommand.alias) {
-                    commands.push(alias);
+                    // commands.push(alias);
                     client.commands.set(alias, importedCommand.execute);
                     if (importedCommand.mention_support)
                         client.commands.get(alias).mention_support = importedCommand.mention_support;
