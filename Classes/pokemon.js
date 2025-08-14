@@ -70,10 +70,10 @@ class Pokemon {
                 embeds: [{
                     title: Chance().pickone(["A wild pokemon just raided the chat!", "A wild pokemon is looking for attention!", "For some reason a pokemon is here.", "Shot, here we go again.", "Apparently a pokemon is lurking", "Blame the devs for this", "Seems like someone forgot to bring back the milk from the store", "Arceus dumped this on you", "Rejoice, your adopted child returned to you", "You tried to run away and failed", "Cynthia or this adorable Mon? Take your pick"]),
                     color: time_gradient[(new Date().getHours())],
-                    iamge: {
+                    image: {
                         url: "attachment://spawn.png"
                     },
-                    description: `Use the </catch:${commandID}> or \`@Pokedi c\` command to tame it! Or just ignore it?`,
+                    description: `Use the </catch:${commandID}> command to tame it! Or just ignore it?`,
                     footer: {
                         text: " 🌹 https://pokedi.xyz 🌹"
                     }
@@ -152,7 +152,7 @@ class Pokemon {
 
     async fetchPokemon(postgres, columns = "*") {
 
-        if (!postgres || this.id) {
+        if (!postgres || this.pokemon) {
             return false;
         }
 
@@ -275,7 +275,7 @@ class Pokemon {
 
     // Definitely would be nice to return details beyond this
     // Pokemon Showdown Move Details might need to get checked out but that's a backend thing of its own
-    async returnMoves() {
+    returnMoves() {
         return this.moves.map(x => {
             const moveDetails = { ...moves[x], id: x };
             moveDetails.name = capitalize(moveDetails.id.replace(/-/gmi, ' '));
