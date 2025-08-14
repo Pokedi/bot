@@ -104,6 +104,11 @@ export default {
 
                 await opponent.fetch(msg.client.postgres);
 
+                if (!opponent.started) return msg.reply("The opponent hasn't started their adventure yet!");
+
+                if (!opponent.selected || !opponent.selected[0])
+                    return msg.reply("The opponent has no Pokemon selected for battle!");
+
                 await opponent.fetchPokemon(msg.client.postgres);
 
                 console.log(player, opponent);

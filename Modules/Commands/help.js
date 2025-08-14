@@ -509,6 +509,10 @@ export default {
                             name: "Triple and Quadriple IVs",
                             value: `</pokemon:${_id}> query:tri\n</pokemon:${_id}> query:qua`
                         }, {
+                            name: "Gender Filters",
+                            value: `</pokemon:${_id}> query:male\n</pokemon:${_id}> query:female\n</pokemon:${_id}> query:genderless`
+                        },
+                        {
                             name: "Example of Filters",
                             value: `\`/pokemon query:legendary iv > 80 shiny\` (Shiny 80%+ IV Legendaries)\n\`/pokemon query:spd > 30 Pikachu\`\n\`/pokemon query:region page:2\``
                         }]

@@ -193,6 +193,7 @@ export default {
 
             // Sanitize query: allow only safe characters (alphanumeric, spaces, dashes, and some symbols)
             query = typeof opts.query === "string" ? opts.query.replace(/[^a-zA-Z0-9\s\-_<>=!%*"'.,]/g, "") : "";
+            
         } else {
             // Slash command options
             helpFlag = msg.options.getBoolean("help");
