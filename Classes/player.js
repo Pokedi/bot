@@ -125,7 +125,7 @@ class Player {
         if (!pokemon.user_id || pokemon.pokemon == "egg") return false;
 
         // Ready Pokemon
-        await pokemon.getColumnsByID('id, _id, base_experience', { _id: pokemon.pokemon });
+        await pokemon.getPokemonSpecies();
 
         // Level Up
         return await pokemon.levelUp(postgres, msg, level);
@@ -197,13 +197,17 @@ class Player {
         return count;
     }
 
-    async fetchPokemon(postgres) {
+    async fetchPokemon(postgres, fullFetch = false) {
 
         const rows = this.selected.length ? await postgres`SELECT * FROM pokemon WHERE id in ${postgres(this.selected)}` : await postgres`SELECT * FROM pokemon WHERE user_id = ${this.id} LIMIT 6`;
 
         if (!rows.length) return this.pokemon = [];
 
-        const pokemon = this.selected.map(x => new Pokedex(rows.find(y => y.id == x) || {})).filter(x => x.id);
+        const pokemon = rows.map(x => new Pokedex(x));
+
+        if (fullFetch) {
+            await Promise.all(pokemon.map(x => x.getPokemonSpecies()));
+        }
 
         this.pokemon = pokemon;
 

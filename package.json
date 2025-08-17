@@ -6,6 +6,7 @@
     "chance": "^1.1.13",
     "color": "^5.0.0",
     "colorthief": "^2.6.0",
+    "cron": "^4.3.3",
     "discord-api-types": "^0.38.20",
     "discord-hybrid-sharding": "^2.2.6",
     "discord.js": "^14.21.0",

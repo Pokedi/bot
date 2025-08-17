@@ -48,6 +48,8 @@ class Pokedex extends Pokemon {
 
     async getPokemonSpecies(identifier) {
 
+        if (this.pokedex?.id) return this.pokedex;
+
         if (!identifier && this.pokemon) return this.getPokemonSpecies(this.pokemon);
 
         let pokemonRow = null;
@@ -284,10 +286,10 @@ class Pokedex extends Pokemon {
     }
 
     async fetchAllMoves() {
-        
+
         // Grab DBPokemon
         if (!this.pokedex?.name) await this.getPokemonSpecies();
-        
+
         // Reject if not found
         if (!this.pokedex?.id) return [];
 
@@ -522,33 +524,85 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
 
         let evolutionChain = await this.getEvolutionFromSpeciesV2(this.pokedex.id, false);
 
-        evolutionChain = evolutionChain.concat(await this.getEvolutionFromSpeciesV2(this.pokedex.id, true));
-
-        if (evolutionChain.length && evolutionChain[0].evolved_from) {
-            let id = evolutionChain[0].evolved_from;
-            while (true) {
-                const [foundPokemon] = await this.getEvolutionFromSpeciesV2(id, false);
-                if (foundPokemon)
-                    evolutionChain = evolutionChain.concat([foundPokemon]);
-                if (!foundPokemon.evolved_from)
-                    break;
-                id = foundPokemon.evolved_from;
-            }
-        }
-
         return evolutionChain;
     }
 
     async getEvolutionFromSpeciesV2(id, from) {
-        return await pokeapisql.unsafe(`SELECT s.id as pokemon_id, ps.id, s.name, pre.name as evolved_from_name, ps.evolves_from_species_id as evolved_from, p.min_level, p.min_happiness, p.min_affection, p.time_of_day, p.evolution_item_id, item.name as item_name, t.name as trigger, item.cost as item_price, trade_evo.name as trade_pokemon
-        FROM pokemon_v2_pokemon as s
-        LEFT JOIN pokemon_v2_pokemonspecies ps ON ps.id = s.pokemon_species_id
-        LEFT JOIN pokemon_v2_pokemonevolution as p on (p.evolved_species_id = s.id)
-        LEFT JOIN pokemon_v2_evolutiontrigger as t on (t.id = p.evolution_trigger_id)
-        LEFT JOIN pokemon_v2_pokemon as trade_evo on p.trade_species_id = trade_evo.id
-        LEFT JOIN pokemon_v2_pokemon as pre on (pre.id = ps.evolves_from_species_id)
-        LEFT JOIN pokemon_v2_item as item on (item.id = p.evolution_item_id OR item.id = p.held_item_id)
-        WHERE ${from ? "ps.evolves_from_species_id" : "s.id"} = ${id || this.pokedex.id} AND p.location_id is null;`)
+        // Yes, this was a mess but I needed to add this internal looping to avoid madness
+        return await pokeapisql`WITH RECURSIVE evo_chain AS (
+    SELECT
+        s.id AS pokemon_id,
+        ps.id AS species_id,
+        s.name AS pokemon_name,
+        pre.name AS evolved_from_name,
+        ps.evolves_from_species_id AS evolved_from,
+        p.min_level,
+        p.min_happiness,
+        p.min_affection,
+        p.time_of_day,
+        p.evolution_item_id,
+        item.name AS item_name,
+        t.name AS trigger,
+        item.cost AS item_price,
+        trade_evo.name AS trade_pokemon,
+		s.is_default,
+        ps.id AS chain_species_id
+    FROM pokemon_v2_pokemon AS s
+    LEFT JOIN pokemon_v2_pokemonspecies ps ON ps.id = s.pokemon_species_id
+    LEFT JOIN pokemon_v2_pokemonevolution AS p ON p.evolved_species_id = s.id
+    LEFT JOIN pokemon_v2_evolutiontrigger AS t ON t.id = p.evolution_trigger_id
+    LEFT JOIN pokemon_v2_pokemon AS trade_evo ON p.trade_species_id = trade_evo.id
+    LEFT JOIN pokemon_v2_pokemon AS pre ON pre.id = ps.evolves_from_species_id
+    LEFT JOIN pokemon_v2_item AS item ON item.id = p.evolution_item_id
+    WHERE ps.id = ${id}
+      AND p.location_id IS NULL
+
+    UNION ALL
+
+    SELECT
+        ns.id AS pokemon_id,
+        nps.id AS species_id,
+        ns.name AS pokemon_name,
+        npre.name AS evolved_from_name,
+        nps.evolves_from_species_id AS evolved_from,
+        np.min_level,
+        np.min_happiness,
+        np.min_affection,
+        np.time_of_day,
+        np.evolution_item_id,
+        nitem.name AS item_name,
+        nt.name AS trigger,
+        nitem.cost AS item_price,
+        ntrade_evo.name AS trade_pokemon,
+		ns.is_default,
+        nps.id AS chain_species_id
+    FROM pokemon_v2_pokemonspecies AS nps
+    LEFT JOIN pokemon_v2_pokemon AS ns ON ns.pokemon_species_id = nps.id
+    LEFT JOIN pokemon_v2_pokemonspecies AS npre ON npre.id = nps.evolves_from_species_id
+    LEFT JOIN pokemon_v2_pokemonevolution AS np ON np.evolved_species_id = nps.id
+    LEFT JOIN pokemon_v2_evolutiontrigger AS nt ON nt.id = np.evolution_trigger_id
+    LEFT JOIN pokemon_v2_pokemon AS ntrade_evo ON np.trade_species_id = ntrade_evo.id
+    LEFT JOIN pokemon_v2_item AS nitem ON nitem.id = np.evolution_item_id
+    JOIN evo_chain ec ON nps.evolves_from_species_id = ec.chain_species_id
+    WHERE np.location_id IS NULL
+)
+SELECT
+    pokemon_id,
+    species_id,
+    pokemon_name,
+    evolved_from_name,
+    evolved_from,
+    min_level,
+    min_happiness,
+    min_affection,
+    time_of_day,
+    evolution_item_id,
+    item_name,
+    trigger,
+    item_price,
+    trade_pokemon,
+	is_default
+FROM evo_chain;`
     }
 
     readyBattleMode() {
@@ -619,41 +673,56 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
                 { levelIncreased: preLevel != this.level, level: this.level, pokemon: this.pokemon, hasEvolved: false, evolvedPokemon: this.pokemon };
         }
 
-        let evolvedPokemon = this.pokemon; // Default to current Pokemon
+        // Removed that Ugly gibberish Code you once saw here
 
-        const findCurrentSpeciesInChain = (chainNode, currentSpeciesId) => {
-            if (!chainNode) return null;
-            if (chainNode.id === currentSpeciesId) return chainNode;
-            for (const nextEvo of chainNode.evolves_to || []) {
-                const found = findCurrentSpeciesInChain(nextEvo, currentSpeciesId);
-                if (found) return found;
-            }
-            return null;
-        };
+        // New yummy Evolution Code
+        const foundEvolution = this.getNextEvolution();
 
-        const currentSpeciesNode = findCurrentSpeciesInChain(info.evolution_chain[0], info.id);
-
-        if (currentSpeciesNode && currentSpeciesNode.evolves_to && currentSpeciesNode.evolves_to.length > 0) {
-            for (const nextEvolutionNode of currentSpeciesNode.evolves_to) {
-                for (const evoDetail of nextEvolutionNode.evolution_details) {
-                    if (evoDetail.trigger === 'level-up' && (evoDetail.min_level === null || parseInt(evoDetail.min_level) <= this.level)) {
-                        const genderMatch = !evoDetail.gender_id || evoDetail.gender_id === this.gender;
-                        const timeOfDayMatch = !evoDetail.time_of_day || evoDetail.time_of_day === getTime().toLowerCase() || evoDetail.time_of_day === Moon.lunarPhase(new Date(), { hemisphere: Hemisphere.NORTHERN }).toLowerCase();
-                        if (genderMatch && timeOfDayMatch) {
-                            evolvedPokemon = nextEvolutionNode._id;
-                            break; // Found an evolution, stop checking this node
-                        }
-                    }
-                }
-                if (evolvedPokemon !== this.pokemon) break; // If evolved, break outer loop too
-            }
-        }
-
+        let evolvedPokemon;
+        if (foundEvolution)
+            evolvedPokemon = foundEvolution.pokemon_name;
 
         // Save
         return await this.save(postgres, { level: this.level, exp: this.exp, pokemon: evolvedPokemon }),
             // Returned Obj
             { levelIncreased: preLevel != this.level, level: this.level, hasEvolved: evolvedPokemon != this.pokemon, pokemon: this.pokemon, evolvedPokemon };
+    }
+
+    getNextEvolution(level = this.level) {
+
+        // Let's make sure that the evolution chain is available
+        if (!this.pokedex?.evolution_chain?.length) return null;
+
+        // Find the current Pokémon (must be is_default form)
+        const current = this.pokedex.evolution_chain.find(p => p.pokemon_name === this.pokedex._id && p.is_default);
+
+        if (!current) return null;
+
+        // Find possible next evolutions (species that evolve from this pokemon_id)
+        const nextForms = this.pokedex.evolution_chain.filter(p => p.evolved_from === current.pokemon_id);
+
+        for (const evo of nextForms) {
+            // Only check default forms (ignoring gmax/mega etc.)
+            if (!evo.is_default) continue;
+
+            // Trigger check (level-up only for now)
+            if (evo.trigger !== "level-up") continue;
+
+            // Level check
+            if (evo.min_level !== null && level < evo.min_level) continue;
+
+            // Gender check (if provided in evo details; your sample didn’t include gender_id, but leaving hook here)
+            const genderMatch = !evo.gender_id || String(evo.gender_id) === this.gender;
+
+            // Time of day check or Lunarphase cuz it was cool
+            const timeOfDayMatch = !evo.time_of_day || evo.time_of_day === getTime().toLowerCase() || evo.time_of_day === Moon.lunarPhase(new Date(), { hemisphere: Hemisphere.NORTHERN }).toLowerCase();
+
+            if (genderMatch && timeOfDayMatch) {
+                return evo;
+            }
+        }
+
+        return null; // no valid evolution available
     }
 }
 

@@ -48,6 +48,9 @@ class Pokemon {
             this.types = pokemonObject.types || [];
             this.pokedex = pokemonObject.pokedex || {};
 
+            // Price on Market
+            this.price = pokemonObject.price;
+
         }
     }
 

@@ -84,7 +84,7 @@ async function generateSinglePokemonBox(image_url, gravity) {
         }
     }).png().composite([{
         // Clone + Tint 
-        input: await input.clone().tint(color('#000000')).modulate({
+        input: await input.clone().tint('#000000').modulate({
             brightness: 0
 
             // Add affinity
@@ -251,7 +251,7 @@ function battleBoxFields(teamA = {}, teamB = {}) {
     ];
 }
 
-async function returnEmbedBox(teamA = {}, teamB = {}) {
+async function returnEmbedBox(teamA = {}, teamB = {}, noFields = false) {
     return {
         withResponse: true,
         files: [{
@@ -262,7 +262,7 @@ async function returnEmbedBox(teamA = {}, teamB = {}) {
             image: {
                 url: "attachment://battle.png"
             },
-            fields: battleBoxFields(teamA, teamB),
+            fields: noFields ? [] : battleBoxFields(teamA, teamB),
             author: {
                 icon_url: "https://cdn.discordapp.com/attachments/716304762395426816/1154365538303217774/225px-Sun_Moon_Professor_Kukui.png",
                 name: "Professor Kukui"
