@@ -65,7 +65,7 @@ async function messageCreate(msg, e) {
     }
 
     // Spawn System
-    if (!msg.channel.spawn) msg.channel.spawn = { count: chance.integer({ min: 10, max: 30 }), pokemon: {}, lastSpawn: Date.now() };
+    if (!msg.channel.spawn || isNaN(msg.channel.spawn.count)) msg.channel.spawn = { count: chance.integer({ min: 10, max: 30 }), pokemon: {}, lastSpawn: Date.now() };
 
     // Decrementing Count for Spawn
     msg.channel.spawn.count--;
@@ -94,11 +94,16 @@ async function messageCreate(msg, e) {
             if (!channelSelected.spawn) channelSelected.spawn = { count: chance.integer({ min: 30, max: 140 }), pokemon: {}, lastSpawn: Date.now() };
 
             // Initializing New Pokemon
-            channelSelected.spawn.pokemon = new Pokedex({});
+            channelSelected.spawn.pokemon = new Pokedex();
+            
             // Spawn Pokemon Execution
             await channelSelected.spawn.pokemon.SpawnFriendlyV2();
+
+            console.log("> Generated Pokemon", channelSelected.spawn.pokemon);
+
             // Send Spawn
             await channelSelected.spawn.pokemon.spawnToChannel(channelSelected, msg.client.commands.get("catch")?.rest?.id);
+            
         } catch (err) {
             break spawnIF;
         };

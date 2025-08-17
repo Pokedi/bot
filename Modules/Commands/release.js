@@ -62,7 +62,7 @@ export default {
         if (!id && latest == null)
             return msg.reply("Please select one of the available options...");
 
-        const [fetchPokemonRow] = await msg.client.postgres`SELECT pokemon, id FROM pokemon WHERE user_id = ${msg.user.id} ${id ? msg.client.postgres`OR idx = ${id}` : msg.client.postgres``} ORDER BY idx DESC LIMIT 1`;
+        const [fetchPokemonRow] = await msg.client.postgres`SELECT pokemon, id FROM pokemon WHERE user_id = ${msg.user.id} ${id ? msg.client.postgres`AND idx = ${id}` : msg.client.postgres``} ORDER BY idx DESC LIMIT 1`;
 
         if (!fetchPokemonRow)
             return msg.reply("No pokemon found... You're quite lonely to want to abandon someone that doesn't exist.");

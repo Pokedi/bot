@@ -209,7 +209,7 @@ class Player {
             await Promise.all(pokemon.map(x => x.getPokemonSpecies()));
         }
 
-        this.pokemon = pokemon;
+        this.pokemon = this.selected.length ? this.selected.map(x => pokemon.find(y => y.id == x)) : pokemon;
 
         return pokemon;
     }

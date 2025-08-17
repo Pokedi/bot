@@ -198,7 +198,8 @@ class Pokedex extends Pokemon {
     async generateV2(id, mergingObject = {}) {
 
         // Full Chaos Mode
-        if (!id && !this.pokemon && this.pokedex?.id) {
+        if (!id && !this.pokemon && !this.pokedex?.id) {
+
             await this.selectRandomV2();
 
             // ID Provided but not loaded
@@ -244,10 +245,14 @@ class Pokedex extends Pokemon {
     async selectRandomV2() {
 
         const [foundRow] = await pokeapisql`
-            SELECT p.id, p.name AS _id, p.name AS name, ps.gender_rate, ps.is_mythical, ps.is_legendary
+            SELECT p.id, p.name AS _id, p.name AS name, ps.gender_rate, ps.is_mythical, ps.is_legendary,
+                pc.is_custom,       
+                pc.is_nonspawnable,
+                pc.is_event
             FROM pokemon_v2_pokemon p
             JOIN pokemon_v2_pokemonspecies ps ON ps.id = p.pokemon_species_id
-            WHERE p.is_default = TRUE -- Ensures main forms are selected
+            LEFT JOIN pokedi.pokedi_v2_pokemonconfigs pc ON pc.id = p.id
+            WHERE p.is_default = TRUE
             ORDER BY random() LIMIT 1
         `;
 

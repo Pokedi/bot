@@ -186,22 +186,24 @@ export default {
                 // Start the battle
                 const player = msg.user.player;
 
+                await msg.deferReply();
+
                 await player.fetchPokemon(msg.client.postgres, true);
 
                 const opponent = new Player({ id: opponent1 });
 
                 await opponent.fetch(msg.client.postgres);
 
-                if (!opponent.started) return msg.reply("The opponent hasn't started their adventure yet!");
+                if (!opponent.started) return msg.editReply("The opponent hasn't started their adventure yet!");
 
                 if (!opponent.selected || !opponent.selected[0])
-                    return msg.reply("The opponent has no Pokemon selected for battle!");
+                    return msg.editReply("The opponent has no Pokemon selected for battle!");
 
                 await opponent.fetchPokemon(msg.client.postgres, true);
 
                 // Check if Opponent Pokemon were fetched
                 if (!opponent.pokemon || !opponent.pokemon.length)
-                    return msg.reply("The opponent has no Pokemon selected for battle!");
+                    return msg.editReply("The opponent has no Pokemon selected for battle!");
 
                 player.readyBattleMode();
                 player.globalName = msg.user.username;
@@ -264,7 +266,7 @@ export default {
 
                 let battleEmbed = await returnEmbedBox({ [player.id]: player }, { [opponent.id]: opponent });
 
-                let battleMessage = await msg.reply(battleEmbed);
+                let battleMessage = await msg.editReply(battleEmbed);
 
                 const battleId = 'bt-' + player.id;
                 const battleStream = new BattleStream({});
