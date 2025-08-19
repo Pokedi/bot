@@ -197,7 +197,7 @@ export default {
 
                 if (!opponent.started) return msg.editReply("The opponent hasn't started their adventure yet!");
 
-                const verification = await buttonVerification({ interaction: msg, users: [msg.user].concat(opponent11).filter(x => x && x.id).map(x => x.id) });
+                const verification = await buttonVerification({ interaction: msg, users: [msg.user].concat(opponent1).filter(x => x && x.id).map(x => x.id) });
 
                 if (!verification) return await msg.editReply("Users did not verify in time.");
 
