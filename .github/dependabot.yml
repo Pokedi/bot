@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: "npm" 
+    directory: "/" 
+    schedule:
+      interval: "weekly"
+    # Target dependency updates at the develop branch
+    target-branch: "develop"
+    # Label the pull requests with the custom "Dependencies" label
+    labels:
+      - "Dependencies"
