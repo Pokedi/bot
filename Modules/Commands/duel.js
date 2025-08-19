@@ -187,7 +187,7 @@ export default {
                 // Start the battle
                 const player = msg.user.player;
 
-                await msg.deferReply();
+                // await msg.deferReply();
 
                 await player.fetchPokemon(msg.client.postgres, true);
 
@@ -195,7 +195,7 @@ export default {
 
                 await opponent.fetch(msg.client.postgres);
 
-                if (!opponent.started) return msg.editReply("The opponent hasn't started their adventure yet!");
+                if (!opponent.started) return msg.reply("The opponent hasn't started their adventure yet!");
 
                 const verification = await buttonVerification({ interaction: msg, users: [msg.user].concat(opponent1).filter(x => x && x.id).map(x => x.id) });
 
@@ -310,7 +310,7 @@ export default {
 
                     if (FirstMessage == 2) {
                         if (!battleMessage) {
-                            battleMessage = await msg.editReply(await returnEmbedBox(player, opponent));
+                            battleMessage = await msg.channel.send(await returnEmbedBox(player, opponent));
                         }
                     }
                 }

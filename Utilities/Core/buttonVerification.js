@@ -50,11 +50,11 @@ export async function buttonVerification({
         content: textContent ?? "",
         embeds: [{ description }],
         components: [row],
-        fetchReply: true
+        withResponse: true
     });
 
     return new Promise((resolve) => {
-        const collector = message.createMessageComponentCollector({
+        const collector = message.resource.message.createMessageComponentCollector({
             componentType: ComponentType.Button,
             time,
             filter: i =>
@@ -67,7 +67,7 @@ export async function buttonVerification({
             await i.reply({ content: "<3", flags: MessageFlags.Ephemeral });
 
             if (i.customId === "cancel") {
-                await message.edit({
+                await message.resource.message.edit({
                     content: "This interaction was cancelled.",
                     components: []
                 });
@@ -80,7 +80,7 @@ export async function buttonVerification({
                 disable.push(i.user.id);
                 const [newRow, newDesc] = buttonMaker({ users, disable });
 
-                await message.edit({
+                await message.resource.message.edit({
                     embeds: [{ description: newDesc }],
                     components: disable.length === users.length ? [] : [newRow]
                 });
