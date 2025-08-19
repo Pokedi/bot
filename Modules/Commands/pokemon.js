@@ -184,6 +184,20 @@ export default {
             const allowedOrderBy = ["idx", "iv", "level", "pokemon"];
             orderBy = allowedOrderBy.includes(opts.orderby) ? opts.orderby : undefined;
 
+            // Manually add IV if needed
+            if (opts.iv && ['asc', 'desc'].includes(opts.iv))
+                orderBy = 'iv', opts.ordertype = opts.iv;
+
+            // Level section
+            if (opts.level && ['asc', 'desc'].includes(opts.level))
+                orderBy = 'level', opts.ordertype = opts.level;
+
+            if (opts.lvl && ['asc', 'desc'].includes(opts.lvl))
+                orderBy = 'level', opts.ordertype = opts.lvl;
+
+            if (opts.l && ['asc', 'desc'].includes(opts.l))
+                orderBy = 'level', opts.ordertype = opts.l;
+
             // Only allow asc/desc for orderType
             orderType = ["asc", "desc"].includes((opts.ordertype || "").toLowerCase()) ? opts.ordertype.toLowerCase() : undefined;
 
