@@ -381,7 +381,15 @@ export default {
                         for await (const chunk of streams.omniscient) {
                             if (typeof chunk === 'string') {
                                 if (chunk.includes('|win|')) {
-                                    msg.followUp(parser.extractMessage(chunk));
+
+                                    const embedData = await returnEmbedBox(player, opponent, !imageChange, battleMessage.files);
+
+                                    embedData.embeds[0].fields.push({
+                                        name: "Battle Log",
+                                        value: parser.extractMessage(chunk)
+                                    });
+
+                                    msg.followUp(embedData);
                                     // streams.omniscient.destroy();
                                     player.removeDuelsState(msg.client.redis);
                                     opponent.removeDuelsState(msg.client.redis);
