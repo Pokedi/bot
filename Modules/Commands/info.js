@@ -1,4 +1,4 @@
-import { AttachmentBuilder, SlashCommandBuilder } from "discord.js";
+import { AttachmentBuilder, MessageFlags, SlashCommandBuilder } from "discord.js";
 import userPokemonInfoModule from "../../Utilities/Pokemon/userPokemonInfoModule.js";
 import builder from "../Database/QueryBuilder/queryGenerator.js";
 import Player from "../../Classes/player.js";
@@ -8,10 +8,52 @@ import getDominantColor from "../../Utilities/Misc/getDominantColor.js";
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .addStringOption(option => option.setName('query').setDescription('Type in the ID of the pokemon. (You may type in "latest" for the last one)'))
-        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .setName('info')
-        .setDescription('View your Pokemon!'),
+        .setNameLocalizations({
+            'pt-BR': 'info',
+            'es-ES': 'info',
+            'de': 'info',
+            'fr': 'info',
+            // 'ar': 'معلومات'
+        })
+        .setDescription('View your Pokemon!')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Veja seu Pokémon!',
+            'es-ES': '¡Mira tu Pokémon!',
+            'de': 'Sieh dir dein Pokémon an!',
+            'fr': 'Voir votre Pokémon!',
+            // 'ar': 'اعرض بوكيمونك!'
+        })
+        .addStringOption(option => option.setName('query').setDescription('Type in the ID of the pokemon. (You may type in "latest" for the last one)')
+            .setNameLocalizations({
+                'pt-BR': 'consulta',
+                'es-ES': 'consulta',
+                'de': 'abfrage',
+                'fr': 'requête',
+                // 'ar': 'استعلام'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Digite o ID do pokemon. (Você pode digitar "latest" para o último)',
+                'es-ES': 'Escribe el ID del pokemon. (Puedes escribir "latest" para el último)',
+                'de': 'Gib die ID des Pokemons ein. (Du kannst "latest" für das letzte eingeben)',
+                'fr': 'Tapez l\'ID du pokémon. (Vous pouvez taper "latest" pour le dernier)',
+                // 'ar': 'اكتب معرف البوكيمون. (يمكنك كتابة "latest" للأخير)'
+            }))
+        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command")
+            .setNameLocalizations({
+                'pt-BR': 'ajuda',
+                'es-ES': 'ayuda',
+                'de': 'hilfe',
+                'fr': 'aide',
+                // 'ar': 'مساعدة'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Veja detalhes sobre como usar este comando',
+                'es-ES': 'Ver detalles sobre cómo usar este comando',
+                'de': 'Details zur Verwendung dieses Befehls anzeigen',
+                'fr': 'Voir les détails sur la façon d\'utiliser cette commande',
+                // 'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
+            })),
     alias: ["i"],
     mention_support: true,
     async execute(msg) {
@@ -52,7 +94,7 @@ export default {
         } else if (player.selected && player.selected.length) {
             where = { id: player.selected[0] };
         } else {
-            return msg.reply({ ephemeral: true, content: "You don't have any Pokémon selected or available." });
+            return msg.reply({ flags: MessageFlags.Ephemeral, content: "You don't have any Pokémon selected or available." });
         }
 
         const { values, text } = builder.select('pokemon', "*").where(where).limit(1);
@@ -60,17 +102,17 @@ export default {
         const [selectedPokemon] = await msg.client.postgres.unsafe(text, values);
 
         if (!selectedPokemon)
-            return msg.reply({ ephemeral: true, content: "Pokémon does not exist." });
+            return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokémon does not exist." });
 
         let processedPokemon = new Pokedex(selectedPokemon);
 
         if (!processedPokemon.id)
-            return msg.reply({ ephemeral: true, content: "Pokémon does not exist." });
+            return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokémon does not exist." });
 
-        await processedPokemon.fetchByID();
+        await processedPokemon.getPokemonSpecies();
 
         if (!processedPokemon.pokedex.id)
-            return msg.reply({ ephemeral: true, content: "This Pokémon has not been registered in the database. Please contact an admin for more help." });
+            return msg.reply({ flags: MessageFlags.Ephemeral, content: "This Pokémon has not been registered in the database. Please contact an admin for more help." });
 
         const file = new AttachmentBuilder(`../pokediAssets/pokemon/${processedPokemon.shiny ? "shiny" : "regular"}/${processedPokemon.pokemon}.png`);
         const color = await getDominantColor(file.attachment, true);

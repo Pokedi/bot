@@ -5,10 +5,52 @@ import pokemondb from "../Database/pokedb.js";
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .addStringOption(option => option.setName('command').setDescription('code to execute').setRequired(true))
-        .addBooleanOption(option => option.setName('pokedb').setDescription('Switch to PokemonDB'))
         .setName('sql')
-        .setDescription('Admin command'),
+        .setNameLocalizations({
+            'pt-BR': 'sql',
+            'es-ES': 'sql',
+            'de': 'sql',
+            'fr': 'sql',
+            // 'ar': 'sql'
+        })
+        .setDescription('Admin command')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Comando de administrador',
+            'es-ES': 'Comando de administrador',
+            'de': 'Admin-Befehl',
+            'fr': 'Commande administrateur',
+            // 'ar': 'أمر المسؤول'
+        })
+        .addStringOption(option => option.setName('command').setDescription('code to execute').setRequired(true)
+            .setNameLocalizations({
+                'pt-BR': 'comando',
+                'es-ES': 'comando',
+                'de': 'befehl',
+                'fr': 'commande',
+                // 'ar': 'أمر'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'código para executar',
+                'es-ES': 'código para ejecutar',
+                'de': 'auszuführender Code',
+                'fr': 'code à exécuter',
+                // 'ar': 'كود للتنفيذ'
+            }))
+        .addBooleanOption(option => option.setName('pokedb').setDescription('Switch to PokemonDB')
+            .setNameLocalizations({
+                'pt-BR': 'pokedb',
+                'es-ES': 'pokedb',
+                'de': 'pokedb',
+                'fr': 'pokedb',
+                // 'ar': 'pokedb'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Mudar para PokemonDB',
+                'es-ES': 'Cambiar a PokemonDB',
+                'de': 'Wechsle zu PokemonDB',
+                'fr': 'Passer à PokemonDB',
+                // 'ar': 'التبديل إلى PokemonDB'
+            })),
     async execute(msg) {
         if (process.env.DEVIDS && JSON.parse(process.env.DEVIDS).includes(msg.user.id)) {
             try {

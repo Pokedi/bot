@@ -1,5 +1,5 @@
 import Pokedex from "../../Classes/pokedex.js";
-import { ENUM_GENDER_EMOJIS, ENUM_POKEMON_TYPES } from "../Data/enums.js";
+import { ENUM_GENDER_EMOJIS, ENUM_POKEMON_FULL_TYPES_ID, ENUM_POKEMON_TYPES } from "../Data/enums.js";
 import capitalize from "../Misc/capitalize.js";
 import calculateNextLevelEXP from "./calculateNextLevelEXP.js";
 
@@ -36,7 +36,7 @@ function userPokemonInfoModule(obj = new Pokedex(), msg = null, count = 1, color
                 inline: true
             }, {
                 name: "Type(s)",
-                value: obj.types.map(x => capitalize(ENUM_POKEMON_TYPES[x])).join(" | "),
+                value: obj.types.map(x => capitalize(ENUM_POKEMON_FULL_TYPES_ID[x])).join(" | "),
                 inline: true
             }, {
                 name: "Held Item",

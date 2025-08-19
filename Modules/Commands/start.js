@@ -5,9 +5,19 @@ export default {
     data: new SlashCommandBuilder()
         .setName('start').setNameLocalizations({
             "es-ES": "empezar",
-            "pt-BR": "iniciar"
+            "pt-BR": "iniciar",
+            "de": "start",
+            "fr": "démarrer",
+            // "ar": "ابدأ"
         })
-        .setDescription('Start your journey!'),
+        .setDescription('Start your journey!')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Comece sua jornada!',
+            'es-ES': '¡Comienza tu viaje!',
+            'de': 'Beginne deine Reise!',
+            'fr': 'Commencez votre voyage!',
+            // 'ar': 'ابدأ رحلتك!'
+        }),
     async execute(msg) {
         return msg.reply({
             embeds: [{

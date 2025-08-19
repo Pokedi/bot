@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
 import Pokedex from "../../Classes/pokedex.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
@@ -10,64 +10,270 @@ export default {
         .setName('redeem').setNameLocalizations({
             "es-ES": "redimir",
             "pt-BR": "resgate",
-            "de": "gutscheineinlösen"
+            "de": "gutscheineinlösen",
+            "fr": "échanger",
+            // "ar": "استرداد"
         }).setDescription("Redeems are a special currency obtainable through donating")
+        .setDescriptionLocalizations({
+            "pt-BR": "Resgates são uma moeda especial que pode ser obtida através de doações",
+            "es-ES": "Los canjes son una moneda especial que se puede obtener mediante donaciones",
+            "de": "Einlösungen sind eine spezielle Währung, die durch Spenden erhältlich ist",
+            "fr": "Les échanges sont une monnaie spéciale que l'on peut obtenir en faisant un don",
+            // "ar": "الاسترداد هو عملة خاصة يمكن الحصول عليها من خلال التبرع"
+        })
         .addSubcommand(option => option
             .setName("info")
+            .setNameLocalizations({
+                "pt-BR": "info",
+                "es-ES": "info",
+                "de": "info",
+                "fr": "info",
+                // "ar": "معلومات"
+            })
             .setDescription("Check out what you can do with your redeems!")
+            .setDescriptionLocalizations({
+                "pt-BR": "Confira o que você pode fazer com seus resgates!",
+                "es-ES": "¡Mira lo que puedes hacer con tus canjes!",
+                "de": "Schau dir an, was du mit deinen Einlösungen machen kannst!",
+                "fr": "Découvrez ce que vous pouvez faire avec vos échanges!",
+                // "ar": "تحقق مما يمكنك فعله باسترداداتك!"
+            })
         )
         .addSubcommand(option => option
             .setName("gift")
+            .setNameLocalizations({
+                "pt-BR": "presente",
+                "es-ES": "regalo",
+                "de": "geschenk",
+                "fr": "cadeau",
+                // "ar": "هدية"
+            })
             .setDescription("Gift someone a Redeem or Credits! (1 redeem per usage)")
+            .setDescriptionLocalizations({
+                "pt-BR": "Presenteie alguém com um Resgate ou Créditos! (1 resgate por uso)",
+                "es-ES": "¡Regala a alguien un Canje o Créditos! (1 canje por uso)",
+                "de": "Schenke jemandem eine Einlösung oder Credits! (1 Einlösung pro Nutzung)",
+                "fr": "Offrez à quelqu'un un Échange ou des Crédits! (1 échange par utilisation)",
+                // "ar": "أهدِ شخصًا ما استردادًا أو أرصدة! (استرداد واحد لكل استخدام)"
+            })
             .addUserOption(x => x
                 .setName("credits")
+                .setNameLocalizations({
+                    "pt-BR": "creditos",
+                    "es-ES": "creditos",
+                    "de": "credits",
+                    "fr": "crédits",
+                    // "ar": "أرصدة"
+                })
                 .setDescription("Gift 10K Credits to someone.")
+                .setDescriptionLocalizations({
+                    "pt-BR": "Presenteie 10K de Créditos para alguém.",
+                    "es-ES": "Regala 10K Créditos a alguien.",
+                    "de": "Schenke jemandem 10.000 Credits.",
+                    "fr": "Offrez 10K Crédits à quelqu'un.",
+                    // "ar": "أهدِ 10 آلاف رصيد لشخص ما."
+                })
             )
             .addUserOption(x => x
                 .setName("redeem")
-                .setDescription("Gift someone a Redeem (Please remember that this command is limited to one redeem per usage)")
+                .setNameLocalizations({
+                    "pt-BR": "resgate",
+                    "es-ES": "canje",
+                    "de": "einlösen",
+                    "fr": "échanger",
+                    // "ar": "استرداد"
+                })
+                .setDescription("Gift someone a Redeem (limited to one redeem per use)")
+                .setDescriptionLocalizations({
+                    "pt-BR": "Presenteie alguém com um Resgate (limite de um por uso)",
+                    "es-ES": "Regala un Canje (límite de uno por uso)",
+                    "de": "Schenke eine Einlösung (auf eine pro Nutzung begrenzt)",
+                    "fr": "Offrez un Échange (limité à un par utilisation)",
+                    // "ar": "أهدِ استردادًا واحدًا لكل استخدام"
+                })
             )
         )
         .addSubcommand(option => option
             .setName("self")
+            .setNameLocalizations({
+                "pt-BR": "para-si",
+                "es-ES": "para-ti",
+                "de": "selbst",
+                "fr": "pour-soi",
+                // "ar": "لنفسك"
+            })
             .setDescription("Get credits or a Pokemon! (1 redeem per usage)")
+            .setDescriptionLocalizations({
+                "pt-BR": "Obtenha créditos ou um Pokémon! (1 resgate por uso)",
+                "es-ES": "¡Obtén créditos o un Pokémon! (1 canje por uso)",
+                "de": "Hol dir Credits oder ein Pokémon! (1 Einlösung pro Nutzung)",
+                "fr": "Obtenez des crédits ou un Pokémon! (1 échange par utilisation)",
+                // "ar": "احصل على أرصدة أو بوكيمون! (استرداد واحد لكل استخدام)"
+            })
             .addBooleanOption(x => x
                 .setName("credits")
+                .setNameLocalizations({
+                    "pt-BR": "creditos",
+                    "es-ES": "creditos",
+                    "de": "credits",
+                    "fr": "crédits",
+                    // "ar": "أرصدة"
+                })
                 .setDescription("Get 10K Credits.")
+                .setDescriptionLocalizations({
+                    "pt-BR": "Obtenha 10K de Créditos.",
+                    "es-ES": "Obtén 10K Créditos.",
+                    "de": "Hol dir 10.000 Credits.",
+                    "fr": "Obtenez 10K Crédits.",
+                    // "ar": "احصل على 10 آلاف رصيد."
+                })
             )
             .addStringOption(x => x
                 .setName("spawn")
+                .setNameLocalizations({
+                    "pt-BR": "aparecer",
+                    "es-ES": "aparecer",
+                    "de": "spawnen",
+                    "fr": "apparition",
+                    // "ar": "ظهور"
+                })
                 .setDescription("Write down the name of the Pokemon you wish to spawn.")
+                .setDescriptionLocalizations({
+                    "pt-BR": "Escreva o nome do Pokémon que você deseja que apareça.",
+                    "es-ES": "Escribe el nombre del Pokémon que deseas que aparezca.",
+                    "de": "Schreibe den Namen des Pokémon auf, das du spawnen lassen möchtest.",
+                    "fr": "Notez le nom du Pokémon que vous souhaitez faire apparaître.",
+                    // "ar": "اكتب اسم البوكيمون الذي ترغب في ظهوره."
+                })
             )
             .addStringOption(x => x
                 .setName("get-pokemon")
+                .setNameLocalizations({
+                    "pt-BR": "obter-pokemon",
+                    "es-ES": "obtener-pokemon",
+                    "de": "pokemon-erhalten",
+                    "fr": "obtenir-pokemon",
+                    // "ar": "الحصول-على-بوكيمون"
+                })
                 .setDescription("Write down the name of the Pokemon you wish.")
+                .setDescriptionLocalizations({
+                    "pt-BR": "Escreva o nome do Pokémon que você deseja.",
+                    "es-ES": "Escribe el nombre del Pokémon que deseas.",
+                    "de": "Schreibe den Namen des gewünschten Pokémon auf.",
+                    "fr": "Notez le nom du Pokémon que vous souhaitez.",
+                    // "ar": "اكتب اسم البوكيمون الذي تريده."
+                })
             )
         )
         .addSubcommand(option => option
             .setName("event")
+            .setNameLocalizations({
+                "pt-BR": "evento",
+                "es-ES": "evento",
+                "de": "event",
+                "fr": "événement",
+                // "ar": "حدث"
+            })
             .setDescription("Buy and Sell Event Deems to get Event Pokemon!")
+            .setDescriptionLocalizations({
+                "pt-BR": "Compre e venda Deems de Evento para obter Pokémon de Evento!",
+                "es-ES": "¡Compra y vende Deems de Evento para conseguir Pokémon de Evento!",
+                "de": "Kaufe und verkaufe Event-Deems, um Event-Pokémon zu erhalten!",
+                "fr": "Achetez et vendez des Deems d'événement pour obtenir des Pokémon d'événement!",
+                // "ar": "شراء وبيع Deems الحدث للحصول على بوكيمون الحدث!"
+            })
             .addBooleanOption(x => x
                 .setName("buy")
+                .setNameLocalizations({
+                    "pt-BR": "comprar",
+                    "es-ES": "comprar",
+                    "de": "kaufen",
+                    "fr": "acheter",
+                    // "ar": "شراء"
+                })
                 .setDescription("Buy Special Deems for 2 redeems")
+                .setDescriptionLocalizations({
+                    "pt-BR": "Compre Deems Especiais por 2 resgates",
+                    "es-ES": "Compra Deems Especiales por 2 canjes",
+                    "de": "Kaufe spezielle Deems für 2 Einlösungen",
+                    "fr": "Achetez des Deems spéciaux pour 2 échanges",
+                    // "ar": "شراء Deems خاصة مقابل 2 استرداد"
+                })
             )
             .addIntegerOption(x => x
                 .setName("amount")
+                .setNameLocalizations({
+                    "pt-BR": "quantidade",
+                    "es-ES": "cantidad",
+                    "de": "menge",
+                    "fr": "montant",
+                    // "ar": "كمية"
+                })
                 .setDescription("The amount of Special Deems you plan to get.")
+                .setDescriptionLocalizations({
+                    "pt-BR": "A quantidade de Deems Especiais que você planeja obter.",
+                    "es-ES": "La cantidad de Deems Especiales que planeas obtener.",
+                    "de": "Die Menge an speziellen Deems, die du erhalten möchtest.",
+                    "fr": "Le montant de Deems spéciaux que vous prévoyez d'obtenir.",
+                    // "ar": "كمية Deems الخاصة التي تخطط للحصول عليها."
+                })
                 .setMinValue(1)
                 .setMaxValue(10)
             )
             .addBooleanOption(x => x
                 .setName("view")
+                .setNameLocalizations({
+                    "pt-BR": "ver",
+                    "es-ES": "ver",
+                    "de": "ansehen",
+                    "fr": "voir",
+                    // "ar": "عرض"
+                })
                 .setDescription("View how many Special Deems you have left")
+                .setDescriptionLocalizations({
+                    "pt-BR": "Veja quantos Deems Especiais você ainda tem",
+                    "es-ES": "Ver cuántos Deems Especiales te quedan",
+                    "de": "Sieh dir an, wie viele spezielle Deems du noch hast",
+                    "fr": "Voir combien de Deems spéciaux il vous reste",
+                    // "ar": "عرض عدد Deems الخاصة المتبقية لديك"
+                })
             )
             .addBooleanOption(x => x
                 .setName("use")
+                .setNameLocalizations({
+                    "pt-BR": "usar",
+                    "es-ES": "usar",
+                    "de": "benutzen",
+                    "fr": "utiliser",
+                    // "ar": "استخدام"
+                })
                 .setDescription("Use the deems you have to randomly get a special Pokemon")
+                .setDescriptionLocalizations({
+                    "pt-BR": "Use os deems que você tem para obter aleatoriamente um Pokémon especial",
+                    "es-ES": "Usa los deems que tienes para obtener al azar un Pokémon especial",
+                    "de": "Benutze die Deems, die du hast, um zufällig ein besonderes Pokémon zu erhalten",
+                    "fr": "Utilisez les deems que vous avez pour obtenir au hasard un Pokémon spécial",
+                    // "ar": "استخدم الـ deems التي لديك للحصول على بوكيمون خاص بشكل عشوائي"
+                })
             )
         )
         .addSubcommand(x => x
-            .setName("help").setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
+            .setName("help")
+            .setNameLocalizations({
+                "pt-BR": "ajuda",
+                "es-ES": "ayuda",
+                "de": "hilfe",
+                "fr": "aide",
+                // "ar": "مساعدة"
+            })
+            .setDescription("Learn how to use the Redeem command!")
+            .setDescriptionLocalizations({
+                "pt-BR": "Aprenda a usar o comando Resgate!",
+                "es-ES": "¡Aprende a usar el comando Canje!",
+                "de": "Lerne den Befehl Einlösen zu nutzen!",
+                "fr": "Apprenez à utiliser la commande Échange!",
+                // "ar": "تعلم كيفية استخدام أمر الاسترداد!"
+            })
         ),
     async execute(msg) {
 
@@ -117,7 +323,7 @@ export default {
 
                         const pokedex = new Pokedex({});
 
-                        await pokedex.searchForID(selectedPokemon);
+                        await pokedex.getPokemonSpecies(selectedPokemon);
 
                         // Reject if Pokemon not found
                         if (!pokedex.pokedex.id)
@@ -142,7 +348,7 @@ export default {
                             // Reduce Redeem
                             await player.save(msg.client.postgres, { redeem: --player.redeem });
                             // Reply
-                            return await msg.reply({ ephemeral: true, content: "Pokemon Spawned!" });
+                            return await msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokemon Spawned!" });
                         } else {
                             // Ready Spawn Type Data
                             await pokedex.SpawnFriendlyV2(true);
@@ -233,7 +439,7 @@ export default {
                             return await msg.reply("You haven't acquired a Snowflake yet!");
 
                         // Access JSON
-                        const { default: event } = await import("../../Utilities/Data/events.json", { type: "json" } );
+                        const { default: event } = await import("../../Utilities/Data/events.json", { type: "json" });
 
                         // Event Name
                         const eventName = 'snow-event-2023'
@@ -244,7 +450,7 @@ export default {
                         // Ready Pokedex
                         const pokedex = new Pokedex({});
 
-                        await pokedex.fetchByID(selectedPokemon.id, true);
+                        await pokedex.getPokemonSpecies(selectedPokemon.id);
 
                         // Reject if Pokemon not found
                         if (!pokedex.pokedex.id)

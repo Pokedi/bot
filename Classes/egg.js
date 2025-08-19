@@ -42,7 +42,7 @@ class Egg {
 
         egg.pks = '';
 
-        await egg.fetchByID();
+        await egg.getPokemonSpecies(egg.pokemon);
 
         await egg.generateV2(undefined, { level: 1 });
 

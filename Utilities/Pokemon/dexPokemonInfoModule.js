@@ -1,5 +1,6 @@
 import { Chance } from "chance";
 import capitalize from "../Misc/capitalize.js";
+import { ENUM_POKEMON_FULL_TYPES_ID } from "../Data/enums.js";
 
 function dexPokemonInfoModule(details = null, color = 16776960) {
     if (!details) return false;
@@ -10,7 +11,7 @@ function dexPokemonInfoModule(details = null, color = 16776960) {
 
             let finalText = '';
 
-            if (details.description?.flavor_text) finalText += details.description.flavor_text.replace(/\n/gmi, ' ') + "\n-----------\n";
+            if (details?.description) finalText += details.description.replace(/\n/gmi, ' ') + "\n-----------\n";
 
             let levelEvolution = details.evolution_chain.length ? (details.evolution_chain.filter(x => x.pokemon_id < 10000 && (x.trigger == "level-up" || !x.trigger) && !x.time_of_day && !x.min_happiness && !x.min_affection).sort((x, y) => x.pokemon_id - y.pokemon_id)).map(x => {
                 const obj = ({ name: x.name, level: x.min_level });
@@ -50,7 +51,7 @@ ${details.gender_rate == -1 ? "Genderless" : (details.gender_rate != null ? `- â
 **Weight:** ${(details.weight).toFixed(2) || "???"}kg
 -----------
 **Type(s):**
-${details.types.map(x => capitalize(x)).join(" | ")}`,
+${details.types.map(x => capitalize(ENUM_POKEMON_FULL_TYPES_ID[x])).join(" | ")}`,
                 inline: true
             }, {
                 name: "Alt Names:",

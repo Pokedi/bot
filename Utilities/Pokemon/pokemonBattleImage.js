@@ -1,8 +1,6 @@
 import sharp from "sharp";
 import color from "color";
 import { existsSync, readdirSync } from "fs";
-
-// All Pokemon in List
 import MiniSearch from "minisearch";
 import capitalize from "../Misc/capitalize.js";
 
@@ -13,37 +11,24 @@ const possiblePokemon = new MiniSearch({ fields: ["id"] });
 possiblePokemon.addAll(readdirSync(`../pokediAssets/duel/sprites/back/`).map(x => ({ id: x })));
 
 // Front + Back
-async function readySinglePokemonFrontBack(pokemon, isShiny, isGiga) {
+async function readySinglePokemonFrontBack(pokemon, isShiny) {
+    const pokemonId = pokemon._id.toLowerCase().replace(/[^a-z0-9]+/g, '');
+    const [foundPokemon] = possiblePokemon.search(pokemonId);
+    const fileName = foundPokemon?.id || 'unown-qm.png';
 
-    // Check Existence
-    const doesExistBack = existsSync(`../pokediAssets/duel/sprites/back${pokemon.shiny && isShiny ? "-shiny" : ""}/${pokemon._id}.png`);
-    const doesExistFront = existsSync(`../pokediAssets/duel/sprites/back${pokemon.shiny && isShiny ? "-shiny" : ""}/${pokemon._id}.png`);
+    const backPath = `../pokediAssets/duel/sprites/back${pokemon.shiny && isShiny ? "-shiny" : ""}/${fileName}`;
+    const frontPath = `../pokediAssets/duel/sprites/front${pokemon.shiny && isShiny ? "-shiny" : ""}/${fileName}`;
 
-    const [foundPokemon] = possiblePokemon.search(pokemon._id);
-
-    let back = await generateSinglePokemonBox(`../pokediAssets/duel/sprites/back${doesExistBack && pokemon.shiny && isShiny ? "-shiny" : ""}/${doesExistBack ? pokemon._id + ".png" : (foundPokemon?.id || 'unown-qm.png')}`, "southwest");
-    let front = await generateSinglePokemonBox(`../pokediAssets/duel/sprites/front${doesExistFront && pokemon.shiny && isShiny ? "-shiny" : ""}/${doesExistFront ? pokemon._id + ".png" : (foundPokemon?.id || 'unown-qm.png')}`);
+    let back = await generateSinglePokemonBox(existsSync(backPath) ? backPath : `../pokediAssets/duel/sprites/back/unown-qm.png`, "southwest");
+    let front = await generateSinglePokemonBox(existsSync(frontPath) ? frontPath : `../pokediAssets/duel/sprites/front/unown-qm.png`);
 
     return { back, front };
 }
 
-async function normalOrGiga(image, isGiga, frontOrBack) {
+async function normalOrGiga(image, isGiga) {
+    if (!isGiga || !image) return image;
 
-    // Return Image
-    if (!isGiga) return image;
-
-    // Return Giga Front
-    if (frontOrBack == "front") return image.clone().composite([{
-        input: await image.clone().tint(color('#FF1493')).convolve({
-            width: 3,
-            height: 3,
-            kernel: [-1, 0, 1, -2, 0, 2, -1, 0, 1]
-        }).blur(2).toBuffer(),
-        top: 0,
-        left: 0
-    }]);
-
-    // Return Giga Back
+    // The giga effect can be applied generically to front or back images.
     return image.clone().composite([{
         input: await image.clone().tint(color('#FF1493')).convolve({
             width: 3,
@@ -55,235 +40,172 @@ async function normalOrGiga(image, isGiga, frontOrBack) {
     }]);
 }
 
-// Step 1 - Ready Front + Back
 async function generateSinglePokemonBox(image_url, gravity) {
-    // Ready Image
-    let input = (sharp(await sharp(image_url).png().toBuffer()).trim().sharpen({ sigma: 1, m1: 2, m2: 2 }));
-
-    // Get Meta Data of Image
+    let input = sharp(image_url).trim().sharpen({ sigma: 1, m1: 2, m2: 2 });
     let info = await input.metadata();
 
-    // Resize input to image data
     input.resize({
         fit: 'contain',
         height: info.height,
         width: info.width,
+        background: { r: 0, g: 0, b: 0, alpha: 0 }
     });
 
-    // Remove resize Background
-    input.options.resizeBackground = [0, 0, 0, 0];
-
-    // A bit of Canvas here and there might help
     let canvas = sharp({
-        // Empty box
         create: {
             width: info.width,
-            height: info.height,
+            height: info.height * 2, // Make canvas taller for shadow
             background: 'transparent',
             channels: 4
         }
     }).png().composite([{
-        // Clone + Tint 
-        input: await input.clone().tint(color('#000000')).modulate({
+        input: await input.clone().tint('#000000').modulate({
             brightness: 0
-
-            // Add affinity
         }).affine([[1, 0], [0.1, 0.1]], {
-
-            // Background Transparent
             background: 'transparent'
         }).toBuffer(),
-
-        // From the top of the pokemon image height
-        top: info.height,
+        top: Math.round(info.height * 0.1), // Position shadow slightly below
         left: 0
     }, {
-
-        // Add Pokemon
         input: await input.toBuffer(),
         top: 0,
         left: 0
     }]);
 
-    // Adding all into one specified 100 box
-    return sharp(await sharp({
+    return sharp({
         create: {
-            width: 100,
-            height: 100,
+            width: 200,
+            height: 200,
             background: 'transparent',
             channels: 4
         }
-
-        // Compositing everything together
     }).png().composite([{
         input: await canvas.toBuffer(),
-
-        // Gravity to the bottom by default otherwise
         gravity: gravity || 'south'
-    }]).toBuffer()).resize({
-
-        // Resizing to 200
-        width: 200
-    });
+    }]);
 }
 
-// Step ready Pokemon Battle Boxes to places
-function generateBattleBox(A, B) {
-    return Object.values(A).map(async (x, i, y) => {
+// Step 2 - Ready Pokemon Battle Boxes to places
+function generateBattleBox(teamA, teamB) {
+    // Helper to get active Pokémon for a team (player)
+    const getActivePokemonCompositions = (team, isOpponent) => {
+        if (!team.battle.request?.side?.pokemon) return [];
 
-        let top = 322
-            , left = 35;
+        const activePokemons = team.battle.request.side.pokemon.filter(p => p.active);
 
-        switch (y.length) {
-            case 3:
-                switch (i) {
-                    case 0:
-                        top = 213,
-                            left = 4
-                        break;
-                    case 1:
-                        top = 236,
-                            left = 61
-                        break;
-                    case 2:
-                        top = 278,
-                            left = 97
-                        break;
-                }
-                break;
-            case 2:
-                switch (i) {
-                    case 0:
-                        top = 224,
-                            left = 9
-                        break;
-                    case 1:
-                        top = 269,
-                            left = 89
-                        break;
-                }
-                break;
-            case 1:
-                top = 251,
-                    left = 35
-                break;
-        }
+        return activePokemons.map((activePoke, i) => {
+            const nickname = activePoke.ident.split(': ')[1].trim();
+            // Find the original pokemon instance to get the pre-rendered image
+            const originalPoke = team.pokemon.find(p => (p.name || p.pokemon) === nickname);
 
-        return {
-            input: await (await normalOrGiga(x.pokemon[x.battle.selected].battle.img.back, x.pokemon[x.battle.selected].battle.giga, "back")).toBuffer(),
-            top,
-            left
-        };
+            if (!originalPoke) return null;
 
-    }
-    ).concat(Object.values(B).map(async (x, i, y) => {
-        let top = 166
-            , left = 531;
-        switch (y.length) {
-            case 3:
-                switch (i) {
-                    case 0:
-                        top = 51,
-                            left = 300
-                        break;
-                    case 1:
-                        top = 80,
-                            left = 407
-                        break;
-                    case 2:
-                        top = 91,
-                            left = 542
-                        break;
-                }
-                break;
-            case 2:
-                switch (i) {
-                    case 0:
-                        top = 51,
-                            left = 300
-                        break;
-                    case 1:
-                        top = 91,
-                            left = 542
-                        break;
-                }
-                break;
-            case 1:
-                top = 56,
-                    left = 442
-                break;
-        }
+            const image = isOpponent ? originalPoke.battle.img.front : originalPoke.battle.img.back;
+            const isGiga = activePoke.details.includes('-Gmax') || activePoke.gmax;
 
-        return {
-            input: await (await normalOrGiga(x.pokemon[x.battle.selected].battle.img.front, x.pokemon[x.battle.selected].battle.giga, "front")).toBuffer(),
-            top,
-            left
-        };
-    }
-    ))
+            // Positioning logic from original duel.js
+            let top, left;
+            const teamSize = activePokemons.length;
+
+            if (isOpponent) { // Team B (Front view)
+                left = 531; top = 166; // Default for 1v1
+                if (teamSize === 2) { [top, left] = [[51, 300], [91, 542]][i]; }
+                if (teamSize === 3) { [top, left] = [[51, 300], [80, 407], [91, 542]][i]; }
+            } else { // Team A (Back view)
+                left = 35; top = 322; // Default for 1v1
+                if (teamSize === 2) { [top, left] = [[224, 9], [269, 89]][i]; }
+                if (teamSize === 3) { [top, left] = [[213, 4], [236, 61], [278, 97]][i]; }
+            }
+
+            return {
+                input: normalOrGiga(image, isGiga).then(img => img.toBuffer()),
+                top,
+                left
+            };
+        }).filter(Boolean); // Filter out nulls if a pokemon wasn't found
+    };
+
+    const compositionsA = getActivePokemonCompositions(teamA, false);
+    const compositionsB = getActivePokemonCompositions(teamB, true);
+
+    // Promise.all is needed because the inputs are now promises
+    return Promise.all([...compositionsA, ...compositionsB].map(async comp => ({ ...comp, input: await comp.input })));
 }
+
 
 async function returnBattleBox(readiedPokemonCompositions, background = '../pokediAssets/duel/backgrounds/default.png') {
-    const battleBox = sharp(background).composite(await Promise.all(readiedPokemonCompositions));
+    const battleBox = sharp(background).composite(await readiedPokemonCompositions);
     return await battleBox.toBuffer();
 }
 
 function battleBoxFields(teamA = {}, teamB = {}) {
+    const statusEmojis = {
+        'par': '<:paralysis:740214778097696870>',
+        'frz': '<:frozen:740215495629733889>',
+        'brn': '<:burn:740258098752520322>',
+        'psn': '<:poison:740292687630172240>',
+        'slp': '<:sleep:742282057346187285>'
+    };
+
     const formatPokemonData = (team) => {
-        return Object.values(team).map(x => {
-            const selectedPokemon = x.pokemon[x.battle.selected];
-            return `- **${x.globalName}**
-> **${capitalize(selectedPokemon.pokemon)}**: ${selectedPokemon.battle.current_hp} / ${selectedPokemon.battle.max_hp} ${(selectedPokemon.battle.status.par) ? '<:paralysis:740214778097696870> ' : ''}${selectedPokemon.battle.status.frz ? '<:frozen:740215495629733889> ' : ""}${selectedPokemon.battle.status.brn ? "<:burn:740258098752520322> " : ''}${selectedPokemon.battle.status.psn ? "<:poison:740292687630172240> " : ''}${selectedPokemon.battle.status.slp ? "<:sleep:742282057346187285> " : ''}`;
+        if (!team.battle.request?.side?.pokemon) return "> Waiting for battle to start...";
+
+        const player = team.battle.request.side.name;
+        const pokemons = team.battle.request.side.pokemon;
+
+        const pokemonStrings = pokemons.map(poke => {
+            const [hpString, status] = poke.condition.split(' ');
+            const name = poke.ident.split(': ')[1].trim();
+            const activeMarker = poke.active ? '**' : '';
+            const statusEmoji = status ? (statusEmojis[status.toLowerCase()] || `[${status.toUpperCase()}]`) : '';
+
+            return `> ${activeMarker}${capitalize(name)}${activeMarker}: ${hpString} ${statusEmoji}`;
         }).join("\n");
+
+        return `- **${player}**\n${pokemonStrings}`;
     };
 
     return [
-        {
-            name: ":crossed_swords: Team A :crossed_swords:",
-            value: formatPokemonData(teamA),
-            inline: true
-        },
-        {
-            name: ":crossed_swords: Team B :crossed_swords:",
-            value: formatPokemonData(teamB),
-            inline: true
-        }
+        { name: ":crossed_swords: Team A :crossed_swords:", value: formatPokemonData(teamA), inline: true },
+        { name: ":crossed_swords: Team B :crossed_swords:", value: formatPokemonData(teamB), inline: true }
     ];
 }
 
-async function returnEmbedBox(teamA = {}, teamB = {}) {
+async function returnEmbedBox(teamA = {}, teamB = {}, useOldImage = false, oldFiles = [], noFields = false) {
+    const compositions = await generateBattleBox(teamA, teamB);
     return {
-        fetchReply: true,
-        files: [{
-            attachment: await returnBattleBox(generateBattleBox(teamA, teamB)),
+        withResponse: true,
+        files: useOldImage && oldFiles.length ? oldFiles : [{
+            attachment: await returnBattleBox(compositions),
             name: "battle.png"
         }],
         embeds: [{
-            image: {
-                url: "attachment://battle.png"
-            },
-            fields: battleBoxFields(teamA, teamB),
+            image: { url: "attachment://battle.png" },
+            fields: noFields ? [] : battleBoxFields(teamA, teamB),
             author: {
                 icon_url: "https://cdn.discordapp.com/attachments/716304762395426816/1154365538303217774/225px-Sun_Moon_Professor_Kukui.png",
                 name: "Professor Kukui"
             }
         }]
+    };
+}
+
+async function updateEmbedBox(existingMessage, extraNotes = [], teamA = {}, teamB = {}, forceUpdateImage = false) {
+    const newEmbedData = forceUpdateImage ? await returnEmbedBox(teamA, teamB, false) : existingMessage.message.embeds[0].image;
+
+    const embed = newEmbedData.embeds[0];
+    if (extraNotes.length > 0) {
+        embed.fields.push({
+            name: "Battle Log",
+            value: extraNotes.filter(Boolean).map((x, i) => `${x}`).join("\n").substring(0, 1024) || "The battle rages on!"
+        });
     }
-}
 
-function returnNewFieldEmbed(embed = {}, extraNotes = [], teamA = {}, teamB = {}) {
-
-    embed.embeds[0].fields = battleBoxFields(teamA, teamB);
-
-    embed.embeds[0].fields.push({
-        name: "----",
-        value: extraNotes.map((x, i) => {
-            return (i + 1) + ") " + x;
-        }
-        ).join("\n") || "Yeah, they hit each other lots."
+    // Edit the existing message with the new file and embed
+    return await existingMessage.channel.send({
+        files: newEmbedData.files,
+        embeds: [embed]
     });
-
-    return embed;
 }
 
-export { readySinglePokemonFrontBack, generateSinglePokemonBox, generateBattleBox, returnBattleBox, battleBoxFields, returnEmbedBox, returnNewFieldEmbed };
+export { readySinglePokemonFrontBack, generateSinglePokemonBox, generateBattleBox, returnBattleBox, battleBoxFields, returnEmbedBox, updateEmbedBox };

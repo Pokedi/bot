@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
 import Pokedex from "../../Classes/pokedex.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
@@ -76,14 +76,63 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName('voucher')
+        .setNameLocalizations({
+            "es-ES": "vale",
+            "pt-BR": "vale",
+            "fr": "bon",
+            "de": "gutschein",
+            // "ar": "قسيمة"
+        })
         .setDescription('Claim your ticket to the chocolate factory!')
+        .setDescriptionLocalizations({
+            "es-ES": "¡Reclama tu entrada para la fábrica de chocolate!",
+            "pt-BR": "Reivindique seu ingresso para a fábrica de chocolate!",
+            "fr": "Réclamez votre billet pour la chocolaterie !",
+            "de": "Fordere dein Ticket für die Schokoladenfabrik ein!",
+            // "ar": "احصل على تذكرتك إلى مصنع الشوكولاتة!"
+        })
+
+        // Code option
         .addStringOption(option => option
             .setName("code")
+            .setNameLocalizations({
+                "es-ES": "código",
+                "pt-BR": "código",
+                "fr": "code",
+                "de": "code",
+                // "ar": "رمز"
+            })
             .setDescription("Token of the Voucher you wish to claim")
+            .setDescriptionLocalizations({
+                "es-ES": "Código del vale que deseas reclamar",
+                "pt-BR": "Código do vale que deseja reivindicar",
+                "fr": "Code du bon que vous souhaitez réclamer",
+                "de": "Code des Gutscheins, den du einlösen möchtest",
+                // "ar": "رمز القسيمة التي ترغب في المطالبة بها"
+            })
         )
-        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command")),
+
+        // Help option
+        .addBooleanOption(option => option
+            .setName("help")
+            .setNameLocalizations({
+                "es-ES": "ayuda",
+                "pt-BR": "ajuda",
+                "fr": "aide",
+                "de": "hilfe",
+                // "ar": "مساعدة"
+            })
+            .setDescription("View details on how to use this command")
+            .setDescriptionLocalizations({
+                "es-ES": "Ver detalles sobre cómo usar este comando",
+                "pt-BR": "Ver detalhes sobre como usar este comando",
+                "fr": "Voir les détails sur comment utiliser cette commande",
+                "de": "Details anzeigen, wie dieser Befehl verwendet wird",
+                // "ar": "عرض التفاصيل حول كيفية استخدام هذا الأمر"
+            })
+        ),
     async execute(msg) {
-        
+
         const code = msg.options.getString("code"); // Retrieve the value of the "code" option from the `msg` object and assign it to the `code` variable.
 
         // Redirect to Help
@@ -115,7 +164,7 @@ export default {
                 const [added] = await msg.client.postgres`INSERT INTO voucher (id, type, amount, permanent, pokemon, expiredat) VALUES (gen_random_uuid(), ${obj.type}, ${obj.amount}, ${obj.permanent}, ${obj.pokemon || null}, ${obj.time} ) returning id`;
                 // Insert a new row into the "voucher" table with the values from the `obj` object and retrieve the `id` of the inserted row.
 
-                return msg.reply({ ephemeral: true, content: `Successfully made your voucher ID: \`${added.id}\`` });
+                return msg.reply({ flags: MessageFlags.Ephemeral, content: `Successfully made your voucher ID: \`${added.id}\`` });
                 // Return a reply to the `msg` object indicating the successful creation of the voucher with the corresponding `id`.
 
             } catch (error) {

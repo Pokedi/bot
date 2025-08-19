@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import Pokemon from "../../Classes/pokemon.js";
 import Player from "../../Classes/player.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
@@ -6,12 +6,68 @@ import capitalize from "../../Utilities/Misc/capitalize.js";
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .addIntegerOption(option => option.setName("id").setDescription("ID of the Pokemon you intend to release").setMinValue(1))
-        .addIntegerOption(option => option.setName("slot").setDescription("ID of the Pokemon you intend to release").setMinValue(1).setMaxValue(6))
-        .addBooleanOption(option => option.setName('clear').setDescription("Clear entire team"))
-        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .setName('select')
-        .setDescription('Select your Pokemon!'),
+        .setNameLocalizations({
+            'pt-BR': 'selecionar',
+            'es-ES': 'seleccionar',
+            'de': 'auswählen',
+            'fr': 'sélectionner',
+            // 'ar': 'تحديد'
+        })
+        .setDescription('Select your Pokemon!')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Selecione seu Pokémon!',
+            'es-ES': '¡Selecciona tu Pokémon!',
+            'de': 'Wähle dein Pokémon aus!',
+            'fr': 'Sélectionnez votre Pokémon!',
+            // 'ar': 'اختر بوكيمونك!'
+        })
+        .addIntegerOption(option => option.setName("id").setDescription("ID of the Pokemon you intend to select").setMinValue(1)
+            .setNameLocalizations({
+                'pt-BR': 'id',
+                'es-ES': 'id',
+                'de': 'id',
+                'fr': 'id',
+                // 'ar': 'المعرف'
+            }))
+        .addIntegerOption(option => option.setName("slot").setDescription("Slot where you would like to place your Pokemon").setMinValue(1).setMaxValue(6)
+            .setNameLocalizations({
+                'pt-BR': 'espaco',
+                'es-ES': 'ranura',
+                'de': 'steckplatz',
+                'fr': 'emplacement',
+                // 'ar': 'فتحة'
+            }))
+        .addBooleanOption(option => option.setName('clear').setDescription("Clear entire team")
+            .setNameLocalizations({
+                'pt-BR': 'limpar',
+                'es-ES': 'limpiar',
+                'de': 'löschen',
+                'fr': 'effacer',
+                // 'ar': 'مسح'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Limpar equipe inteira',
+                'es-ES': 'Limpiar equipo completo',
+                'de': 'Ganzes Team löschen',
+                'fr': 'Effacer toute l\'équipe',
+                // 'ar': 'مسح الفريق بأكمله'
+            }))
+        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command")
+            .setNameLocalizations({
+                'pt-BR': 'ajuda',
+                'es-ES': 'ayuda',
+                'de': 'hilfe',
+                'fr': 'aide',
+                // 'ar': 'مساعدة'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Veja detalhes sobre como usar este comando',
+                'es-ES': 'Ver detalles sobre cómo usar este comando',
+                'de': 'Details zur Verwendung dieses Befehls anzeigen',
+                'fr': 'Voir les détails sur la façon d\'utiliser cette commande',
+                // 'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
+            })),
     alias: ["s"],
     mention_support: true,
     async execute(msg) {
@@ -40,7 +96,7 @@ export default {
 
         await userDB.fetch(msg.client.postgres);
 
-        if (!userDB.started) return msg.reply({ ephemeral: true, content: "User not found" });
+        if (!userDB.started) return msg.reply({ flags: MessageFlags.Ephemeral, content: "User not found" });
 
         if (clearTeam) {
             userDB.selected = [];
@@ -48,15 +104,15 @@ export default {
             return await msg.reply("Your team was cleared...");
         }
 
-        if (!id || isNaN(id)) return msg.reply({ ephemeral: true, content: "Please provide a valid Pokémon ID." });
+        if (!id || isNaN(id)) return msg.reply({ flags: MessageFlags.Ephemeral, content: "Please provide a valid Pokémon ID." });
 
         const [queryPokemon] = await msg.client.postgres`SELECT * FROM pokemon WHERE idx = ${id} AND user_id = ${BigInt(msg.user.id)}`;
 
-        if (!queryPokemon) return msg.reply({ ephemeral: true, content: "Pokemon does not exist" });
+        if (!queryPokemon) return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokemon does not exist" });
 
         const fetchPokemon = new Pokemon(queryPokemon);
 
-        if (!fetchPokemon.pokemon) return msg.reply({ ephemeral: true, content: "Pokemon does not exist" });
+        if (!fetchPokemon.pokemon) return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokemon does not exist" });
 
         let z = userDB.selected || [];
 

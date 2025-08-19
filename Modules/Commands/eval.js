@@ -5,11 +5,67 @@ import textTable from "text-table";
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .addStringOption(option => option.setName('command').setDescription('code to execute'))
-        .addStringOption(option => option.setName("command-check").setDescription("Check a command"))
-        .addIntegerOption(option => option.setName("order").setDescription("Select how you wish to calculate the usages"))
         .setName('eval')
-        .setDescription('Admin command'),
+        .setNameLocalizations({
+            'pt-BR': 'avaliar',
+            'es-ES': 'evaluar',
+            'de': 'auswerten',
+            'fr': 'évaluer',
+            // 'ar': 'تقييم'
+        })
+        .setDescription('Admin command')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Comando de administrador',
+            'es-ES': 'Comando de administrador',
+            'de': 'Admin-Befehl',
+            'fr': 'Commande administrateur',
+            // 'ar': 'أمر المسؤول'
+        })
+        .addStringOption(option => option.setName('command').setDescription('code to execute')
+            .setNameLocalizations({
+                'pt-BR': 'comando',
+                'es-ES': 'comando',
+                'de': 'befehl',
+                'fr': 'commande',
+                // 'ar': 'أمر'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'código para executar',
+                'es-ES': 'código para ejecutar',
+                'de': 'auszuführender Code',
+                'fr': 'code à exécuter',
+                // 'ar': 'كود للتنفيذ'
+            }))
+        .addStringOption(option => option.setName("command-check").setDescription("Check a command")
+            .setNameLocalizations({
+                'pt-BR': 'verificar-comando',
+                'es-ES': 'verificar-comando',
+                'de': 'befehl-prüfen',
+                'fr': 'vérifier-commande',
+                // 'ar': 'تحقق-من-الأمر'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Verificar um comando',
+                'es-ES': 'Verificar un comando',
+                'de': 'Einen Befehl prüfen',
+                'fr': 'Vérifier une commande',
+                // 'ar': 'تحقق من أمر'
+            }))
+        .addIntegerOption(option => option.setName("order").setDescription("Select how you wish to calculate the usages")
+            .setNameLocalizations({
+                'pt-BR': 'ordem',
+                'es-ES': 'orden',
+                'de': 'reihenfolge',
+                'fr': 'ordre',
+                // 'ar': 'ترتيب'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Selecione como você deseja calcular os usos',
+                'es-ES': 'Selecciona cómo deseas calcular los usos',
+                'de': 'Wählen Sie aus, wie Sie die Verwendungen berechnen möchten',
+                'fr': 'Sélectionnez comment vous souhaitez calculer les utilisations',
+                // 'ar': 'حدد كيف ترغب في حساب الاستخدامات'
+            })),
     mention_support: true,
     async execute(msg) {
 
@@ -20,6 +76,7 @@ export default {
                 const content = msg.content;
                 if (content) {
                     try {
+                        const client = msg.client; // Anthony wanted this :3
                         eval(content);
                     } catch (error) {
                         console.log(error);
@@ -31,6 +88,7 @@ export default {
             } else
                 if (msg.options.getString("command")) {
                     try {
+                        const client = msg.client; // Anthony wanted this :3
                         eval(msg.options.getString("command"));
                     } catch (error) {
                         console.log(error);

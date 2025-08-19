@@ -36,25 +36,96 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName('inventory')
+        .setNameLocalizations({
+            'pt-BR': 'inventario',
+            'es-ES': 'inventario',
+            'de': 'inventar',
+            'fr': 'inventaire',
+            // 'ar': 'المخزون'
+        })
+        .setDescription('Check out your items! Get em from the /shop or through the crates.')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Confira seus itens! Obtenha-os na /loja ou através das caixas.',
+            'es-ES': '¡Echa un vistazo a tus artículos! Consíguelos en la /tienda o a través de las cajas.',
+            'de': 'Schau dir deine Gegenstände an! Hol sie dir im /shop oder durch die Kisten.',
+            'fr': 'Consultez vos objets! Obtenez-les dans la /boutique ou via les caisses.',
+            // 'ar': 'تحقق من أغراضك! احصل عليها من /المتجر أو من خلال الصناديق.'
+        })
         .addIntegerOption(x => x
             .setName("page")
+            .setNameLocalizations({
+                'pt-BR': 'pagina',
+                'es-ES': 'pagina',
+                'de': 'seite',
+                'fr': 'page',
+                // 'ar': 'صفحة'
+            })
             .setDescription("Page of Listing")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Página da Listagem',
+                'es-ES': 'Página del Listado',
+                'de': 'Seite der Auflistung',
+                'fr': 'Page de la Liste',
+                // 'ar': 'صفحة القائمة'
+            })
         )
         .addIntegerOption(x => x
             .setName("item-id")
+            .setNameLocalizations({
+                'pt-BR': 'id-item',
+                'es-ES': 'id-articulo',
+                'de': 'gegenstand-id',
+                'fr': 'id-objet',
+                // 'ar': 'معرف-العنصر'
+            })
             .setDescription("Check out the item details!")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Confira os detalhes do item!',
+                'es-ES': '¡Echa un vistazo a los detalles del artículo!',
+                'de': 'Schau dir die Gegenstandsdetails an!',
+                'fr': 'Consultez les détails de l\'objet!',
+                // 'ar': 'تحقق من تفاصيل العنصر!'
+            })
             .setAutocomplete(true)
         )
         .addIntegerOption(x => x
             .setName("use")
+            .setNameLocalizations({
+                'pt-BR': 'usar',
+                'es-ES': 'usar',
+                'de': 'benutzen',
+                'fr': 'utiliser',
+                // 'ar': 'استخدام'
+            })
             .setDescription("Use your Crates through this command")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Use suas Caixas através deste comando',
+                'es-ES': 'Usa tus Cajas a través de este comando',
+                'de': 'Benutze deine Kisten mit diesem Befehl',
+                'fr': 'Utilisez vos Caisses via cette commande',
+                // 'ar': 'استخدم صناديقك من خلال هذا الأمر'
+            })
             .setMinValue(1)
             .setMaxValue(100)
         )
         .addBooleanOption(x => x
-            .setName("help").setDescription("View details on how to use this command")
-        )
-        .setDescription('Check out your items! Get em from the /shop or through the crates.'),
+            .setName("help")
+            .setNameLocalizations({
+                'pt-BR': 'ajuda',
+                'es-ES': 'ayuda',
+                'de': 'hilfe',
+                'fr': 'aide',
+                // 'ar': 'مساعدة'
+            })
+            .setDescription("View details on how to use this command")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Veja detalhes sobre como usar este comando',
+                'es-ES': 'Ver detalles sobre cómo usar este comando',
+                'de': 'Details zur Verwendung dieses Befehls anzeigen',
+                'fr': 'Voir les détails sur la façon d\'utiliser cette commande',
+                // 'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
+            })
+        ),
     async execute(msg) {
 
         if (msg.options.getBoolean("help"))

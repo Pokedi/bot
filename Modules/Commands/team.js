@@ -1,13 +1,41 @@
-import { SlashCommandBuilder } from "discord.js";
+import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 
 export default {
     help: "",
     data: new SlashCommandBuilder()
-        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command"))
         .setName('team')
-        .setDescription('Check your Pokemon team out!'),
+        .setNameLocalizations({
+            'pt-BR': 'equipe',
+            'es-ES': 'equipo',
+            'de': 'team',
+            'fr': 'équipe',
+            // 'ar': 'فريق'
+        })
+        .setDescription('Check your Pokemon team out!')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Confira sua equipe de Pokémon!',
+            'es-ES': '¡Echa un vistazo a tu equipo de Pokémon!',
+            'de': 'Schau dir dein Pokémon-Team an!',
+            'fr': 'Consultez votre équipe de Pokémon!',
+            // 'ar': 'تحقق من فريق بوكيمونك!'
+        })
+        .addBooleanOption(option => option.setName("help").setDescription("View details on how to use this command")
+            .setNameLocalizations({
+                'pt-BR': 'ajuda',
+                'es-ES': 'ayuda',
+                'de': 'hilfe',
+                'fr': 'aide',
+                // 'ar': 'مساعدة'
+            })
+            .setDescriptionLocalizations({
+                'pt-BR': 'Veja detalhes sobre como usar este comando',
+                'es-ES': 'Ver detalles sobre cómo usar este comando',
+                'de': 'Details zur Verwendung dieses Befehls anzeigen',
+                'fr': 'Voir les détails sur la façon d\'utiliser cette commande',
+                // 'ar': 'عرض تفاصيل حول كيفية استخدام هذا الأمر'
+            })),
     alias: ["t"],
     mention_support: true,
     async execute(msg) {
@@ -21,9 +49,9 @@ export default {
 
         await userDB.fetch(msg.client.postgres);
 
-        if (!userDB.started) return msg.reply({ ephemeral: true, content: "User not found" });
+        if (!userDB.started) return msg.reply({ flags: MessageFlags.Ephemeral, content: "User not found" });
 
-        if (!userDB.selected || !userDB.selected[0]) return msg.reply({ ephemeral: true, content: "No one's home..." });
+        if (!userDB.selected || !userDB.selected[0]) return msg.reply({ flags: MessageFlags.Ephemeral, content: "No one's home..." });
 
         const selectedPokemon = await msg.client.postgres`SELECT id, idx, level, name, pokemon FROM pokemon WHERE id in ${msg.client.postgres(userDB.selected)}`;
 

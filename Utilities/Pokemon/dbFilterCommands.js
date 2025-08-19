@@ -85,6 +85,15 @@ const filterCommands = {
         ) >= 3`);
 
     },
+    // Gender Bender
+    "gender": (queryObject, value = '') => {
+        // Check if the value is male or female, m or f, or 1 or 2
+        if (value.toLowerCase() === 'male' || value.toLowerCase() === 'm' || value === '2')
+            return queryObject = queryObject.and('gender = \'2\'')
+        if (value.toLowerCase() === 'female' || value.toLowerCase() === 'f' || value === '1')
+            return queryObject = queryObject.and('gender = \'1\'')
+        return queryObject = queryObject.and("gender = '3'");
+    },
     // Qua-Stat Filter
     "qua": (queryObject, value = '') => {
 
@@ -141,78 +150,116 @@ const filterCommands = {
     }
 }
 
-// IV based Filter
-const IVs = ["hp", "atk", "def", "spatk", "spdef", "spd"];
+// Supported IV stats
+const IV_STATS = ["hp", "atk", "def", "spatk", "spdef", "spd"];
 
-IVs.forEach(y => {
-    filterCommands[y] = (queryObject, value = '') => {
+// Regex constants
+const FLAG_PREFIX = /^(--|—)/;
+const OPERATOR_REGEX = /^([<>]=?|=)?\s*(\d+)$/;
+const COMMAND_SPLIT_REGEX = /(--\w+|—\w+)/gim;
 
-        let operator = "="
+IV_STATS.forEach(stat => {
+    filterCommands[stat] = (queryObject, value = "") => {
+        let operator = "=";
+        let amount = 20; // default IV threshold
 
-        let [v, a] = value.match(/([><\d]+)/g);
+        const match = value.trim().match(OPERATOR_REGEX);
+        if (match) {
+            if (match[1]) operator = match[1];
+            if (match[2]) amount = parseInt(match[2], 10);
+        }
 
-        if (v == ">")
-            operator = ">=";
-        if (v == "<")
-            operator = "<=";
-        if (v && !a)
-            a = v;
-
-        return queryObject = queryObject.and({ ["s_" + y]: parseInt(a || 20) }, (operator));
-
-    }
+        return queryObject.and({ [`s_${stat}`]: amount }, operator);
+    };
 });
 
-function fixQueryString(string) {
+function normalizeQueryFlags(query) {
+    let normalized = query;
 
-    Object.keys(filterCommands).forEach(x => {
-        if ((new RegExp(x + "(?:\W)|iv |" + x + "$", "gmi")).test(string) && !(new RegExp("--" + x + "|--name " + x, "gmi")).test(string))
-            string = string.replace(new RegExp(x, "gmi"), "--" + x);
+    // Ensure IV/stat keywords have "--" prefix
+    Object.keys(filterCommands).forEach(cmd => {
+        const keywordPattern = new RegExp(`\\b${cmd}\\b`, "gi");
+        normalized = normalized.replace(keywordPattern, `--${cmd}`);
     });
 
-    if (!string.includes("--name")) {
-        const foundPokemon = filterPokemon(x => x).map(x => (x.name).replace(/-/gmi, ' ').toLowerCase()).find(x => new RegExp(x, "gmi").test(string));
-        if (foundPokemon)
-            string = string.replace(foundPokemon, "--name " + foundPokemon);
-    }
-
-    return string;
+    return normalized;
 }
 
-function dbFilterCommands(queryObject = builder.select('pokemon', 'id, idx, pokemon, s_atk, s_hp, s_def, s_spatk, s_spdef, s_spd, nature, level, shiny, name'), query = "") {
+function attachNameFlag(query) {
+    if (query.includes("--name")) return query;
 
-    // Add default starting value
+    const pokemonList = filterPokemon(x => x)
+        .map(p => p.name.replace(/-/g, " ").toLowerCase());
+
+    const found = pokemonList.find(name =>
+        new RegExp(`\\b${name}\\b`, "i").test(query)
+    );
+
+    if (found) {
+        return query.replace(
+            new RegExp(`\\b${found}\\b`, "i"),
+            `--name ${found}`
+        );
+    }
+
+    return query;
+}
+
+function parseQueryToCommands(query) {
+    const parts = query
+        .split(COMMAND_SPLIT_REGEX)
+        .map(p => p.trim())
+        .filter(Boolean);
+
+    const commands = [];
+    for (let i = 0; i < parts.length; i++) {
+        if (!FLAG_PREFIX.test(parts[i])) continue;
+
+        const command = parts[i].replace(FLAG_PREFIX, "");
+        const value = parts[i + 1] && !FLAG_PREFIX.test(parts[i + 1])
+            ? parts[i + 1]
+            : "";
+
+        commands.push({ command, value });
+    }
+    return commands;
+}
+
+function dbFilterCommands(
+    queryObject = builder.select(
+        "pokemon",
+        "id, idx, pokemon, s_atk, s_hp, s_def, s_spatk, s_spdef, s_spd, nature, level, shiny, name"
+    ),
+    query = ""
+) {
     queryObject = queryObject.where({ 1: 1 });
 
-    query = fixQueryString(query);
+    // Normalize input
+    query = attachNameFlag(normalizeQueryFlags(query));
 
-    // Default --name filter if not used but other files used
-    if (query && /^\w+/gmi.test(query) && !query.includes("--name"))
-        queryObject = queryObject.and({ pokemon: query, name: query }, 'ilike', 'or');
+    // Default name search if query is plain text
+    if (/^\w+/i.test(query) && !query.includes("--name")) {
+        queryObject = queryObject.and(
+            { pokemon: query, name: query },
+            "ilike",
+            "or"
+        );
+    }
 
-    const simplifiedQuery = query.split(/(--\w+|—\w+)/gim).map(x => x.trim()).filter(x => x);
+    // Remove eggs unless explicitly requested
+    if (!query.includes("egg")) {
+        queryObject = queryObject.and({ pokemon: "egg" }, "!=");
+    }
 
-    // Remove eggs if no command exists
-    if (!simplifiedQuery.includes("egg"))
-        queryObject = queryObject["and"]({ pokemon: 'egg' }, '!=');
-
-    for (let index = 0; index < simplifiedQuery.length; index++) {
-        const row = simplifiedQuery[index];
-        // isCommand
-        if (!(row.startsWith("--") || row.startsWith("—"))) continue;
-        // Remove prefixes
-        const cleanedCommand = row.split(/--|—/gim)[1];
-        // Test command and run if needed
-        if (!filterCommands[cleanedCommand]) continue;
-        // Get Value if exists
-        const value = /--|—/.test(simplifiedQuery[index + 1]) ? '' : simplifiedQuery[index + 1];
-        // Clear out Pokemon as it goes
-        filterCommands[cleanedCommand](queryObject, value);
+    // Apply commands
+    const commands = parseQueryToCommands(query);
+    for (const { command, value } of commands) {
+        if (filterCommands[command]) {
+            queryObject = filterCommands[command](queryObject, value);
+        }
     }
 
     return queryObject;
 }
-
-export { fixQueryString };
 
 export default dbFilterCommands;

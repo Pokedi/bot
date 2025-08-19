@@ -9,9 +9,17 @@ export default {
         .setName('bal').setNameLocalizations({
             'pt-BR': "saldo",
             "es-ES": "saldo",
-            "de": "konto"
+            "de": "konto",
+            "fr": "solde",
+            // "ar": "رصيد"
         })
-        .setDescription('Check your credit balance.'),
+        .setDescription('Check your credit balance.').setDescriptionLocalizations({
+            'pt-BR': "Verifique seu saldo de créditos.",
+            "es-ES": "Consulta tu saldo de créditos.",
+            "de": "Überprüfen Sie Ihren Kontostand.",
+            "fr": "Consultez votre solde de crédits.",
+            // "ar": "تحقق من رصيد قروضك"
+        }),
     aliases: ['balance', 'credits', 'credit'],
     async execute(msg) {
 

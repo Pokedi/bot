@@ -6,7 +6,21 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName("shardstats")
-        .setDescription("Get all shard specific stats"),
+        .setNameLocalizations({
+            'pt-BR': 'estatisticasdosfragmentos',
+            'es-ES': 'estadisticasdelosfragmentos',
+            'de': 'shardstatistiken',
+            'fr': 'statistiquesdesfragments',
+            // 'ar': 'إحصائيات-الشارد'
+        })
+        .setDescription("Get all shard specific stats")
+        .setDescriptionLocalizations({
+            'pt-BR': 'Obtenha todas as estatísticas específicas do fragmento',
+            'es-ES': 'Obtenga todas las estadísticas específicas del fragmento',
+            'de': 'Holen Sie sich alle Shard-spezifischen Statistiken',
+            'fr': 'Obtenez toutes les statistiques spécifiques aux fragments',
+            // 'ar': 'الحصول على جميع الإحصائيات الخاصة بالشارد'
+        }),
     async execute(msg) {
         (msg.client.cluster.broadcastEval(client => ({
             ids: client.cluster.ids.size,

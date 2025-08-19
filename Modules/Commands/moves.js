@@ -11,58 +11,216 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName('moves')
-        .setDescription('View possible and set Pokemon moves')
+        .setNameLocalizations({
+            'pt-BR': 'movimentos',
+            'es-ES': 'movimientos',
+            'de': 'attacken',
+            'fr': 'attaques',
+            // 'ar': 'حركات'
+        })
+        .setDescription('View and set Pokémon moves')
+        .setDescriptionLocalizations({
+            'pt-BR': 'Veja e defina movimentos de Pokémon',
+            'es-ES': 'Ver y establecer movimientos de Pokémon',
+            'de': 'Pokémon-Attacken anzeigen und festlegen',
+            'fr': 'Voir et définir les attaques de Pokémon'
+        })
         .addSubcommand(y => y
             .setName("info")
-            .setDescription("Check up information on moves!")
+            .setNameLocalizations({
+                'pt-BR': 'info',
+                'es-ES': 'info',
+                'de': 'info',
+                'fr': 'info',
+                // 'ar': 'معلومات'
+            })
+            .setDescription("Check move information!")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Verifique informações de movimentos!',
+                'es-ES': '¡Consulta información de movimientos!',
+                'de': 'Infos zu Attacken prüfen!',
+                'fr': 'Vérifiez les infos sur les attaques!'
+            })
             .addIntegerOption(x => x
                 .setName("move-info")
+                .setNameLocalizations({
+                    'pt-BR': 'info-movimento',
+                    'es-ES': 'info-movimiento',
+                    'de': 'attacken-info',
+                    'fr': 'info-attaque',
+                    // 'ar': 'معلومات-الحركة'
+                })
                 .setDescription("Get information on the Move you selected")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'Obtenha informações sobre o Movimento que você selecionou',
+                    'es-ES': 'Obtén información sobre el Movimiento que seleccionaste',
+                    'de': 'Erhalte Informationen über die von dir ausgewählte Attacke',
+                    'fr': 'Obtenez des informations sur l\'attaque que vous avez sélectionnée',
+                    // 'ar': 'احصل على معلومات حول الحركة التي حددتها'
+                })
                 .setAutocomplete(true)
             )
             .addIntegerOption(x => x
                 .setName('pokemon-slot')
-                .setDescription("Select the Pokemon you want to check [Default: 1]")
+                .setNameLocalizations({
+                    'pt-BR': 'espaco-pokemon',
+                    'es-ES': 'ranura-pokemon',
+                    'de': 'pokemon-platz',
+                    'fr': 'emplacement-pokemon',
+                    // 'ar': 'فتحة-البوكيمون'
+                })
+                .setDescription("Select Pokémon to check [Default: 1]")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'Selecione o Pokémon para verificar [Padrão: 1]',
+                    'es-ES': 'Selecciona Pokémon para comprobar [Predeterminado: 1]',
+                    'de': 'Pokémon zum Prüfen wählen [Standard: 1]',
+                    'fr': 'Sélectionnez Pokémon à vérifier [Défaut: 1]'
+                })
                 .setMaxValue(6)
                 .setMinValue(1)
             )
             .addBooleanOption(x => x
                 .setName("level-moves")
-                .setDescription("Show Moves you can gain through leveling up your Pokemon")
+                .setNameLocalizations({
+                    'pt-BR': 'movimentos-nivel',
+                    'es-ES': 'movimientos-nivel',
+                    'de': 'level-attacken',
+                    'fr': 'attaques-niveau',
+                    // 'ar': 'حركات-المستوى'
+                })
+                .setDescription("Show moves gained by leveling up")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'Mostra movimentos ganhos ao subir de nível',
+                    'es-ES': 'Muestra movimientos al subir de nivel',
+                    'de': 'Attacken durchs Leveln anzeigen',
+                    'fr': 'Montre attaques gagnées en montant de niveau'
+                })
             )
             .addBooleanOption(x => x
                 .setName("tm-moves")
-                .setDescription("Show Moves you can gain through buying Technical-Machines for your Pokemon")
+                .setNameLocalizations({
+                    'pt-BR': 'movimentos-tm',
+                    'es-ES': 'movimientos-mt',
+                    'de': 'tm-attacken',
+                    'fr': 'attaques-ct',
+                    // 'ar': 'حركات-tm'
+                })
+                .setDescription("Show moves learned via TMs")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'Mostra movimentos aprendidos por MTs',
+                    'es-ES': 'Muestra movimientos aprendidos por MTs',
+                    'de': 'Attacken durch TMs anzeigen',
+                    'fr': 'Montre attaques apprises via CT'
+                })
             )
         )
         .addSubcommand(y => y
             .setName("store")
-            .setDescription("Set or Buy moves to train your Pokemon!")
+            .setNameLocalizations({
+                'pt-BR': 'loja',
+                'es-ES': 'tienda',
+                'de': 'laden',
+                'fr': 'boutique',
+                // 'ar': 'متجر'
+            })
+            .setDescription("Set or buy moves for your Pokémon")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Defina ou compre movimentos para seu Pokémon',
+                'es-ES': 'Establece o compra movimientos para tu Pokémon',
+                'de': 'Attacken festlegen oder kaufen',
+                'fr': 'Définir ou acheter attaques pour Pokémon'
+            })
             .addIntegerOption(x => x
                 .setName("move-id")
-                .setDescription("ID of the Move you wish to set or view")
+                .setNameLocalizations({
+                    'pt-BR': 'id-movimento',
+                    'es-ES': 'id-movimiento',
+                    'de': 'attacken-id',
+                    'fr': 'id-attaque',
+                    // 'ar': 'معرف-الحركة'
+                })
+                .setDescription("ID of the move to set or view")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'ID do movimento para definir ou ver',
+                    'es-ES': 'ID del movimiento para establecer o ver',
+                    'de': 'ID der Attacke zum Festlegen oder Anzeigen',
+                    'fr': 'ID de l\'attaque à définir ou voir'
+                })
                 .setAutocomplete(true)
             )
             .addIntegerOption(x => x
                 .setName("tm-id")
-                .setDescription("ID of the TM Move you wish to set or view")
+                .setNameLocalizations({
+                    'pt-BR': 'id-tm',
+                    'es-ES': 'id-mt',
+                    'de': 'tm-id',
+                    'fr': 'id-ct',
+                    // 'ar': 'معرف-tm'
+                })
+                .setDescription("ID of the TM move to set or view")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'ID do movimento MT para definir ou ver',
+                    'es-ES': 'ID del movimiento MT para establecer o ver',
+                    'de': 'ID der TM-Attacke zum Festlegen oder Anzeigen',
+                    'fr': 'ID de l\'attaque CT à définir ou voir'
+                })
                 .setAutocomplete(true)
             )
             .addIntegerOption(x => x
                 .setName("move-slot")
-                .setDescription("The slot in which you wish to replace the move")
+                .setNameLocalizations({
+                    'pt-BR': 'espaco-movimento',
+                    'es-ES': 'ranura-movimiento',
+                    'de': 'attacken-platz',
+                    'fr': 'emplacement-attaque',
+                    // 'ar': 'فتحة-الحركة'
+                })
+                .setDescription("Slot to replace the move in")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'Espaço onde substituir o movimento',
+                    'es-ES': 'Ranura para reemplazar el movimiento',
+                    'de': 'Platz zum Ersetzen der Attacke',
+                    'fr': 'Emplacement où remplacer l\'attaque'
+                })
                 .setMaxValue(4)
                 .setMinValue(1)
             )
             .addIntegerOption(x => x
                 .setName('pokemon-slot')
-                .setDescription("Select the Pokemon you want to set a move for [Default: 1]")
+                .setNameLocalizations({
+                    'pt-BR': 'espaco-pokemon',
+                    'es-ES': 'ranura-pokemon',
+                    'de': 'pokemon-platz',
+                    'fr': 'emplacement-pokemon',
+                    // 'ar': 'فتحة-البوكيمون'
+                })
+                .setDescription("Pokémon to set a move for [Default: 1]")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'Pokémon para definir movimento [Padrão: 1]',
+                    'es-ES': 'Pokémon para establecer movimiento [Predeterminado: 1]',
+                    'de': 'Pokémon für Attacke wählen [Standard: 1]',
+                    'fr': 'Pokémon pour définir une attaque [Défaut: 1]'
+                })
                 .setMaxValue(6)
                 .setMinValue(1)
             )
         )
         .addSubcommand(subcommand => subcommand
-            .setName("help").setDescription("Check out how to use the Market Command and apparently abandon what you gained trust of!")
+            .setName("help")
+            .setNameLocalizations({
+                'pt-BR': 'ajuda',
+                'es-ES': 'ayuda',
+                'de': 'hilfe',
+                'fr': 'aide',
+                // 'ar': 'مساعدة'
+            })
+            .setDescription("Learn how to use the Moves command!")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Aprenda a usar o comando Movimentos!',
+                'es-ES': 'Aprende a usar el comando Movimientos!',
+                'de': 'Lerne den Moves-Befehl zu nutzen!',
+                'fr': 'Apprenez à utiliser la commande Attaques!'
+            })
         ),
     async execute(msg) {
 
