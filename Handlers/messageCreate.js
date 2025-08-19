@@ -65,7 +65,7 @@ async function messageCreate(msg, e) {
     }
 
     // Spawn System
-    if (!msg.channel.spawn || isNaN(msg.channel.spawn.count)) msg.channel.spawn = { count: chance.integer({ min: 10, max: 30 }), pokemon: {}, lastSpawn: Date.now() };
+    if (!msg.channel.spawn || isNaN(msg.channel.spawn.count)) msg.channel.spawn = { count: chance.integer({ min: 25, max: 50 }), pokemon: {}, lastSpawn: Date.now() };
 
     // Decrementing Count for Spawn
     msg.channel.spawn.count--;
@@ -73,7 +73,7 @@ async function messageCreate(msg, e) {
     // Spawn 
     spawnIF: if (msg.channel.spawn.count < 0 && Date.now() - msg.channel.spawn.lastSpawn > (1000 * 60 * 2)) {
         // Reassignment
-        msg.channel.spawn.count = chance.integer({ min: 10, max: 30 });
+        msg.channel.spawn.count = chance.integer({ min: 25, max: 50 });
         msg.channel.spawn.lastSpawn = Date.now();
 
         // Check if spawns are disabled in the current channel
