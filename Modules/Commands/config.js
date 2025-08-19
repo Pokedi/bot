@@ -22,9 +22,23 @@ export default {
         .addSubcommandGroup(group => group
             .setName("server")
             .setDescription("Configure server-wide settings")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Configurar as configurações do servidor',
+                'es-ES': 'Configurar los ajustes del servidor',
+                'de': 'Servereinstellungen konfigurieren',
+                'fr': 'Configurer les paramètres du serveur',
+                // 'ar': 'تكوين إعدادات الخادم'
+            })
             .addSubcommand(subcommand => subcommand
                 .setName("redirect_spawns")
                 .setDescription("Redirect all spawns to specific channels.")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'Redirecionar todos os spawns para canais especificados',
+                    'es-ES': 'Redirigir todos los spawns a canales especificados',
+                    'de': 'Leiten Sie alle Spawns an bestimmte Kanäle weiter',
+                    'fr': 'Rediriger toutes les apparitions vers des canaux spécifiés',
+                    // 'ar': 'إعادة توجيه جميع عمليات الظهور إلى قنوات محددة'
+                })
                 .addStringOption(option => option
                     .setName("channels")
                     .setDescription("The channels to redirect spawns to (use #channel mentions).")
@@ -34,11 +48,25 @@ export default {
             .addSubcommand(subcommand => subcommand
                 .setName("clear_redirects")
                 .setDescription("Clear spawn redirection settings for the server.")
+                .setNameLocalizations({
+                    'pt-BR': 'limpar-redirecionamento',
+                    'es-ES': 'limpiar-redireccionamiento',
+                    'de': 'umleitung-löschen',
+                    'fr': 'effacer-redirection',
+                    // 'ar': 'مسح-إعادة-التوجيه'
+                })
             )
         )
         .addSubcommandGroup(group => group
             .setName("channel")
             .setDescription("Configure channel-specific settings")
+            .setDescriptionLocalizations({
+                'pt-BR': 'Configurar as configurações do canal',
+                'es-ES': 'Configurar los ajustes del canal',
+                'de': 'Kanaleinstellungen konfigurieren',
+                'fr': 'Configurer les paramètres du canal',
+                // 'ar': 'تكوين إعدادات القناة'
+            })
             .addSubcommand(subcommand => subcommand
                 .setName("toggle_spawns")
                 .setDescription("Enable or disable Pokémon spawns in this channel.")
@@ -55,6 +83,13 @@ export default {
             .addSubcommand(subcommand => subcommand
                 .setName("settings")
                 .setDescription("View all current server and channel configurations.")
+                .setDescriptionLocalizations({
+                    'pt-BR': 'Verificar todos os recursos disponíveis',
+                    'es-ES': 'Verificar todas las funciones disponibles',
+                    'de': 'Überprüfen Sie alle verfügbaren Funktionen',
+                    'fr': 'Vérifier toutes les fonctionnalités disponibles',
+                    // 'ar': 'تحقق من جميع الميزات المتاحة'
+                })
             )
             // Added new subcommand for help within the check group
             .addSubcommand(subcommand => subcommand
