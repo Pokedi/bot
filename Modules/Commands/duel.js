@@ -1,9 +1,11 @@
 import { EmbedBuilder, InteractionCollector, InteractionType, MessageFlags, SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
-import { returnEmbedBox, updateEmbedBox } from "../../Utilities/Pokemon/pokemonBattleImage.js";
+import { returnEmbedBox } from "../../Utilities/Pokemon/pokemonBattleImage.js";
 
 import pkg from 'pokemon-showdown'; // Need Teams here for Teams.pack
 const { Teams, BattleStream, getPlayerStreams, toID } = pkg;
+
+import buttonVerification from "../../Utilities/Core/buttonVerification.js";
 
 import pkdex from "../../node_modules/pokemon-showdown/dist/data/pokedex.js"
 import { ENUM_POKEMON_FULL_TYPES_ID } from "../../Utilities/Data/enums.js";
@@ -194,6 +196,10 @@ export default {
                 await opponent.fetch(msg.client.postgres);
 
                 if (!opponent.started) return msg.editReply("The opponent hasn't started their adventure yet!");
+
+                const verification = await buttonVerification({ interaction: msg, users: [msg.user].concat(opponent11).filter(x => x && x.id).map(x => x.id) });
+
+                if (!verification) return await msg.editReply("Users did not verify in time.");
 
                 if (!opponent.selected || !opponent.selected[0])
                     return msg.editReply("The opponent has no Pokemon selected for battle!");
