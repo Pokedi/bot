@@ -675,7 +675,7 @@ FROM evo_chain;`
         // If holding Everstone, or no evolution chain, or evolution chain is empty, save and return
         if (this.item == "everstone" || !info.evolution_chain || info.evolution_chain.length === 0) {
             return await this.save(postgres, { level: this.level, exp: this.exp }),
-                { levelIncreased: preLevel != this.level, level: this.level, pokemon: this.pokemon, hasEvolved: false, evolvedPokemon: this.pokemon };
+                { levelIncreased: this.level && preLevel != this.level, level: this.level, pokemon: this.pokemon, hasEvolved: false, evolvedPokemon: this.pokemon };
         }
 
         // Removed that Ugly gibberish Code you once saw here
@@ -688,7 +688,7 @@ FROM evo_chain;`
             evolvedPokemon = foundEvolution.pokemon_name;
 
         // Save
-        return await this.save(postgres, { level: this.level, exp: this.exp, pokemon: evolvedPokemon }),
+        return await this.save(postgres, { level: this.level, exp: this.exp, pokemon: evolvedPokemon || this.pokemon }),
             // Returned Obj
             { levelIncreased: preLevel != this.level, level: this.level, hasEvolved: evolvedPokemon && evolvedPokemon != this.pokemon, pokemon: this.pokemon, evolvedPokemon };
     }
