@@ -121,6 +121,7 @@ async function handleServerConfig(msg, subcommand, values = {
 }) {
     switch (subcommand) {
         case "r":
+        case "rs":
         case "redirect_spawns": {
             const channelsInput = values.channelsInput;
             const channelIds = [...channelsInput.matchAll(/<#(\d+)>/g)].map(match => match[1]);
