@@ -1,4 +1,5 @@
-import { SlashCommandBuilder } from "discord.js";
+import { SlashCommandBuilder, EmbedBuilder } from "discord.js"; // Import EmbedBuilder
+
 import builder from "../Database/QueryBuilder/queryGenerator.js";
 
 export default {
@@ -14,7 +15,7 @@ export default {
         .setDescription("You can configure your Pokedi to meet your needs")
         .setDescriptionLocalizations({
             'pt-BR': 'Você pode configurar seu Pokedi para atender às suas necessidades',
-            'es-ES': 'Puedes configurar tu Pokedi para satisfacer tus necesidades',
+            'es-ES': 'Puedes configurar tu Pokedi para satisfacer tus necessidades',
             'de': 'Sie können Ihren Pokedi an Ihre Bedürfnisse anpassen',
             'fr': 'Vous pouvez configurer votre Pokedi pour répondre à vos besoins',
         })
@@ -55,26 +56,55 @@ export default {
                 .setName("settings")
                 .setDescription("View all current server and channel configurations.")
             )
+            // Added new subcommand for help within the check group
+            .addSubcommand(subcommand => subcommand
+                .setName("help")
+                .setDescription("Displays help for the config command.")
+            )
         ),
+    mention_support: true,
 
     async execute(msg) {
+        let group, subcommand;
+        let options = {};
+
+        if (msg.isMessage) {
+
+            let args;
+            [group, subcommand, ...args] = msg.content.trim().split(/\s+/);
+
+            if (!group || !['check', 'a', 'channel', 'c', 'server', 's'].includes(group))
+                return msg.reply({ content: "Invalid command usage. Try `@Pokedi config server redirect_spawns #channel, #channel2` or `@Pokedi config channel toggle_spawns [true/1|false/0]` or `@Pokedi config check settings` or `@Pokedi config check help`.", ephemeral: true });
+
+            if (["redirect_spawns", 'r'].includes(subcommand)) options = { channelsInput: args.join(' ') };
+            if (["toggle_spawns", 'ts'].includes(subcommand)) options = { toggle_spawns: args.join(' ').includes('1') || args.join(' ').includes('t') };
+
+        } else {
+            group = msg.options.getSubcommandGroup();
+            subcommand = msg.options.getSubcommand();
+            options = {
+                channelsInput: msg.options.getString("channels"),
+                toggle_spawns: msg.options.getBoolean("enabled")
+            }
+        }
+
         if (!msg.member.permissions.has("ManageGuild")) {
             return msg.reply({ content: "You need the 'Manage Server' permission to use this command.", ephemeral: true });
         }
 
-        const group = msg.options.getSubcommandGroup();
-        const subcommand = msg.options.getSubcommand();
-
         try {
             switch (group) {
+                case "s":
                 case "server":
-                    await handleServerConfig(msg, subcommand);
+                    await handleServerConfig(msg, subcommand, options);
                     break;
+                case "c":
                 case "channel":
-                    await handleChannelConfig(msg, subcommand);
+                    await handleChannelConfig(msg, subcommand, options);
                     break;
+                case "a":
                 case "check":
-                    await handleCheckConfig(msg);
+                    await handleCheckConfig(msg, subcommand, options);
                     break;
                 default:
                     await msg.reply({ content: "Invalid command usage.", ephemeral: true });
@@ -86,10 +116,13 @@ export default {
     }
 };
 
-async function handleServerConfig(msg, subcommand) {
+async function handleServerConfig(msg, subcommand, values = {
+    channelsInput: ''
+}) {
     switch (subcommand) {
+        case "r":
         case "redirect_spawns": {
-            const channelsInput = msg.options.getString("channels");
+            const channelsInput = values.channelsInput;
             const channelIds = [...channelsInput.matchAll(/<#(\d+)>/g)].map(match => match[1]);
 
             if (channelIds.length === 0) {
@@ -111,11 +144,13 @@ async function handleServerConfig(msg, subcommand) {
                 return msg.reply({ content: "No valid text channels were found in your input.", ephemeral: true });
             }
 
+
             await upsertConfig(msg, "spawn_redirect", validChannels.join(','));
             msg.guild.configs.spawn_redirect = { config: validChannels.join(',') };
 
             return msg.reply(`Spawns will now be redirected to the specified channels.`);
         }
+        case "cr":
         case "clear_redirects": {
             const deleted = await deleteConfig(msg, "spawn_redirect");
             if (deleted) {
@@ -127,10 +162,13 @@ async function handleServerConfig(msg, subcommand) {
     }
 }
 
-async function handleChannelConfig(msg, subcommand) {
+async function handleChannelConfig(msg, subcommand, options = {
+    'toggle_spawns': false
+}) {
     switch (subcommand) {
+        case "ts":
         case "toggle_spawns": {
-            const enabled = msg.options.getBoolean("enabled");
+            const enabled = options.toggle_spawns;
 
             if (enabled) {
                 const deleted = await deleteConfig(msg, "spawn_disabled", true);
@@ -148,43 +186,116 @@ async function handleChannelConfig(msg, subcommand) {
     }
 }
 
-async function handleCheckConfig(msg) {
-    const guildConfigs = await msg.client.postgres`SELECT * FROM command_configuration WHERE guild_id = ${msg.guild.id} AND channel_id IS NULL`;
-    const channelConfigs = await msg.client.postgres`SELECT * FROM command_configuration WHERE channel_id = ${msg.channel.id}`;
+// Modified handleCheckConfig to include a 'help' subcommand
+async function handleCheckConfig(msg, subcommand) {
+    if (!subcommand || subcommand === "settings") {
+        const guildConfigs = await msg.client.postgres`SELECT * FROM command_configuration WHERE guild_id = ${msg.guild.id} AND channel_id IS NULL`;
+        const channelConfigs = await msg.client.postgres`SELECT * FROM command_configuration WHERE channel_id = ${msg.channel.id}`;
 
-    const possibleGuildConfigs = { "spawn_redirect": "Spawn Redirect Channels" };
-    const possibleChannelConfigs = { "spawn_disabled": "Spawns Disabled" };
+        const possibleGuildConfigs = { "spawn_redirect": "Spawn Redirect Channels" };
+        const possibleChannelConfigs = { "spawn_disabled": "Spawns Disabled" };
 
-    const guildFields = Object.entries(possibleGuildConfigs).map(([key, name]) => {
-        const config = guildConfigs.find(c => c.command === key);
-        const value = config ? config.config.split(',').map(c => `<#${c}>`).join(' ') : "`Not Set`";
-        return { name: `Server: ${name}`, value, inline: false };
-    });
+        const guildFields = Object.entries(possibleGuildConfigs).map(([key, name]) => {
+            const config = guildConfigs.find(c => c.command === key);
+            const value = config ?
+                // Spawn Redirect is practically the only Command that requires channels
+                key == 'spawn_redirect' ? config.config.split(',').map(c => `<#${c}>`).join(' ') : config.config
+                : "`Not Set`";
+            return { name: `Server: ${name}`, value, inline: false };
+        });
 
-    const channelFields = Object.entries(possibleChannelConfigs).map(([key, name]) => {
-        const config = channelConfigs.find(c => c.command === key);
-        const value = config ? "`True`" : "`False`";
-        return { name: `Channel: ${name}`, value, inline: false };
-    });
+        const channelFields = Object.entries(possibleChannelConfigs).map(([key, name]) => {
+            const config = channelConfigs.find(c => c.command === key);
+            const value = config ? "`True`" : "`False`";
+            return { name: `Channel: ${name}`, value, inline: false };
+        });
 
-    const embed = {
-        title: "Configuration Status",
-        description: `Showing settings for this server and the current channel (<#${msg.channel.id}>).`,
-        fields: [...guildFields, ...channelFields].filter(Boolean),
-        color: 0x5865F2,
-    };
+        const embed = {
+            title: "Configuration Status",
+            description: `Showing settings for this server and the current channel (<#${msg.channel.id}>).`,
+            fields: [...guildFields, ...channelFields].filter(Boolean),
+            color: 0x5865F2,
+        };
 
-    return msg.reply({ embeds: [embed] });
+        return msg.reply({ embeds: [embed] });
+    } else if (subcommand === "help") {
+        const embed = new EmbedBuilder()
+            .setTitle("Config Command Help")
+            .setDescription("Use this command to configure various settings for your server and channels.")
+            .setColor(0x5865F2)
+            .addFields(
+                {
+                    name: "Server-Wide Settings (`server`)",
+                    value: "Configure settings that apply to the entire server.",
+                    inline: false
+                },
+                {
+                    name: "Redirect Spawns",
+                    value: "Slash: `/config server redirect_spawns channels:#channel1 #channel2`\n" +
+                        "Mention: `@Pokedi config server redirect_spawns #channel1 #channel2`\n" +
+                        "Mention: `@Pokedi config s rs #channel1 #channel2`\n" +
+                        "Redirects all Pokémon spawns to the specified channels.",
+                    inline: false
+                },
+                {
+                    name: "Clear Redirects",
+                    value: "Slash: `/config server clear_redirects`\n" +
+                        "Mention: `@Pokedi config server clear_redirects`\n" +
+                        "Mention: `@Pokedi config s cr`\n" +
+                        "Clears any active spawn redirection for the server.",
+                    inline: false
+                },
+                {
+                    name: "Channel-Specific Settings (`channel`)",
+                    value: "Configure settings for the current channel.",
+                    inline: false
+                },
+                {
+                    name: "Toggle Spawns",
+                    value: "Slash: `/config channel toggle_spawns enabled:true`\n" +
+                        "Mention: `@Pokedi config channel toggle_spawns true/false`\n" +
+                        "Mention: `@Pokedi config c ts true/false`\n" +
+                        "Enables or disables Pokémon spawns in the current channel.",
+                    inline: false
+                },
+                {
+                    name: "Check Configurations (`check`)",
+                    value: "View current configuration settings.",
+                    inline: false
+                },
+                {
+                    name: "View Settings",
+                    value: "Slash: `/config check settings`\n" +
+                        "Mention: `@Pokedi config check settings`\n" +
+                        "Mention: `@Pokedi config a`\n" +
+                        "Displays all current server and channel configurations.",
+                    inline: false
+                },
+                {
+                    name: "Get Config Help",
+                    value: "Slash: `/config check help`\n" +
+                        "Mention: `@Pokedi config check help`\n" +
+                        "Displays this help message for the config command.",
+                    inline: false
+                }
+            );
+        return msg.reply({ embeds: [embed] });
+    } else {
+        return msg.reply({ content: "Invalid subcommand for `check`. Use `settings` or `help`.", ephemeral: true });
+    }
 }
+
 
 async function upsertConfig(msg, command, configValue, isChannel = false) {
     const postgres = msg.client.postgres;
 
     const whereClause = {
         guild_id: BigInt(msg.guild.id),
-        command: command,
-        channel_id: isChannel ? BigInt(msg.channel.id) : null,
+        command: command
     };
+
+    if (isChannel)
+        whereClause.channel_id = BigInt(msg.channel.id);
 
     const selectQuery = builder.select('command_configuration', 'id').where(whereClause);
     const { text: selectText, values: selectValues } = selectQuery;
@@ -205,9 +316,11 @@ async function upsertConfig(msg, command, configValue, isChannel = false) {
 async function deleteConfig(msg, command, isChannel = false) {
     const whereClause = {
         guild_id: BigInt(msg.guild.id),
-        command: command,
-        channel_id: isChannel ? BigInt(msg.channel.id) : null,
+        command: command
     };
+
+    if (whereClause)
+        whereClause.channel_id = BigInt(msg.channel.id);
 
     const { values, text } = builder.deletes('command_configuration').where(whereClause);
     const result = await msg.client.postgres.unsafe(text, values);
