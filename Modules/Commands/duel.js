@@ -391,6 +391,7 @@ export default {
 
                                     msg.followUp(embedData);
                                     // streams.omniscient.destroy();
+                                    clearTimeout(battleTimeout);
                                     player.removeDuelsState(msg.client.redis);
                                     opponent.removeDuelsState(msg.client.redis);
                                     battleInteractionCollector.stop();
