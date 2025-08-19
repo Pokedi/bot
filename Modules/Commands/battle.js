@@ -1,4 +1,4 @@
-import { InteractionCollector, InteractionType, MessageFlags, SlashCommandBuilder } from "discord.js";
+import { EmbedBuilder, InteractionCollector, InteractionType, MessageFlags, SlashCommandBuilder } from "discord.js";
 import Player from "../../Classes/player.js";
 import { returnEmbedBox } from "../../Utilities/Pokemon/pokemonBattleImage.js";
 
@@ -133,11 +133,10 @@ export default {
                             { name: 'Ally', value: 3 }
                         )
                 )
-                .addNumberOption(x =>
+                .addStringOption(x =>
                     x.setName('switch')
                         .setDescription('Switch your Pokemon')
-                        .setMaxValue(6)
-                        .setMinValue(1)
+                        .setAutocomplete(true)
                 )
                 .addBooleanOption(x =>
                     x.setName('mega')
@@ -279,10 +278,66 @@ export default {
                 const battleTimeout = setTimeout(() => {
                     streams.omniscient._destroy();
                     msg.followUp("Battle ended due to inactivity or timeout.");
-                    battleMessage.resource.message.edit({ content: "Battle ended due to inactivity or timeout.", embeds: [], components: [] });
+                    player.removeDuelsState(msg.client.redis);
+                    opponent.removeDuelsState(msg.client.redis);
+                    // battleMessage.resource.edit({ content: "Battle ended due to inactivity or timeout.", embeds: [], components: [] });
                 }, 5 * 60 * 1000);
 
                 const parser = new BattleTextParser();
+
+                const battleInteractionCollector = new InteractionCollector(msg.client, {
+                    channel: msg.channel,
+                    interactionType: InteractionType.ApplicationCommand,
+                    filter: x => x.commandName == "battle" && [player.id, opponent.id].includes(x.user.id),
+                    time: 10 * 60000
+                });
+
+                void (async () => {
+
+                    try {
+
+                        for await (const chunk of streams.p1) {
+
+                            if (chunk && chunk.includes('request')) {
+                                player.battle.request = JSON.parse(chunk.split("request|")[1]);
+                                player.battle.activePokemon = player.battle.request.side.pokemon.map((x, y) => ({ ...x, id: y })).find(x => x.active);
+                                player.battle.selected = player.battle.activePokemon.id;
+                                const parts = first.condition.split(" ");
+                                const [current_hp, max_hp] = parts[0].split("/").map(Number);
+                                const status = parts[1] || null;
+                                player.pokemon[player.battle.selected] = { ...player.pokemon[player.battle.selected], current_hp, max_hp, status };
+                            }
+
+                        }
+
+                    } catch (error) {
+
+                    }
+
+                })();
+
+                void (async () => {
+
+                    try {
+
+                        for await (const chunk of streams.p2) {
+                            if (chunk && chunk.includes('request')) {
+                                opponent.battle.request = JSON.parse(chunk.split("request|")[1]);
+                                opponent.battle.activePokemon = opponent.battle.request.side.pokemon.map((x, y) => ({ ...x, id: y })).find(x => x.active);
+                                opponent.battle.selected = opponent.battle.activePokemon.id;
+                                const parts = first.condition.split(" ");
+                                const [current_hp, max_hp] = parts[0].split("/").map(Number);
+                                const status = parts[1] || null;
+                                opponent.pokemon[opponent.battle.selected] = { ...opponent.pokemon[opponent.battle.selected], current_hp, max_hp, status };
+                            }
+
+                        }
+
+                    } catch (error) {
+
+                    }
+
+                })();
 
                 void (async () => {
 
@@ -291,6 +346,12 @@ export default {
                         for await (const chunk of streams.omniscient) {
                             if (typeof chunk === 'string') {
                                 msg.followUp(parser.extractMessage(chunk));
+                                if (chunk.includes('|win|')) {
+                                    streams.omniscient.destroy();
+                                    player.removeDuelsState(msg.client.redis);
+                                    opponent.removeDuelsState(msg.client.redis);
+                                    battleInteractionCollector.stop();
+                                }
                             }
                         }
 
@@ -300,20 +361,18 @@ export default {
 
                 })();
 
-                const battleInteractionCollector = new InteractionCollector(msg.client, {
-                    channel: msg.channel,
-                    interactionType: InteractionType.ApplicationCommand,
-                    filter: x => x.commandName == "battle" && [player.id, opponent.id].includes(x.user.id),
-                    time: 10 * 60000
-                });
+                player.pokemon = player.pokemon.map((x, y) => { x.name = `${x.pokemon}(${x.idx})`; x.i = y; return x; });
+                opponent.pokemon = opponent.pokemon.map((x, y) => { x.name = `${x.pokemon}(${x.idx})`; x.i = y; return x; });
 
                 streams.omniscient.write(`>start {"formatid":"${formatid}", "gametype": "singles"}\n` +
                     // `>gametype singles\n` +
-                    `>player p1 ${JSON.stringify({ name: player.globalName, team: convertPokemonInstancesToPSTeam(player.pokemon) })}\n` +
-                    `>player p2 ${JSON.stringify({ name: opponent.globalName, team: convertPokemonInstancesToPSTeam(opponent.pokemon) })}\n`)
+                    `>player p1 ${JSON.stringify({ name: player.globalName, team: (convertPokemonInstancesToPSTeam(player.pokemon)) })}\n` +
+                    `>player p2 ${JSON.stringify({ name: opponent.globalName, team: (convertPokemonInstancesToPSTeam(opponent.pokemon)) })}\n` +
+                    `>p1 team 123456\n` +
+                    `>p2 team 123456\n`)
 
                 battleInteractionCollector.on('collect', async m => {
-                    
+
                     const id = BigInt(m.user.id);
 
                     console.log("Collection => ", id, m.options.getSubcommand());
@@ -326,7 +385,16 @@ export default {
 
                         case 'actions': {
                             const attack = m.options.getNumber('attack');
-                            const switchPk = m.options.getNumber('switch');
+                            const switchPk = m.options.getString('switch');
+                            const runAway = m.options.getBoolean('run-away');
+
+                            if (runAway) {
+                                await m.reply('Okay, you lost.');
+                                return streams.omniscient.write('>forcewin ' + (playerKey == "p1" ? "p2" : "p1"));
+                            }
+                            // return player.removeDuelsState(msg.client.redis),
+                            //     opponent.removeDuelsState(msg.client.redis), m.reply('You have ended the match and lost miserably.');
+
                             // const target = msg.options.getInteger('target');
 
                             if (!attack && !switchPk) return m.reply({ content: 'You must choose an action: either to attack or to switch.', ephemeral: true });
@@ -347,12 +415,65 @@ export default {
                                 choice = `move ${attack}${targetString}`; // ${mega}${gmax}
                             } else if (switchPk) {
                                 choice = `switch ${switchPk}`;
+                                currentPlayer.battle.selected = currentPlayer.pokemon.find(x => x.name == switchPk).i;
                             }
 
                             streams[playerKey].write(choice);
                             return m.reply({ content: "Move Registered", flags: MessageFlags.Ephemeral });
                         }
-                            break;
+                        // view case with status support
+                        case "view": {
+                            const moves = m.options.getBoolean('moves');
+                            const team = m.options.getBoolean('team');
+
+                            if (moves) {
+                                const active = currentPlayer.battle.request.active[0];
+                                const name = currentPlayer.battle.activePokemon.ident.split(': ')[1];
+
+                                const embed = new EmbedBuilder()
+                                    .setTitle(`${name}'s Moves`)
+                                    .setFooter({
+                                        text: 'Power Points (PP) have been enabled to improve the experience and challenge between users.'
+                                    })
+                                    .addFields(
+                                        active.moves.map(x => ({
+                                            name: x.move,
+                                            value: `**PP**: ${x.pp} / ${x.maxpp}`,
+                                            inline: true
+                                        }))
+                                    )
+                                    .setColor('DarkGold');
+
+                                return m.reply({ embeds: [embed] });
+                            }
+
+                            if (team) {
+                                const side = currentPlayer.battle.request.side;
+                                const embed = new EmbedBuilder()
+                                    .setTitle(`${side.name}'s Team`)
+                                    .setColor('DarkBlue')
+                                    .addFields(
+                                        side.pokemon.map(poke => {
+                                            const [hpPart, status] = poke.condition.split(" ");
+                                            const [current_hp, max_hp] = hpPart.split("/");
+
+                                            return {
+                                                name: poke.ident.split(": ")[1],
+                                                value:
+                                                    `**HP**: ${current_hp} / ${max_hp}` +
+                                                    (status ? `\n**Status**: ${status.toUpperCase()}` : '') +
+                                                    `\n**Level & Gender**: ${poke.details}` +
+                                                    `\n**Ability**: ${poke.ability || "Unknown"}`,
+                                                inline: false
+                                            };
+                                        })
+                                    );
+
+                                return m.reply({ embeds: [embed] });
+                            }
+                        }
+
+
                     }
 
                 });

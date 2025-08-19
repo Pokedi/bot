@@ -6,6 +6,19 @@ import pokeapisql from "../Database/pokedb.js";
 
 export default async (interaction) => {
 
+    if (interaction.commandName == "battle") {
+
+        let text = interaction.options.getFocused();
+
+        const playerPokemon = await interaction.client.postgres`SELECT p.pokemon, p.level, p.idx FROM users AS u CROSS JOIN LATERAL unnest(u.selected) AS sel(poke_id) JOIN pokemon AS p ON p.id = sel.poke_id WHERE u.id = ${interaction.user.id} LIMIT 6;`;
+
+        return interaction.respond(playerPokemon.map(x=>({
+            name: `${x.pokemon} [${x.idx}] Level: ${x.level}`,
+            value: `${x.pokemon}(${x.idx})`
+        })))
+
+    }
+
     if (interaction.commandName == "moves") {
 
         let text = interaction.options.getFocused();
@@ -46,7 +59,7 @@ export default async (interaction) => {
             interaction.respond(itemEvolution.map(e => {
 
                 const cost = possibleOverrides.find(x => x.id == e.evolution_item_id)?.cost || e.cost;
-                
+
                 return {
                     name: `${player.bal < e.cost ? "❎" : "✅"} || ${capitalize(e.name, true)} || ${capitalize(e._id)} || Cost: ${cost}`,
                     value: e.evoid

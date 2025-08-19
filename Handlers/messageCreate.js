@@ -99,8 +99,6 @@ async function messageCreate(msg, e) {
             // Spawn Pokemon Execution
             await channelSelected.spawn.pokemon.SpawnFriendlyV2();
 
-            console.log("> Generated Pokemon", channelSelected.spawn.pokemon);
-
             // Send Spawn
             await channelSelected.spawn.pokemon.spawnToChannel(channelSelected, msg.client.commands.get("catch")?.rest?.id);
             

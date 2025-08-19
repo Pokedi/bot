@@ -199,7 +199,7 @@ class Player {
 
     async fetchPokemon(postgres, fullFetch = false) {
 
-        const rows = this.selected.length ? await postgres`SELECT * FROM pokemon WHERE id in ${postgres(this.selected)}` : await postgres`SELECT * FROM pokemon WHERE user_id = ${this.id} LIMIT 6`;
+        const rows = this.selected.length ? await postgres`SELECT * FROM pokemon WHERE id in ${postgres(this.selected)}` : await postgres`SELECT * FROM pokemon WHERE user_id = ${this.id} ORDER BY ID ASC LIMIT 6`;
 
         if (!rows.length) return this.pokemon = [];
 
