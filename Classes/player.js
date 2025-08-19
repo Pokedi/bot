@@ -149,7 +149,7 @@ class Player {
 
     // Set User Duels True
     async setOnGoingDuels(redis) {
-        return await redis.set(this.id + '-duel', Date.now());
+        return await redis.set(this.id + '-duel', Date.now(), {EX: 60 * 5});
     }
 
     // Set User Market True

@@ -191,7 +191,13 @@ export default {
 
                 await player.fetchPokemon(msg.client.postgres, true);
 
+                if (await player.isInDuel(msg.client.redis))
+                    return await msg.reply(`<@${player.id}> is currently in a duel right now...`);
+
                 const opponent = new Player({ id: opponent1 });
+
+                if (await opponent.isInDuel(msg.client.redis))
+                    return await msg.reply(`<@${opponent.id}> is currently in a duel right now...`);
 
                 await opponent.fetch(msg.client.postgres);
 
@@ -374,8 +380,8 @@ export default {
 
                         for await (const chunk of streams.omniscient) {
                             if (typeof chunk === 'string') {
-                                // msg.followUp(parser.extractMessage(chunk));
                                 if (chunk.includes('|win|')) {
+                                    msg.followUp(parser.extractMessage(chunk));
                                     // streams.omniscient.destroy();
                                     player.removeDuelsState(msg.client.redis);
                                     opponent.removeDuelsState(msg.client.redis);
@@ -424,6 +430,11 @@ export default {
                     const currentPlayer = id == player.id ? player : opponent;
 
                     const playerKey = id == player.id ? 'p1' : 'p2';
+
+                    if (!(await currentPlayer.isInDuel(msg.client.redis))) {
+                        m.reply(`${currentPlayer.globalName}, you have exited the duel and thus, ended it`);
+                        return streams.omniscient.write('>forcewin ' + (playerKey == "p1" ? "p2" : "p1"));
+                    }
 
                     switch (m.options.getSubcommand()) {
 
