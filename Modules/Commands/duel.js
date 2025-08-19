@@ -192,12 +192,12 @@ export default {
                 await player.fetchPokemon(msg.client.postgres, true);
 
                 if (await player.isInDuel(msg.client.redis))
-                    return await msg.reply(`<@${player.id}> is currently in a duel right now...`);
+                    return await msg.reply(`<@${player.id}> is currently in a duel right now... Please wait 5 minutes till you can duel again.`);
 
                 const opponent = new Player({ id: opponent1 });
 
                 if (await opponent.isInDuel(msg.client.redis))
-                    return await msg.reply(`<@${opponent.id}> is currently in a duel right now...`);
+                    return await msg.reply(`<@${opponent.id}> is currently in a duel right now... Please wait 5 minutes till you can duel again.`);
 
                 await opponent.fetch(msg.client.postgres);
 
