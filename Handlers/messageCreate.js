@@ -42,7 +42,7 @@ async function messageCreate(msg, e) {
                     enumerable: true
                 });
 
-                msg.reply = function(options) {
+                msg.reply = function (options) {
                     // If options is an object and has 'ephemeral', remove it
                     if (options && typeof options === "object" && "ephemeral" in options) {
                         const { ephemeral, ...rest } = options;
@@ -55,7 +55,7 @@ async function messageCreate(msg, e) {
                 msg.isMessage = true;
 
                 msg.content = text;
-                
+
                 msg.client.commands.get(commandName)(msg);
 
             }
@@ -76,33 +76,42 @@ async function messageCreate(msg, e) {
         msg.channel.spawn.count = chance.integer({ min: 10, max: 30 });
         msg.channel.spawn.lastSpawn = Date.now();
 
-        // IF Guild disabled, break
-        if (msg.guild.configs?.spawn?.disabled) break spawnIF;
+        // Check if spawns are disabled in the current channel
+        if (msg.channel.configs?.spawn_disabled?.config === "true") break spawnIF;
 
-        const channelToRedirectTo = msg.guild?.configs?.spawn?.config ? chance.pickone(msg.guild.configs.spawn.config.split(",")) : msg.channel.id;
+        // Determine the target channel for the spawn
+        const redirectConfig = msg.guild?.configs?.spawn_redirect?.config;
+        const targetChannelId = redirectConfig ? chance.pickone(redirectConfig.split(",")) : msg.channel.id;
 
         let channelSelected;
 
         try {
             // Fetch selected Channel
-            channelSelected = msg.guild.channels.cache.get(channelToRedirectTo) || await msg.guild.channels.fetch(channelToRedirectTo);
+            channelSelected = msg.guild.channels.cache.get(targetChannelId) || await msg.guild.channels.fetch(targetChannelId);
 
-            // Break if doesn't exist
-            if (!channelSelected) break spawnIF;
+            // Break if channel doesn't exist or is invalid
+            if (!channelSelected || !channelSelected.isTextBased()) break spawnIF;
+
+            // If we redirected, we must also check if the target channel has spawns disabled
+            if (targetChannelId !== msg.channel.id) {
+                const targetChannelInfo = (await msg.client.postgres`SELECT * FROM command_configuration WHERE channel_id = ${targetChannelId} AND command = 'spawn_disabled' LIMIT 1`)?.[0];
+                if (targetChannelInfo?.config === "true") break spawnIF;
+            }
 
             // Reassign for newly selected Channel
             if (!channelSelected.spawn) channelSelected.spawn = { count: chance.integer({ min: 30, max: 140 }), pokemon: {}, lastSpawn: Date.now() };
 
             // Initializing New Pokemon
             channelSelected.spawn.pokemon = new Pokedex();
-            
+
             // Spawn Pokemon Execution
             await channelSelected.spawn.pokemon.SpawnFriendlyV2();
 
             // Send Spawn
             await channelSelected.spawn.pokemon.spawnToChannel(channelSelected, msg.client.commands.get("catch")?.rest?.id);
-            
+
         } catch (err) {
+            console.error("Error during spawn:", err);
             break spawnIF;
         };
     }
