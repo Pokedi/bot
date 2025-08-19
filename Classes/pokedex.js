@@ -690,7 +690,7 @@ FROM evo_chain;`
         // Save
         return await this.save(postgres, { level: this.level, exp: this.exp, pokemon: evolvedPokemon }),
             // Returned Obj
-            { levelIncreased: preLevel != this.level, level: this.level, hasEvolved: evolvedPokemon != this.pokemon, pokemon: this.pokemon, evolvedPokemon };
+            { levelIncreased: preLevel != this.level, level: this.level, hasEvolved: evolvedPokemon && evolvedPokemon != this.pokemon, pokemon: this.pokemon, evolvedPokemon };
     }
 
     getNextEvolution(level = this.level) {
