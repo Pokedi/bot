@@ -92,7 +92,7 @@ export default {
     help: "",
     data: new SlashCommandBuilder()
         .setName('duel')
-        .setDescription('Let er Rip! Oh wait, wrong one, AUTOBOTS! ROLLOUT!')
+        .setDescription('The official Duels command for Pokedi powered by Smogon/Pokemon-Showdown!')
         .addSubcommand(x =>
             x.setName('start')
                 .setDescription('Use this command to start your battle')
