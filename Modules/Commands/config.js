@@ -355,7 +355,7 @@ async function deleteConfig(msg, command, isChannel = false) {
         command: command
     };
 
-    if (isChannel)
+    if (whereClause)
         whereClause.channel_id = BigInt(msg.channel.id);
 
     const { values, text } = builder.deletes('command_configuration').where(whereClause);
