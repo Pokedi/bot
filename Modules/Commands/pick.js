@@ -59,7 +59,7 @@ export default {
         })} RETURNING *`;
 
         // Set it to Collection Cache
-        msg.user.player = userAccount;
+        msg.user.player = new Player(userAccount);
 
         const newPokemonForUser = new Pokedex({});
 
