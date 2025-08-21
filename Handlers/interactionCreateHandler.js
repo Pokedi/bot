@@ -1,4 +1,4 @@
-import { createLocale } from "../Classes/lang.js";
+import i18n from "i18n";
 import autoComplete from "../Modules/Events/autoComplete.js";
 import setMessageCache from "../Utilities/Misc/setMessageCache.js";
 import logInteractionReport from "../Utilities/User/logReport.js";
@@ -11,6 +11,8 @@ async function interactionCreateHandler(msg) {
     if (msg.isAutocomplete()) return autoComplete(msg);
 
     await setMessageCache(msg);
+
+    i18n.setLocale(msg.user?.player?.locale || msg.channel?.configs?.locale?.config || msg.guild?.configs?.locale?.config || "en");
 
     try {
         if (msg.client.commands.get(msg.commandName))

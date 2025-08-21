@@ -1,3 +1,4 @@
+import i18n from "i18n";
 import { SlashCommandBuilder } from "discord.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 import pokemonFilter from "../../Utilities/Pokemon/pokemonFilter.js";
@@ -246,7 +247,7 @@ export default {
 
         const totalPokemon = await pokemonFilter(msg.user.id, query.replace(/—/gmi, '--'), -1);
 
-        if (!passedFilteredPokemon.length) return await msg.reply("Nothing passed that filter...");
+        if (!passedFilteredPokemon.length) return await msg.reply(i18n.__('commands.pokemon.no_results'));
 
         // Design value
         let numberLength = (passedFilteredPokemon.map(x => x.idx).sort((x, y) => y - x)[0]).toString().length;
@@ -268,12 +269,18 @@ export default {
 
         await msg.reply({
             embeds: [{
-                title: 'Your Pokemon',
+                title: i18n.__("commands.pokemon.title"),
                 description: `${passedFilteredPokemon.map(x => {
                     return `\`${" ".repeat(numberLength - (x.idx || 0).toString().length)}${x.idx || 0}\`　　${capitalize(x.pokemon, true)} ${x.name ? "\"**" + capitalize(x.name) + "**\"" : ""}${x.shiny ? " ⭐" : ""}　•　Level: ${x.level}　•　**IV**: ${x.totalIV}%`;
                 }).join("\n")}`,
                 footer: {
-                    text: `Showing ${passedFilteredPokemon[0].idx} - ${passedFilteredPokemon[passedFilteredPokemon.length - 1].idx} of ${totalPokemon} Pokémon matching this search. [ Page ${page + 1} of ${Math.max(1, Math.round(totalPokemon / 20))} ]`
+                    text: i18n.__("commands.pokemon.footer", {
+                        idx: passedFilteredPokemon[0].idx,
+                        last_idx: passedFilteredPokemon[passedFilteredPokemon.length - 1].idx,
+                        totalPokemon,
+                        page: page + 1,
+                        max: Math.max(1, Math.round(totalPokemon / 20))
+                    })
                 },
                 color: 44678
             }]

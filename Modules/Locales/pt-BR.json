@@ -1,5 +1,53 @@
 {
-    "bal": {
-        "title": "Saldo de %s:"
+    "commands": {
+        "start": {
+            "welcome": "Bem-vindo ao mundo Pokémon!",
+            "pick": "Para começar a jogar, escolha um desses Pokémon com o comando `/pick <pokemon>`"
+        },
+        "bal": {
+            "balance": "Seu Saldo"
+        },
+        "pokemon": {
+            "title": "Seus Pokémon",
+            "no_results": "Nada passou por esse filtro...",
+            "footer": "Mostrando {{idx}} - {{last_idx}} de {{totalPokemon}} Pokémon correspondentes a esta pesquisa. [ Página {{page}} de {{max}} ]"
+        },
+        "select": {
+            "team_clear": "Seu time foi limpo.",
+            "invalid_pokemon": "Por favor, forneça um ID de Pokémon válido.",
+            "nonexistent": "Pokémon não existe",
+            "placement": "{{pokemon}} (Nº {{id}}) colocado com sucesso no slot Nº {{slot}}."
+        },
+        "info": {
+            "not_selected": "Você não tem nenhum Pokémon selecionado ou disponível.",
+            "unregistered": "Este Pokémon não foi registrado na base de dados. Por favor, entre em contato com um administrador para obter mais ajuda."
+        },
+        "catch": {
+            "caught": "Parabéns, você acabou de capturar um {{pokemon}} {{shiny}} de nível {{level}}!",
+            "wrong": "Palpite errado!",
+            "no_pokemon": "Não há nada aqui..."
+        }
+    },
+    "default": {
+        "Level": "Nível",
+        "Stats": "Estatísticas",
+        "egg": {
+            "text": "Uma energia misteriosa habita dentro..."
+        },
+        "Attack": "Ataque",
+        "Defense": "Defesa",
+        "Sp": {
+            " Defense": "Defesa Especial",
+            " Attack": "Ataque Especial"
+        },
+        "Speed": "Velocidade",
+        "Total IV": "IV Total",
+        "Natures": "Naturezas",
+        "Type(s)": "Tipo(s)",
+        "Held Item": "Item Equipado",
+        "Nothing": "Nada",
+        "Market ID": "ID do Mercado",
+        "art_drawn": "Arte desenhada por {{art}}",
+        "no_started": "Você não começou sua aventura! Use `/pick` para escolher alguém para viajar com você!"
     }
 }
