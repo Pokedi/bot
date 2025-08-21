@@ -179,7 +179,7 @@ export default {
                                 return "~ Nothing ~";
 
                             return selectedPokemon.pokedex.evolution_chain.filter(x => x.trigger == "use-item").map(x => {
-                                return `**${capitalize(selectedPokemon.pokedex.name, true)}** + **${capitalize(x.item_name)}** => **${capitalize(x.name)}** ${x.item_price ? "(💵" + (x.item_price) + ")" : ""}`
+                                return `**${capitalize(selectedPokemon.pokedex.name, true)}** + **${capitalize(x.item_name)}** => **${capitalize(x.pokemon_name)}** ${x.item_price ? "(💵" + (x.item_price) + ")" : ""}`
                             }).join("\n") + "\n To buy the item, just `/shop item:<item name>`";
                         }
                         )()
@@ -189,7 +189,7 @@ export default {
                 if (selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "trade" && x.name != selectedPokemon.pokedex._id))
                     secondEmbed.fields.push({
                         name: "🗃️ Trade Evolution",
-                        value: selectedPokemon.pokedex.evolution_chain.filter(x => x.trigger == "trade").map(x => `**${capitalize(!x.item_name ? "No Item Required" : x.item_name.replace(/-/g, ''))}** + Trade => ${capitalize(x.name)}`).join("\n") || "~ Not Available ~",
+                        value: selectedPokemon.pokedex.evolution_chain.filter(x => x.trigger == "trade").map(x => `**${capitalize(!x.item_name ? "No Item Required" : x.item_name.replace(/-/g, ''))}** + Trade => ${capitalize(x.pokemon_name)}`).join("\n") || "~ Not Available ~",
                         inline: true
                     })
             }
@@ -249,7 +249,7 @@ export default {
                 if (timeEvolution.length)
                     secondEmbed.fields.push({
                         name: "🕰️ Time",
-                        value: timeEvolution.map(x => `${capitalize(selectedPokemon.pokedex.name)} + ${capitalize(x.time_of_day)} + Level Up${x.min_level ? " to " + x.min_level : ""} => ${capitalize(x.name)}`).join("\n"),
+                        value: timeEvolution.map(x => `${capitalize(selectedPokemon.pokedex.name)} + ${capitalize(x.time_of_day)} + Level Up${x.min_level ? " to " + x.min_level : ""} => ${capitalize(x.pokemon_name)}`).join("\n"),
                         inline: true
                     });
 
@@ -260,7 +260,7 @@ export default {
                 if (affectionEvolution.length)
                     secondEmbed.fields.push({
                         name: "💖 Affection",
-                        value: affectionEvolution.map(x => `${capitalize(selectedPokemon.pokedex.name)} + Love${x.time_of_day ? " + " + capitalize(x.time_of_day) : ""} + Level Up${x.min_level ? " to " + x.min_level : ""} => ${capitalize(x.name)}`).join("\n"),
+                        value: affectionEvolution.map(x => `${capitalize(selectedPokemon.pokedex.name)} + Love${x.time_of_day ? " + " + capitalize(x.time_of_day) : ""} + Level Up${x.min_level ? " to " + x.min_level : ""} => ${capitalize(x.pokemon_name)}`).join("\n"),
                         inline: false
                     });
 
