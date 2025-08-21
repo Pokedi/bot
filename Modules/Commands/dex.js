@@ -171,11 +171,11 @@ export default {
 
             if (selectedPokemon.pokedex.evolution_chain.length) {
 
-                if (selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "use-item" && x.name != selectedPokemon.pokedex._id))
+                if (selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "use-item" && x.pokemon_name != selectedPokemon.pokedex._id))
                     // Push Buyable Items
                     secondEmbed.fields.push({
                         name: "🛍️ Items", value: (() => {
-                            if (!selectedPokemon.pokedex.evolution_chain.length || !selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "use-item" && x.name != selectedPokemon.pokedex._id))
+                            if (!selectedPokemon.pokedex.evolution_chain.length || !selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "use-item" && x.pokemon_name != selectedPokemon.pokedex._id))
                                 return "~ Nothing ~";
 
                             return selectedPokemon.pokedex.evolution_chain.filter(x => x.trigger == "use-item").map(x => {
@@ -186,7 +186,7 @@ export default {
                     });
 
                 // Push Tradable Evolutions
-                if (selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "trade" && x.name != selectedPokemon.pokedex._id))
+                if (selectedPokemon.pokedex.evolution_chain.find(x => x.trigger == "trade" && x.pokemon_name != selectedPokemon.pokedex._id))
                     secondEmbed.fields.push({
                         name: "🗃️ Trade Evolution",
                         value: selectedPokemon.pokedex.evolution_chain.filter(x => x.trigger == "trade").map(x => `**${capitalize(!x.item_name ? "No Item Required" : x.item_name.replace(/-/g, ''))}** + Trade => ${capitalize(x.pokemon_name)}`).join("\n") || "~ Not Available ~",
