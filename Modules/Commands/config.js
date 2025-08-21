@@ -310,15 +310,12 @@ async function handleUserConfig(msg, subcommand, values = {
         case "language":
         case "l": {
 
-
             if (!msg.user.player)
                 return msg.reply('You have not started Pokedi yet...');
 
             const [row] = await msg.client.postgres`UPDATE users SET locale = ${values.language} WHERE id = ${msg.user?.id || msg.author?.id} RETURNING *`;
 
-            // Update Redis
-            // if (msg.user.player)
-            //     await msg.client.redis.set('user:' + msg.user.id, JSON.stringify(new Player(row).toJSON()));
+            msg.user.player.locale = values.language;
 
             await msg.user.player.sync(msg);
 
