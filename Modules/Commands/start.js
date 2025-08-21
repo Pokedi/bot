@@ -1,4 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
+import i18n from "i18n";
 
 export default {
     help: "",
@@ -18,15 +19,17 @@ export default {
             'fr': 'Commencez votre voyage!',
             // 'ar': 'ابدأ رحلتك!'
         }),
+
     async execute(msg) {
+
         return msg.reply({
             embeds: [{
                 image: {
                     url: "https://i.imgur.com/YgGIVf6.png"
                 },
                 title: `Hello ${msg.user.username}`,
-                description: `**Welcome to the world of pokémon!**
-                To begin playing, choose one of these pokémon with the \`/pick <pokemon>\` command
+                description: `**${i18n.__("commands.start.welcome")}**
+                ${i18n.__("commands.start.pick")}
 
 • **Generation I** •
 Bulbasaur | Charmander | Squirtle

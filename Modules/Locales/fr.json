@@ -1,0 +1,53 @@
+{
+    "commands": {
+        "start": {
+            "welcome": "Bienvenue dans le monde des Pokémon !",
+            "pick": "Pour commencer à jouer, choisis l'un de ces Pokémon avec la commande `/pick <pokemon>`"
+        },
+        "bal": {
+            "balance": "Votre Solde"
+        },
+        "pokemon": {
+            "title": "Vos Pokémon",
+            "no_results": "Aucun résultat ne correspond à ce filtre...",
+            "footer": "Affichage de {{idx}} - {{last_idx}} sur {{totalPokemon}} Pokémon correspondant à cette recherche. [ Page {{page}} sur {{max}} ]"
+        },
+        "select": {
+            "team_clear": "Votre équipe a été effacée.",
+            "invalid_pokemon": "Veuillez fournir un ID de Pokémon valide.",
+            "nonexistent": "Le Pokémon n'existe pas",
+            "placement": "{{pokemon}} (Nº {{id}}) a été placé avec succès sur l'emplacement Nº {{slot}}."
+        },
+        "info": {
+            "not_selected": "Vous n'avez aucun Pokémon sélectionné ou disponible.",
+            "unregistered": "Ce Pokémon n'a pas été enregistré dans la base de données. Veuillez contacter un administrateur pour obtenir de l'aide."
+        },
+        "catch": {
+            "caught": "Félicitations, vous venez de capturer un {{pokemon}} {{shiny}} de niveau {{level}} !",
+            "wrong": "Mauvaise supposition !",
+            "no_pokemon": "Il n'y a rien ici..."
+        }
+    },
+    "default": {
+        "Level": "Niveau",
+        "Stats": "Stats",
+        "egg": {
+            "text": "Une énergie mystérieuse réside à l'intérieur..."
+        },
+        "Attack": "Attaque",
+        "Defense": "Défense",
+        "Sp": {
+            " Defense": "Défense Spé.",
+            " Attack": "Attaque Spé."
+        },
+        "Speed": "Vitesse",
+        "Total IV": "IV Total",
+        "Natures": "Natures",
+        "Type(s)": "Type(s)",
+        "Held Item": "Objet Porté",
+        "Nothing": "Rien",
+        "Market ID": "ID du Marché",
+        "art_drawn": "Art dessiné par {{art}}",
+        "no_started": "Vous n'avez pas commencé votre aventure ! Utilisez `/pick` pour choisir un compagnon de voyage !"
+    }
+}

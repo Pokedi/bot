@@ -1,3 +1,5 @@
+import i18n from "i18n";
+
 import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import Pokemon from "../../Classes/pokemon.js";
 import Player from "../../Classes/player.js";
@@ -101,18 +103,18 @@ export default {
         if (clearTeam) {
             userDB.selected = [];
             await userDB.save(msg.client.postgres);
-            return await msg.reply("Your team was cleared...");
+            return await msg.reply(i18n.__("commands.select.team_cleared"));
         }
 
-        if (!id || isNaN(id)) return msg.reply({ flags: MessageFlags.Ephemeral, content: "Please provide a valid Pokémon ID." });
+        if (!id || isNaN(id)) return msg.reply({ flags: MessageFlags.Ephemeral, content: i18n.__('commands.select.invalid_pokemon') });
 
         const [queryPokemon] = await msg.client.postgres`SELECT * FROM pokemon WHERE idx = ${id} AND user_id = ${BigInt(msg.user.id)}`;
 
-        if (!queryPokemon) return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokemon does not exist" });
+        if (!queryPokemon) return msg.reply({ flags: MessageFlags.Ephemeral, content: i18n.__("commands.select.nonexistent") });
 
         const fetchPokemon = new Pokemon(queryPokemon);
 
-        if (!fetchPokemon.pokemon) return msg.reply({ flags: MessageFlags.Ephemeral, content: "Pokemon does not exist" });
+        if (!fetchPokemon.pokemon) return msg.reply({ flags: MessageFlags.Ephemeral, content: i18n.__("commands.select.nonexistent") });
 
         let z = userDB.selected || [];
 
@@ -124,7 +126,7 @@ export default {
             }
         } else {
             if (z.includes(fetchPokemon.id))
-                return msg.reply('that pokemon already exists');
+                return msg.reply(i18n.__("commands.select.nonexistent"));
             z.push(fetchPokemon.id)
         }
 
@@ -132,7 +134,7 @@ export default {
 
         await userDB.save(msg.client.postgres);
 
-        await msg.reply(`Successfully placed ${capitalize(fetchPokemon.pokemon, true)} (Nº ${id}) on slot Nº ${slot + 1}`);
+        await msg.reply(i18n.__("commands.select.placement", { pokemon: capitalize(fetchPokemon.pokemon, true), id, slot: slot + 1 }));
 
         // Replace if User Profile Readied
         if (msg.user?.player)
