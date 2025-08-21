@@ -315,9 +315,7 @@ async function handleUserConfig(msg, subcommand, values = {
 
             const [row] = await msg.client.postgres`UPDATE users SET locale = ${values.language} WHERE id = ${msg.user?.id || msg.author?.id} RETURNING *`;
 
-            msg.user.player.locale = values.language;
-
-            await msg.user.player.sync(msg);
+            await new Player(row).sync(msg);
 
             return msg.reply(`I have successfully set \`${values.language}\` as your language now.`);
 
