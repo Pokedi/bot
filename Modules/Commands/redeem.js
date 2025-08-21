@@ -357,7 +357,7 @@ export default {
 
                             // Increment readied IDX
                             const [idx] = await msg.client.postgres`SELECT idx FROM pokemon WHERE user_id = ${msg.user.id} ORDER BY idx desc`;
-                            pokedex.idx = idx.idx || 1;
+                            pokedex.idx = (idx.idx || 0) + 1;
 
                             // Save to DB
                             await pokedex.save(msg.client.postgres);

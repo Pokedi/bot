@@ -1,0 +1,104 @@
+{
+    "commands": {
+        "start": {
+            "welcome": "Bienvenue dans le monde des Pokémon !",
+            "pick": "Pour commencer à jouer, choisis l'un de ces Pokémon avec la commande `/pick <pokemon>`"
+        },
+        "bal": {
+            "balance": "Votre Solde"
+        },
+        "pokemon": {
+            "title": "Vos Pokémon",
+            "no_results": "Aucun résultat ne correspond à ce filtre...",
+            "footer": "Affichage de {{idx}} - {{last_idx}} sur {{totalPokemon}} Pokémon correspondant à cette recherche. [ Page {{page}} sur {{max}} ]"
+        },
+        "select": {
+            "team_clear": "Votre équipe a été effacée.",
+            "invalid_pokemon": "Veuillez fournir un ID de Pokémon valide.",
+            "nonexistent": "Le Pokémon n'existe pas",
+            "placement": "{{pokemon}} (Nº {{id}}) a été placé avec succès sur l'emplacement Nº {{slot}}."
+        },
+        "info": {
+            "not_selected": "Vous n'avez aucun Pokémon sélectionné ou disponible.",
+            "unregistered": "Ce Pokémon n'a pas été enregistré dans la base de données. Veuillez contacter un administrateur pour obtenir de l'aide."
+        },
+        "catch": {
+            "caught": "Félicitations, vous venez de capturer un {{pokemon}} {{shiny}} de niveau {{level}} !",
+            "wrong": "Mauvaise supposition !",
+            "no_pokemon": "Il n'y a rien ici..."
+        },
+        "config": {
+            "invalid_use": "Utilisation invalide de la commande. Essayez `@Pokedi config server redirect_spawns #channel, #channel2` ou `@Pokedi config channel toggle_spawns [true/1|false/0]` ou `@Pokedi config check settings` ou `@Pokedi config check help`.",
+            "only_langs": "Seules les options pour cette commande : `'pt-BR', 'es-ES', 'en', 'fr', 'de'`",
+            "manager": "Vous avez besoin de la permission 'Gérer le serveur' pour utiliser cette commande.",
+            "invalid_command": "Utilisation invalide de la commande.",
+            "unexpected": "Une erreur inattendue s'est produite. Veuillez réessayer plus tard.",
+            "provide_channels": "Veuillez fournir des mentions de salon valides.",
+            "no_valid_channels": "Aucun salon texte valide n'a été trouvé dans votre saisie.",
+            "success_redirect": "Les apparitions seront maintenant redirigées vers les salons spécifiés.",
+            "spawns_cleared": "La redirection des apparitions a été effacée pour ce serveur.",
+            "spawns_config_notfound": "Aucune redirection d'apparition n'a été configurée pour ce serveur.",
+            "language_set": "Langue `{{language}}` définie avec succès pour ce serveur.",
+            "language_set_channel": "Langue `{{language}}` définie avec succès pour ce salon",
+            "language_set_user": "Langue `{{language}}` définie avec succès comme votre langue",
+            "spawns_enabled": "Les apparitions sont maintenant activées dans ce salon.",
+            "spawns_already_enabled": "Les apparitions étaient déjà activées dans ce salon.",
+            "spawns_disabled": "Les apparitions sont maintenant désactivées dans ce salon.",
+            "server": {
+                "title": "Serveur",
+                "channel_spawns_redirect": "Salons de Redirection des Apparitions",
+                "server_language": "Langue Globale"
+            },
+            "channel": {
+                "title": "Salon",
+                "spawns_disabled": "Apparitions Désactivées",
+                "language": "Langue"
+            },
+            "not_set": "Non Défini",
+            "unset": "Non Réglé",
+            "config_status": "Statut de Configuration",
+            "config_description": "Affichage des paramètres pour ce serveur et le salon actuel (<#{{channelId}}>).",
+            "help_command": "Aide de la Commande Config",
+            "help_description": "Utilisez cette commande pour configurer divers paramètres de votre serveur et de vos salons.",
+            "help_server_settings_title": "Paramètres du Serveur (`server`)",
+            "help_server_settings_value": "Configurez les paramètres qui s'appliquent à l'ensemble du serveur.",
+            "redirect_spawns": "Rediriger les Apparitions",
+            "redirect_spawns_value": "Slash: `/config server redirect_spawns channels:#channel1 #channel2`\nMention: `@Pokedi config server redirect_spawns #channel1 #channel2`\nMention: `@Pokedi config s rs #channel1 #channel2`\nRedirige toutes les apparitions de Pokémon vers les salons spécifiés.",
+            "clear_redirects": "Effacer les Redirections",
+            "clear_redirects_value": "Slash: `/config server clear_redirects`\nMention: `@Pokedi config server clear_redirects`\nMention: `@Pokedi config s cr`\nEfface toute redirection d'apparition active pour le serveur.",
+            "channel_specific_title": "Paramètres Spécifiques au Salon (`channel`)",
+            "channel_specific_value": "Configurez les paramètres pour le salon actuel.",
+            "toggle_spawns": "Activer/Désactiver les Apparitions",
+            "toggle_spawns_value": "Slash: `/config channel toggle_spawns enabled:true`\nMention: `@Pokedi config channel toggle_spawns true/false`\nMention: `@Pokedi config c ts true/false`\nActive ou désactive les apparitions de Pokémon dans le salon actuel.",
+            "check_config": "Vérifier la Configuration (`check`)",
+            "check_config_value": "Afficher les paramètres de configuration actuels.",
+            "view_settings": "Voir les Paramètres",
+            "view_settings_value": "Slash: `/config check settings`\nMention: `@Pokedi config check settings`\nMention: `@Pokedi config a`\nAffiche toutes les configurations actuelles du serveur et du salon.",
+            "get_config_help": "Obtenir l'Aide de Config",
+            "get_config_help_value": "Slash: `/config check help`\nMention: `@Pokedi config check help`\nAffiche ce message d'aide pour la commande config.",
+            "invalid_check": "Sous-commande invalide pour `check`. Utilisez `settings` ou `help`."
+        }
+    },
+    "default": {
+        "Level": "Niveau",
+        "Stats": "Stats",
+        "egg": {
+            "text": "Une énergie mystérieuse réside à l'intérieur..."
+        },
+        "Attack": "Attaque",
+        "Defense": "Défense",
+        "Sp": {
+            " Defense": "Défense Spé.",
+            " Attack": "Attaque Spé."
+        },
+        "Speed": "Vitesse",
+        "Total IV": "IV Total",
+        "Natures": "Natures",
+        "Type(s)": "Type(s)",
+        "Held Item": "Objet Porté",
+        "Nothing": "Rien",
+        "Market ID": "ID du Marché",
+        "art_drawn": "Art dessiné par {{art}}",
+        "no_started": "Vous n'avez pas commencé votre aventure ! Utilisez `/pick` pour choisir un compagnon de voyage !"
+    }
+}

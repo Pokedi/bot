@@ -1,0 +1,104 @@
+{
+    "commands": {
+        "start": {
+            "welcome": "¡Bienvenido al mundo Pokémon!",
+            "pick": "Para empezar a jugar, elige uno de estos Pokémon con el comando `/pick <pokemon>`"
+        },
+        "bal": {
+            "balance": "Tu Saldo"
+        },
+        "pokemon": {
+            "title": "Tus Pokémon",
+            "no_results": "Ningún resultado coincide con ese filtro...",
+            "footer": "Mostrando {{idx}} - {{last_idx}} de {{totalPokemon}} Pokémon que coinciden con esta búsqueda. [ Página {{page}} de {{max}} ]"
+        },
+        "select": {
+            "team_clear": "Tu equipo ha sido borrado.",
+            "invalid_pokemon": "Por favor, proporciona una ID de Pokémon válida.",
+            "nonexistent": "El Pokémon no existe",
+            "placement": "{{pokemon}} (Nº {{id}}) colocado exitosamente en el espacio Nº {{slot}}."
+        },
+        "info": {
+            "not_selected": "No tienes ningún Pokémon seleccionado o disponible.",
+            "unregistered": "Este Pokémon no ha sido registrado en la base de datos. Por favor, contacta a un administrador para más ayuda."
+        },
+        "catch": {
+            "caught": "¡Felicidades, acabas de capturarte un {{pokemon}} {{shiny}} de nivel {{level}}!",
+            "wrong": "¡Suposición incorrecta!",
+            "no_pokemon": "No hay nada aquí..."
+        },
+        "config": {
+            "invalid_use": "Uso inválido del comando. Prueba `@Pokedi config server redirect_spawns #channel, #channel2` o `@Pokedi config channel toggle_spawns [true/1|false/0]` o `@Pokedi config check settings` o `@Pokedi config check help`.",
+            "only_langs": "Solo opciones para este comando: `'pt-BR', 'es-ES', 'en', 'fr', 'de'`",
+            "manager": "Necesitas el permiso 'Gestionar Servidor' para usar este comando.",
+            "invalid_command": "Uso inválido del comando.",
+            "unexpected": "Ha ocurrido un error inesperado. Por favor, inténtalo de nuevo más tarde.",
+            "provide_channels": "Por favor, proporciona menciones de canales válidas.",
+            "no_valid_channels": "No se encontraron canales de texto válidos en tu entrada.",
+            "success_redirect": "Los spawns ahora se redirigirán a los canales especificados.",
+            "spawns_cleared": "Se ha eliminado la redirección de spawns para este servidor.",
+            "spawns_config_notfound": "No se configuró ninguna redirección de spawns para este servidor.",
+            "language_set": "Idioma `{{language}}` establecido correctamente para este Servidor.",
+            "language_set_channel": "Idioma `{{language}}` establecido correctamente para este canal",
+            "language_set_user": "Idioma `{{language}}` establecido correctamente como tu idioma",
+            "spawns_enabled": "Los spawns ahora están habilitados en este canal.",
+            "spawns_already_enabled": "Los spawns ya estaban habilitados en este canal.",
+            "spawns_disabled": "Los spawns ahora están deshabilitados en este canal.",
+            "server": {
+                "title": "Servidor",
+                "channel_spawns_redirect": "Canales de Redirección de Spawns",
+                "server_language": "Idioma Global"
+            },
+            "channel": {
+                "title": "Canal",
+                "spawns_disabled": "Spawns Deshabilitados",
+                "language": "Idioma"
+            },
+            "not_set": "No Establecido",
+            "unset": "Sin Establecer",
+            "config_status": "Estado de Configuración",
+            "config_description": "Mostrando configuraciones para este servidor y el canal actual (<#{{channelId}}>).",
+            "help_command": "Ayuda del Comando Config",
+            "help_description": "Usa este comando para configurar varias opciones de tu servidor y canales.",
+            "help_server_settings_title": "Configuraciones del Servidor (`server`)",
+            "help_server_settings_value": "Configura opciones que se aplican a todo el servidor.",
+            "redirect_spawns": "Redirigir Spawns",
+            "redirect_spawns_value": "Slash: `/config server redirect_spawns channels:#channel1 #channel2`\nMention: `@Pokedi config server redirect_spawns #channel1 #channel2`\nMention: `@Pokedi config s rs #channel1 #channel2`\nRedirige todos los spawns de Pokémon a los canales especificados.",
+            "clear_redirects": "Limpiar Redirecciones",
+            "clear_redirects_value": "Slash: `/config server clear_redirects`\nMention: `@Pokedi config server clear_redirects`\nMention: `@Pokedi config s cr`\nElimina cualquier redirección de spawns activa para el servidor.",
+            "channel_specific_title": "Configuraciones Específicas del Canal (`channel`)",
+            "channel_specific_value": "Configura opciones para el canal actual.",
+            "toggle_spawns": "Activar/Desactivar Spawns",
+            "toggle_spawns_value": "Slash: `/config channel toggle_spawns enabled:true`\nMention: `@Pokedi config channel toggle_spawns true/false`\nMention: `@Pokedi config c ts true/false`\nHabilita o deshabilita los spawns de Pokémon en el canal actual.",
+            "check_config": "Comprobar Configuración (`check`)",
+            "check_config_value": "Ver la configuración actual.",
+            "view_settings": "Ver Configuración",
+            "view_settings_value": "Slash: `/config check settings`\nMention: `@Pokedi config check settings`\nMention: `@Pokedi config a`\nMuestra todas las configuraciones actuales del servidor y del canal.",
+            "get_config_help": "Obtener Ayuda de Config",
+            "get_config_help_value": "Slash: `/config check help`\nMention: `@Pokedi config check help`\nMuestra este mensaje de ayuda para el comando config.",
+            "invalid_check": "Subcomando inválido para `check`. Usa `settings` o `help`."
+        }
+    },
+    "default": {
+        "Level": "Nivel",
+        "Stats": "Estadísticas",
+        "egg": {
+            "text": "Una energía misteriosa habita en su interior..."
+        },
+        "Attack": "Ataque",
+        "Defense": "Defensa",
+        "Sp": {
+            " Defense": "Defensa Especial",
+            " Attack": "Ataque Especial"
+        },
+        "Speed": "Velocidad",
+        "Total IV": "IV Total",
+        "Natures": "Naturalezas",
+        "Type(s)": "Tipo(s)",
+        "Held Item": "Objeto Equipado",
+        "Nothing": "Nada",
+        "Market ID": "ID de Mercado",
+        "art_drawn": "Arte dibujado por {{art}}",
+        "no_started": "¡No has comenzado tu aventura! ¡Usa `/pick` para elegir a alguien con quien viajar!"
+    }
+}

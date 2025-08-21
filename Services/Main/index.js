@@ -70,6 +70,16 @@ client.on("error", (error) => console.log(error));
 
 client.login(process.env.TOKEN);
 
+import i18n from "i18n";
+
+i18n.configure({
+    locales: ['en', 'fr', 'es-ES', 'pt-BR', 'de'],
+    directory: process.cwd() + '/Modules/Locales',
+    defaultLocale: 'en',
+    register: global,
+    objectNotation: true
+});
+
 // Graceful Exit
 process.on("SIGINT", () => {
     console.log(`[${new Date().toLocaleString()}][WATCHDOG] Process was exited!`)

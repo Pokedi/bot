@@ -1,9 +1,105 @@
 {
-	"bal": {
-		"title": "%s's balance:"
+	"commands": {
+		"start": {
+			"welcome": "Welcome to the world of Pokémon!",
+			"pick": "To begin playing, choose one of these pokémon with the `/pick <pokemon>` command"
+		},
+		"bal": {
+			"balance": "Your Balance"
+		},
+		"pokemon": {
+			"title": "Your Pokemon",
+			"no_results": "Nothing passed that filter...",
+			"footer": "Showing {{idx}} - {{last_idx}} of {{totalPokemon}} Pokémon matching this search. [ Page {{page}} of {{max}} ]"
+		},
+		"select": {
+			"title": "Your Pokemon",
+			"team_clear": "Your team was cleared.",
+			"invalid_pokemon": "Please provide a valid Pokémon ID.",
+			"nonexistent": "Pokemon does not exist",
+			"placement": "Successfully placed {{pokemon}} (Nº {{id}}) on slot Nº {{slot}}"
+		},
+		"info": {
+			"not_selected": "You don't have any Pokémon selected or available.",
+			"unregistered": "This Pokémon has not been registered in the database. Please contact an admin for more help."
+		},
+		"catch": {
+			"caught": "Congrats, you just caught yourself a level {{level}} {{shiny}}{{pokemon}}",
+			"wrong": "Wrong guess!",
+			"no_pokemon": "There's nothing here..."
+		},
+		"config": {
+			"invalid_use": "Invalid command usage. Try `@Pokedi config server redirect_spawns #channel, #channel2` or `@Pokedi config channel toggle_spawns [true/1|false/0]` or `@Pokedi config check settings` or `@Pokedi config check help`.",
+			"only_langs": "Only options for this command: `'pt-BR', 'es-ES', 'en', 'fr', 'de'`",
+			"manager": "You need the 'Manage Server' permission to use this command.",
+			"invalid_command": "Invalid command usage.",
+			"unexpected": "An unexpected error occurred. Please try again later.",
+			"provide_channels": "Please provide valid channel mentions.",
+			"no_valid_channels": "No valid text channels were found in your input.",
+			"success_redirect": "Spawns will now be redirected to the specified channels.",
+			"spawns_cleared": "Spawn redirection has been cleared for this server.",
+			"spawns_config_notfound": "No spawn redirection was configured for this server.",
+			"language_set": "Successfully set `{{language}}` as the language of this Server",
+			"language_set_channel": "Successfully set `{{language}}` as the language of this Channel",
+			"language_set_user": "Successfully set `{{language}}` as your language",
+			"spawns_enabled": "Spawns are now enabled in this channel.",
+			"spawns_already_enabled": "Spawns were already enabled in this channel.",
+			"spawns_disabled": "Spawns are now disabled in this channel.",
+			"server": {
+				"title": "Server",
+				"channel_spawns_redirect": "Spawn Redirect Channels",
+				"server_language": "Global Language"
+			},
+			"channel": {
+				"title": "Channel",
+				"spawns_disabled": "Spawns Disabled",
+				"language": "Language"
+			},
+			"not_set": "Not Set",
+			"unset": "Unset",
+			"config_status": "Configuration Status",
+			"config_description": "Showing settings for this server and the current channel (<#{{channelId}}>).",
+			"help_command": "Config Command Help",
+			"help_description": "Use this command to configure various settings for your server and channels.",
+			"help_server_settings_title": "Server-Wide Settings (`server`)",
+			"help_server_settings_value": "Configure settings that apply to the entire server.",
+			"redirect_spawns": "Redirect Spawns",
+			"redirect_spawns_value": "Slash: `/config server redirect_spawns channels:#channel1 #channel2`\nMention: `@Pokedi config server redirect_spawns #channel1 #channel2`\nMention: `@Pokedi config s rs #channel1 #channel2`\nRedirects all Pokémon spawns to the specified channels.",
+			"clear_redirects": "Clear Redirects",
+			"clear_redirects_value": "Slash: `/config server clear_redirects`\nMention: `@Pokedi config server clear_redirects`\nMention: `@Pokedi config s cr`\nClears any active spawn redirection for the server.",
+			"channel_specific_title": "Channel-Specific Settings (`channel`)",
+			"channel_specific_value": "Configure settings for the current channel.",
+			"toggle_spawns": "Toggle Spawns",
+			"toggle_spawns_value": "Slash: `/config channel toggle_spawns enabled:true`\nMention: `@Pokedi config channel toggle_spawns true/false`\nMention: `@Pokedi config c ts true/false`\nEnables or disables Pokémon spawns in the current channel.",
+			"check_config": "Check Configurations (`check`)",
+			"check_config_value": "View current configuration settings.",
+			"view_settings": "View Settings",
+			"view_settings_value": "Slash: `/config check settings`\nMention: `@Pokedi config check settings`\nMention: `@Pokedi config a`\nDisplays all current server and channel configurations.",
+			"get_config_help": "Get Config Help",
+			"get_config_help_value": "Slash: `/config check help`\nMention: `@Pokedi config check help`\nDisplays this help message for the config command.",
+			"invalid_check": "Invalid subcommand for `check`. Use `settings` or `help`."
+		}
 	},
-	"bal.title": {
-		"one": "bal.title",
-		"other": "Ditto Duck Penguin"
+	"default": {
+		"Level": "Level",
+		"Stats": "Stats",
+		"egg": {
+			"text": "Mysterious Energy dwells within..."
+		},
+		"Attack": "Attack",
+		"Defense": "Defense",
+		"Speed": "Speed",
+		"Total IV": "Total IV",
+		"Natures": "Natures",
+		"Type(s)": "Type(s)",
+		"Held Item": "Held Item",
+		"Nothing": "Nothing",
+		"Market ID": "Market ID",
+		"art_drawn": "Art drawn by {{art}}",
+		"no_started": "You haven't started your adventure! `/pick` someone to travel with!",
+		"Sp": {
+			" Attack": "Sp. Attack",
+			" Defense": "Sp. Defense"
+		}
 	}
 }

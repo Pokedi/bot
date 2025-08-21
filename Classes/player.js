@@ -68,6 +68,7 @@ class Player {
 
     toJSON() {
         return {
+            id: this.id,
             bal: this.bal,
             disabled: this.disabled,
             started: this.started,
@@ -131,6 +132,34 @@ class Player {
         return await pokemon.levelUp(postgres, msg, level);
     }
 
+    async sync(msg) {
+        
+        if (!this.id) return false;
+
+        // Broadcast the player's data to all shards
+        await msg.client.cluster.broadcastEval(async (client, { playerData, id, Player }) => {
+            // Find the user in the client's Snowflake collection
+            const user = client.users.cache.get(id);
+
+            // If the user exists, update their player data
+            if (user) {
+                if (!user.player) {
+                    user.player = new Player(playerData)
+                }
+                else
+                    Object.assign(user.player, playerData);
+            }
+        }, {
+            context: {
+                playerData: this.toJSON(), // Pass the player's data as context
+                id: this.id,
+                Player
+            }
+        });
+
+        return true;
+    }
+
     // Set Trade
     async setTrading(redis, withUser = 0) {
         if (!withUser) return true;
@@ -149,7 +178,7 @@ class Player {
 
     // Set User Duels True
     async setOnGoingDuels(redis) {
-        return await redis.set(this.id + '-duel', Date.now(), {EX: 60 * 5});
+        return await redis.set(this.id + '-duel', Date.now(), { EX: 60 * 5 });
     }
 
     // Set User Market True

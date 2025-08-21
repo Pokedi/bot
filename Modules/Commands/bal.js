@@ -1,6 +1,7 @@
+import i18n from "i18n";
+
 import { SlashCommandBuilder } from "discord.js";
 import commalize from "../../Utilities/Misc/commalize.js";
-import builder from "../Database/QueryBuilder/queryGenerator.js";
 import Player from "../../Classes/player.js";
 
 export default {
@@ -29,7 +30,7 @@ export default {
 
         return await msg.reply({
             embeds: [{
-                title: "Your Balance",
+                title: i18n.__('commands.bal.balance'),
                 fields: [{
                     name: ((bal || 0) > 2e9 ? '<:lotsofmoney:812189965332381697>' : '💰') + " Credits", value: commalize((bal || 0))
                 }, {
