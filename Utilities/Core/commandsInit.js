@@ -49,7 +49,12 @@ export default (async (commandList = ["catch", "bal", "eval", "info", "pick", "r
 
         if (process.env.DEV) {
             // The put method is used to fully refresh all commands in the guild with the current set
-            data = allowRest ? await rest.put(Routes.applicationGuildCommands(process.env.BOTID, "716293571166208001"), { body: commands }) : [];
+            if (allowRest)
+                data = await rest.put(
+                    Routes.applicationCommands(process.env.BOTID),
+                    { body: commands }
+                );
+            // data = allowRest ? await rest.put(Routes.applicationGuildCommands(process.env.BOTID, "716293571166208001"), { body: commands }) : [];
             console.log("Loaded DEV Mode");
         } else {
             if (allowRest)
