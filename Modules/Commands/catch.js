@@ -88,6 +88,7 @@ export default {
 
             } else
                 msg.reply({ flags: MessageFlags.Ephemeral, content: i18n.__('commands.catch.wrong') });
+                
         } else msg.reply({ flags: MessageFlags.Ephemeral, content: i18n.__('commands.catch.no_pokemon') });
 
     }
