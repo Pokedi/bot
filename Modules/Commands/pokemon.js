@@ -228,11 +228,11 @@ export default {
         let userDefault = (await msg.client.postgres`SELECT order_by FROM users WHERE id = ${msg.user.id}`)?.[0]?.order_by;
 
         if (orderBy == "iv")
-            orderBy = "((CAST(s_atk + s_spatk + s_def + s_spdef + s_spd + s_hp AS FLOAT)/186) * 100)";
+            orderBy = "COALESCE(((CAST(s_atk + s_spatk + s_def + s_spdef + s_spd + s_hp AS FLOAT)/186) * 100), 0)";
 
         if (!orderBy && userDefault) {
             if (userDefault.startsWith("idx")) orderBy = "idx";
-            if (userDefault.startsWith("iv")) orderBy = "((CAST(s_atk + s_spatk + s_def + s_spdef + s_spd + s_hp AS FLOAT)/186) * 100)";
+            if (userDefault.startsWith("iv")) orderBy = "COALESCE(((CAST(s_atk + s_spatk + s_def + s_spdef + s_spd + s_hp AS FLOAT)/186) * 100), 0)";
             if (userDefault.startsWith("l")) orderBy = "level";
             if (userDefault.startsWith("a")) orderBy = "pokemon";
         }
