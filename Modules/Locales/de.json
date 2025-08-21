@@ -1,0 +1,53 @@
+{
+	"commands": {
+		"start": {
+			"welcome": "Willkommen in der Welt der Pokémon!",
+			"pick": "Um mit dem Spielen zu beginnen, wähle eines dieser Pokémon mit dem Befehl `/pick <pokemon>`"
+		},
+		"bal": {
+			"balance": "Dein Kontostand"
+		},
+		"pokemon": {
+			"title": "Deine Pokémon",
+			"no_results": "Keine Pokémon entsprechen diesem Filter...",
+			"footer": "Zeige {{idx}} - {{last_idx}} von {{totalPokemon}} Pokémon, die dieser Suche entsprechen. [ Seite {{page}} von {{max}} ]"
+		},
+		"select": {
+			"team_clear": "Dein Team wurde geleert.",
+			"invalid_pokemon": "Bitte gib eine gültige Pokémon-ID an.",
+			"nonexistent": "Pokémon existiert nicht",
+			"placement": "{{pokemon}} (Nº {{id}}) wurde erfolgreich auf Slot Nº {{slot}} platziert."
+		},
+		"info": {
+			"not_selected": "Du hast kein Pokémon ausgewählt oder verfügbar.",
+			"unregistered": "Dieses Pokémon ist nicht in der Datenbank registriert. Bitte wende dich für weitere Hilfe an einen Administrator."
+		},
+		"catch": {
+			"caught": "Glückwunsch, du hast dir soeben ein Level {{level}} {{shiny}}{{pokemon}} gefangen!",
+			"wrong": "Falsche Vermutung!",
+			"no_pokemon": "Hier ist nichts..."
+		}
+	},
+	"default": {
+		"Level": "Level",
+		"Stats": "Statuswerte",
+		"egg": {
+			"text": "Mysteriöse Energie weilt in ihm..."
+		},
+		"Attack": "Angriff",
+		"Defense": "Verteidigung",
+		"Speed": "Initiative",
+		"Total IV": "Gesamt-FW",
+		"Natures": "Naturen",
+		"Type(s)": "Typ(en)",
+		"Held Item": "Getragenes Item",
+		"Nothing": "Nichts",
+		"Market ID": "Markt-ID",
+		"art_drawn": "Illustriert von {{art}}",
+		"Sp": {
+			" Attack": "Sp. Angriff",
+			" Defense": "Sp. Verteidigung"
+		},
+		"no_started": "Du hast dein Abenteuer noch nicht begonnen! `/pick` jemanden, mit dem du reisen möchtest!"
+	}
+}

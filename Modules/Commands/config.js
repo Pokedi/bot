@@ -56,6 +56,30 @@ export default {
                     // 'ar': 'مسح-إعادة-التوجيه'
                 })
             )
+            .addSubcommand(subcommand => subcommand
+                .setName('language')
+                .setDescription('Set the language of the server')
+                .addStringOption(option => option
+                    .setName('locale')
+                    .setDescription('Simple Locale')
+                    .setChoices({
+                        name: 'English',
+                        value: 'en'
+                    }, {
+                        name: 'Spanish',
+                        value: 'es-ES'
+                    }, {
+                        name: 'Portuguese',
+                        value: 'pt-BR'
+                    }, {
+                        name: 'German',
+                        value: 'de'
+                    }, {
+                        name: 'French',
+                        value: 'fr'
+                    })
+                )
+            )
         )
         .addSubcommandGroup(group => group
             .setName("channel")
@@ -74,6 +98,58 @@ export default {
                     .setName("enabled")
                     .setDescription("Set to true to enable spawns, false to disable.")
                     .setRequired(true)
+                )
+            )
+            .addSubcommand(subcommand => subcommand
+                .setName('language')
+                .setDescription('Set the language of the server')
+                .addStringOption(option => option
+                    .setName('locale')
+                    .setDescription('Simple Locale')
+                    .setChoices({
+                        name: 'English',
+                        value: 'en'
+                    }, {
+                        name: 'Spanish',
+                        value: 'es-ES'
+                    }, {
+                        name: 'Portuguese',
+                        value: 'pt-BR'
+                    }, {
+                        name: 'German',
+                        value: 'de'
+                    }, {
+                        name: 'French',
+                        value: 'fr'
+                    })
+                )
+            )
+        )
+        .addSubcommandGroup(group => group
+            .setName('user')
+            .setDescription('Set configs for yourself')
+            .addSubcommand(subcommand => subcommand
+                .setName('language')
+                .setDescription('Set the language of the server')
+                .addStringOption(option => option
+                    .setName('locale')
+                    .setDescription('Simple Locale')
+                    .setChoices({
+                        name: 'English',
+                        value: 'en'
+                    }, {
+                        name: 'Spanish',
+                        value: 'es-ES'
+                    }, {
+                        name: 'Portuguese',
+                        value: 'pt-BR'
+                    }, {
+                        name: 'German',
+                        value: 'de'
+                    }, {
+                        name: 'French',
+                        value: 'fr'
+                    })
                 )
             )
         )
@@ -108,8 +184,17 @@ export default {
             let args;
             [group, subcommand, ...args] = msg.content.trim().split(/\s+/);
 
-            if (!group || !['check', 'a', 'channel', 'c', 'server', 's'].includes(group))
+            if (!group || !['check', 'a', 'channel', 'c', 'server', 's', 'user', 'u'].includes(group))
                 return msg.reply({ content: "Invalid command usage. Try `@Pokedi config server redirect_spawns #channel, #channel2` or `@Pokedi config channel toggle_spawns [true/1|false/0]` or `@Pokedi config check settings` or `@Pokedi config check help`.", ephemeral: true });
+
+            if (['locale', 'l'].includes(subcommand)) {
+
+                if (!['pt-BR', 'es-ES', 'en', 'fr', 'de'].includes(args.join("")))
+                    return msg.reply(`Only options for this command: \`'pt-BR', 'es-ES', 'en', 'fr', 'de'\``);
+
+                options = { language: args.join(' ') };
+
+            }
 
             if (["redirect_spawns", 'r'].includes(subcommand)) options = { channelsInput: args.join(' ') };
             if (["toggle_spawns", 'ts'].includes(subcommand)) options = { toggle_spawns: args.join(' ').includes('1') || args.join(' ').includes('t') };
@@ -119,7 +204,8 @@ export default {
             subcommand = msg.options.getSubcommand();
             options = {
                 channelsInput: msg.options.getString("channels"),
-                toggle_spawns: msg.options.getBoolean("enabled")
+                toggle_spawns: msg.options.getBoolean("enabled"),
+                language: msg.options.getString('locale')
             }
         }
 
@@ -137,6 +223,10 @@ export default {
                 case "channel":
                     await handleChannelConfig(msg, subcommand, options);
                     break;
+                case "u":
+                case "user":
+                    await handleUserConfig(msg, subcommand, options);
+                    break;
                 case "a":
                 case "check":
                     await handleCheckConfig(msg, subcommand, options);
@@ -152,7 +242,8 @@ export default {
 };
 
 async function handleServerConfig(msg, subcommand, values = {
-    channelsInput: ''
+    channelsInput: '',
+    language: 'en'
 }) {
     switch (subcommand) {
         case "r":
@@ -195,16 +286,47 @@ async function handleServerConfig(msg, subcommand, values = {
             }
             return msg.reply("No spawn redirection was configured for this server.");
         }
+        case "l":
+        case "language": {
+
+            await upsertConfig(msg, "locale", values.language);
+
+            // Assign here for ease of use.
+            msg.guild.configs.locale = { config: values.language };
+
+            return msg.reply(`Successfully set \`${values.language}\` as the language of this Server`);
+
+        }
     }
 }
 
-async function handleChannelConfig(msg, subcommand, options = {
-    'toggle_spawns': false
+async function handleUserConfig(msg, subcommand, values = {
+    'language': 'en'
+}) {
+
+    switch (subcommand) {
+
+        case "language":
+        case "l": {
+
+            await msg.client.postgres`UPDATE users SET locale = ${values.language} WHERE id = ${msg.user?.id || msg.author?.id}`;
+
+            return msg.reply(`I have successfully set \`${values.language}\` as your language now.`);
+
+        }
+
+    }
+
+}
+
+async function handleChannelConfig(msg, subcommand, values = {
+    'toggle_spawns': false,
+    'language': 'en'
 }) {
     switch (subcommand) {
         case "ts":
         case "toggle_spawns": {
-            const enabled = options.toggle_spawns;
+            const enabled = values.toggle_spawns;
 
             if (enabled) {
                 const deleted = await deleteConfig(msg, "spawn_disabled", true);
@@ -219,6 +341,17 @@ async function handleChannelConfig(msg, subcommand, options = {
                 return msg.reply("Spawns are now disabled in this channel.");
             }
         }
+        case "l":
+        case "language": {
+
+            await upsertConfig(msg, "locale", values.language, true);
+            
+            // Assign here for ease of use.
+            msg.channel.configs.locale = { config: values.language };
+
+            return msg.reply(`Successfully set \`${values.language}\` as the language of this channel`);
+
+        }
     }
 }
 
@@ -228,21 +361,21 @@ async function handleCheckConfig(msg, subcommand) {
         const guildConfigs = await msg.client.postgres`SELECT * FROM command_configuration WHERE guild_id = ${msg.guild.id} AND channel_id IS NULL`;
         const channelConfigs = await msg.client.postgres`SELECT * FROM command_configuration WHERE channel_id = ${msg.channel.id}`;
 
-        const possibleGuildConfigs = { "spawn_redirect": "Spawn Redirect Channels" };
-        const possibleChannelConfigs = { "spawn_disabled": "Spawns Disabled" };
+        const possibleGuildConfigs = { "spawn_redirect": "Spawn Redirect Channels", 'locale': "Global Language" };
+        const possibleChannelConfigs = { "spawn_disabled": "Spawns Disabled", 'locale': 'Language' };
 
         const guildFields = Object.entries(possibleGuildConfigs).map(([key, name]) => {
             const config = guildConfigs.find(c => c.command === key);
             const value = config ?
                 // Spawn Redirect is practically the only Command that requires channels
-                key == 'spawn_redirect' ? config.config.split(',').map(c => `<#${c}>`).join(' ') : config.config
+                key == 'spawn_redirect' ? config.config.split(',').map(c => `<#${c}>`).join(' ') : "`" + config.config + "`"
                 : "`Not Set`";
             return { name: `Server: ${name}`, value, inline: false };
         });
 
         const channelFields = Object.entries(possibleChannelConfigs).map(([key, name]) => {
             const config = channelConfigs.find(c => c.command === key);
-            const value = config ? "`True`" : "`False`";
+            const value = config ? "`" + config + "`" : "`Unset`";
             return { name: `Channel: ${name}`, value, inline: false };
         });
 

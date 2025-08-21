@@ -1,3 +1,5 @@
+import i18n from "i18n";
+
 import Pokedex from "../../Classes/pokedex.js";
 import { ENUM_GENDER_EMOJIS, ENUM_POKEMON_FULL_TYPES_ID, ENUM_POKEMON_TYPES } from "../Data/enums.js";
 import capitalize from "../Misc/capitalize.js";
@@ -16,37 +18,37 @@ function userPokemonInfoModule(obj = new Pokedex(), msg = null, count = 1, color
             const { hp, atk, def, spatk, spdef, spd } = obj.calculatedStats()
 
             let field_array = [{
-                name: "Level",
+                name: i18n.__("default.Level"),
                 value: (obj.level || 1) + ` [${obj.exp}/${calculateNextLevelEXP(obj.level, details.base_experience)} EXP]`,
                 inline: false
             }, {
-                name: "Stats",
+                name: i18n.__("default.Stats"),
                 inline: false,
-                value: details._id == "egg" ? "Mysterious Energy dwells within..." :
+                value: details._id == "egg" ? i18n.__('default.egg.text') :
                     `**HP:** ${hp} - **IV**: ${obj.stats.hp}/31
-**Attack:** ${atk} - **IV**: ${obj.stats.atk}/31
-**Defense:** ${def} - **IV**: ${obj.stats.def}/31
-**Sp. Attack:** ${spatk} - **IV**: ${obj.stats.spatk}/31
-**Sp. Defense:** ${spdef} - **IV**: ${obj.stats.spdef}/31
-**Speed:** ${spd} - **IV**: ${obj.stats.spd}/31
-**Total IV**: ${obj.calculateTotalIV()}%`
+**${i18n.__('default.Attack')}:** ${atk} - **IV**: ${obj.stats.atk}/31
+**${i18n.__('default.Defense')}:** ${def} - **IV**: ${obj.stats.def}/31
+**${i18n.__('default.Sp. Attack')}:** ${spatk} - **IV**: ${obj.stats.spatk}/31
+**${i18n.__('default.Sp. Defense')}:** ${spdef} - **IV**: ${obj.stats.spdef}/31
+**${i18n.__('default.Speed')}:** ${spd} - **IV**: ${obj.stats.spd}/31
+**${i18n.__('default.Total IV')}**: ${obj.calculateTotalIV()}%`
             }, {
-                name: "Natures",
+                name: i18n.__("default.Natures"),
                 value: capitalize(obj.nature),
                 inline: true
             }, {
-                name: "Type(s)",
+                name: i18n.__("default.Type(s)"),
                 value: obj.types.map(x => capitalize(ENUM_POKEMON_FULL_TYPES_ID[x])).join(" | "),
                 inline: true
             }, {
-                name: "Held Item",
-                value: capitalize(obj.item || "Nothing"),
+                name: i18n.__("default.Held Item"),
+                value: capitalize(obj.item || i18n.__("default.Nothing")),
                 inline: true
             }];
 
             // In Case of Market
             if (obj.price) field_array.unshift({
-                name: "Market ID",
+                name: i18n.__("default.Market ID"),
                 value: "`" + obj.id + "`\n**Price**\n" + obj.price + " 💸",
                 inline: true
             });
@@ -57,7 +59,7 @@ function userPokemonInfoModule(obj = new Pokedex(), msg = null, count = 1, color
             url: `attachment://${obj.pokemon}.png`
         },
         footer: {
-            text: `${obj.price ? "" : `Pokédi: ${obj.idx || 1}/${count}`}${details.art ? ` Art drawn by ${details.art}` : ""}`
+            text: `${obj.price ? "" : `Pokédi: ${obj.idx || 1}/${count}`}${details.art ? i18n.__('default.art_drawn', { art: details.art }) : ""}`
         },
         author: {
             icon_url: "https://cdn.discordapp.com/attachments/738221731897933844/786154409498378270/Cutie.png",

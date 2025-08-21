@@ -1,3 +1,5 @@
+import i18n from "i18n";
+
 import { MessageFlags, SlashCommandBuilder } from "discord.js";
 import capitalize from "../../Utilities/Misc/capitalize.js";
 import randomint from "../../Utilities/Misc/randomint.js";
@@ -55,7 +57,7 @@ export default {
 
                 // Stop NonPlayers
                 if (!msg.user.player?.started)
-                    return msg.reply("You haven't started your adventure! `/pick` someone to travel with!");
+                    return msg.reply(i18n.__("default.not_started"));
 
                 // Get spawn Pokemon to cache
                 const pokemonGrabbed = msg.channel.spawn.pokemon;
@@ -82,11 +84,12 @@ export default {
                 // Add to User's Dex
                 await pokemonGrabbed.addToUserDex(msg.client.postgres);
 
-                return msg.reply(`Congrats, you just caught yourself a level ${pokemonGrabbed.level} ${pokemonGrabbed.shiny ? "⭐ " : ""}${capitalize(pokemonGrabbed.pokemon, true)}!`);
+                return msg.reply(i18n.__('commands.catch.caught', { level: pokemonGrabbed.level, shiny: pokemonGrabbed.shiny ? "⭐ " : "", pokemon: capitalize(pokemonGrabbed.pokemon, true) }));
 
             } else
-                msg.reply({ flags: MessageFlags.Ephemeral, content: "Wrong guess!" });
-        } else msg.reply({ flags: MessageFlags.Ephemeral, content: "No Pokemon right now!" });
+                msg.reply({ flags: MessageFlags.Ephemeral, content: i18n.__('commands.catch.wrong') });
+                
+        } else msg.reply({ flags: MessageFlags.Ephemeral, content: i18n.__('commands.catch.no_pokemon') });
 
     }
 }
