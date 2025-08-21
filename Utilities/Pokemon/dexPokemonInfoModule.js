@@ -14,7 +14,7 @@ function dexPokemonInfoModule(details = null, color = 16776960) {
             if (details?.description) finalText += details.description.replace(/\n/gmi, ' ') + "\n-----------\n";
 
             let levelEvolution = details.evolution_chain.length ? (details.evolution_chain.filter(x => x.pokemon_id < 10000 && (x.trigger == "level-up" || !x.trigger) && !x.time_of_day && !x.min_happiness && !x.min_affection).sort((x, y) => x.pokemon_id - y.pokemon_id)).map(x => {
-                const obj = ({ name: x.name, level: x.min_level });
+                const obj = ({ name: x.pokemon_name, level: x.min_level });
 
                 if (!obj.level)
                     return `Starts off as a ${capitalize(obj.name)}`;

@@ -592,7 +592,6 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
     WHERE np.location_id IS NULL
 )
 SELECT
-    pokemon_name,
     pokemon_id,
     species_id,
     pokemon_name,
