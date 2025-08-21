@@ -68,6 +68,7 @@ class Player {
 
     toJSON() {
         return {
+            id: this.id,
             bal: this.bal,
             disabled: this.disabled,
             started: this.started,
@@ -135,9 +136,9 @@ class Player {
         if (!this.id) return false;
 
         // Broadcast the player's data to all shards
-        await msg.client.cluster.broadcastEval(async (client, { playerData }) => {
+        await msg.client.cluster.broadcastEval(async (client, { playerData, id }) => {
             // Find the user in the client's Snowflake collection
-            const user = client.users.cache.get(playerData.id.toString());
+            const user = client.users.cache.get(id);
 
             // If the user exists, update their player data
             if (user) {
@@ -146,7 +147,8 @@ class Player {
             }
         }, {
             context: {
-                playerData: this.toJSON() // Pass the player's data as context
+                playerData: this.toJSON(), // Pass the player's data as context
+                id: this.id
             }
         });
 
