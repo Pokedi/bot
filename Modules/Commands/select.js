@@ -134,6 +134,8 @@ export default {
 
         await userDB.save(msg.client.postgres);
 
+        await userDB.sync(msg);
+
         await msg.reply(i18n.__("commands.select.placement", { pokemon: capitalize(fetchPokemon.pokemon, true), id, slot: slot + 1 }));
 
         // Replace if User Profile Readied

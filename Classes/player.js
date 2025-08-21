@@ -131,6 +131,28 @@ class Player {
         return await pokemon.levelUp(postgres, msg, level);
     }
 
+    async sync(msg) {
+        if (!this.id) return false;
+
+        // Broadcast the player's data to all shards
+        await msg.client.cluster.broadcastEval(async (client, { playerData }) => {
+            // Find the user in the client's Snowflake collection
+            const user = client.users.cache.get(playerData.id.toString());
+
+            // If the user exists, update their player data
+            if (user) {
+                if (!user.player) user.player = {};
+                Object.assign(user.player, playerData);
+            }
+        }, {
+            context: {
+                playerData: this.toJSON() // Pass the player's data as context
+            }
+        });
+
+        return true;
+    }
+
     // Set Trade
     async setTrading(redis, withUser = 0) {
         if (!withUser) return true;

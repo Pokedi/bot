@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder } from "discord.js"; // Import EmbedBuilder
 
 import builder from "../Database/QueryBuilder/queryGenerator.js";
+import Player from "../../Classes/player.js";
 
 export default {
     help: "Configure various settings for your server and channels.",
@@ -309,7 +310,17 @@ async function handleUserConfig(msg, subcommand, values = {
         case "language":
         case "l": {
 
-            await msg.client.postgres`UPDATE users SET locale = ${values.language} WHERE id = ${msg.user?.id || msg.author?.id}`;
+
+            if (!msg.user.player)
+                return msg.reply('You have not started Pokedi yet...');
+
+            const [row] = await msg.client.postgres`UPDATE users SET locale = ${values.language} WHERE id = ${msg.user?.id || msg.author?.id} RETURNING *`;
+
+            // Update Redis
+            // if (msg.user.player)
+            //     await msg.client.redis.set('user:' + msg.user.id, JSON.stringify(new Player(row).toJSON()));
+
+            await msg.user.player.sync(msg);
 
             return msg.reply(`I have successfully set \`${values.language}\` as your language now.`);
 
@@ -345,7 +356,7 @@ async function handleChannelConfig(msg, subcommand, values = {
         case "language": {
 
             await upsertConfig(msg, "locale", values.language, true);
-            
+
             // Assign here for ease of use.
             msg.channel.configs.locale = { config: values.language };
 
