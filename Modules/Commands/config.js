@@ -296,7 +296,7 @@ async function handleServerConfig(msg, subcommand, values = {
             for (const id of channelIds) {
                 try {
                     const channel = await msg.guild.channels.fetch(id);
-                    if (channel && channel.isTextBased()) {
+                    if (channel && channel.isTextBased() && channel.permissionsFor(msg.client.user)?.has("SendMessages")) {
                         validChannels.push(id);
                     }
                 } catch { }

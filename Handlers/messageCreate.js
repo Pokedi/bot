@@ -89,8 +89,8 @@ async function messageCreate(msg, e) {
             // Fetch selected Channel
             channelSelected = msg.guild.channels.cache.get(targetChannelId) || await msg.guild.channels.fetch(targetChannelId);
 
-            // Break if channel doesn't exist or is invalid
-            if (!channelSelected || !channelSelected.isTextBased()) break spawnIF;
+            // Break if channel doesn't exist or is invalid or is not permitted to send a message there
+            if (!channelSelected || !channelSelected.isTextBased() || !channelSelected.permissionsFor(msg.client.user)?.has("SendMessages")) break spawnIF;
 
             // If we redirected, we must also check if the target channel has spawns disabled
             if (targetChannelId !== msg.channel.id) {
