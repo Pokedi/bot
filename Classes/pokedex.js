@@ -195,10 +195,10 @@ class Pokedex extends Pokemon {
 
     }
 
-    async generateV2(id, mergingObject = {}) {
+    async generateV2(id, mergingObject = {}, random = false) {
 
         // Full Chaos Mode
-        if (!id && !this.pokemon && !this.pokedex?.id) {
+        if (random || !id && !this.pokemon && !this.pokedex?.id) {
 
             await this.selectRandomV2();
 
@@ -326,17 +326,17 @@ WHERE move_id in ${pokeapisql(this.pokedex.moves.filter(x => x.move_method == "m
         return this.pokedex.move_prices;
     }
 
-    async SpawnFriendlyV2(forced = false) {
+    async SpawnFriendlyV2(forced = false, chaos = false) {
 
-        const generatedPokemon = await this.generateV2();
+        const generatedPokemon = await this.generateV2(this.id, {}, chaos);
 
-        if (!generatedPokemon) return false;
+        if (!generatedPokemon) return SpawnFriendlyV2(forced, chaos);
 
         if (!forced && (generatedPokemon.pokedex.is_nonspawnable ||
-            (generatedPokemon.pokedex.is_legendary || generatedPokemon.pokedex.is_sub_legendary || generatedPokemon.pokedex.is_mythical) && randomint(300) > 3
+            ((generatedPokemon.pokedex.is_legendary || generatedPokemon.pokedex.is_sub_legendary || generatedPokemon.pokedex.is_mythical) && randomint(300) > 3)
         )) {
-            await this.selectRandomV2();
-            return this.SpawnFriendlyV2();
+            delete this.pokedex, this.id, this.pokemon;
+            return this.SpawnFriendlyV2(forced, true);
         }
 
         const findAltNames = await pokeapisql`

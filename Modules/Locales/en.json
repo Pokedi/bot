@@ -85,7 +85,7 @@
 		"description": "Hey Trainer! Here are the main commands to kickstart your Pokedi adventure!\nUse `/help` anytime for more info or to discover hidden features!\n_(All commands are slash commands)_",
 		"fields": {
 			"started": "Getting Started",
-			"started_text_": "`/start` — Begin your Pokémon adventure\n`/catch` — Catch Pokémon when they appear\n`/bal` — Check your PokéCoins balance\n`/profile` — View your trainer profile\n`/info` — Get info about Pokémon or features",
+			"started_text": "`/start` — Begin your Pokémon adventure\n`/catch` — Catch Pokémon when they appear\n`/bal` — Check your PokéCoins balance\n`/profile` — View your trainer profile\n`/info` — Get info about Pokémon or features",
 			"inventory": "Inventory & Pokémon",
 			"inventory_text": "`/inventory` — See your items\n`/pokemon` — Manage your Pokémon\n`/team` — Set up your battle team\n`/release` — Release a Pokémon\n`/nickname` — Nickname your Pokémon\n`/order` — Reindex the Pokémon order",
 			"shop": "Shop & Economy",
@@ -99,10 +99,20 @@
 			"settings": "Settings & Extras",
 			"settings_text": "`/config` — Configure Bot/server/user/channel preferences such as the language, spawn channels and more!",
 			"other": "Other",
-			"other_text": "`/invite` — Invite Pokedi to your server\n`/vote` — Support the bot\n`/shardstats` — Bot stats",
-			"started_text": "welcome.fields.started_text"
+			"other_text": "`/invite` — Invite Pokedi to your server\n`/vote` — Support the bot\n`/shardstats` — Bot stats"
 		},
 		"footer": "Gotta catch 'em all, together! | Use /help for details"
+	},
+	"user": {
+		"levelup": "Congrats on being Level {{level}}, Champ.",
+		"pokemon_evolved": "Congratulations! Your {{pokemon}} has evolved to {{evolved}}!",
+		"pokemon_levelup": "Congratulations! Your {{pokemon}} is now level {{level}}!",
+		"something_happening_to_egg": "Something's happening to your egg!",
+		"could_it_be": "Could it be!?",
+		"egg_hatched": "Your egg hatched into a {{pokemon}}!"
+	},
+	"pokemon": {
+		"spawn_description": "Use the </catch:{{commandID}}> command to tame it! Or just ignore it?"
 	},
 	"default": {
 		"Level": "Level",

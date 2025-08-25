@@ -8,6 +8,7 @@ import moves from "../Utilities/Data/moves.json" with {type: "json"}; // Local m
 import capitalize from "../Utilities/Misc/capitalize.js";
 import Move from "./move.js";
 import { logCustomReport } from "../Utilities/User/logReport.js";
+import i18n from "i18n";
 
 class Pokemon {
 
@@ -76,7 +77,7 @@ class Pokemon {
                     image: {
                         url: "attachment://spawn.png"
                     },
-                    description: `Use the </catch:${commandID}> command to tame it! Or just ignore it?`,
+                    description: i18n.__('pokemon.spawn_description', { commandID }),
                     footer: {
                         text: " 🌹 https://pokedi.xyz 🌹"
                     }

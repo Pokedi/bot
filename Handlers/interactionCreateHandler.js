@@ -2,6 +2,7 @@ import i18n from "i18n";
 import autoComplete from "../Modules/Events/autoComplete.js";
 import setMessageCache from "../Utilities/Misc/setMessageCache.js";
 import logInteractionReport from "../Utilities/User/logReport.js";
+import localeMapping from "../Utilities/Misc/localeMapping.js";
 
 async function interactionCreateHandler(msg) {
 
@@ -12,7 +13,7 @@ async function interactionCreateHandler(msg) {
 
     await setMessageCache(msg);
 
-    i18n.setLocale(msg.user?.player?.locale || msg.channel?.configs?.locale?.config || msg.guild?.configs?.locale?.config || "en");
+    i18n.setLocale(localeMapping(msg.user?.player?.locale || msg.locale || msg.channel?.configs?.locale?.config || msg.guild?.configs?.locale?.config || msg.guild.preferredLocale || "en"));
 
     try {
         if (msg.client.commands.get(msg.commandName))
