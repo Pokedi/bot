@@ -80,6 +80,30 @@
 			"invalid_check": "Invalid subcommand for `check`. Use `settings` or `help`."
 		}
 	},
+	"welcome": {
+		"title": "Pokedi Bot — Core Commands",
+		"description": "Hey Trainer! Here are the main commands to kickstart your Pokedi adventure!\nUse `/help` anytime for more info or to discover hidden features!\n_(All commands are slash commands)_",
+		"fields": {
+			"started": "Getting Started",
+			"started_text_": "`/start` — Begin your Pokémon adventure\n`/catch` — Catch Pokémon when they appear\n`/bal` — Check your PokéCoins balance\n`/profile` — View your trainer profile\n`/info` — Get info about Pokémon or features",
+			"inventory": "Inventory & Pokémon",
+			"inventory_text": "`/inventory` — See your items\n`/pokemon` — Manage your Pokémon\n`/team` — Set up your battle team\n`/release` — Release a Pokémon\n`/nickname` — Nickname your Pokémon\n`/order` — Reindex the Pokémon order",
+			"shop": "Shop & Economy",
+			"shop_text": "`/shop` — Buy items, crates, backgrounds & more\n`/market` — Trade Pokémon or items\n`/trade` — Start a trade\n`/daily` — Collect daily rewards",
+			"battles": "Battles & Duels",
+			"battles_text": "`/duel` — Challenge another player with the new Smogon-Powered Duel System!\n`/moves` — See your Pokémon’s moves",
+			"dex": "Dex & Progress",
+			"dex_text": "`/dex` — View Pokédex or Check your Progress so far!\n`/reindex` — Re-scan for Pokédex",
+			"hatchery": "Hatchery & Rewards",
+			"hatchery_text": "`/hatchery` — Hatch eggs/manage slots\n`/redeem` — Redeem codes\n`/voucher` — Use reward vouchers",
+			"settings": "Settings & Extras",
+			"settings_text": "`/config` — Configure Bot/server/user/channel preferences such as the language, spawn channels and more!",
+			"other": "Other",
+			"other_text": "`/invite` — Invite Pokedi to your server\n`/vote` — Support the bot\n`/shardstats` — Bot stats",
+			"started_text": "welcome.fields.started_text"
+		},
+		"footer": "Gotta catch 'em all, together! | Use /help for details"
+	},
 	"default": {
 		"Level": "Level",
 		"Stats": "Stats",

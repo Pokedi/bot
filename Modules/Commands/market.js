@@ -622,7 +622,7 @@ export default {
 
                     return await msg.reply({
                         embeds: [{
-                            description: query.map(x => new Pokemon(x)).map(x => `**ID**: \`${x.id}\` | **${capitalize(x.pokemon.replace(/-/gmi, ' '))}**${x.shiny ? " ⭐" : ""} | Level: ${x.level} | IV: ${x.calculateTotalIV()}% | Price: ${x.price}`).join("\n") + `\n\n- Buy the Pokemon through </market buy:${msg.commandId}>\n- Check the Pokemon through </market info:${msg.commandId}>`,
+                            description: query.length ? query.map(x => new Pokemon(x)).map(x => `**ID**: \`${x.id}\` | **${capitalize(x.pokemon.replace(/-/gmi, ' '))}**${x.shiny ? " ⭐" : ""} | Level: ${x.level} | IV: ${x.calculateTotalIV()}% | Price: ${x.price}`).join("\n") + `\n\n- Buy the Pokemon through </market buy:${msg.commandId}>\n- Check the Pokemon through </market info:${msg.commandId}>` : 'No one\'s home...',
                             title: "Market",
                             color: 44678,
                             footer: {
