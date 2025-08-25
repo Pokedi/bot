@@ -39,6 +39,11 @@ export default {
                     encoding: 'utf-8'
                 }).trim();
 
+                // Find the latest branch
+                execSync('git fetch', { encoding: 'utf-8' });
+
+                const latestHash = execSync('git rev-parse --short origin/' + (process.env.DEV ? 'develop' : 'main'), { encoding: 'utf-8'}).trim();
+
                 return msg.reply({
                     embeds: [{
                         "title": "Pokedi Stats",
@@ -54,7 +59,7 @@ export default {
                             text: `Current Cluster: ${msg.client.cluster.id}\nCurrent Pokedi Shard: ${msg.client.shardID}`
                         }, timestamp: new Date(),
                         "description": (() => {
-                            return `**Total Memory:** \`${(arraySum(x.map(x => parseFloat(x.usage))) || 0).toFixed(2)}MB\`\n**Total Clusters**: ${msg.client.cluster.count}\n**Total Shards in this Cluster**: ${msg.client.cluster.ids.size}\n**Total CPU**: \`${arraySum(x.map(x => parseFloat(stats[x.pid].cpu.toFixed(2))))}%\`\n**Total Servers**: \`${arraySum(x.map(y => y.guilds))}\`\n**Average Ping**:\`${(arraySum(x.map(y => y.ping)) / arraySum(x.map(y => y.ids))).toFixed(2)}ms\`\n**Current Commit Hash**: \`${commitHash}\``
+                            return `**Total Memory:** \`${(arraySum(x.map(x => parseFloat(x.usage))) || 0).toFixed(2)}MB\`\n**Total Clusters**: ${msg.client.cluster.count}\n**Total Shards in this Cluster**: ${msg.client.cluster.ids.size}\n**Total CPU**: \`${arraySum(x.map(x => parseFloat(stats[x.pid].cpu.toFixed(2))))}%\`\n**Total Servers**: \`${arraySum(x.map(y => y.guilds))}\`\n**Average Ping**:\`${(arraySum(x.map(y => y.ping)) / arraySum(x.map(y => y.ids))).toFixed(2)}ms\`\n**Current Commit Hash**: \`${commitHash}\`\n**Latest Version**: \`${latestHash}\` ${latestHash != commitHash ? '**(UPDATE REQUIRED)**' : '(_Up-to-Date_)'}`
                         }
                         )()
                     }]
