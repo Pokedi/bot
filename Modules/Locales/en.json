@@ -103,6 +103,17 @@
 		},
 		"footer": "Gotta catch 'em all, together! | Use /help for details"
 	},
+	"user": {
+		"levelup": "Congrats on being Level {{level}}, Champ.",
+		"pokemon_evolved": "Congratulations! Your {{pokemon}} has evolved to {{evolved}}!",
+		"pokemon_levelup": "Congratulations! Your {{pokemon}} is now level {{level}}!",
+		"something_happening_to_egg": "Something's happening to your egg!",
+		"could_it_be": "Could it be!?",
+		"egg_hatched": "Your egg hatched into a {{pokemon}}!"
+	},
+	"pokemon": {
+		"spawn_description": "Use the </catch:{{commandID}}> command to tame it! Or just ignore it?"
+	},
 	"default": {
 		"Level": "Level",
 		"Stats": "Stats",

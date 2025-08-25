@@ -79,6 +79,17 @@
             "invalid_check": "Sous-commande invalide pour `check`. Utilisez `settings` ou `help`."
         }
     },
+    "user": {
+        "levelup": "Félicitations pour avoir atteint le Niveau {{level}}, Champion.",
+        "pokemon_evolved": "Félicitations ! Votre {{pokemon}} a évolué en {{evolved}} !",
+        "pokemon_levelup": "Félicitations ! Votre {{pokemon}} est maintenant niveau {{level}} !",
+        "something_happening_to_egg": "Quelque chose arrive à votre œuf !",
+        "could_it_be": "Serait-ce !?",
+        "egg_hatched": "Votre œuf a éclos en un {{pokemon}} !"
+    },
+    "pokemon": {
+        "spawn_description": "Utilisez la commande </catch:{{commandID}}> pour l'attraper ! Ou allez-vous simplement l'ignorer ?"
+    },
     "default": {
         "Level": "Niveau",
         "Stats": "Stats",

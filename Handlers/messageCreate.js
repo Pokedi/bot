@@ -1,11 +1,13 @@
 import Chance from "chance";
-import Player from "../Classes/player.js";
+// import Player from "../Classes/player.js";
 import randomint from "../Utilities/Misc/randomint.js";
 import capitalize from "../Utilities/Misc/capitalize.js";
 import Pokedex from "../Classes/pokedex.js";
 import setMessageCache from "../Utilities/Misc/setMessageCache.js";
 import { logCustomReport } from "../Utilities/User/logReport.js";
 import { delayFor } from "discord-hybrid-sharding";
+import i18n from "i18n";
+import localeMapping from "../Utilities/Misc/localeMapping.js";
 
 const chance = Chance();
 
@@ -107,6 +109,8 @@ async function messageCreate(msg, e) {
             // Spawn Pokemon Execution
             await channelSelected.spawn.pokemon.SpawnFriendlyV2();
 
+            i18n.setLocale(localeMapping(msg.channel?.configs?.locale?.config || msg.guild?.configs?.locale?.config || msg.guild.preferredLocale || "en"));
+
             // Send Spawn
             await channelSelected.spawn.pokemon.spawnToChannel(channelSelected, msg.client.commands.get("catch")?.rest?.id);
 
@@ -120,10 +124,12 @@ async function messageCreate(msg, e) {
 
     if (msg.author.player && msg.author.player.started) {
 
+        i18n.setLocale(localeMapping(msg.author?.player?.locale || msg.channel?.configs?.locale?.config || msg.guild?.configs?.locale?.config || msg.guild.preferredLocale || "en"));
+
         // Slow down User Level-Up
         if (randomint(1000) < 20) {
             if (await msg.author.player.levelUp(msg.client.postgres))
-                msg.channel.send("Congrats on being Level " + msg.author.player.level + ", Champ."), logCustomReport({ command: 103, user_id: msg.author.id, channel: msg.channel.id, guild: msg.guild.id, shortval: msg.author.player.level.toString() });
+                msg.channel.send(i18n.__('user.levelup', { level: msg.author.player.level })), logCustomReport({ command: 103, user_id: msg.author.id, channel: msg.channel.id, guild: msg.guild.id, shortval: msg.author.player.level.toString() });
         }
 
         if (--msg.author.count.pokemonLevelUpCount <= 0) {
@@ -134,8 +140,8 @@ async function messageCreate(msg, e) {
 
             if (checkStats) {
                 logCustomReport({ command: 102, user_id: msg.author.id, channel: msg.channel.id, guild: msg.guild.id, value: JSON.stringify(checkStats) });
-                if (checkStats.hasEvolved) return msg.reply(`Congratulations! Your ${capitalize(checkStats.pokemon)} has evolved to ${capitalize(checkStats.evolvedPokemon)}!`);
-                if (checkStats.levelIncreased) return msg.reply(`Congratulations! Your ${capitalize(checkStats.pokemon)} is now level ${checkStats.level}!`);
+                if (checkStats.hasEvolved) return msg.reply(i18n.__('user.pokemon_evolved', { pokemon: capitalize(checkStats.pokemon), evolved: capitalize(checkStats.evolvedPokemon) }));
+                if (checkStats.levelIncreased) return msg.reply(i18n.__('user.pokemon_levelup', { pokemon: capitalize(checkStats.pokemon), level: checkStats.level }));
             }
         }
 
@@ -143,11 +149,11 @@ async function messageCreate(msg, e) {
             for (const nest of msg.author.player.hatchery) {
                 const egg = await nest.shake();
                 if (egg) {
-                    const m = await msg.reply({ content: "Something's happening to your egg!", withResponse: true });
+                    const m = await msg.reply({ content: i18n.__('user.something_happening_to_egg'), withResponse: true });
                     await delayFor(1500);
-                    await m.resource.message.edit("Could it be!");
+                    await m.resource.message.edit(i18n.__('user.could_it_be'));
                     await delayFor(1500);
-                    await m.resource.message.edit(`Your egg hatched into a ${capitalize(egg.pokemon, true)}!`);
+                    await m.resource.message.edit(i18n.__('user.egg_hatched', { pokemon: capitalize(egg.pokemon, true) }));
                 };
             }
         }
