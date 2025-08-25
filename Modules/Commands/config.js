@@ -388,8 +388,8 @@ async function handleCheckConfig(msg, subcommand) {
         const guildConfigs = await msg.client.postgres`SELECT * FROM command_configuration WHERE guild_id = ${msg.guild.id} AND channel_id IS NULL`;
         const channelConfigs = await msg.client.postgres`SELECT * FROM command_configuration WHERE channel_id = ${msg.channel.id}`;
 
-        const possibleGuildConfigs = { "spawn_redirect": i18n.__('commands.config.help.server.channel_spawns_redirect'), 'locale': i18n.__("commands.config.server_language") };
-        const possibleChannelConfigs = { "spawn_disabled": i18n.__('commands.config.help.channel.spawns_disabled'), 'locale': i18n.__('commands.config.channel.language') };
+        const possibleGuildConfigs = { "spawn_redirect": i18n.__('commands.config.server.channel_spawns_redirect'), 'locale': i18n.__("commands.config.server.server_language") };
+        const possibleChannelConfigs = { "spawn_disabled": i18n.__('commands.config.channel.spawns_disabled'), 'locale': i18n.__('commands.config.channel.language') };
 
         const guildFields = Object.entries(possibleGuildConfigs).map(([key, name]) => {
             const config = guildConfigs.find(c => c.command === key);
