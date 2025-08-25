@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import pidusage from "pidusage";
 import arraySum from "../../Utilities/Misc/arraySum.js";
+import { execSync } from "child_process";
 
 export default {
     help: "",
@@ -32,6 +33,17 @@ export default {
             ping: client.ws.ping
         }))).then(x => {
             pidusage(x.map(y => y.pid), { usePs: true }, function (err, stats) {
+
+                // Get Commit hash
+                const commitHash = execSync('git rev-parse --short HEAD', {
+                    encoding: 'utf-8'
+                }).trim();
+
+                // Find the latest branch
+                execSync('git fetch', { encoding: 'utf-8' });
+
+                const latestHash = execSync('git rev-parse --short origin/' + (process.env.DEV ? 'develop' : 'main'), { encoding: 'utf-8'}).trim();
+
                 return msg.reply({
                     embeds: [{
                         "title": "Pokedi Stats",
@@ -47,7 +59,7 @@ export default {
                             text: `Current Cluster: ${msg.client.cluster.id}\nCurrent Pokedi Shard: ${msg.client.shardID}`
                         }, timestamp: new Date(),
                         "description": (() => {
-                            return `**Total Memory:** \`${(arraySum(x.map(x => parseFloat(x.usage))) || 0).toFixed(2)}MB\`\n**Total Clusters**: ${msg.client.cluster.count}\n**Total Shards in this Cluster**: ${msg.client.cluster.ids.size}\n**Total CPU**: \`${arraySum(x.map(x => parseFloat(stats[x.pid].cpu.toFixed(2))))}%\`\n**Total Servers**: \`${arraySum(x.map(y => y.guilds))}\`\n**Average Ping**:\`${(arraySum(x.map(y => y.ping)) / arraySum(x.map(y => y.ids))).toFixed(2)}ms\``
+                            return `**Total Memory:** \`${(arraySum(x.map(x => parseFloat(x.usage))) || 0).toFixed(2)}MB\`\n**Total Clusters**: ${msg.client.cluster.count}\n**Total Shards in this Cluster**: ${msg.client.cluster.ids.size}\n**Total CPU**: \`${arraySum(x.map(x => parseFloat(stats[x.pid].cpu.toFixed(2))))}%\`\n**Total Servers**: \`${arraySum(x.map(y => y.guilds))}\`\n**Average Ping**:\`${(arraySum(x.map(y => y.ping)) / arraySum(x.map(y => y.ids))).toFixed(2)}ms\`\n**Current Commit Hash**: \`${commitHash}\`\n**Latest Version**: \`${latestHash}\` ${latestHash != commitHash ? '**(UPDATE REQUIRED)**' : '(_Up-to-Date_)'}`
                         }
                         )()
                     }]
