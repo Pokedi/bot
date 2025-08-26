@@ -79,6 +79,17 @@
 			"invalid_check": "Ungültiges Unterkommando für `check`. Verwende `settings` oder `help`."
 		}
 	},
+	"user": {
+		"levelup": "Glückwunsch zum Level {{level}}, Champ.",
+		"pokemon_evolved": "Herzlichen Glückwunsch! Dein {{pokemon}} hat sich zu {{evolved}} entwickelt!",
+		"pokemon_levelup": "Herzlichen Glückwunsch! Dein {{pokemon}} ist jetzt Level {{level}}!",
+		"something_happening_to_egg": "Mit deinem Ei scheint etwas zu passieren!",
+		"could_it_be": "Könnte es sein!?",
+		"egg_hatched": "Dein Ei ist geschlüpft und ein {{pokemon}} ist herausgekommen!"
+	},
+	"pokemon": {
+		"spawn_description": "Verwende den </catch:{{commandID}}>-Befehl, um es zu fangen! Oder ignorierst du es einfach?"
+	},
 	"default": {
 		"Level": "Level",
 		"Stats": "Statuswerte",
