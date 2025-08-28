@@ -54,7 +54,7 @@ const allPokemon = await pokemondb` SELECT
                 pc.id AS dex_id
             FROM pokemon_v2_pokemon p
             JOIN pokemon_v2_pokemonspecies ps ON ps.id = p.pokemon_species_id
-            JOIN pokedi.pokedi_v2_pokemonconfigs pc ON pc.id = p.id
+            LEFT JOIN pokedi.pokedi_v2_pokemonconfigs pc ON pc.id = p.id
             LEFT JOIN pokedi.pokedi_v2_pokemonart pa ON pa.id = p.id
             -- Subquery for stats
             LEFT JOIN (
