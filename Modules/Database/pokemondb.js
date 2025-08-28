@@ -5,7 +5,7 @@ config()
 
 const pokeapisql = postgres({
     hostname: process.env.DATABASE_HOST,
-    database: "pokemondb",
+    database: "pokeapi",
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     port: process.env.DATABASE_PORT,
