@@ -57,8 +57,7 @@ const ENUM_COMMANDS = {
     "31": "invite",
     "32": "vote",
     "33": "hatchery",
-    "34": "battle",
-    "35": "admin",
+    "34": "admin",
 
     // Events
     "101": "spawn",
