@@ -77,6 +77,11 @@
             "get_config_help": "Obtener Ayuda de Config",
             "get_config_help_value": "Slash: `/config check help`\nMention: `@Pokedi config check help`\nMuestra este mensaje de ayuda para el comando config.",
             "invalid_check": "Subcomando inválido para `check`. Usa `settings` o `help`."
+        },
+        "invite": {
+            "title": "¡Invita a Pokedi!",
+            "description": "¡Gracias por considerar invitar a Pokedi! Si tienes alguna pregunta, únete a nuestro servidor de soporte haciendo clic en el enlace de [Discord](https://pokedi.xyz) en nuestra página web.",
+            "footer": "Pokedi - Un Bot Pokémon en Crecimiento"
         }
     },
     "welcome": {
