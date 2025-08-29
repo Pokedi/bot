@@ -22,7 +22,7 @@ async function interactionCreateHandler(msg) {
 
     i18n.setLocale(localeMapping(msg.user?.player?.locale || msg.locale || msg.channel?.configs?.locale?.config || msg.guild?.configs?.locale?.config || msg.guild.preferredLocale || "en"));
 
-    // Welcome Message
+    // Welcome Message Handler
     if (msg.guild?.info?.id && !msg.guild.info.welcome_sent) {
 
         const welcomeEmbed = new EmbedBuilder()
