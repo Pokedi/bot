@@ -48,7 +48,7 @@ const ENUM_COMMANDS = {
     "22": "duel",
     "23": "moves",
     "24": "daily",
-    "25": "shardstats",
+    "25": "bot",
     "26": "redeem",
     "27": "market",
     "28": "inventory",
@@ -57,7 +57,7 @@ const ENUM_COMMANDS = {
     "31": "invite",
     "32": "vote",
     "33": "hatchery",
-    "34": "battle",
+    "34": "admin",
 
     // Events
     "101": "spawn",

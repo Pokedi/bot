@@ -76,8 +76,43 @@
 			"view_settings_value": "Slash: `/config check settings`\nMention: `@Pokedi config check settings`\nMention: `@Pokedi config a`\nZeigt alle aktuellen Server- und Kanal-Konfigurationen an.",
 			"get_config_help": "Config-Hilfe Anzeigen",
 			"get_config_help_value": "Slash: `/config check help`\nMention: `@Pokedi config check help`\nZeigt diese Hilfenachricht für den Config-Befehl an.",
-			"invalid_check": "Ungültiges Unterkommando für `check`. Verwende `settings` oder `help`."
+			"invalid_check": "Ungültiges Unterkommando für `check`. Verwende `settings` oder `help`.",
+			"success_update_redirect": "Bot-Updates werden nun an den angegebenen Kanal weitergeleitet.",
+			"toggle_updates_enabled": "Bot-Updates sind für diesen Server jetzt aktiviert.",
+			"toggle_updates_disabled": "Bot-Updates sind für diesen Server jetzt deaktiviert.",
+			"set_bot_update_channel": "Wie man den Bot-Update-Kanal einstellt",
+			"set_bot_update_channel_value": "Slash: `/config server bot_updates channel:#channel`\nMention: `@Pokedi config server bot_updates update_channel:#channel`\nMention: `@Pokedi config s bu #channel`\nLeitet Bot-Updates an den angegebenen Kanal weiter.",
+			"toggle_bot_updates": "Bot-Updates Umschalten",
+			"toggle_bot_updates_value": "Slash: `/config server toggle_updates enabled:true`\nMention: `@Pokedi config server toggle_updates true/false`\nMention: `@Pokedi config s bu true/false`\nAktiviert oder deaktiviert Bot-Updates für diesen Server."
+		},
+		"invite": {
+			"title": "Lade Pokedi ein!",
+			"description": "Vielen Dank, dass du erwägst, Pokedi einzuladen! Wenn du Fragen hast, trete unserem Support-Server bei, indem du auf den [Discord](https://pokedi.xyz)-Link auf unserer Website klickst.",
+			"footer": "Pokedi - Ein wachsender Pokémon-Bot"
 		}
+	},
+	"welcome": {
+		"title": "Pokedi Bot — Kernbefehle",
+		"description": "Hey Trainer! Hier sind die Hauptbefehle, um dein Pokedi-Abenteuer zu starten!\nVerwende jederzeit `/help` für mehr Informationen oder um versteckte Funktionen zu entdecken!\n_(Alle Befehle sind Slash-Befehle)_",
+		"fields": {
+			"started": "Erste Schritte",
+			"started_text": "`/start` — Beginne dein Pokémon-Abenteuer\n`/catch` — Fange Pokémon, wenn sie erscheinen\n`/bal` — Überprüfe deinen PokéCoins-Kontostand\n`/profile` — Zeige dein Trainer-Profil an\n`/info` — Erhalte Informationen über Pokémon oder Funktionen",
+			"inventory": "Inventar & Pokémon",
+			"inventory_text": "`/inventory` — Sieh dir deine Items an\n`/pokemon` — Verwalte deine Pokémon\n`/team` — Richte dein Kampfteam ein\n`/release` — Lass ein Pokémon frei\n`/nickname` — Gib deinem Pokémon einen Spitznamen\n`/order` — Ordne die Reihenfolge der Pokémon neu",
+			"shop": "Shop & Wirtschaft",
+			"shop_text": "`/shop` — Kaufe Items, Kisten, Hintergründe und mehr\n`/market` — Handele mit Pokémon oder Items\n`/trade` — Starte einen Handel\n`/daily` — Sammle tägliche Belohnungen",
+			"battles": "Kämpfe & Duelle",
+			"battles_text": "`/duel` — Fordere einen anderen Spieler mit dem neuen Smogon-powered Duell-System heraus!\n`/moves` — Sieh dir die Attacken deines Pokémon an",
+			"dex": "Dex & Fortschritt",
+			"dex_text": "`/dex` — Zeige den Pokédex an oder überprüfe deinen Fortschritt!\n`/reindex` — Scanne den Pokédex erneut",
+			"hatchery": "Brutstätte & Belohnungen",
+			"hatchery_text": "`/hatchery` — Brüte Eier aus/verwalte Slots\n`/redeem` — Löse Codes ein\n`/voucher` — Verwende Belohnungsgutscheine",
+			"settings": "Einstellungen & Extras",
+			"settings_text": "`/config` — Konfiguriere Bot/Server/Benutzer/Kanal-Einstellungen wie Sprache, Spawn-Kanäle und mehr!",
+			"other": "Anderes",
+			"other_text": "`/invite` — Lade Pokedi auf deinen Server ein\n`/vote` — Unterstütze den Bot\n`/bot shardstats` — Pokedis Shard-Statistiken\n`/bot change_log` — Siehe Pokedis neueste Änderungen"
+		},
+		"footer": "Sammle sie alle, gemeinsam! | Verwende /help für Details"
 	},
 	"user": {
 		"levelup": "Glückwunsch zum Level {{level}}, Champ.",

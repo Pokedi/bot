@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import postgres from "postgres";
 
-config()
+config({ override: true, quiet: true });
 
 const pokeapisql = postgres({
     hostname: process.env.DATABASE_HOST,

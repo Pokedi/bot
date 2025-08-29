@@ -76,8 +76,43 @@
             "view_settings_value": "Slash: `/config check settings`\nMention: `@Pokedi config check settings`\nMention: `@Pokedi config a`\nAffiche toutes les configurations actuelles du serveur et du salon.",
             "get_config_help": "Obtenir l'Aide de Config",
             "get_config_help_value": "Slash: `/config check help`\nMention: `@Pokedi config check help`\nAffiche ce message d'aide pour la commande config.",
-            "invalid_check": "Sous-commande invalide pour `check`. Utilisez `settings` ou `help`."
+            "invalid_check": "Sous-commande invalide pour `check`. Utilisez `settings` ou `help`.",
+            "success_update_redirect": "Les mises à jour du bot seront maintenant redirigées vers le salon spécifié.",
+            "toggle_updates_enabled": "Les mises à jour du bot sont maintenant activées pour ce serveur.",
+            "toggle_updates_disabled": "Les mises à jour du bot sont maintenant désactivées pour ce serveur.",
+            "set_bot_update_channel": "Comment définir le salon des mises à jour du bot",
+            "set_bot_update_channel_value": "Slash: `/config server bot_updates channel:#channel`\nMention: `@Pokedi config server bot_updates update_channel:#channel`\nMention: `@Pokedi config s bu #channel`\nRedirige les mises à jour du bot vers le salon spécifié.",
+            "toggle_bot_updates": "Activer/Désactiver les Mises à Jour du Bot",
+            "toggle_bot_updates_value": "Slash: `/config server toggle_updates enabled:true`\nMention: `@Pokedi config server toggle_updates true/false`\nMention: `@Pokedi config s bu true/false`\nActive ou désactive les mises à jour du bot pour ce serveur."
+        },
+        "invite": {
+            "title": "Invitez Pokedi !",
+            "description": "Merci d'envisager d'inviter Pokedi ! Si vous avez des questions, rejoignez notre serveur de support en cliquant sur le lien [Discord](https://pokedi.xyz) sur notre site web.",
+            "footer": "Pokedi - Un Bot Pokémon en Pleine Croissance"
         }
+    },
+    "welcome": {
+        "title": "Bot Pokedi — Commandes Principales",
+        "description": "Salut Dresseur ! Voici les commandes principales pour lancer ton aventure Pokedi !\nUtilise `/help` à tout moment pour plus d'informations ou pour découvrir des fonctionnalités cachées !\n_(Toutes les commandes sont des commandes slash)_",
+        "fields": {
+            "started": "Pour Commencer",
+            "started_text": "`/start` — Commence ton aventure Pokémon\n`/catch` — Attrape les Pokémon quand ils apparaissent\n`/bal` — Vérifie ton solde de PokéPièces\n`/profile` — Voir ton profil de dresseur\n`/info` — Obtenir des infos sur les Pokémon ou les fonctionnalités",
+            "inventory": "Inventaire & Pokémon",
+            "inventory_text": "`/inventory` — Voir tes objets\n`/pokemon` — Gérer tes Pokémon\n`/team` — Constituer ton équipe de combat\n`/release` — Relâcher un Pokémon\n`/nickname` — Donner un surnom à ton Pokémon\n`/order` — Réorganiser l'ordre des Pokémon",
+            "shop": "Boutique & Économie",
+            "shop_text": "`/shop` — Acheter des objets, boîtes, arrière-plans et plus\n`/market` — Échanger des Pokémon ou des objets\n`/trade` — Démarrer un échange\n`/daily` — Recevoir les récompenses quotidiennes",
+            "battles": "Combats & Duels",
+            "battles_text": "`/duel` — Défie un autre joueur avec le nouveau Système de Duel alimenté par Smogon !\n`/moves` — Voir les capacités de ton Pokémon",
+            "dex": "Dex & Progrès",
+            "dex_text": "`/dex` — Voir le Pokédex ou vérifier ta progression jusqu'à présent !\n`/reindex` — Rescanner le Pokédex",
+            "hatchery": "Couvoir & Récompenses",
+            "hatchery_text": "`/hatchery` — Faire éclore des œufs/gérer les emplacements\n`/redeem` — Échanger des codes\n`/voucher` — Utiliser des bons de récompense",
+            "settings": "Paramètres & Extra",
+            "settings_text": "`/config` — Configurer les préférences du bot/serveur/utilisateur/salon comme la langue, les salons d'apparition et plus !",
+            "other": "Autre",
+            "other_text": "`/invite` — Inviter Pokedi sur ton serveur\n`/vote` — Soutenir le bot\n`/bot shardstats` — Statistiques des shards de Pokedi\n`/bot change_log` — Voir les derniers changements de Pokedi"
+        },
+        "footer": "Attrapez-les tous, ensemble ! | Utilise /help pour les détails"
     },
     "user": {
         "levelup": "Félicitations pour avoir atteint le Niveau {{level}}, Champion.",

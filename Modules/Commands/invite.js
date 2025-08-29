@@ -1,4 +1,5 @@
-import { SlashCommandBuilder } from "discord.js";
+import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import i18n from "i18n";
 
 export default {
     help: "",
@@ -19,7 +20,19 @@ export default {
             'fr': 'Invitez Pokedi à partager le plaisir avec vos amis!',
             // 'ar': 'ادعُ بوكيدي لمشاركة المرح مع أصدقائك!'
         }),
+        
+    mention_support: true,
+
     async execute(msg) {
-        msg.reply("Thank you for considering to [invite](https://pokedi.xyz/invite) Pokedi. If you have any questions, join our support server by clicking the [Discord](https://pokedi.xyz) link in our website.");
+        const inviteEmbed = new EmbedBuilder()
+            .setTitle(i18n.__('commands.invite.title'))
+            .setDescription(i18n.__('commands.invite.description'))
+            .setURL('https://pokedi.xyz/invite')
+            .setColor('#349EEB')
+            .setFooter({ text: i18n.__('commands.invite.footer') })
+            .setImage('https://pokedi.xyz/images/banner.png')
+            .setTimestamp();
+
+        msg.reply({ embeds: [inviteEmbed] });
     }
 }

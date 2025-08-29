@@ -1,6 +1,6 @@
 // Initializing Env files
 import * as dotenv from 'dotenv'
-dotenv.config({ quiet: true })
+dotenv.config({ override: true, quiet: true });
 
 // __DIRNAME
 import path from 'path';
