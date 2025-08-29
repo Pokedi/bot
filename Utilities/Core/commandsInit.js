@@ -36,8 +36,7 @@ export default async (commandList = [
     "help",
     "vote",
     "invite",
-    "hatchery",
-    "battle"
+    "hatchery"
 ], client, allowRest = process.argv.includes("--force-api")) => {
     const commands = [];
 
