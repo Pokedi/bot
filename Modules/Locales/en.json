@@ -99,7 +99,7 @@
 			"settings": "Settings & Extras",
 			"settings_text": "`/config` — Configure Bot/server/user/channel preferences such as the language, spawn channels and more!",
 			"other": "Other",
-			"other_text": "`/invite` — Invite Pokedi to your server\n`/vote` — Support the bot\n`/shardstats` — Bot stats"
+			"other_text": "`/invite` — Invite Pokedi to your server\n`/vote` — Support the bot\n`/bot shardstats` — Pokedi's shard stats\n`/bot change_log` — View Pokedi's latest changes"
 		},
 		"footer": "Gotta catch 'em all, together! | Use /help for details"
 	},

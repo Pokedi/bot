@@ -7,7 +7,7 @@ export default {
         .setDescription('[Admin Only]')
         // .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         // .setContexts(InteractionContextType.Guild)
-        .addSubcommandGroup(x => x
+        .addSubcommand(x => x
             .setName('change_log')
             .setDescription('Change Logs Command Use')
         ),
@@ -20,7 +20,7 @@ export default {
 
         if (!(process.env.DEVIDS && JSON.parse(process.env.DEVIDS).includes(msg.member.id))) return msg.reply('You are not allowed to use this command.');
 
-        if (msg.options.getSubcommandGroup(false) === 'change_log') {
+        if (msg.options.getSubcommand(false) === 'change_log') {
 
             if (process.env.DEVIDS && JSON.parse(process.env.DEVIDS).includes(msg.member.id)) {
 

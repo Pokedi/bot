@@ -6,14 +6,14 @@ import localeMapping from "../Utilities/Misc/localeMapping.js";
 import { EmbedBuilder } from "discord.js";
 
 /**
-* @param {import('discord.js').ChatInputCommandInteraction} msg
+* @param {import('discord.js').Interaction} msg
 */
 async function interactionCreateHandler(msg) {
 
     if (!msg.guild || (msg.member && msg.member.user.bot))
         return;
 
-    if (msg.isModalSubmit() && msg.commandName == "admin")
+    if (msg.isModalSubmit() && msg.customId == "change-log-modal")
         return (await import('../Modules/Commands/admin.js')).default.modalSubmit(msg);
 
     if (msg.isAutocomplete()) return autoComplete(msg);

@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
+import { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, MessageFlags } from "discord.js";
 import pidusage from "pidusage";
 import arraySum from "../../Utilities/Misc/arraySum.js";
 import { execSync } from "child_process";
@@ -41,8 +41,26 @@ export default {
             }))
         .addSubcommand(x => x
             .setName('change_log')
+            .setNameLocalizations({
+                'pt-BR': 'registro-de-mudanas',
+                'es-ES': 'registro-de-cambios',
+                'de': 'aenderungsprotokoll',
+                'fr': 'journal-des-changements',
+                // 'ar': 'سجل-التغييرات'
+            })
             .setDescription('View Change Logs')
+            .setDescriptionLocalizations({
+                'pt-BR': 'Verificar Registros de Mudanças',
+                'es-ES': 'Ver registro de cambios',
+                'de': 'Aenderungsprotokoll anzeigen',
+                'fr': 'Consulter le journal des changements',
+                // 'ar': 'عرض-سجل-التغييرات'
+            })
         ),
+
+    /**
+    * @param {import('discord.js').Interaction} msg
+    */
     async execute(msg) {
         if (msg.options.getSubcommand() == "shardstats") {
 
@@ -95,17 +113,20 @@ export default {
             SELECT * FROM change_logs
             WHERE guild_id = ${msg.guild.id}
             ORDER BY log_date DESC
+            LIMIT 1
         `;
 
             if (rows.length > 0) {
 
                 const embed = new EmbedBuilder()
                     .setTitle('Change Logs')
-                    .setDescription('Here are the latest change logs:');
+                // .setDescription('Here are the latest change logs:');
 
-                const logs = rows.map(log => `**${log.log_type}**: ${log.log_message} by ${log.log_author} on ${log.log_date}`);
+                const logs = rows.map(log => `${log.log_message} \n\n ~ ${log.log_author} on ${log.log_date}`);
 
-                embed.addFields({ name: '\u200b', value: logs.join('\n') });
+                // embed.addFields({ name: '\u200b', value: logs.join('\n') });
+
+                embed.setDescription(logs.join('\n'));
 
                 const button = new ButtonBuilder()
                     .setLabel('View More')
@@ -115,7 +136,7 @@ export default {
                 const actionRow = new ActionRowBuilder()
                     .addComponents(button);
 
-                msg.reply({ embeds: [embed], components: [actionRow] });
+                await msg.reply({ embeds: [embed], components: [actionRow] });
 
                 const collector = msg.channel.createMessageComponentCollector({ time: 60000 });
 
@@ -137,62 +158,55 @@ export default {
 
                         await i.showModal(modal);
 
-                        const modalCollector = i.channel.awaitModalSubmit({ time: 60000 });
+                        const modalCollector = await i.awaitModalSubmit({ time: 60000 });
 
-                        modalCollector.on('collect', async modal => {
+                        await modalCollector.reply({ flags: MessageFlags.Ephemeral, content: '~ With ♥ from the Devs' });
 
-                            const logCount = parseInt(modal.fields.getTextInputValue('log_input'));
+                        const logCount = parseInt(modalCollector.fields.getTextInputValue('log_input'));
 
-                            if (!isNaN(logCount)) {
+                        if (!isNaN(logCount)) {
 
-                                const rows = await msg.client.postgres`SELECT * FROM change_logs
+                            const rows = await msg.client.postgres`SELECT * FROM change_logs
                                 WHERE guild_id = ${msg.guild.id}
                                 ORDER BY log_date DESC
-                                LIMIT ${logCount}`;
+                                LIMIT ${(logCount > 10 || logCount < 0) ? 10 : logCount}`;
 
-                                if (rows.length > 0) {
+                            if (rows.length > 0) {
+
+                                const embeds = [];
+
+                                for (const row of rows) {
 
                                     const embed = new EmbedBuilder()
-                                        .setTitle('Change Logs')
-                                        .setDescription('Here are the latest change logs:');
+                                        .setTitle('Change Log')
+                                        .setDescription(row.log_message)
+                                        .setColor(0x0099FF)
+                                        .addFields({ name: 'Author', value: row.log_author || 'Dev' }, { name: 'Date', value: row.log_date?.toString?.() || 'Unknown' });
 
-                                    const logs = rows.map(log => `**${log.log_type}**: ${log.log_message} by ${log.log_author} on ${log.log_date}`);
+                                    embeds.push(embed);
 
-                                    embed.addFields({ name: '\u200b', value: logs.join('\n') });
-
-                                    await modal.reply({ embeds: [embed] });
-
-                                } else {
-
-                                    await modal.reply('No change logs found.');
                                 }
+
+                                await msg.editReply({ embeds });
 
                             } else {
 
-                                await modal.reply('Invalid input. Please enter a number.');
+                                await msg.editReply('No change logs found.');
                             }
-                        });
 
-                        modalCollector.on('end', () => {
+                        } else {
 
-                            if (modalCollector.collected.size === 0) {
+                            await msg.editReply('Invalid input. Please enter a number.');
+                        }
 
-                                msg.channel.send('Modal timed out.');
-                            }
-                        });
                     }
                 });
 
                 collector.on('end', () => {
 
-                    if (collector.collected.size === 0) {
-
-                        msg.channel.send('Button timed out.');
-                    }
                 });
-                
-            } else {
 
+            } else {
                 msg.reply('No change logs found.');
             }
 

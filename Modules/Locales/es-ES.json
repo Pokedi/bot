@@ -79,6 +79,29 @@
             "invalid_check": "Subcomando inválido para `check`. Usa `settings` o `help`."
         }
     },
+    "welcome": {
+        "title": "Bot Pokedi — Comandos Principales",
+        "description": "¡Hey Entrenador! ¡Aquí están los comandos principales para comenzar tu aventura en Pokedi!\n¡Usa `/help` en cualquier momento para más información o para descubrir características ocultas!\n_(Todos los comandos son comandos de barra)_",
+        "fields": {
+            "started": "Cómo Empezar",
+            "started_text": "`/start` — Comienza tu aventura Pokémon\n`/catch` — Captura Pokémon cuando aparezcan\n`/bal` — Revisa tu saldo de PokéMonedas\n`/profile` — Ve tu perfil de entrenador\n`/info` — Obtén información sobre Pokémon o características",
+            "inventory": "Inventario y Pokémon",
+            "inventory_text": "`/inventory` — Ve tus objetos\n`/pokemon` — Gestiona tus Pokémon\n`/team` — Configura tu equipo de batalla\n`/release` — Libera un Pokémon\n`/nickname` — Pon un apodo a tu Pokémon\n`/order` — Reordena el índice de tus Pokémon",
+            "shop": "Tienda y Economía",
+            "shop_text": "`/shop` — Compra objetos, cajas, fondos y más\n`/market` — Intercambia Pokémon u objetos\n`/trade` — Inicia un intercambio\n`/daily` — Reclama recompensas diarias",
+            "battles": "Batallas y Duelos",
+            "battles_text": "`/duel` — ¡Reta a otro jugador con el nuevo Sistema de Duelos con tecnología de Smogon!\n`/moves` — Ve los movimientos de tu Pokémon",
+            "dex": "Dex y Progreso",
+            "dex_text": "`/dex` — ¡Ve la Pokédex o revisa tu progreso hasta ahora!\n`/reindex` — Re-escanear la Pokédex",
+            "hatchery": "Criadero y Recompensas",
+            "hatchery_text": "`/hatchery` — Eclosiona huevos/gestiona espacios\n`/redeem` — Canjea códigos\n`/voucher` — Usa vouchers de recompensa",
+            "settings": "Configuración y Extras",
+            "settings_text": "`/config` — ¡Configura las preferencias del bot/servidor/usuario/canal como el idioma, canales de aparición y más!",
+            "other": "Otros",
+            "other_text": "`/invite` — Invita a Pokedi a tu servidor\n`/vote` — Apoya al bot\n`/bot shardstats` — Estadísticas de fragmentos de Pokedi\n`/bot change_log` — Ver los últimos cambios de Pokedi"
+        },
+        "footer": "¡Atrápalos ya, juntos! | Usa /help para detalles"
+    },
     "user": {
         "levelup": "Felicidades por alcanzar el Nivel {{level}}, Campeón.",
         "pokemon_evolved": "¡Felicidades! ¡Tu {{pokemon}} ha evolucionado a {{evolved}}!",
