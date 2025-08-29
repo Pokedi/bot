@@ -138,7 +138,7 @@ export default {
 
                 await msg.reply({ embeds: [embed], components: [actionRow] });
 
-                const collector = msg.channel.createMessageComponentCollector({ time: 60000 });
+                const collector = msg.channel.createMessageComponentCollector({ time: 60000, filter: i => i.customId === 'view_more' && i.user.id == msg.user.id });
 
                 collector.on('collect', async i => {
 
@@ -158,7 +158,7 @@ export default {
 
                         await i.showModal(modal);
 
-                        const modalCollector = await i.awaitModalSubmit({ time: 60000 });
+                        const modalCollector = await i.awaitModalSubmit({ time: 60000, filter: m => m.customId === 'view_more_modal' && m.user.id == msg.user.id });
 
                         await modalCollector.reply({ flags: MessageFlags.Ephemeral, content: '~ With ♥ from the Devs' });
 
