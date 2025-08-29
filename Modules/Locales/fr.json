@@ -76,7 +76,14 @@
             "view_settings_value": "Slash: `/config check settings`\nMention: `@Pokedi config check settings`\nMention: `@Pokedi config a`\nAffiche toutes les configurations actuelles du serveur et du salon.",
             "get_config_help": "Obtenir l'Aide de Config",
             "get_config_help_value": "Slash: `/config check help`\nMention: `@Pokedi config check help`\nAffiche ce message d'aide pour la commande config.",
-            "invalid_check": "Sous-commande invalide pour `check`. Utilisez `settings` ou `help`."
+            "invalid_check": "Sous-commande invalide pour `check`. Utilisez `settings` ou `help`.",
+            "success_update_redirect": "Les mises à jour du bot seront maintenant redirigées vers le salon spécifié.",
+            "toggle_updates_enabled": "Les mises à jour du bot sont maintenant activées pour ce serveur.",
+            "toggle_updates_disabled": "Les mises à jour du bot sont maintenant désactivées pour ce serveur.",
+            "set_bot_update_channel": "Comment définir le salon des mises à jour du bot",
+            "set_bot_update_channel_value": "Slash: `/config server bot_updates channel:#channel`\nMention: `@Pokedi config server bot_updates update_channel:#channel`\nMention: `@Pokedi config s bu #channel`\nRedirige les mises à jour du bot vers le salon spécifié.",
+            "toggle_bot_updates": "Activer/Désactiver les Mises à Jour du Bot",
+            "toggle_bot_updates_value": "Slash: `/config server toggle_updates enabled:true`\nMention: `@Pokedi config server toggle_updates true/false`\nMention: `@Pokedi config s bu true/false`\nActive ou désactive les mises à jour du bot pour ce serveur."
         },
         "invite": {
             "title": "Invitez Pokedi !",

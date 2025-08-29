@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
+import { SlashCommandBuilder, EmbedBuilder, ChannelType } from "discord.js";
 import builder from "../Database/QueryBuilder/queryGenerator.js";
 import Player from "../../Classes/player.js";
 // Assuming 'i18n' is a module that provides internationalization functions.
@@ -83,6 +83,37 @@ export default {
                     }, {
                         name: 'French',
                         value: 'fr'
+                    })
+                )
+            )
+            .addSubcommand(subcommand => subcommand
+                .setName('bot_updates')
+                .setDescription('Enable or disable Bot Updates.')
+                .setDescriptionLocalizations({
+                    'pt-BR': 'Ativar ou desativar atualizações do Bot',
+                    'es-ES': 'Activar o desactivar actualizaciones del Bot',
+                    'de': 'Aktivieren oder deaktivieren Sie Bot-Updates',
+                    'fr': 'Activer ou désactiver les mises à jour du Bot',
+                })
+                .addChannelOption(option => option
+                    .setName('update_channel')
+                    .setDescription('The channel to send updates to.')
+                    .setDescriptionLocalizations({
+                        'pt-BR': 'O canal para enviar atualizações para',
+                        'es-ES': 'El canal para enviar actualizaciones a',
+                        'de': 'Der Kanal, an den Updates gesendet werden sollen',
+                        'fr': 'Le canal pour envoyer les mises à jour',
+                    })
+                    .addChannelTypes(ChannelType.GuildText)
+                )
+                .addBooleanOption(option => option
+                    .setName('toggle_updates')
+                    .setDescription('Set to true to enable updates, false to disable.')
+                    .setDescriptionLocalizations({
+                        'pt-BR': 'Defina para verdade para ativar atualizações, para falso para desativar',
+                        'es-ES': 'Establecer a verdadero para activar actualizaciones, a falso para desactivar',
+                        'de': 'Setzen Sie auf wahr, um Updates zu aktivieren, auf falsch, um sie zu deaktivieren',
+                        'fr': 'Définir sur vrai pour activer les mises à jour, sur faux pour les desactiver',
                     })
                 )
             )
@@ -213,7 +244,9 @@ export default {
             )
         ),
     mention_support: true,
-
+    /**
+    * @param {import('discord.js').Interaction} msg
+    */
     async execute(msg) {
         let group, subcommand;
         let options = {};
@@ -232,6 +265,20 @@ export default {
             }
 
             if (["redirect_spawns", 'r'].includes(subcommand)) options = { channelsInput: args.join(' ') };
+            if (["bot_updates", 'bu'].includes(subcommand)) {
+                // If not channel was mentioned, we'll assume it's true or false
+                if (!msg.guild.channels.cache.get(args.join(' ').match(/<#(\d+)>/)?.[1])) {
+                    options = { toggle_updates: args.join(' ').includes('1') || args.join(' ').includes('t') };
+                } else {
+                    // Let's check the channel's validity here
+                    // First get the ID
+                    const channelID = args.join(' ').match(/<#(\d+)>/)?.[1];
+                    if (channelID && msg.guild.channels.cache.get(channelID).permissionsFor(msg.client.user).has('SendMessages'))
+                        options = { update_channel: msg.guild.channels.cache.get(channelID) };
+                    else
+                        return msg.reply({ content: i18n.__('commands.config.invalid_channel'), ephemeral: true });
+                }
+            }
             if (["toggle_spawns", 'ts'].includes(subcommand)) options = { toggle_spawns: args.join(' ').includes('1') || args.join(' ').includes('t') };
 
         } else {
@@ -240,7 +287,9 @@ export default {
             options = {
                 channelsInput: msg.options.getString("channels"),
                 toggle_spawns: msg.options.getBoolean("enabled"),
-                language: msg.options.getString('locale')
+                language: msg.options.getString('locale'),
+                update_channel: msg.options.getChannel('update_channel'),
+                toggle_updates: msg.options.getBoolean('toggle_updates')
             }
         }
 
@@ -279,7 +328,9 @@ export default {
 
 async function handleServerConfig(msg, subcommand, values = {
     channelsInput: '',
-    language: 'en'
+    language: 'en',
+    update_channel: null,
+    toggle_updates: false
 }) {
     switch (subcommand) {
         case "r":
@@ -326,6 +377,38 @@ async function handleServerConfig(msg, subcommand, values = {
             msg.guild.configs.locale = { config: values.language };
             i18n.setLocale(values.language);
             return msg.reply(i18n.__('commands.config.language_set', { language: values.language }));
+        }
+        case "cl":
+        case "clear_language": {
+            const deleted = await deleteConfig(msg, "locale");
+            if (deleted) {
+                delete msg.guild.configs.locale;
+                i18n.setLocale('en');
+                return msg.reply(i18n.__('commands.config.language_cleared'));
+            }
+            return msg.reply(i18n.__('commands.config.language_config_notfound'));
+        }
+        case "bot_updates": {
+            const channelsInput = values.update_channel;
+
+            if (!channelsInput) {
+                return msg.reply({ content: i18n.__('commands.config.provide_channels'), ephemeral: true });
+            }
+
+            await upsertConfig(msg, "update_channels", channelsInput.id);
+
+            msg.guild.configs.update_channels = { config: channelsInput.id };
+
+            return msg.reply(i18n.__('commands.config.success_update_redirect'));
+        }
+        case "toggle_updates": {
+
+            await upsertConfig(msg, "toggle_updates", values.toggle_updates);
+
+            msg.guild.configs.toggle_updates = { config: values.toggle_updates };
+
+            return msg.reply(i18n.__('commands.config.toggle_updates_' + (values.toggle_updates ? 'enabled' : 'disabled')));
+
         }
     }
 }
@@ -452,6 +535,16 @@ async function handleCheckConfig(msg, subcommand) {
                 {
                     name: i18n.__('commands.config.view_settings'),
                     value: i18n.__('commands.config.view_settings_value'),
+                    inline: false
+                },
+                {
+                    name: i18n.__('commands.config.set_bot_update_channel'),
+                    value: i18n.__('commands.config.set_bot_update_channel_value'),
+                    inline: false
+                },
+                {
+                    name: i18n.__('commands.config.toggle_bot_updates'),
+                    value: i18n.__('commands.config.toggle_bot_updates_value'),
                     inline: false
                 },
                 {

@@ -76,7 +76,14 @@
 			"view_settings_value": "Slash: `/config check settings`\nMention: `@Pokedi config check settings`\nMention: `@Pokedi config a`\nZeigt alle aktuellen Server- und Kanal-Konfigurationen an.",
 			"get_config_help": "Config-Hilfe Anzeigen",
 			"get_config_help_value": "Slash: `/config check help`\nMention: `@Pokedi config check help`\nZeigt diese Hilfenachricht für den Config-Befehl an.",
-			"invalid_check": "Ungültiges Unterkommando für `check`. Verwende `settings` oder `help`."
+			"invalid_check": "Ungültiges Unterkommando für `check`. Verwende `settings` oder `help`.",
+			"success_update_redirect": "Bot-Updates werden nun an den angegebenen Kanal weitergeleitet.",
+			"toggle_updates_enabled": "Bot-Updates sind für diesen Server jetzt aktiviert.",
+			"toggle_updates_disabled": "Bot-Updates sind für diesen Server jetzt deaktiviert.",
+			"set_bot_update_channel": "Wie man den Bot-Update-Kanal einstellt",
+			"set_bot_update_channel_value": "Slash: `/config server bot_updates channel:#channel`\nMention: `@Pokedi config server bot_updates update_channel:#channel`\nMention: `@Pokedi config s bu #channel`\nLeitet Bot-Updates an den angegebenen Kanal weiter.",
+			"toggle_bot_updates": "Bot-Updates Umschalten",
+			"toggle_bot_updates_value": "Slash: `/config server toggle_updates enabled:true`\nMention: `@Pokedi config server toggle_updates true/false`\nMention: `@Pokedi config s bu true/false`\nAktiviert oder deaktiviert Bot-Updates für diesen Server."
 		},
 		"invite": {
 			"title": "Lade Pokedi ein!",

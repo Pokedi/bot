@@ -77,7 +77,15 @@
 			"view_settings_value": "Slash: `/config check settings`\nMention: `@Pokedi config check settings`\nMention: `@Pokedi config a`\nDisplays all current server and channel configurations.",
 			"get_config_help": "Get Config Help",
 			"get_config_help_value": "Slash: `/config check help`\nMention: `@Pokedi config check help`\nDisplays this help message for the config command.",
-			"invalid_check": "Invalid subcommand for `check`. Use `settings` or `help`."
+			"invalid_check": "Invalid subcommand for `check`. Use `settings` or `help`.",
+			"success_update_redirect": "Bot Updates will now be redirected to the specified channel.",
+			"toggle_updates_enabled": "Bot Updates are now enabled for this server.",
+			"toggle_updates_disabled": "Bot Updates are now disabled for this server.",
+			"set_bot_update_channel": "How to set the bot update channel",
+			"set_bot_update_channel_value": "Slash: `/config server bot_updates channel:#channel`\nMention: `@Pokedi config server bot_updates update_channel:#channel`\nMention: `@Pokedi config s bu #channel`\nRedirects bot updates to the specified channel.",
+			"toggle_bot_updates": "Toggle Bot Updates",
+			"toggle_bot_updates_value": "Slash: `/config server toggle_updates enabled:true`\nMention: `@Pokedi config server toggle_updates true/false`\nMention: `@Pokedi config s bu true/false`\nEnables or disables bot updates for this server."
+
 		},
 		"invite": {
 			"title": "Invite Pokedi!",
