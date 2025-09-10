@@ -57,7 +57,7 @@ export default {
 
                 // Stop NonPlayers
                 if (!msg.user.player?.started)
-                    return msg.reply(i18n.__("default.not_started"));
+                    return msg.reply(i18n.__("default.no_started"));
 
                 // Get spawn Pokemon to cache
                 const pokemonGrabbed = msg.channel.spawn.pokemon;
