@@ -67,6 +67,10 @@ export default {
                 // 'ar': 'حدد كيف ترغب في حساب الاستخدامات'
             })),
     mention_support: true,
+
+    /**
+    * @param {import('discord.js').ChatInputCommandInteraction} msg
+    */
     async execute(msg) {
 
         if (process.env.DEVIDS && JSON.parse(process.env.DEVIDS).includes(msg.user.id)) {

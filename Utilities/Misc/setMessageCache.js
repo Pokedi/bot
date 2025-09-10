@@ -3,7 +3,9 @@ import retryUser from "./retryUser.js";
 export default async (msg) => {
     // Init Channel
     if (!msg.channel.info) {
-        msg.channel.info = (await msg.client.postgres`SELECT * FROM channels WHERE id = ${msg.channel.id} LIMIT 1`)?.[0] || {};
+
+        // If Channel not Found, not initialized then we'll initialize it
+        msg.channel.info = (await msg.client.postgres`INSERT INTO channels (id, guild_id) VALUES (${msg.channel.id}, ${msg.guild.id}) ON CONFLICT (id) DO NOTHING RETURNING *`)?.[0] || {};
 
         const configs = (await msg.client.postgres`SELECT * FROM command_configuration WHERE channel_id = ${msg.channel.id}`).map(x => ({ [x.command]: x }));
 

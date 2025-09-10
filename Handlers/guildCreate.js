@@ -8,7 +8,8 @@ export default async function guildCreate(guild) {
     try {
 
         const [row] = await sql`INSERT INTO guilds ${sql({
-            id: guild.id
+            id: guild.id,
+            last_updated: new Date()
         })} ON CONFLICT (id) DO NOTHING RETURNING *;`
 
         const owner = await guild.fetchOwner();
