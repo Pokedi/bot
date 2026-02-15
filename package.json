@@ -8,7 +8,7 @@
     "colorthief": "^2.6.0",
     "cron": "^4.3.3",
     "discord-api-types": "^0.38.23",
-    "discord-hybrid-sharding": "^2.2.6",
+    "discord-hybrid-sharding": "^3.0.1",
     "discord.js": "^14.22.1",
     "domcolor": "^1.0.1",
     "dotenv": "^17.2.2",
