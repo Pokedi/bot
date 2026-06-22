@@ -12,6 +12,9 @@ const manager = new ClusterManager(`${__dirname}/Services/Main/index.js`, {
     totalShards: 'auto', // or 'auto'
     /// Check below for more options
     shardsPerClusters: 2,
+    restarts: {
+        interval: 1000
+    },
     // totalClusters: 7,
     mode: 'process',  // you can also choose "worker"
     token: process.env.TOKEN
